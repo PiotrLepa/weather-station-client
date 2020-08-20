@@ -4,21 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/common/router/router.gr.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/error_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/success_flushbar.dart';
+import 'package:weather_station/presentation/app.dart';
 
 @lazySingleton
 class FlushbarHelper {
-  BuildContext get _context => ExtendedNavigator.ofRouter<Router>().context;
+  BuildContext get _context => ExtendedNavigator.root.context;
 
   bool _isFlushbarVisible = false;
 
   void dismiss() {
     if (_isFlushbarVisible) {
       _isFlushbarVisible = false;
-      ExtendedNavigator.ofRouter<Router>().pop();
+      ExtendedNavigator.root.pop();
     }
   }
 
@@ -78,7 +78,7 @@ class FlushbarHelper {
     }
     _isFlushbarVisible = true;
     await Future.delayed(Duration(milliseconds: 200));
-    return ExtendedNavigator.ofRouter<Router>().push(
+    return navigatorKey.currentState.push(
       flushbarRoute.showFlushbar(
         context: _context,
         flushbar: flushbar,
