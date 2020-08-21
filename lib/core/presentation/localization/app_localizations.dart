@@ -25,7 +25,7 @@ class AppLocalizations {
         jsonMap.map((key, value) => MapEntry(key, value.toString()));
   }
 
-  String translate(RawKeyString rawKeyString) =>
+  String translate(RKString rawKeyString) =>
       rawKeyString.get(_localizedStrings);
 
   String translateKey(String key) => _localizedStrings[key];

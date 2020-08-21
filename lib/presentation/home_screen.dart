@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
@@ -15,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Home")),
       body: Container(
         child: Column(
           children: [
@@ -23,13 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 counter++;
                 getIt<FlushbarHelper>()
-                    .showError(message: RawString(counter.toString()));
+                    .showError(message: counter.toString().toRawString());
               },
               child: Text("SHOW"),
             ),
             RaisedButton(
               onPressed: () {
-                ExtendedNavigator.root.pop();
+                getIt<FlushbarHelper>().dismiss();
               },
               child: Text("HIDE"),
             ),

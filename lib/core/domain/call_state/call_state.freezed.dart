@@ -25,7 +25,7 @@ class _$CallStateTearOff {
   }
 
 // ignore: unused_element
-  Error<T> error<T>(RawKeyString errorMessage) {
+  Error<T> error<T>(RKString errorMessage) {
     return Error<T>(
       errorMessage,
     );
@@ -40,14 +40,14 @@ mixin _$CallState<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RawKeyString errorMessage),
+    @required Result error(RKString errorMessage),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RawKeyString errorMessage),
+    Result error(RKString errorMessage),
     @required Result orElse(),
   });
 
@@ -118,7 +118,7 @@ class _$Progress<T> implements Progress<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RawKeyString errorMessage),
+    @required Result error(RKString errorMessage),
   }) {
     assert(progress != null);
     assert(success != null);
@@ -131,7 +131,7 @@ class _$Progress<T> implements Progress<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RawKeyString errorMessage),
+    Result error(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -232,7 +232,7 @@ class _$Success<T> implements Success<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RawKeyString errorMessage),
+    @required Result error(RKString errorMessage),
   }) {
     assert(progress != null);
     assert(success != null);
@@ -245,7 +245,7 @@ class _$Success<T> implements Success<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RawKeyString errorMessage),
+    Result error(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -297,7 +297,7 @@ abstract class $ErrorCopyWith<T, $Res> {
   factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) then) =
       _$ErrorCopyWithImpl<T, $Res>;
 
-  $Res call({RawKeyString errorMessage});
+  $Res call({RKString errorMessage});
 }
 
 class _$ErrorCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
@@ -313,9 +313,7 @@ class _$ErrorCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
     Object errorMessage = freezed,
   }) {
     return _then(Error<T>(
-      errorMessage == freezed
-          ? _value.errorMessage
-          : errorMessage as RawKeyString,
+      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
     ));
   }
 }
@@ -324,7 +322,7 @@ class _$Error<T> implements Error<T> {
   const _$Error(this.errorMessage) : assert(errorMessage != null);
 
   @override
-  final RawKeyString errorMessage;
+  final RKString errorMessage;
 
   @override
   String toString() {
@@ -353,7 +351,7 @@ class _$Error<T> implements Error<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RawKeyString errorMessage),
+    @required Result error(RKString errorMessage),
   }) {
     assert(progress != null);
     assert(success != null);
@@ -366,7 +364,7 @@ class _$Error<T> implements Error<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RawKeyString errorMessage),
+    Result error(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -406,9 +404,9 @@ class _$Error<T> implements Error<T> {
 }
 
 abstract class Error<T> implements CallState<T> {
-  const factory Error(RawKeyString errorMessage) = _$Error<T>;
+  const factory Error(RKString errorMessage) = _$Error<T>;
 
-  RawKeyString get errorMessage;
+  RKString get errorMessage;
 
   $ErrorCopyWith<T, Error<T>> get copyWith;
 }

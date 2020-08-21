@@ -8,6 +8,6 @@ extension TranslationsExtension on BuildContext {
   String translateKey(String key) =>
       AppLocalizations.of(this).translateKey(key);
 
-  String translate(RawKeyString rawKeyString) =>
+  String translate(RKString rawKeyString) =>
       AppLocalizations.of(this).translate(rawKeyString);
 }

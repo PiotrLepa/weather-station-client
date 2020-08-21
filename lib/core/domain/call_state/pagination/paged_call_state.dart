@@ -11,7 +11,7 @@ abstract class PagedCallState<T> with _$PagedCallState<T> {
 
   const factory PagedCallState.initialSuccess(T result) = InitialSuccess<T>;
 
-  const factory PagedCallState.initialError(RawKeyString errorMessage) =
+  const factory PagedCallState.initialError(RKString errorMessage) =
       InitialError<T>;
 
   const factory PagedCallState.additionalProgress() = AdditionalProgress<T>;
@@ -19,6 +19,6 @@ abstract class PagedCallState<T> with _$PagedCallState<T> {
   const factory PagedCallState.additionalSuccess(T result) =
       AdditionalSuccess<T>;
 
-  const factory PagedCallState.additionalError(RawKeyString errorMessage) =
-      AdditionalError<T>;
+  const factory PagedCallState.additionalError(RKString errorMessage) =
+  AdditionalError<T>;
 }

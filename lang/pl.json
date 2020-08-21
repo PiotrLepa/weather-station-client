@@ -1,7 +1,6 @@
 {
   "apiErrorNoConnection": "Brak połączenia z internetem",
   "apiErrorBadRequest": "Nieznany błąd",
-  "apiErrorUnauthorized": "Brak dostępu",
   "apiErrorNotFound": "Nie znaleziono",
   "apiErrorInternalServerError": "Wewnętrzny błąd serwera",
   "apiErrorUnknown": "Nieznany błąd"

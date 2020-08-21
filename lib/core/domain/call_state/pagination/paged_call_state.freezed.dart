@@ -25,7 +25,7 @@ class _$PagedCallStateTearOff {
   }
 
 // ignore: unused_element
-  InitialError<T> initialError<T>(RawKeyString errorMessage) {
+  InitialError<T> initialError<T>(RKString errorMessage) {
     return InitialError<T>(
       errorMessage,
     );
@@ -44,7 +44,7 @@ class _$PagedCallStateTearOff {
   }
 
 // ignore: unused_element
-  AdditionalError<T> additionalError<T>(RawKeyString errorMessage) {
+  AdditionalError<T> additionalError<T>(RKString errorMessage) {
     return AdditionalError<T>(
       errorMessage,
     );
@@ -59,20 +59,20 @@ mixin _$PagedCallState<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   });
 
@@ -152,10 +152,10 @@ class _$InitialProgress<T> implements InitialProgress<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -171,10 +171,10 @@ class _$InitialProgress<T> implements InitialProgress<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -286,10 +286,10 @@ class _$InitialSuccess<T> implements InitialSuccess<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -305,10 +305,10 @@ class _$InitialSuccess<T> implements InitialSuccess<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -369,7 +369,7 @@ abstract class $InitialErrorCopyWith<T, $Res> {
           InitialError<T> value, $Res Function(InitialError<T>) then) =
       _$InitialErrorCopyWithImpl<T, $Res>;
 
-  $Res call({RawKeyString errorMessage});
+  $Res call({RKString errorMessage});
 }
 
 class _$InitialErrorCopyWithImpl<T, $Res>
@@ -387,9 +387,7 @@ class _$InitialErrorCopyWithImpl<T, $Res>
     Object errorMessage = freezed,
   }) {
     return _then(InitialError<T>(
-      errorMessage == freezed
-          ? _value.errorMessage
-          : errorMessage as RawKeyString,
+      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
     ));
   }
 }
@@ -398,7 +396,7 @@ class _$InitialError<T> implements InitialError<T> {
   const _$InitialError(this.errorMessage) : assert(errorMessage != null);
 
   @override
-  final RawKeyString errorMessage;
+  final RKString errorMessage;
 
   @override
   String toString() {
@@ -427,10 +425,10 @@ class _$InitialError<T> implements InitialError<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -446,10 +444,10 @@ class _$InitialError<T> implements InitialError<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -498,9 +496,9 @@ class _$InitialError<T> implements InitialError<T> {
 }
 
 abstract class InitialError<T> implements PagedCallState<T> {
-  const factory InitialError(RawKeyString errorMessage) = _$InitialError<T>;
+  const factory InitialError(RKString errorMessage) = _$InitialError<T>;
 
-  RawKeyString get errorMessage;
+  RKString get errorMessage;
 
   $InitialErrorCopyWith<T, InitialError<T>> get copyWith;
 }
@@ -543,10 +541,10 @@ class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -562,10 +560,10 @@ class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -678,10 +676,10 @@ class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -697,10 +695,10 @@ class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -761,7 +759,7 @@ abstract class $AdditionalErrorCopyWith<T, $Res> {
           AdditionalError<T> value, $Res Function(AdditionalError<T>) then) =
       _$AdditionalErrorCopyWithImpl<T, $Res>;
 
-  $Res call({RawKeyString errorMessage});
+  $Res call({RKString errorMessage});
 }
 
 class _$AdditionalErrorCopyWithImpl<T, $Res>
@@ -781,7 +779,7 @@ class _$AdditionalErrorCopyWithImpl<T, $Res>
     return _then(AdditionalError<T>(
       errorMessage == freezed
           ? _value.errorMessage
-          : errorMessage as RawKeyString,
+          : errorMessage as RKString,
     ));
   }
 }
@@ -790,7 +788,7 @@ class _$AdditionalError<T> implements AdditionalError<T> {
   const _$AdditionalError(this.errorMessage) : assert(errorMessage != null);
 
   @override
-  final RawKeyString errorMessage;
+  final RKString errorMessage;
 
   @override
   String toString() {
@@ -819,10 +817,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RawKeyString errorMessage),
+    @required Result initialError(RKString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RawKeyString errorMessage),
+    @required Result additionalError(RKString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -838,10 +836,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RawKeyString errorMessage),
+    Result initialError(RKString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RawKeyString errorMessage),
+    Result additionalError(RKString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -890,10 +888,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
 }
 
 abstract class AdditionalError<T> implements PagedCallState<T> {
-  const factory AdditionalError(RawKeyString errorMessage) =
-      _$AdditionalError<T>;
+  const factory AdditionalError(RKString errorMessage) =
+  _$AdditionalError<T>;
 
-  RawKeyString get errorMessage;
+  RKString get errorMessage;
 
   $AdditionalErrorCopyWith<T, AdditionalError<T>> get copyWith;
 }

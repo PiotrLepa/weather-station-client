@@ -9,9 +9,9 @@ class ErrorFlushbar extends AppFlushbar {
   ErrorFlushbar({
     Key key,
     @required BuildContext context,
-    @required RawKeyString message,
+    @required RKString message,
     @required VoidCallback onDismiss,
-    RawKeyString title,
+    RKString title,
   }) : super(
           title: title ?? context.translateKey('errorFlushbarTitle'),
           message: context.translate(message),

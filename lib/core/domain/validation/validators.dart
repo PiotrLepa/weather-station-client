@@ -6,7 +6,7 @@ class Validator {
   static final emailRegex = RegExp(
       r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
-  RawKeyString validateUsername(String value) {
+  RKString validateUsername(String value) {
     if (value.isEmpty) {
       return KeyString('emptyFieldError');
     } else if (value.length < 3) {
@@ -16,7 +16,7 @@ class Validator {
     }
   }
 
-  RawKeyString validateEmail(String value) {
+  RKString validateEmail(String value) {
     if (value.isEmpty) {
       return KeyString('emptyFieldError');
     } else if (!emailRegex.hasMatch(value)) {
@@ -26,7 +26,7 @@ class Validator {
     }
   }
 
-  RawKeyString validatePassword(String value) {
+  RKString validatePassword(String value) {
     if (value.isEmpty) {
       return KeyString('emptyFieldError');
     } else if (value.length < 6) {
@@ -36,7 +36,7 @@ class Validator {
     }
   }
 
-  RawKeyString validateOpponentCode(String value) {
+  RKString validateOpponentCode(String value) {
     if (value.isEmpty) {
       return KeyString('emptyFieldError');
     } else if (value.length != 8) {

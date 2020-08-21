@@ -23,8 +23,8 @@ class FlushbarHelper {
   }
 
   Future<void> showError({
-    @required RawKeyString message,
-    RawKeyString title,
+    @required RKString message,
+    RKString title,
   }) =>
       _showFlushbar(
         flushbar: ErrorFlushbar(

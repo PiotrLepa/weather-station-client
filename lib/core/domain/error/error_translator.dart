@@ -4,17 +4,18 @@ import 'package:weather_station/core/data/network/exception/api/api_exception.da
 
 @lazySingleton
 class ErrorTranslator {
-  RawKeyString translate(ApiException exception) {
+  RKString translate(ApiException exception) {
     if (exception.printableMessage != null) {
       return RawString(exception.printableMessage);
     }
-    final keyString = exception.map(
-      noConnection: (mappedState) => "apiErrorNoConnection",
-      badRequest: (mappedState) => "apiErrorBadRequest",
-      notFound: (mappedState) => "apiErrorNotFound",
-      internalServerError: (mappedState) => "apiErrorInternalServerError",
-      unknownError: (mappedState) => "apiErrorUnknown",
-    );
-    return KeyString(keyString);
+    return exception
+        .map(
+          noConnection: (mappedState) => "apiErrorNoConnection",
+          badRequest: (mappedState) => "apiErrorBadRequest",
+          notFound: (mappedState) => "apiErrorNotFound",
+          internalServerError: (mappedState) => "apiErrorInternalServerError",
+          unknownError: (mappedState) => "apiErrorUnknown",
+        )
+        .toKeyString();
   }
 }

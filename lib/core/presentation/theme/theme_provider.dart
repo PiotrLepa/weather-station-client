@@ -15,10 +15,6 @@ class ThemeProvider {
 
   Color get textColor => isDark ? Colors.white : Colors.black87;
 
-  Color get markXColor => Color(0xFFFE8A71);
-
-  Color get markOColor => Color(0xFF0E9AA7);
-
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(
       isDark: MediaQuery.of(context).platformBrightness == Brightness.dark,
@@ -49,12 +45,13 @@ class ThemeProvider {
         buttonColor: primaryColor,
       ),
       appBarTheme: AppBarTheme(
+        centerTitle: true,
         brightness: isDark ? Brightness.dark : Brightness.light,
         iconTheme: IconThemeData(
           color: textColor,
         ),
         textTheme: TextTheme(
-          title: TextStyle(
+          headline6: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
             color: textColor,
