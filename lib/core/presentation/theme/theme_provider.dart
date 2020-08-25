@@ -13,7 +13,9 @@ class ThemeProvider {
 
   Color get textColorLight => Colors.grey;
 
-  Color get textColor => isDark ? Colors.white : Colors.black87;
+  Color get textColor => Colors.black87;
+
+  Color get backgroundColor => Colors.white;
 
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(
@@ -29,6 +31,7 @@ class ThemeProvider {
       primaryColorLight: primaryColorLight,
       primaryColorDark: primaryColorDark,
       accentColor: accentColor,
+      backgroundColor: backgroundColor,
       fontFamily: 'Lato',
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
@@ -46,6 +49,8 @@ class ThemeProvider {
       ),
       appBarTheme: AppBarTheme(
         centerTitle: true,
+        elevation: 0,
+        color: backgroundColor,
         brightness: isDark ? Brightness.dark : Brightness.light,
         iconTheme: IconThemeData(
           color: textColor,

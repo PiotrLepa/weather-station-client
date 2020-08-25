@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/presentation/temperature_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,26 +11,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final padding = 8.0;
     return Scaffold(
-      appBar: AppBar(title: Text("Home")),
+      appBar: AppBar(),
       body: Container(
-        child: Column(
+        color: Colors.white,
+        child: GridView.count(
+          childAspectRatio: 1.35,
+          padding: EdgeInsets.all(padding),
+          crossAxisSpacing: padding,
+          mainAxisSpacing: padding,
+          crossAxisCount: 2,
           children: [
-            Text("HOME"),
-            RaisedButton(
-              onPressed: () {
-                counter++;
-                getIt<FlushbarHelper>()
-                    .showError(message: counter.toString().toRawString());
-              },
-              child: Text("SHOW"),
-            ),
-            RaisedButton(
-              onPressed: () {
-                getIt<FlushbarHelper>().dismiss();
-              },
-              child: Text("HIDE"),
-            ),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
+            TemperatureCard(),
           ],
         ),
       ),
