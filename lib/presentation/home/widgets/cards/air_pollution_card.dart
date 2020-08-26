@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
-import 'package:weather_station/presentation/widgets/rounded_divider.dart';
+import 'package:weather_station/presentation/home/widgets/cards/weather_unit.dart';
 
 class AirPollutionCard extends StatelessWidget {
   @override
@@ -13,33 +14,33 @@ class AirPollutionCard extends StatelessWidget {
       body: Column(
         children: [
           IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                _buildPollutionValue('Pm1', '10.2'),
-                RoundedDivider(
-                  size: 60,
-                  thickness: 2,
-                  color: Theme.of(context).dividerColor,
-                  vertical: true,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildPollutionValue('Pm 1', '10.2'),
+                    _buildVerticalDivider(context),
+                    _buildPollutionValue('Pm 2', '14.5'),
+                    _buildVerticalDivider(context),
+                    _buildPollutionValue('Pm 10', '22.2'),
+                  ],
                 ),
-                _buildPollutionValue('Pm2', '14.5'),
-                RoundedDivider(
-                  size: 60,
-                  thickness: 2,
-                  color: Theme
-                      .of(context)
-                      .dividerColor,
-                  vertical: true,
+                Positioned(
+                  right: 12,
+                  bottom: 0,
+                  child: WeatherUnit(value: 'μg/m\u00B3'),
                 ),
-                _buildPollutionValue('Pm10', '22.2'),
               ],
             ),
           ),
-          SizedBox(height: 16),
         ],
       ),
     );
+  }
+
+  Widget _buildVerticalDivider(BuildContext context) {
+    return VerticalDivider(width: Dimens.scale(50));
   }
 
   Widget _buildPollutionValue(String name, String wind) {
@@ -49,7 +50,7 @@ class AirPollutionCard extends StatelessWidget {
           name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: Dimens.scale(15),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -58,7 +59,7 @@ class AirPollutionCard extends StatelessWidget {
           wind,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: Dimens.scale(20),
             fontWeight: FontWeight.w900,
           ),
         ),

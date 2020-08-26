@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/widgets/rounded_divider.dart';
 
 class WeatherCard extends StatelessWidget {
@@ -36,14 +37,14 @@ class WeatherCard extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 iconPath,
-                width: 28,
-                height: 28,
+                width: Dimens.scale(28),
+                height: Dimens.scale(28),
               ),
               SizedBox(width: 6),
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: Dimens.scale(16),
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -51,6 +52,7 @@ class WeatherCard extends StatelessWidget {
           ),
           SizedBox(height: 24),
           body,
+          SizedBox(height: 16),
         ],
       ),
     );

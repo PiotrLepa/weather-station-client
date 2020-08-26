@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
 
 class HumidityCard extends StatelessWidget {
@@ -12,7 +13,7 @@ class HumidityCard extends StatelessWidget {
       body: Text(
         '54.6 %',
         style: TextStyle(
-          fontSize: 20,
+          fontSize: Dimens.scale(20),
           fontWeight: FontWeight.w900,
         ),
       ),

@@ -7,7 +7,7 @@ class PressureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
-      color: const Color(0xff67e4dc),
+      color: const Color(0xff00347b),
       iconPath: 'assets/icons/pressure.svg',
       title: 'Ciśnienie',
       body: WeatherValue(

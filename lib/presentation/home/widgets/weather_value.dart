@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/presentation/home/widgets/cards/weather_unit.dart';
 
 class WeatherValue extends StatelessWidget {
   final String value;
@@ -12,26 +14,21 @@ class WeatherValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
-        children: <TextSpan>[
-          TextSpan(
-            text: '$value ',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(
+          '$value ',
+          style: TextStyle(
+            fontSize: Dimens.scale(20),
+            fontWeight: FontWeight.w900,
           ),
-          TextSpan(
-            text: unit,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
+        ),
+        WeatherUnit(
+          value: unit,
+        ),
+      ],
     );
   }
 }

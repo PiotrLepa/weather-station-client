@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
 
 class TemperatureCard extends StatelessWidget {
@@ -16,7 +17,7 @@ class TemperatureCard extends StatelessWidget {
           Text(
             '23 °C',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: Dimens.scale(20),
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -24,7 +25,7 @@ class TemperatureCard extends StatelessWidget {
           Icon(
             Icons.arrow_upward,
             color: Color(0xfff0c419),
-            size: 16,
+            size: Dimens.scale(16),
           ),
         ],
       ),

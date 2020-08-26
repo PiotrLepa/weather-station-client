@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 
 class ThemeProvider {
   final bool isDark;
@@ -36,7 +37,7 @@ class ThemeProvider {
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
         button: TextStyle(
-          fontSize: 20,
+          fontSize: Dimens.scale(20),
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -57,11 +58,15 @@ class ThemeProvider {
         ),
         textTheme: TextTheme(
           headline6: TextStyle(
-            fontSize: 22,
+            fontSize: Dimens.scale(22),
             fontWeight: FontWeight.bold,
             color: textColor,
           ),
         ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: const Color(0x1F000000),
+        thickness: 1,
       ),
     );
   }

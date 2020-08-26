@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:weather_station/core/common/locale_provider.dart';
 import 'package:weather_station/core/common/router/router.gr.dart';
 import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/localization/app_localizations.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
@@ -24,11 +25,14 @@ class App extends StatelessWidget {
       ],
       supportedLocales: _localeProvider.getSupportedLocales().asList(),
       theme: ThemeProvider(isDark: false).getThemeData(),
-      darkTheme: ThemeProvider(isDark: true).getThemeData(),
+      // darkTheme: ThemeProvider(isDark: true).getThemeData(),
       builder: ExtendedNavigator.builder(
-        router: Router(),
-        navigatorKey: navigatorKey,
-      ),
+          router: Router(),
+          navigatorKey: navigatorKey,
+          builder: (BuildContext context, Widget child) {
+            Dimens.initialize(context);
+            return child;
+          }),
     );
   }
 }
