@@ -12,7 +12,7 @@ class TemperatureCard extends StatelessWidget {
         children: [
           RoundedDivider(
             color: Color(0xfff0c419),
-            height: 24,
+            size: 24,
             indent: 24,
             endIndent: 24,
             thickness: 4,

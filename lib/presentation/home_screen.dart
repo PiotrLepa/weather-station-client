@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/presentation/humidity_card.dart';
+import 'package:weather_station/presentation/rain_card.dart';
 import 'package:weather_station/presentation/temperature_card.dart';
 import 'package:weather_station/presentation/wind_card.dart';
 
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             TemperatureCard(),
             HumidityCard(),
+            RainCard(),
             WindCard(),
           ],
         ),

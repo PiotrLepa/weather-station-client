@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/presentation/rounded_divider.dart';
@@ -11,7 +12,7 @@ class WindCard extends StatelessWidget {
         children: [
           RoundedDivider(
             color: Color(0xff5858C5),
-            height: 24,
+            size: 24,
             indent: 24,
             endIndent: 24,
             thickness: 4,
@@ -37,48 +38,46 @@ class WindCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 4),
-          Expanded(
-            child: GridView.count(
-              childAspectRatio: 4,
-              crossAxisCount: 2,
+          IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Max',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                _buildWindValue('Max', '19.8'),
+                RoundedDivider(
+                  size: 30,
+                  thickness: 2,
+                  color: Theme.of(context).dividerColor,
+                  vertical: true,
                 ),
-                Text(
-                  'Średnia',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  '19.8',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Text(
-                  '12.3',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                _buildWindValue('Średnia', '12.3'),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildWindValue(String name, String wind) {
+    return Column(
+      children: [
+        Text(
+          name,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          '19.8',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ],
     );
   }
 }
