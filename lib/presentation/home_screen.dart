@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/presentation/temperature_card.dart';
+import 'package:weather_station/presentation/wind_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -24,13 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisCount: 2,
           children: [
             TemperatureCard(),
+            WindCard(),
+            WindCard(),
+            TemperatureCard(),
+            WindCard(),
             TemperatureCard(),
             TemperatureCard(),
-            TemperatureCard(),
-            TemperatureCard(),
-            TemperatureCard(),
-            TemperatureCard(),
-            TemperatureCard(),
+            WindCard(),
             TemperatureCard(),
             TemperatureCard(),
           ],

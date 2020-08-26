@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/presentation/rounded_divider.dart';
 
-class TemperatureCard extends StatelessWidget {
+class WindCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -10,7 +10,7 @@ class TemperatureCard extends StatelessWidget {
       child: Column(
         children: [
           RoundedDivider(
-            color: Color(0xfff0c419),
+            color: Color(0xff5858C5),
             height: 24,
             indent: 24,
             endIndent: 24,
@@ -22,13 +22,13 @@ class TemperatureCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/icons/temp.svg',
+                'assets/icons/wind.svg',
                 width: 24,
                 height: 24,
               ),
               SizedBox(width: 4),
               Text(
-                "Temperatura",
+                "Wiatr",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -38,7 +38,14 @@ class TemperatureCard extends StatelessWidget {
           ),
           SizedBox(height: 24),
           Text(
-            '23 °C',
+            '13.4 km/h',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          Text(
+            '13.4 km/h',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w900,
