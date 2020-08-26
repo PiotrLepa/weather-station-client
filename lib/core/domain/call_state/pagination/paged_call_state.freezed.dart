@@ -64,7 +64,6 @@ mixin _$PagedCallState<T> {
     @required Result additionalSuccess(T result),
     @required Result additionalError(RKString errorMessage),
   });
-
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
@@ -75,7 +74,6 @@ mixin _$PagedCallState<T> {
     Result additionalError(RKString errorMessage),
     @required Result orElse(),
   });
-
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initialProgress(InitialProgress<T> value),
@@ -85,7 +83,6 @@ mixin _$PagedCallState<T> {
     @required Result additionalSuccess(AdditionalSuccess<T> value),
     @required Result additionalError(AdditionalError<T> value),
   });
-
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initialProgress(InitialProgress<T> value),
@@ -109,7 +106,6 @@ class _$PagedCallStateCopyWithImpl<T, $Res>
   _$PagedCallStateCopyWithImpl(this._value, this._then);
 
   final PagedCallState<T> _value;
-
   // ignore: unused_field
   final $Res Function(PagedCallState<T>) _then;
 }
@@ -230,7 +226,6 @@ abstract class $InitialSuccessCopyWith<T, $Res> {
   factory $InitialSuccessCopyWith(
           InitialSuccess<T> value, $Res Function(InitialSuccess<T>) then) =
       _$InitialSuccessCopyWithImpl<T, $Res>;
-
   $Res call({T result});
 }
 
@@ -360,7 +355,6 @@ abstract class InitialSuccess<T> implements PagedCallState<T> {
   const factory InitialSuccess(T result) = _$InitialSuccess<T>;
 
   T get result;
-
   $InitialSuccessCopyWith<T, InitialSuccess<T>> get copyWith;
 }
 
@@ -368,7 +362,6 @@ abstract class $InitialErrorCopyWith<T, $Res> {
   factory $InitialErrorCopyWith(
           InitialError<T> value, $Res Function(InitialError<T>) then) =
       _$InitialErrorCopyWithImpl<T, $Res>;
-
   $Res call({RKString errorMessage});
 }
 
@@ -499,7 +492,6 @@ abstract class InitialError<T> implements PagedCallState<T> {
   const factory InitialError(RKString errorMessage) = _$InitialError<T>;
 
   RKString get errorMessage;
-
   $InitialErrorCopyWith<T, InitialError<T>> get copyWith;
 }
 
@@ -619,7 +611,6 @@ abstract class $AdditionalSuccessCopyWith<T, $Res> {
   factory $AdditionalSuccessCopyWith(AdditionalSuccess<T> value,
           $Res Function(AdditionalSuccess<T>) then) =
       _$AdditionalSuccessCopyWithImpl<T, $Res>;
-
   $Res call({T result});
 }
 
@@ -750,7 +741,6 @@ abstract class AdditionalSuccess<T> implements PagedCallState<T> {
   const factory AdditionalSuccess(T result) = _$AdditionalSuccess<T>;
 
   T get result;
-
   $AdditionalSuccessCopyWith<T, AdditionalSuccess<T>> get copyWith;
 }
 
@@ -758,7 +748,6 @@ abstract class $AdditionalErrorCopyWith<T, $Res> {
   factory $AdditionalErrorCopyWith(
           AdditionalError<T> value, $Res Function(AdditionalError<T>) then) =
       _$AdditionalErrorCopyWithImpl<T, $Res>;
-
   $Res call({RKString errorMessage});
 }
 
@@ -777,9 +766,7 @@ class _$AdditionalErrorCopyWithImpl<T, $Res>
     Object errorMessage = freezed,
   }) {
     return _then(AdditionalError<T>(
-      errorMessage == freezed
-          ? _value.errorMessage
-          : errorMessage as RKString,
+      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
     ));
   }
 }
@@ -888,10 +875,8 @@ class _$AdditionalError<T> implements AdditionalError<T> {
 }
 
 abstract class AdditionalError<T> implements PagedCallState<T> {
-  const factory AdditionalError(RKString errorMessage) =
-  _$AdditionalError<T>;
+  const factory AdditionalError(RKString errorMessage) = _$AdditionalError<T>;
 
   RKString get errorMessage;
-
   $AdditionalErrorCopyWith<T, AdditionalError<T>> get copyWith;
 }

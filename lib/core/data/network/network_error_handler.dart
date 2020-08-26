@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/logger/logger.dart';
-import 'package:weather_station/core/common/router/router.gr.dart';
 import 'package:weather_station/core/data/model/error/error_response.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
 import 'package:weather_station/core/injection/injection.dart';

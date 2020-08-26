@@ -8,18 +8,18 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../common/flushbar_helper.dart';
-import '../common/locale_provider.dart';
-import '../common/serialization/model_decoder.dart';
 import '../data/network/interceptor/connection_interceptor.dart';
-import '../data/network/interceptor/language_interceptor.dart';
-import '../data/network/interceptor/logger_interceptor.dart';
-import '../data/network/network_error_handler.dart';
-import '../data/network/serializer/response_converter.dart';
-import '../domain/error/error_translator.dart';
-import '../domain/validation/validators.dart';
 import '../presentation/date_time/date_time_formatter.dart';
+import '../domain/error/error_translator.dart';
+import '../common/flushbar_helper.dart';
+import '../data/network/interceptor/language_interceptor.dart';
+import '../common/locale_provider.dart';
+import '../data/network/interceptor/logger_interceptor.dart';
+import '../common/serialization/model_decoder.dart';
+import '../data/network/network_error_handler.dart';
 import 'network_module.dart';
+import '../data/network/serializer/response_converter.dart';
+import '../domain/validation/validators.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance

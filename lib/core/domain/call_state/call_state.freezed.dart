@@ -42,7 +42,6 @@ mixin _$CallState<T> {
     @required Result success(@nullable T result),
     @required Result error(RKString errorMessage),
   });
-
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result progress(),
@@ -50,14 +49,12 @@ mixin _$CallState<T> {
     Result error(RKString errorMessage),
     @required Result orElse(),
   });
-
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result progress(Progress<T> value),
     @required Result success(Success<T> value),
     @required Result error(Error<T> value),
   });
-
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result progress(Progress<T> value),
@@ -77,7 +74,6 @@ class _$CallStateCopyWithImpl<T, $Res> implements $CallStateCopyWith<T, $Res> {
   _$CallStateCopyWithImpl(this._value, this._then);
 
   final CallState<T> _value;
-
   // ignore: unused_field
   final $Res Function(CallState<T>) _then;
 }
@@ -177,7 +173,6 @@ abstract class Progress<T> implements CallState<T> {
 abstract class $SuccessCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) then) =
       _$SuccessCopyWithImpl<T, $Res>;
-
   $Res call({@nullable T result});
 }
 
@@ -289,14 +284,12 @@ abstract class Success<T> implements CallState<T> {
 
   @nullable
   T get result;
-
   $SuccessCopyWith<T, Success<T>> get copyWith;
 }
 
 abstract class $ErrorCopyWith<T, $Res> {
   factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) then) =
       _$ErrorCopyWithImpl<T, $Res>;
-
   $Res call({RKString errorMessage});
 }
 
@@ -407,6 +400,5 @@ abstract class Error<T> implements CallState<T> {
   const factory Error(RKString errorMessage) = _$Error<T>;
 
   RKString get errorMessage;
-
   $ErrorCopyWith<T, Error<T>> get copyWith;
 }

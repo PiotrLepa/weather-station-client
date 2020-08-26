@@ -1,50 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station/presentation/rounded_divider.dart';
+import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
+import 'package:weather_station/presentation/widgets/rounded_divider.dart';
 
 class WindCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Column(
+    return WeatherCard(
+      color: const Color(0xff5858C5),
+      iconPath: 'assets/icons/wind.svg',
+      title: 'Wiatr (km/h)',
+      body: Column(
         children: [
-          RoundedDivider(
-            color: Color(0xff5858C5),
-            size: 24,
-            indent: 24,
-            endIndent: 24,
-            thickness: 4,
-            radius: 12,
-          ),
-          SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/icons/wind.svg',
-                width: 24,
-                height: 24,
-              ),
-              SizedBox(width: 4),
-              Text(
-                "Wiatr (km/h)",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 4),
           IntrinsicHeight(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildWindValue('Max', '19.8'),
                 RoundedDivider(
-                  size: 30,
+                  size: 80,
                   thickness: 2,
                   color: Theme.of(context).dividerColor,
                   vertical: true,
@@ -53,6 +27,7 @@ class WindCard extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 16),
         ],
       ),
     );
@@ -69,6 +44,7 @@ class WindCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
+        SizedBox(height: 4),
         Text(
           wind,
           textAlign: TextAlign.center,
