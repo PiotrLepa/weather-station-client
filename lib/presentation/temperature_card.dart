@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/presentation/rounded_divider.dart';
@@ -17,7 +18,7 @@ class TemperatureCard extends StatelessWidget {
             thickness: 4,
             radius: 12,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -31,18 +32,30 @@ class TemperatureCard extends StatelessWidget {
                 "Temperatura",
                 style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
           SizedBox(height: 24),
-          Text(
-            '23 °C',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(width: 20),
+              Text(
+                '23 °C',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              SizedBox(width: 4),
+              Icon(
+                Icons.arrow_upward,
+                color: Color(0xfff0c419),
+                size: 16,
+              ),
+            ],
           ),
         ],
       ),

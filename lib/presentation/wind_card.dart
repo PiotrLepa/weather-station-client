@@ -17,7 +17,7 @@ class WindCard extends StatelessWidget {
             thickness: 4,
             radius: 12,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -31,24 +31,50 @@ class WindCard extends StatelessWidget {
                 "Wiatr",
                 style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 24),
-          Text(
-            '13.4 km/h',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          Text(
-            '13.4 km/h',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
+          SizedBox(height: 4),
+          Expanded(
+            child: GridView.count(
+              childAspectRatio: 4,
+              crossAxisCount: 2,
+              children: [
+                Text(
+                  'Max',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  'Średnia',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  '19.8',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                Text(
+                  '12.3',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

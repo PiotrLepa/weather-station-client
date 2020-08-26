@@ -72,7 +72,7 @@ flutter:
       fonts:
         - asset: fonts/Lato-Light.ttf
           style: normal
-          weight: 400
+          weight: 300
         - asset: fonts/Lato-LightItalic.ttf
           style: italic
           weight: 300
@@ -82,6 +82,18 @@ flutter:
         - asset: fonts/Lato-Italic.ttf
           style: italic
           weight: 400
+        - asset: fonts/Lato-Medium.ttf
+          style: normal
+          weight: 500
+        - asset: fonts/Lato-MediumItalic.ttf
+          style: italic
+          weight: 500
+        - asset: fonts/Lato-Semibold.ttf
+          style: normal
+          weight: 600
+        - asset: fonts/Lato-SemiboldItalic.ttf
+          style: italic
+          weight: 600
         - asset: fonts/Lato-Bold.ttf
           style: normal
           weight: 700
