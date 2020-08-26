@@ -28,7 +28,7 @@ class WindCard extends StatelessWidget {
               ),
               SizedBox(width: 4),
               Text(
-                "Wiatr",
+                "Wiatr (km/h)",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
