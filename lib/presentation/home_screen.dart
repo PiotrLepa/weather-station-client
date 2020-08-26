@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/presentation/humidity_card.dart';
-import 'package:weather_station/presentation/rain_card.dart';
-import 'package:weather_station/presentation/temperature_card.dart';
-import 'package:weather_station/presentation/wind_card.dart';
+import 'package:weather_station/presentation/cards/air_pollution_card.dart';
+import 'package:weather_station/presentation/cards/pressure_card.dart';
+
+import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/cards/humidity_card.dart';
+import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/cards/rain_card.dart';
+import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/cards/temperature_card.dart';
+import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/cards/wind_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -30,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
             HumidityCard(),
             RainCard(),
             WindCard(),
+            PressureCard(),
+            AirPollutionCard(),
           ],
         ),
       ),

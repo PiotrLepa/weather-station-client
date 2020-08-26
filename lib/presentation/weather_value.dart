@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class RainValue extends StatelessWidget {
+class WeatherValue extends StatelessWidget {
   final String value;
   final String unit;
 
-  const RainValue({
+  const WeatherValue({
     Key key,
     @required this.value,
     @required this.unit,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/presentation/rounded_divider.dart';
 
-class WindCard extends StatelessWidget {
+class AirPollutionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,13 +23,13 @@ class WindCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/icons/wind.svg',
+                'assets/icons/air-pollution.svg',
                 width: 24,
                 height: 24,
               ),
               SizedBox(width: 4),
               Text(
-                "Wiatr (km/h)",
+                "Zanieczyszczenie",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
@@ -42,14 +42,25 @@ class WindCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildWindValue('Max', '19.8'),
+                _buildPollutionValue('Pm1', '10.2'),
                 RoundedDivider(
                   size: 30,
                   thickness: 2,
-                  color: Theme.of(context).dividerColor,
+                  color: Theme
+                      .of(context)
+                      .dividerColor,
                   vertical: true,
                 ),
-                _buildWindValue('Średnia', '12.3'),
+                _buildPollutionValue('Pm2', '14.5'),
+                RoundedDivider(
+                  size: 30,
+                  thickness: 2,
+                  color: Theme
+                      .of(context)
+                      .dividerColor,
+                  vertical: true,
+                ),
+                _buildPollutionValue('Pm10', '22.2'),
               ],
             ),
           ),
@@ -58,7 +69,7 @@ class WindCard extends StatelessWidget {
     );
   }
 
-  Widget _buildWindValue(String name, String wind) {
+  Widget _buildPollutionValue(String name, String wind) {
     return Column(
       children: [
         Text(
@@ -70,7 +81,7 @@ class WindCard extends StatelessWidget {
           ),
         ),
         Text(
-          '19.8',
+          wind,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station/presentation/rain_value.dart';
 import 'package:weather_station/presentation/rounded_divider.dart';
+import 'package:weather_station/presentation/weather_value.dart';
 
-class RainCard extends StatelessWidget {
+class PressureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -12,7 +12,7 @@ class RainCard extends StatelessWidget {
       child: Column(
         children: [
           RoundedDivider(
-            color: Color(0xff27C4FF),
+            color: Color(0xff00347b),
             size: 24,
             indent: 24,
             endIndent: 24,
@@ -24,13 +24,13 @@ class RainCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/icons/rain.svg',
+                'assets/icons/pressure.svg',
                 width: 24,
                 height: 24,
               ),
               SizedBox(width: 4),
               Text(
-                "Opady",
+                "Ciśnienie",
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
@@ -39,9 +39,9 @@ class RainCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 24),
-          RainValue(
-            value: '44.2',
-            unit: 'mm/cm\u00B2',
+          WeatherValue(
+            value: '1007',
+            unit: 'hpa',
           ),
         ],
       ),
