@@ -12,11 +12,13 @@ class ThemeProvider {
 
   Color get accentColor => Color(0xFF667EEA);
 
+  Color get textColorInverted => Colors.white;
+
   Color get textColorLight => Colors.grey;
 
   Color get textColor => Colors.black87;
 
-  Color get backgroundColor => Colors.white;
+  Color get backgroundColor => isDark ? Colors.grey[850] : Colors.grey[50];
 
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(
@@ -33,6 +35,7 @@ class ThemeProvider {
       primaryColorDark: primaryColorDark,
       accentColor: accentColor,
       backgroundColor: backgroundColor,
+      scaffoldBackgroundColor: backgroundColor,
       fontFamily: 'Lato',
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
@@ -50,8 +53,7 @@ class ThemeProvider {
       ),
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        elevation: 0,
-        color: backgroundColor,
+        color: Color(0xff6e993d),
         brightness: isDark ? Brightness.dark : Brightness.light,
         iconTheme: IconThemeData(
           color: textColor,
