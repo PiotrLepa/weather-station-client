@@ -14,6 +14,8 @@ class ThemeProvider {
 
   Color get textColorInverted => Colors.white;
 
+  Color get textColorLightInverted => Colors.white60;
+
   Color get textColorLight => Colors.grey;
 
   Color get textColor => Colors.black87;
@@ -53,8 +55,8 @@ class ThemeProvider {
       ),
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        color: Color(0xff6e993d),
-        brightness: isDark ? Brightness.dark : Brightness.light,
+        color: Colors.blue,
+        brightness: Brightness.dark,
         iconTheme: IconThemeData(
           color: textColor,
         ),

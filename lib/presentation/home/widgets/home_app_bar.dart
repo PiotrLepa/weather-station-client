@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -27,12 +28,37 @@ class HomeAppBar extends StatelessWidget {
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          color: Theme.of(context).appBarTheme.color,
-          child: Image.asset(
-            'assets/home_background4.png',
-            fit: BoxFit.cover,
-          ),
+        background: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Stan Pogody",
+                  style: TextStyle(
+                    fontSize: Dimens.scale(20),
+                    fontWeight: FontWeight.w800,
+                    color: ThemeProvider.of(context).textColorInverted,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "Dzisiaj, 12:40",
+                  style: TextStyle(
+                    fontSize: Dimens.scale(14),
+                    fontWeight: FontWeight.w400,
+                    color: ThemeProvider.of(context).textColorLightInverted,
+                  ),
+                ),
+              ],
+            ),
+            Icon(
+              Icons.refresh,
+              color: ThemeProvider.of(context).textColorInverted,
+            ),
+          ],
         ),
       ),
     );

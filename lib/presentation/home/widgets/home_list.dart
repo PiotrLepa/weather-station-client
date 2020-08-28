@@ -10,7 +10,12 @@ class HomeCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.all(12),
+      // padding: EdgeInsets.all(12),
+      padding: EdgeInsets.only(
+        left: 12,
+        right: 12,
+        bottom: 12,
+      ),
       sliver: SliverList(
         delegate: SliverChildListDelegate(
           [
