@@ -5,6 +5,15 @@ import 'package:weather_station/presentation/home/widgets/cards/weather_card.dar
 import 'package:weather_station/presentation/home/widgets/weather_unit.dart';
 
 class WindCard extends StatelessWidget {
+  final double maxSpeed;
+  final double avgSpeed;
+
+  const WindCard({
+    Key key,
+    @required this.maxSpeed,
+    @required this.avgSpeed,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -19,9 +28,9 @@ class WindCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildWindValue('Max', '19.8'),
+                    _buildWindValue('Max', maxSpeed.toString()),
                     VerticalDivider(width: Dimens.scale(50)),
-                    _buildWindValue('Średnia', '12.3'),
+                    _buildWindValue('Średnia', avgSpeed.toString()),
                   ],
                 ),
               ),

@@ -9,7 +9,7 @@ abstract class Weather with _$Weather {
   const factory Weather({
     @required double temperature,
     @required double humidity,
-    @required double pressure,
+    @required int pressure,
     @required double pm1,
     @required double pm25,
     @required double pm10,

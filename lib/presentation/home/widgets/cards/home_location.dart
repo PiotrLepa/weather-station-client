@@ -4,6 +4,13 @@ import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
 class HomeLocation extends StatelessWidget {
+  final String location;
+
+  const HomeLocation({
+    Key key,
+    @required this.location,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,11 +32,13 @@ class HomeLocation extends StatelessWidget {
           ),
           SizedBox(width: 16),
           Text(
-            'Tarnów',
+            location,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: Dimens.scale(22),
-                color: ThemeProvider.of(context).textColor),
+                color: ThemeProvider
+                    .of(context)
+                    .textColor),
           )
         ],
       ),

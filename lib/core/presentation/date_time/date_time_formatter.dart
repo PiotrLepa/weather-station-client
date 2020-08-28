@@ -10,11 +10,10 @@ class DateTimeFormatter {
     this.localeProvider,
   );
 
-  String format(String date, String pattern) {
-    final parsedDate = DateTime.parse(date).toLocal();
+  String format(DateTime date, String pattern) {
     return DateFormat(
       pattern,
       localeProvider.currentLocale.toLanguageTag(),
-    ).format(parsedDate);
+    ).format(date);
   }
 }

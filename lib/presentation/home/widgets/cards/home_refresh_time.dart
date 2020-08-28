@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
 class HomeRefreshTime extends StatelessWidget {
+  final DateTime lastUpdateTime;
+  final dateFormatter = getIt<DateTimeFormatter>();
+
+  HomeRefreshTime({
+    Key key,
+    @required this.lastUpdateTime,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +28,7 @@ class HomeRefreshTime extends StatelessWidget {
         children: [
           RichText(
             text:
-                TextSpan(style: DefaultTextStyle.of(context).style, children: [
+            TextSpan(style: DefaultTextStyle.of(context).style, children: [
               TextSpan(
                 text: 'Zaktualizowano: ',
                 style: TextStyle(
@@ -28,7 +38,7 @@ class HomeRefreshTime extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: '15 minut temu',
+                text: _formatLastUpdateTime(lastUpdateTime),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: Dimens.scale(14),
@@ -52,7 +62,9 @@ class HomeRefreshTime extends StatelessWidget {
                   "Odśwież",
                   style: TextStyle(
                     fontSize: 20,
-                    color: ThemeProvider.of(context).textColorInverted,
+                    color: ThemeProvider
+                        .of(context)
+                        .textColorInverted,
                   ),
                 ),
               )
@@ -61,5 +73,9 @@ class HomeRefreshTime extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatLastUpdateTime(DateTime lastUpdateTime) {
+    return '15 minut temu';
   }
 }

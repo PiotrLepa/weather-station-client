@@ -4,6 +4,13 @@ import 'package:weather_station/presentation/home/widgets/cards/weather_card.dar
 import 'package:weather_station/presentation/home/widgets/weather_value.dart';
 
 class PressureCard extends StatelessWidget {
+  final int pressure;
+
+  const PressureCard({
+    Key key,
+    @required this.pressure,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -11,7 +18,7 @@ class PressureCard extends StatelessWidget {
       iconPath: 'assets/icons/pressure.svg',
       title: 'Ciśnienie',
       body: WeatherValue(
-        value: '1007',
+        value: pressure.toString(),
         unit: 'hpa',
       ),
     );

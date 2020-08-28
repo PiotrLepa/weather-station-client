@@ -4,6 +4,13 @@ import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
 
 class TemperatureCard extends StatelessWidget {
+  final double temperature;
+
+  const TemperatureCard({
+    Key key,
+    @required this.temperature,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -15,7 +22,7 @@ class TemperatureCard extends StatelessWidget {
         children: [
           SizedBox(width: 20),
           Text(
-            '23 °C',
+            '$temperature °C',
             style: TextStyle(
               fontSize: Dimens.scale(20),
               fontWeight: FontWeight.w900,

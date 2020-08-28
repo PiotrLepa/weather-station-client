@@ -4,6 +4,13 @@ import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
 
 class HumidityCard extends StatelessWidget {
+  final double humidity;
+
+  const HumidityCard({
+    Key key,
+    @required this.humidity,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -11,7 +18,7 @@ class HumidityCard extends StatelessWidget {
       iconPath: 'assets/icons/humidity.svg',
       title: 'Wilgotność',
       body: Text(
-        '54.6 %',
+        '$humidity %',
         style: TextStyle(
           fontSize: Dimens.scale(20),
           fontWeight: FontWeight.w900,

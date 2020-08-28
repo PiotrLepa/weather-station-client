@@ -4,6 +4,13 @@ import 'package:weather_station/presentation/home/widgets/cards/weather_card.dar
 import 'package:weather_station/presentation/home/widgets/weather_value.dart';
 
 class RainCard extends StatelessWidget {
+  final double rainGauge;
+
+  const RainCard({
+    Key key,
+    @required this.rainGauge,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -11,7 +18,7 @@ class RainCard extends StatelessWidget {
       iconPath: 'assets/icons/rain.svg',
       title: 'Opady',
       body: WeatherValue(
-        value: '44.2',
+        value: rainGauge.toString(),
         unit: 'mm/cm\u00B2',
       ),
     );

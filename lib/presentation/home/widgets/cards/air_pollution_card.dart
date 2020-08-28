@@ -5,6 +5,17 @@ import 'package:weather_station/presentation/home/widgets/cards/weather_card.dar
 import 'package:weather_station/presentation/home/widgets/weather_unit.dart';
 
 class AirPollutionCard extends StatelessWidget {
+  final double pm1;
+  final double pm25;
+  final double pm10;
+
+  const AirPollutionCard({
+    Key key,
+    @required this.pm1,
+    @required this.pm25,
+    @required this.pm10,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
@@ -19,11 +30,11 @@ class AirPollutionCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildPollutionValue('Pm 1', '10.2'),
+                    _buildPollutionValue('Pm 1', pm1.toString()),
                     _buildVerticalDivider(context),
-                    _buildPollutionValue('Pm 2', '14.5'),
+                    _buildPollutionValue('Pm 2', pm25.toString()),
                     _buildVerticalDivider(context),
-                    _buildPollutionValue('Pm 10', '22.2'),
+                    _buildPollutionValue('Pm 10', pm10.toString()),
                   ],
                 ),
                 Positioned(

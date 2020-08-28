@@ -5,13 +5,16 @@ import 'package:weather_station/presentation/home/widgets/cards/home_refresh_tim
 
 class HomeAppBar extends StatelessWidget {
   final double height;
-
   final double expandedHeight;
+  final String location;
+  final DateTime lastUpdateTime;
 
   const HomeAppBar({
     Key key,
     @required this.height,
     @required this.expandedHeight,
+    @required this.location,
+    @required this.lastUpdateTime,
   }) : super(key: key);
 
   @override
@@ -34,14 +37,11 @@ class HomeAppBar extends StatelessWidget {
         background: Column(
           children: [
             SizedBox(
-              height: height + MediaQuery
-                  .of(context)
-                  .padding
-                  .top + 12,
+              height: height + MediaQuery.of(context).padding.top + 12,
             ),
-            HomeLocation(),
+            HomeLocation(location: location),
             SizedBox(height: 20),
-            HomeRefreshTime(),
+            HomeRefreshTime(lastUpdateTime: lastUpdateTime),
           ],
         ),
       ),
