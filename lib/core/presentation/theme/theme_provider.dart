@@ -4,13 +4,13 @@ import 'package:weather_station/core/presentation/dimens.dart';
 class ThemeProvider {
   final bool isDark;
 
-  Color get primaryColor => Color(0xFFF6CD61);
+  Color get primaryColor => Colors.blue;
 
-  Color get primaryColorLight => Color(0xFFFFEBA1);
+  Color get primaryColorLight => Colors.lightBlue[400];
 
-  Color get primaryColorDark => Color(0xFFC09C31);
+  Color get primaryColorDark => Colors.blueGrey;
 
-  Color get accentColor => Color(0xFF667EEA);
+  Color get accentColor => Color(0xFFF6CD61);
 
   Color get textColorInverted => Colors.white;
 
@@ -57,14 +57,11 @@ class ThemeProvider {
         centerTitle: true,
         color: Colors.blue,
         brightness: Brightness.dark,
-        iconTheme: IconThemeData(
-          color: textColor,
-        ),
         textTheme: TextTheme(
           headline6: TextStyle(
             fontSize: Dimens.scale(22),
             fontWeight: FontWeight.bold,
-            color: textColor,
+            color: textColorInverted,
           ),
         ),
       ),

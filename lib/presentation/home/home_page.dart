@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appBarHeight = kToolbarHeight;
-    final appBarExpandedHeight = 150.0;
+    final appBarExpandedHeight = 300.0;
     return Scaffold(
       body: ScrollConfiguration(
         behavior: DisableOverscrollGlowBehavior(),

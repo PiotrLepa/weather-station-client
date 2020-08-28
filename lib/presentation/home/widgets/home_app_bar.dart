@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/presentation/home/widgets/cards/home_location.dart';
+import 'package:weather_station/presentation/home/widgets/cards/home_refresh_time.dart';
 
 class HomeAppBar extends StatelessWidget {
   final double height;
@@ -18,6 +19,7 @@ class HomeAppBar extends StatelessWidget {
     return SliverAppBar(
       toolbarHeight: height,
       expandedHeight: expandedHeight,
+      title: Text('Pogoda'),
       actions: [
         IconButton(
           icon: Icon(
@@ -28,36 +30,15 @@ class HomeAppBar extends StatelessWidget {
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        background: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        background: Column(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Stan Pogody",
-                  style: TextStyle(
-                    fontSize: Dimens.scale(20),
-                    fontWeight: FontWeight.w800,
-                    color: ThemeProvider.of(context).textColorInverted,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  "Dzisiaj, 12:40",
-                  style: TextStyle(
-                    fontSize: Dimens.scale(14),
-                    fontWeight: FontWeight.w400,
-                    color: ThemeProvider.of(context).textColorLightInverted,
-                  ),
-                ),
-              ],
-            ),
-            Icon(
-              Icons.refresh,
-              color: ThemeProvider.of(context).textColorInverted,
-            ),
+            SizedBox(height: height + MediaQuery
+                .of(context)
+                .padding
+                .top + 12),
+            HomeLocation(),
+            SizedBox(height: 20),
+            HomeRefreshTime(),
           ],
         ),
       ),
