@@ -20,7 +20,7 @@ class ThemeProvider {
 
   Color get textColor => Colors.black87;
 
-  Color get backgroundColor => isDark ? Colors.grey[850] : Colors.grey[50];
+  Color get backgroundColor => Colors.grey[50];
 
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(

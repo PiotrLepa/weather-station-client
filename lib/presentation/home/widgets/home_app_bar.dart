@@ -19,6 +19,7 @@ class HomeAppBar extends StatelessWidget {
     return SliverAppBar(
       toolbarHeight: height,
       expandedHeight: expandedHeight,
+      pinned: true,
       title: Text('Pogoda'),
       actions: [
         IconButton(
@@ -32,10 +33,12 @@ class HomeAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [
-            SizedBox(height: height + MediaQuery
-                .of(context)
-                .padding
-                .top + 12),
+            SizedBox(
+              height: height + MediaQuery
+                  .of(context)
+                  .padding
+                  .top + 12,
+            ),
             HomeLocation(),
             SizedBox(height: 20),
             HomeRefreshTime(),
