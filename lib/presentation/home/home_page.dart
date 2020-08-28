@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/presentation/disable_overscroll_glow_behavior.dart';
-import 'package:weather_station/presentation/fill_empty_space_sliver.dart';
+import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
+import 'package:weather_station/core/presentation/widgets/common/fill_empty_space_sliver.dart';
 import 'package:weather_station/presentation/home/widgets/home_app_bar.dart';
 import 'package:weather_station/presentation/home/widgets/home_app_bar_corners.dart';
 import 'package:weather_station/presentation/home/widgets/home_list.dart';

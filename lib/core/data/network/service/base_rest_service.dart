@@ -3,11 +3,11 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/common/serialization/serializable.dart';
 import 'package:weather_station/core/data/network/serializer/response_converter.dart';
 
-abstract class NetworkService {
+abstract class BaseRestService {
   final Dio _dio;
   final ResponseConverter _responseConverter;
 
-  NetworkService(
+  BaseRestService(
     this._dio,
     this._responseConverter,
   );

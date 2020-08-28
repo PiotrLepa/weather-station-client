@@ -6,7 +6,7 @@ import 'package:weather_station/core/domain/call_state/pagination/paged_call_sta
 import 'package:weather_station/core/domain/error/error_translator.dart';
 import 'package:weather_station/core/injection/injection.dart';
 
-Stream<CallState<T>> fetch<T>(
+Stream<CallState<T>> callApi<T>(
   Future<T> call,
 ) async* {
   try {
@@ -21,7 +21,7 @@ Stream<CallState<T>> fetch<T>(
   }
 }
 
-Stream<PagedCallState<T>> pagedFetch<T>({
+Stream<PagedCallState<T>> callPagedApi<T>({
   @required Future<T> call,
   @required int page,
 }) async* {

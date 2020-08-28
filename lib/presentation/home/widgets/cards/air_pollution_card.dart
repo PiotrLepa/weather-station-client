@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
-
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/home/widgets/weather_unit.dart';
+import 'package:weather_station/presentation/home/widgets/weather_unit.dart';
 
 class AirPollutionCard extends StatelessWidget {
   @override

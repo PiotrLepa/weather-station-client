@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
-import 'package:weather_station/presentation/widgets/rounded_divider.dart';
+import 'package:weather_station/core/presentation/widgets/common/rounded_divider.dart';
 
 class WeatherCard extends StatelessWidget {
   final Color color;
