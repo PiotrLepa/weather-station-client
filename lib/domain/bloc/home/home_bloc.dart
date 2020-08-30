@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/common/router/router.gr.dart';
 import 'package:weather_station/core/domain/bloc/bloc_helper.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'home_bloc.freezed.dart';
-
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 @injectable
@@ -21,9 +20,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is PageStarted) {
-      yield* _mapPageStartedEvent(event);
-    }
+    yield* event.map(
+      pageStarted: _mapPageStartedEvent,
+      onCardClicked: _mapOnCardClickedEvent,
+    );
   }
 
   Stream<HomeState> _mapPageStartedEvent(
@@ -43,5 +43,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         },
       );
     }
+  }
+
+  Stream<HomeState> _mapOnCardClickedEvent(
+    OnCardClicked event,
+  ) async* {
+    ExtendedNavigator.root.push(Routes.hourlyWeatherPage);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
+import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/data/network/network_error_handler.dart';
 import 'package:weather_station/data/converter/entity/weather_entity_converter.dart';
 import 'package:weather_station/data/service/rest_service.dart';
@@ -19,5 +21,11 @@ class WeatherRepositoryImpl extends WeatherRepository {
   Future<Weather> fetchCurrentWeather() => _service
       .fetchCurrentWeather()
       .then(_weatherConverter.convert)
+      .handleNetworkError();
+
+  @override
+  Future<KtList<Weather>> fetchHourlyWeather(DateTime day) => _service
+      .fetchHourlyWeather(DateFormat('yyyy-MM-dd').format(day))
+      .then((list) => list.map(_weatherConverter.convert))
       .handleNetworkError();
 }

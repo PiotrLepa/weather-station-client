@@ -12,8 +12,8 @@ class HomeAppBarCorners extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20.0),
-              topRight: const Radius.circular(20.0),
+              topLeft: const Radius.circular(16),
+              topRight: const Radius.circular(16),
             ),
             border: Border.all(
               color: Theme.of(context).backgroundColor,

@@ -15,7 +15,7 @@ abstract class BaseRestService {
   Future<T> get<T>(
     String path, {
     Serializable data,
-    Map<String, dynamic> queryParameters,
+    Map<String, dynamic> params,
     Map<String, dynamic> headers,
     String contentType,
   }) =>
@@ -23,55 +23,55 @@ abstract class BaseRestService {
         "GET",
         path,
         data: data,
-        queryParameters: queryParameters,
+        params: params,
         headers: headers,
         contentType: contentType,
       ));
 
   Future<KtList<T>> getList<T>(
     String path, {
-    Serializable data,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> headers,
-    String contentType,
-  }) =>
+        Serializable data,
+        Map<String, dynamic> params,
+        Map<String, dynamic> headers,
+        String contentType,
+      }) =>
       _responseConverter.decodeResponseList(createRequest(
         "GET",
         path,
         data: data,
-        queryParameters: queryParameters,
+        params: params,
         headers: headers,
         contentType: contentType,
       ));
 
   Future<T> post<T>(
     String path, {
-    Serializable data,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> headers,
-    String contentType,
-  }) =>
+        Serializable data,
+        Map<String, dynamic> params,
+        Map<String, dynamic> headers,
+        String contentType,
+      }) =>
       _responseConverter.decodeResponse(createRequest(
         "POST",
         path,
         data: data,
-        queryParameters: queryParameters,
+        params: params,
         headers: headers,
         contentType: contentType,
       ));
 
   Future<T> put<T>(
     String path, {
-    Serializable data,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> headers,
-    String contentType,
-  }) =>
+        Serializable data,
+        Map<String, dynamic> params,
+        Map<String, dynamic> headers,
+        String contentType,
+      }) =>
       _responseConverter.decodeResponse(createRequest(
         "PUT",
         path,
         data: data,
-        queryParameters: queryParameters,
+        params: params,
         headers: headers,
         contentType: contentType,
       ));
@@ -79,14 +79,14 @@ abstract class BaseRestService {
   Future<Response<T>> createRequest<T>(
     String method,
     String path, {
-    Serializable data,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> headers,
-    String contentType,
-  }) async =>
+        Serializable data,
+        Map<String, dynamic> params,
+        Map<String, dynamic> headers,
+        String contentType,
+      }) async =>
       _dio.request(path,
           data: data?.toJson(),
-          queryParameters: queryParameters,
+          queryParameters: params,
           options: Options(
             method: method,
             headers: headers,
