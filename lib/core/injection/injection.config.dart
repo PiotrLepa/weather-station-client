@@ -8,23 +8,24 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import '../data/network/interceptor/connection_interceptor.dart';
-import '../presentation/date_time/date_time_formatter.dart';
-import '../domain/error/error_translator.dart';
-import '../common/flushbar_helper.dart';
-import '../../domain/bloc/home/home_bloc.dart';
-import '../data/network/interceptor/language_interceptor.dart';
-import '../common/locale_provider.dart';
-import '../data/network/interceptor/logger_interceptor.dart';
-import '../common/serialization/model_decoder.dart';
-import '../data/network/network_error_handler.dart';
-import 'network_module.dart';
-import '../data/network/serializer/response_converter.dart';
-import '../../data/service/rest_service.dart';
-import '../domain/validation/validators.dart';
 import '../../data/converter/entity/weather_entity_converter.dart';
-import '../../domain/repository/weather_repository.dart';
 import '../../data/repository/weather_repository_impl.dart';
+import '../../data/service/rest_service.dart';
+import '../../domain/bloc/home/home_bloc.dart';
+import '../../domain/repository/weather_repository.dart';
+import '../common/flushbar_helper.dart';
+import '../common/locale_provider.dart';
+import '../common/serialization/model_decoder.dart';
+import '../data/network/interceptor/connection_interceptor.dart';
+import '../data/network/interceptor/language_interceptor.dart';
+import '../data/network/interceptor/logger_interceptor.dart';
+import '../data/network/network_error_handler.dart';
+import '../data/network/serializer/response_converter.dart';
+import '../domain/error/error_translator.dart';
+import '../domain/validation/validators.dart';
+import '../presentation/date_time/date_time_formatter.dart';
+import '../presentation/util/plural_util.dart';
+import 'network_module.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -44,6 +45,7 @@ GetIt $initGetIt(
   gh.lazySingleton<LoggerInterceptor>(() => LoggerInterceptor());
   gh.lazySingleton<ModelDecoder>(() => ModelDecoder());
   gh.lazySingleton<NetworkErrorHandler>(() => NetworkErrorHandler());
+  gh.lazySingleton<PluralUtil>(() => PluralUtil());
   gh.lazySingleton<ResponseConverter>(
       () => ResponseConverter(get<ModelDecoder>()));
   gh.lazySingleton<RestService>(

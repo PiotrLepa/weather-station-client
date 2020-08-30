@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/injection/injection.dart';
-import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/core/presentation/util/plural_util.dart';
 
-class HomeRefreshTime extends StatelessWidget {
+class HomeUpdateTime extends StatelessWidget {
   final DateTime lastUpdateTime;
-  final dateFormatter = getIt<DateTimeFormatter>();
+  final pluralUtil = getIt<PluralUtil>();
 
-  HomeRefreshTime({
+  HomeUpdateTime({
     Key key,
     @required this.lastUpdateTime,
   }) : super(key: key);
@@ -76,6 +76,36 @@ class HomeRefreshTime extends StatelessWidget {
   }
 
   String _formatLastUpdateTime(DateTime lastUpdateTime) {
-    return '15 minut temu';
+    final difference = DateTime.now().difference(lastUpdateTime);
+
+    if (difference.inDays >= 1) {
+      return 'Ponad dzień temu';
+    } else if (difference.inHours >= 1) {
+      String hoursForm = _getHoursForm(difference.inHours);
+      return '${difference.inHours} $hoursForm temu';
+    } else if (difference.inMinutes == 0) {
+      return 'Teraz';
+    } else {
+      String minutesForm = _getMinutesForm(difference.inMinutes);
+      return '${difference.inMinutes} $minutesForm temu';
+    }
+  }
+
+  String _getMinutesForm(int minutes) {
+    return pluralUtil.applyPlurals(
+      quantity: minutes,
+      one: 'minutę',
+      few: 'minuty',
+      many: 'minut',
+    );
+  }
+
+  String _getHoursForm(int hours) {
+    return pluralUtil.applyPlurals(
+      quantity: hours,
+      one: 'godzinę',
+      few: 'godziny',
+      many: 'godzin',
+    );
   }
 }

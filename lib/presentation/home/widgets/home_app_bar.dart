@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
-import 'package:weather_station/presentation/home/widgets/cards/home_location.dart';
-import 'package:weather_station/presentation/home/widgets/cards/home_refresh_time.dart';
+import 'package:weather_station/presentation/home/widgets/home_location.dart';
+import 'package:weather_station/presentation/home/widgets/home_update_time.dart';
 
 class HomeAppBar extends StatelessWidget {
   final double height;
@@ -41,7 +41,7 @@ class HomeAppBar extends StatelessWidget {
             ),
             HomeLocation(location: location),
             SizedBox(height: 20),
-            HomeRefreshTime(lastUpdateTime: lastUpdateTime),
+            HomeUpdateTime(lastUpdateTime: lastUpdateTime),
           ],
         ),
       ),
