@@ -7,7 +7,7 @@ part 'weather.freezed.dart';
 @freezed
 abstract class Weather with _$Weather {
   const factory Weather({
-    @required double temperature,
+    @required int temperature,
     @required double humidity,
     @required int pressure,
     @required double pm1,

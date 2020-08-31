@@ -7,7 +7,7 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 class WeatherConverter implements Converter<WeatherModel, Weather> {
   @override
   Weather convert(WeatherModel model) => Weather(
-        temperature: model.temperature,
+        temperature: model.temperature.round(),
         humidity: model.humidity,
         pressure: model.pressure,
         pm1: model.pm1,
