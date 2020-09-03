@@ -19,7 +19,7 @@ class TemperatureChart extends StatelessWidget {
     @required this.dates,
   })  : _maxTemp = temperatures.max(),
         _minTemp = temperatures.min(),
-        _tempStep = ((temperatures.max() - temperatures.min()) / 5).ceil(),
+        _tempStep = 1,
         _dateHours = dates.map((date) => date.hour),
         super(key: key);
 
@@ -30,7 +30,7 @@ class TemperatureChart extends StatelessWidget {
       child: Container(
         height: 200,
         width: temperatures.size * 25.0,
-        padding: EdgeInsets.fromLTRB(0, 24, 24, 0),
+        padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
         child: LineChart(
           _getLineChartData(context),
         ),
@@ -85,14 +85,14 @@ class TemperatureChart extends StatelessWidget {
       borderData: FlBorderData(show: false),
       titlesData: FlTitlesData(
         leftTitles: SideTitles(
-          showTitles: true,
+          showTitles: false,
           getTitles: _getLeftTitles,
           reservedSize: 28,
           margin: 12,
           interval: _tempStep.toDouble(),
         ),
         bottomTitles: SideTitles(
-          showTitles: true,
+          showTitles: false,
           getTitles: _getBottomTitles,
           margin: 12,
           textStyle: TextStyle(

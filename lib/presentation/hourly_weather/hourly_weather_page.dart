@@ -5,7 +5,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/hourly_weather/charts/temperature_chart.dart';
+import 'package:weather_station/presentation/hourly_weather/charts/weather_chart.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
   @override
@@ -30,10 +30,11 @@ class HourlyWeatherPage extends StatelessWidget {
 
   Widget _buildPage(KtList<Weather> weathers) {
     return Container(
-      child: TemperatureChart(
-        temperatures: weathers.map((w) => w.temperature),
-        dates: weathers.map((w) => w.date),
-      ),
+      child: WeatherChart(weathers: weathers),
+      // child: TemperatureChart(
+      //     temperatures: weathers.map((w) => 30 + Random().nextInt(2)),
+      //     dates: weathers.map((w) => w.date),
+      //   ),
     );
   }
 }
