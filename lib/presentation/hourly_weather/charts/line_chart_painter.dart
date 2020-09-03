@@ -24,6 +24,11 @@ class LineChartPainter extends CustomPainter {
     ..style = PaintingStyle.fill
     ..strokeWidth = 1;
 
+  final _verticalDividerPaint = Paint()
+    ..style = PaintingStyle.stroke
+    ..color = Colors.grey
+    ..strokeWidth = 0.5;
+
   LineChartPainter({
     @required this.temps,
     @required this.hours,
@@ -34,6 +39,7 @@ class LineChartPainter extends CustomPainter {
     var barPath = _generateLinePath(size);
     canvas.drawPath(barPath, _linePaint);
     drawDots(canvas, size);
+    drawVerticalLines(canvas, size);
   }
 
   @override
@@ -78,15 +84,26 @@ class LineChartPainter extends CustomPainter {
         text: temps[i].toString(),
         style: textStyle,
       );
+
       final textPainter = TextPainter(
         text: textSpan,
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
-      );
-      textPainter.layout();
+      )..layout();
 
       final offset = Offset(x - textPainter.width / 2, y - 25);
       textPainter.paint(canvas, offset);
+    }
+  }
+
+  void drawVerticalLines(Canvas canvas, Size chartSize) {
+    for (int i = 0; i < hours.size; i++) {
+      final x = getPixelX(hours[i], chartSize);
+
+      final top = Offset(x, 0);
+      final bottom = Offset(x, chartSize.height);
+
+      canvas.drawLine(top, bottom, _verticalDividerPaint);
     }
   }
 
