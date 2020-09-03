@@ -7,10 +7,24 @@ class LineChartPainter extends CustomPainter {
   final KtList<int> temps;
   final KtList<int> hours;
 
+  final viewSize = Size(400, 200);
+
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.amber
     ..strokeWidth = 2;
+
+  final _dotBorderPaint = Paint()
+    ..style = PaintingStyle.stroke
+    ..color = Colors.black
+    ..style = PaintingStyle.fill
+    ..strokeWidth = 1;
+
+  final _dotFillPaint = Paint()
+    ..style = PaintingStyle.stroke
+    ..color = Colors.white
+    ..style = PaintingStyle.fill
+    ..strokeWidth = 1;
 
   LineChartPainter({
     @required this.temps,
@@ -19,9 +33,9 @@ class LineChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var barPath = _generateNormalBarPath();
-
+    var barPath = _generateLinePath();
     canvas.drawPath(barPath, _linePaint);
+    drawDots(canvas);
   }
 
   @override
@@ -29,17 +43,15 @@ class LineChartPainter extends CustomPainter {
     return false;
   }
 
-  Path _generateNormalBarPath() {
-    final viewSize = Size(400, 200);
+  Path _generateLinePath() {
     final Path path = Path();
-    final int size = temps.size;
 
     final double x = getPixelX(hours[0], viewSize);
     final double y = getPixelY(temps[0], viewSize);
 
     path.moveTo(x, y);
 
-    for (int i = 1; i < size; i++) {
+    for (int i = 1; i < temps.size; i++) {
       path.lineTo(
         getPixelX(hours[i], viewSize),
         getPixelY(temps[i], viewSize),
@@ -47,6 +59,37 @@ class LineChartPainter extends CustomPainter {
     }
 
     return path;
+  }
+
+  void drawDots(Canvas canvas) {
+    final circleRadius = 5.0;
+
+    final textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+    );
+
+    for (int i = 0; i < temps.size; i++) {
+      final double x = getPixelX(hours[i], viewSize);
+      final double y = getPixelY(temps[i], viewSize);
+
+      canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
+      canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
+
+      final textSpan = TextSpan(
+        text: temps[i].toString(),
+        style: textStyle,
+      );
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.center,
+      );
+      textPainter.layout();
+
+      final offset = Offset(x - textPainter.width / 2, y - 25);
+      textPainter.paint(canvas, offset);
+    }
   }
 
   double getPixelX(int spotX, Size chartSize) {
