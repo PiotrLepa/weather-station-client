@@ -14,20 +14,12 @@ class WeatherChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        width: 500,
-        height: 300,
-        child: CustomPaint(
-          // size: Size(weathers.size * 50.0, 500),
-          painter: LineChartPainter(
-            // temps: weathers.map((e) => e.temperature),
-            // hours: weathers.map((e) => e.date.hour),
-            temps: KtList.of(29, 30, 30, 29, 32),
-            hours: weathers.map((e) => e.date.hour).subList(0, 5),
-          ),
-        ),
+    return CustomPaint(
+      painter: LineChartPainter(
+        // temps: weathers.map((e) => e.temperature),
+        // hours: weathers.map((e) => e.date.hour),
+        temps: KtList.of(29, 30, 30, 29, 32),
+        hours: weathers.map((e) => e.date.hour).subList(0, 5),
       ),
     );
   }

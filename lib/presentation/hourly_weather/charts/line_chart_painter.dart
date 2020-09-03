@@ -7,8 +7,6 @@ class LineChartPainter extends CustomPainter {
   final KtList<int> temps;
   final KtList<int> hours;
 
-  final viewSize = Size(400, 200);
-
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.amber
@@ -33,9 +31,9 @@ class LineChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var barPath = _generateLinePath();
+    var barPath = _generateLinePath(size);
     canvas.drawPath(barPath, _linePaint);
-    drawDots(canvas);
+    drawDots(canvas, size);
   }
 
   @override
@@ -43,25 +41,25 @@ class LineChartPainter extends CustomPainter {
     return false;
   }
 
-  Path _generateLinePath() {
+  Path _generateLinePath(Size chartSize) {
     final Path path = Path();
 
-    final double x = getPixelX(hours[0], viewSize);
-    final double y = getPixelY(temps[0], viewSize);
+    final double x = getPixelX(hours[0], chartSize);
+    final double y = getPixelY(temps[0], chartSize);
 
     path.moveTo(x, y);
 
     for (int i = 1; i < temps.size; i++) {
       path.lineTo(
-        getPixelX(hours[i], viewSize),
-        getPixelY(temps[i], viewSize),
+        getPixelX(hours[i], chartSize),
+        getPixelY(temps[i], chartSize),
       );
     }
 
     return path;
   }
 
-  void drawDots(Canvas canvas) {
+  void drawDots(Canvas canvas, Size chartSize) {
     final circleRadius = 5.0;
 
     final textStyle = TextStyle(
@@ -70,8 +68,8 @@ class LineChartPainter extends CustomPainter {
     );
 
     for (int i = 0; i < temps.size; i++) {
-      final double x = getPixelX(hours[i], viewSize);
-      final double y = getPixelY(temps[i], viewSize);
+      final double x = getPixelX(hours[i], chartSize);
+      final double y = getPixelY(temps[i], chartSize);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);

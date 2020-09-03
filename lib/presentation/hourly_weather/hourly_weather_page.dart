@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
@@ -12,7 +13,7 @@ class HourlyWeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          getIt.get<HourlyWeatherBloc>()..add(HourlyWeatherEvent.pageStarted()),
+      getIt.get<HourlyWeatherBloc>()..add(HourlyWeatherEvent.pageStarted()),
       child: Scaffold(
         appBar: AppBar(),
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
@@ -29,12 +30,18 @@ class HourlyWeatherPage extends StatelessWidget {
   }
 
   Widget _buildPage(KtList<Weather> weathers) {
-    return Container(
-      child: WeatherChart(weathers: weathers),
-      // child: TemperatureChart(
-      //     temperatures: weathers.map((w) => 30 + Random().nextInt(2)),
-      //     dates: weathers.map((w) => w.date),
-      //   ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        width: 500,
+        height: 200,
+        padding: EdgeInsets.all(24),
+        child: WeatherChart(weathers: weathers),
+        // child: TemperatureChart(
+        //     temperatures: weathers.map((w) => 30 + Random().nextInt(2)),
+        //     dates: weathers.map((w) => w.date),
+        //   ),
+      ),
     );
   }
 }
