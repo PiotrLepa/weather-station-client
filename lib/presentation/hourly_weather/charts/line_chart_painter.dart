@@ -112,6 +112,7 @@ class LineChartPainter extends CustomPainter {
     if (difference == 0.0) {
       return 0;
     }
+
     return (((spotX - hours.min()) / difference) * chartSize.width);
   }
 
