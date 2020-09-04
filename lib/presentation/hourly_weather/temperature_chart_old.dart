@@ -5,7 +5,7 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
-class TemperatureChart extends StatelessWidget {
+class TemperatureChartOld extends StatelessWidget {
   final KtList<int> temperatures;
   final KtList<DateTime> dates;
   final KtList<int> _dateHours;
@@ -13,7 +13,7 @@ class TemperatureChart extends StatelessWidget {
   final int _minTemp;
   final int _tempStep;
 
-  TemperatureChart({
+  TemperatureChartOld({
     Key key,
     @required this.temperatures,
     @required this.dates,

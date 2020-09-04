@@ -6,7 +6,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/hourly_weather/charts/weather_chart.dart';
+import 'package:weather_station/presentation/hourly_weather/weather_chart/weather_chart.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
   @override
