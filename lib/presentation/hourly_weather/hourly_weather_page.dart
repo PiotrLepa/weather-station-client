@@ -33,7 +33,7 @@ class HourlyWeatherPage extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
-        padding: EdgeInsets.all(44),
+        // padding: EdgeInsets.all(44),
         child: WeatherChart(weathers: weathers),
         // child: TemperatureChart(
         //     temperatures: weathers.map((w) => 30 + Random().nextInt(2)),

@@ -6,7 +6,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
 
-class TopTitlesPainter extends CustomPainter {
+class XAxisTitlesPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, int>();
   final _dateFormatter = getIt<DateTimeFormatter>();
   final _titleStyle = TextStyle(
@@ -17,7 +17,7 @@ class TopTitlesPainter extends CustomPainter {
 
   final KtList<int> xSpots;
 
-  TopTitlesPainter({
+  XAxisTitlesPainter({
     @required this.xSpots,
   });
 
