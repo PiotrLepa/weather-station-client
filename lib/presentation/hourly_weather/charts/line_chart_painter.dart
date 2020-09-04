@@ -36,10 +36,12 @@ class LineChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var barPath = _generateLinePath(size);
-    canvas.drawPath(barPath, _linePaint);
-    drawDots(canvas, size);
-    drawVerticalLines(canvas, size);
+    final tempTopOffSet = 80;
+    final tempBottomOffSet = 50;
+    _drawTopTitles(canvas, size);
+    _drawLines(canvas, size, tempTopOffSet, tempBottomOffSet);
+    _drawDots(canvas, size, tempTopOffSet, tempBottomOffSet);
+    _drawVerticalLines(canvas, size);
   }
 
   @override
@@ -47,25 +49,61 @@ class LineChartPainter extends CustomPainter {
     return false;
   }
 
-  Path _generateLinePath(Size chartSize) {
+  void _drawTopTitles(Canvas canvas, Size chartSize) {
+    final textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+    );
+
+    for (int i = 0; i < hours.size; i++) {
+      final double x = getPixelX(hours[i], chartSize);
+
+      final textSpan = TextSpan(
+        text: hours[i].toString(),
+        style: textStyle,
+      );
+
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.center,
+      )..layout();
+
+      final offset = Offset(x - textPainter.width / 2, 0);
+      textPainter.paint(canvas, offset);
+    }
+  }
+
+  void _drawLines(
+    Canvas canvas,
+    Size chartSize,
+    int topOffSet,
+    int bottomOffSet,
+  ) {
     final Path path = Path();
 
     final double x = getPixelX(hours[0], chartSize);
-    final double y = getPixelY(temps[0], chartSize);
+    final double y = getPixelY(temps[0], chartSize, topOffSet, bottomOffSet);
 
     path.moveTo(x, y);
 
     for (int i = 1; i < temps.size; i++) {
       path.lineTo(
         getPixelX(hours[i], chartSize),
-        getPixelY(temps[i], chartSize),
+        getPixelY(temps[i], chartSize, topOffSet, bottomOffSet),
       );
     }
 
-    return path;
+    canvas.drawPath(path, _linePaint);
   }
 
-  void drawDots(Canvas canvas, Size chartSize) {
+  void _drawDots(
+    Canvas canvas,
+    Size chartSize,
+    int topOffSet,
+    int bottomOffSet,
+  ) {
     final circleRadius = 5.0;
 
     final textStyle = TextStyle(
@@ -75,7 +113,7 @@ class LineChartPainter extends CustomPainter {
 
     for (int i = 0; i < temps.size; i++) {
       final double x = getPixelX(hours[i], chartSize);
-      final double y = getPixelY(temps[i], chartSize);
+      final double y = getPixelY(temps[i], chartSize, topOffSet, bottomOffSet);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
@@ -89,19 +127,28 @@ class LineChartPainter extends CustomPainter {
         text: textSpan,
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
-      )..layout();
+      )
+        ..layout();
 
       final offset = Offset(x - textPainter.width / 2, y - 25);
       textPainter.paint(canvas, offset);
     }
   }
 
-  void drawVerticalLines(Canvas canvas, Size chartSize) {
-    for (int i = 0; i < hours.size; i++) {
-      final x = getPixelX(hours[i], chartSize);
+  void _drawVerticalLines(Canvas canvas, Size chartSize) {
+    // final top = Offset(0, 0);
+    // final bottom = Offset(0, chartSize.height);
 
-      final top = Offset(x, 0);
-      final bottom = Offset(x, chartSize.height);
+    // canvas.drawLine(top, bottom, _verticalDividerPaint);
+
+    for (int i = 0; i < hours.size - 1; i++) {
+      final currentX = getPixelX(hours[i], chartSize);
+      final nextX = getPixelX(hours[i + 1], chartSize);
+      final difference = nextX - currentX;
+      final centerX = currentX + difference / 2;
+
+      final top = Offset(centerX, 0);
+      final bottom = Offset(centerX, chartSize.height);
 
       canvas.drawLine(top, bottom, _verticalDividerPaint);
     }
@@ -116,13 +163,18 @@ class LineChartPainter extends CustomPainter {
     return (((spotX - hours.min()) / difference) * chartSize.width);
   }
 
-  double getPixelY(int spotY, Size chartSize) {
+  double getPixelY(int spotY,
+      Size chartSize, [
+        int topOffSet = 0,
+        int bottomOffSet = 0,
+      ]) {
     final double difference = temps.max() - temps.min().toDouble();
     if (difference == 0.0) {
-      return chartSize.height;
+      return chartSize.height + bottomOffSet; // TODO check
     }
 
-    double y = ((spotY - temps.min()) / difference) * chartSize.height;
-    return chartSize.height - y;
+    double y = ((spotY - temps.min()) / difference) *
+        (chartSize.height - topOffSet - bottomOffSet);
+    return chartSize.height - y - bottomOffSet;
   }
 }
