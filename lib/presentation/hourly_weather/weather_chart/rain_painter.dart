@@ -12,7 +12,8 @@ class RainPainter extends CustomPainter {
 
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.amber
+    ..color = Colors.blue
+    ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   final _dotBorderPaint = Paint()
@@ -43,7 +44,7 @@ class RainPainter extends CustomPainter {
       topOffSet: 24,
     );
     _drawBars(canvas, size);
-    // _drawDots(canvas);
+    _drawValues(canvas);
   }
 
   @override
@@ -54,36 +55,32 @@ class RainPainter extends CustomPainter {
   void _drawBars(Canvas canvas, Size size) {
     final Path path = Path();
 
+    final barWidth = pixelCalculator.getPixelX(dateMillis[1]) -
+        pixelCalculator.getPixelX(dateMillis[0]);
+    final halfBarWidth = barWidth / 2;
+
     for (int i = 0; i < rains.size; i++) {
       final x = pixelCalculator.getPixelX(dateMillis[i]);
       final y = pixelCalculator.getPixelY(rains[i]);
-      final x2 =
-          pixelCalculator.getPixelX(dateMillis[i + 1 < rains.size ? i + 1 : i]);
-      final y2 =
-          pixelCalculator.getPixelY(rains[i + 1 < rains.size ? i + 1 : i]);
-      path.addRect(Rect.fromLTRB(x, y, x2, size.height));
+      path.addRect(
+          Rect.fromLTRB(x - halfBarWidth, y, x + halfBarWidth, size.height));
     }
 
     canvas.drawPath(path, _linePaint);
   }
 
-  void _drawDots(Canvas canvas) {
-    final circleRadius = 5.0;
-
+  void _drawValues(Canvas canvas) {
     final textStyle = TextStyle(
       color: Colors.black,
-      fontSize: 15,
+      fontSize: 14,
     );
 
     for (int i = 0; i < rains.size; i++) {
       final double x = pixelCalculator.getPixelX(dateMillis[i]);
       final double y = pixelCalculator.getPixelY(rains[i]);
 
-      canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
-      canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
-
       final textSpan = TextSpan(
-        text: rains[i].toString(),
+        text: '${rains[i]} mm',
         style: textStyle,
       );
 
