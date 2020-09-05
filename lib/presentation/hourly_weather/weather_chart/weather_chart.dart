@@ -5,6 +5,7 @@ import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/left_titles_painter.dart';
+import 'package:weather_station/presentation/hourly_weather/weather_chart/rain_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/temperature_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/vertical_dividers_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/x_axis_titles_painter.dart';
@@ -59,7 +60,13 @@ class WeatherChart extends StatelessWidget {
                 size: Size(_chartWidth, ChartConstants.tempChartHeight),
                 painter: TemperaturePainter(
                   temps: weathers.map((e) => e.temperature),
-                  // temps: KtList.of(30, 28, 29, 30),
+                  dateMillis: _datesMillis,
+                ),
+              ),
+              CustomPaint(
+                size: Size(_chartWidth, ChartConstants.rainChartHeight),
+                painter: RainPainter(
+                  rains: weathers.map((e) => e.rainGauge),
                   dateMillis: _datesMillis,
                 ),
               ),

@@ -6,8 +6,8 @@ class ChartPixelCalculator<X extends num, Y extends num> {
   X _maxX;
   Y _minY;
   Y _maxY;
-  Y _topOffSet;
-  Y _bottomOffSet;
+  int _topOffSet;
+  int _bottomOffSet;
 
   void initialize(
     Size size, {
@@ -15,8 +15,8 @@ class ChartPixelCalculator<X extends num, Y extends num> {
     X maxX,
     Y minY,
     Y maxY,
-    Y topOffSet,
-    Y bottomOffSet,
+    int topOffSet,
+    int bottomOffSet,
   }) {
     _size = size;
     _minX = minX;

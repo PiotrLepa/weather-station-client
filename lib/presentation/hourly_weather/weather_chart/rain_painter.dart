@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
 
-class TemperaturePainter extends CustomPainter {
-  final pixelCalculator = ChartPixelCalculator<int, int>();
+class RainPainter extends CustomPainter {
+  final pixelCalculator = ChartPixelCalculator<int, double>();
 
-  final KtList<int> temps;
+  final KtList<double> rains;
   final KtList<int> dateMillis;
 
   final _linePaint = Paint()
@@ -27,8 +27,8 @@ class TemperaturePainter extends CustomPainter {
     ..style = PaintingStyle.fill
     ..strokeWidth = 1;
 
-  TemperaturePainter({
-    @required this.temps,
+  RainPainter({
+    @required this.rains,
     @required this.dateMillis,
   });
 
@@ -38,13 +38,12 @@ class TemperaturePainter extends CustomPainter {
       size,
       minX: dateMillis.min(),
       maxX: dateMillis.max(),
-      minY: temps.min(),
-      maxY: temps.max(),
+      minY: rains.min(),
+      maxY: rains.max(),
       topOffSet: 24,
-      bottomOffSet: 24,
     );
-    _drawLines(canvas);
-    _drawDots(canvas);
+    _drawBars(canvas, size);
+    // _drawDots(canvas);
   }
 
   @override
@@ -52,19 +51,17 @@ class TemperaturePainter extends CustomPainter {
     return false;
   }
 
-  void _drawLines(Canvas canvas) {
+  void _drawBars(Canvas canvas, Size size) {
     final Path path = Path();
 
-    final double x = pixelCalculator.getPixelX(dateMillis[0]);
-    final double y = pixelCalculator.getPixelY(temps[0]);
-
-    path.moveTo(x, y);
-
-    for (int i = 1; i < temps.size; i++) {
-      path.lineTo(
-        pixelCalculator.getPixelX(dateMillis[i]),
-        pixelCalculator.getPixelY(temps[i]),
-      );
+    for (int i = 0; i < rains.size; i++) {
+      final x = pixelCalculator.getPixelX(dateMillis[i]);
+      final y = pixelCalculator.getPixelY(rains[i]);
+      final x2 =
+          pixelCalculator.getPixelX(dateMillis[i + 1 < rains.size ? i + 1 : i]);
+      final y2 =
+          pixelCalculator.getPixelY(rains[i + 1 < rains.size ? i + 1 : i]);
+      path.addRect(Rect.fromLTRB(x, y, x2, size.height));
     }
 
     canvas.drawPath(path, _linePaint);
@@ -78,15 +75,15 @@ class TemperaturePainter extends CustomPainter {
       fontSize: 15,
     );
 
-    for (int i = 0; i < temps.size; i++) {
+    for (int i = 0; i < rains.size; i++) {
       final double x = pixelCalculator.getPixelX(dateMillis[i]);
-      final double y = pixelCalculator.getPixelY(temps[i]);
+      final double y = pixelCalculator.getPixelY(rains[i]);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
 
       final textSpan = TextSpan(
-        text: '${temps[i]}°',
+        text: rains[i].toString(),
         style: textStyle,
       );
 
