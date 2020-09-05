@@ -40,6 +40,8 @@ class TemperaturePainter extends CustomPainter {
       maxX: dateMillis.max(),
       minY: temps.min(),
       maxY: temps.max(),
+      topOffSet: 24,
+      bottomOffSet: 24,
     );
     _drawLines(canvas);
     _drawDots(canvas);

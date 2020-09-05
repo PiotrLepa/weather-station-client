@@ -6,6 +6,8 @@ class ChartPixelCalculator<X extends num, Y extends num> {
   X _maxX;
   Y _minY;
   Y _maxY;
+  Y _topOffSet;
+  Y _bottomOffSet;
 
   void initialize(
     Size size, {
@@ -13,12 +15,16 @@ class ChartPixelCalculator<X extends num, Y extends num> {
     X maxX,
     Y minY,
     Y maxY,
+    Y topOffSet,
+    Y bottomOffSet,
   }) {
     _size = size;
     _minX = minX;
     _maxX = maxX;
     _minY = minY;
     _maxY = maxY;
+    _topOffSet = topOffSet ?? 0;
+    _bottomOffSet = bottomOffSet ?? 0;
   }
 
   double getPixelX(X spotX) {
@@ -41,11 +47,12 @@ class ChartPixelCalculator<X extends num, Y extends num> {
 
     final double difference = _maxY - _minY.toDouble();
     if (difference == 0.0) {
-      return _size.height;
+      return _size.height + _bottomOffSet;
     }
 
-    double y = (spotY - _minY) / difference * _size.height;
-    return _size.height - y;
+    double y = (spotY - _minY) / difference *
+        (_size.height - _topOffSet - _bottomOffSet);
+    return _size.height - y - _bottomOffSet;
   }
 }
 
