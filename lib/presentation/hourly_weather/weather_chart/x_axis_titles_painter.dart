@@ -36,7 +36,7 @@ class XAxisTitlesPainter extends CustomPainter {
     return false;
   }
 
-  void _drawTopTitles(Canvas canvas, Size chartSize) {
+  void _drawTopTitles(Canvas canvas, Size size) {
     for (int i = 0; i < xSpots.size; i++) {
       final spotData = xSpots[i];
       final double x = _pixelCalculator.getPixelX(spotData);
@@ -53,7 +53,10 @@ class XAxisTitlesPainter extends CustomPainter {
         textAlign: TextAlign.center,
       )..layout();
 
-      final offset = Offset(x - textPainter.width / 2, 0);
+      final offset = Offset(
+        x - textPainter.width / 2,
+        (size.height - textPainter.height) / 2,
+      );
       textPainter.paint(canvas, offset);
     }
   }

@@ -10,10 +10,12 @@ class LeftTitlesPainter extends CustomPainter {
     fontWeight: FontWeight.w600,
   );
 
-  final _dividerPaint = Paint()
+  final _horizontalDividerPaint = Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.grey
     ..strokeWidth = 0.5;
+
+  final _verticalDividerWidth = 8.0;
 
   final KtList<double> itemsHeights;
   final KtList<String> titles;
@@ -31,11 +33,17 @@ class LeftTitlesPainter extends CustomPainter {
       final height = itemsHeights[i];
       final title = titles[i];
 
-      _drawText(canvas, size, title, height, sum);
-      _drawDivider(canvas, size, height, sum);
+      final titleContainer = Size(
+        size.width - _verticalDividerWidth,
+        size.height,
+      );
+      _drawText(canvas, titleContainer, title, height, sum);
+      _drawHorizontalDivider(canvas, titleContainer, height, sum);
 
       sum += height;
     }
+
+    _drawVerticalDivider(canvas, size);
   }
 
   @override
@@ -68,16 +76,34 @@ class LeftTitlesPainter extends CustomPainter {
     textPainter.paint(canvas, textOffset);
   }
 
-  void _drawDivider(
+  void _drawHorizontalDivider(
     Canvas canvas,
     Size size,
     double height,
     double sum,
   ) {
     canvas.drawLine(
-      Offset(0, height + sum),
-      Offset(size.width, height + sum),
-      _dividerPaint,
+      Offset(0, height + sum - _horizontalDividerPaint.strokeWidth),
+      Offset(size.width, height + sum - _horizontalDividerPaint.strokeWidth),
+      _horizontalDividerPaint,
     );
+  }
+
+  void _drawVerticalDivider(Canvas canvas, Size size) {
+    final rect = Rect.fromLTRB(
+      size.width - _verticalDividerWidth,
+      0,
+      size.width,
+      size.height,
+    );
+    final colors = [
+      Colors.grey.withOpacity(0.4),
+      Colors.grey.withOpacity(0.05),
+    ];
+
+    final verticalDividerPaint = Paint()
+      ..shader = LinearGradient(colors: colors).createShader(rect);
+
+    canvas.drawRect(rect, verticalDividerPaint);
   }
 }
