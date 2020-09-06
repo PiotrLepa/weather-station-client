@@ -6,6 +6,8 @@ class ChartPixelCalculator<X extends num, Y extends num> {
   X _maxX;
   Y _minY;
   Y _maxY;
+  double _diffX;
+  double _diffY;
   int _topOffSet;
   int _bottomOffSet;
 
@@ -25,34 +27,38 @@ class ChartPixelCalculator<X extends num, Y extends num> {
     _maxY = maxY;
     _topOffSet = topOffSet ?? 0;
     _bottomOffSet = bottomOffSet ?? 0;
+    if (minX != null && maxX != null) {
+      _diffX = maxX - minX.toDouble();
+    }
+    if (minY != null && maxY != null) {
+      _diffY = maxY - minY.toDouble();
+    }
   }
 
   double getPixelX(X spotX) {
-    if (_minX == null || _maxX == null) {
+    if (_diffX == null) {
       throw XSpotsNotInitialized;
     }
 
-    final double difference = _maxX - _minX.toDouble();
-    if (difference == 0.0) {
+    if (_diffX == 0.0) {
       return 0;
     }
 
-    return (spotX - _minX) / difference * _size.width;
+    return (spotX - _minX) / _diffX * _size.width;
   }
 
   double getPixelY(Y spotY) {
-    if (_minY == null || _maxY == null) {
+    if (_diffY == null) {
       throw YSpotsNotInitialized;
     }
 
-    final double difference = _maxY - _minY.toDouble();
-    if (difference == 0.0) {
+    if (_diffY == 0.0) {
       return _size.height + _bottomOffSet;
     }
 
-    double y = (spotY - _minY) / difference *
-        (_size.height - _topOffSet - _bottomOffSet);
-    return _size.height - y - _bottomOffSet;
+    final usableHeight = _size.height - _topOffSet - _bottomOffSet;
+    double y = (spotY - _minY) / _diffY * usableHeight;
+    return _size.height - _bottomOffSet - y;
   }
 }
 

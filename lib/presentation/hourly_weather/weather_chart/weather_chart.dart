@@ -18,63 +18,75 @@ class WeatherChart extends StatelessWidget {
   WeatherChart({
     Key key,
     @required this.weathers,
-  })
-      : _datesMillis = weathers.map((w) => w.date.millisecondsSinceEpoch),
+  })  : _datesMillis = weathers.map((w) => w.date.millisecondsSinceEpoch),
         _chartWidth = weathers.size * ChartConstants.spotWidth,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final leftTitles =
-        ChartConstants.leftTitles.map((title) => context.translate(title));
+    final leftTitles = ChartConstants.leftTitles.map((title) =>
+        context.translate(title));
+    final leftTitlesWidth = leftTitles
+        .max()
+        .length * 10.0;
     final chartOffset = 24.0;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomPaint(
-          size: Size(
-            leftTitles.max().length * 10.0,
-            ChartConstants.heights.sum(),
+
+    return Container(
+      width: leftTitlesWidth + _chartWidth + chartOffset + chartOffset,
+      child: Stack(
+        children: [
+          CustomPaint(
+            size: Size(
+              leftTitlesWidth,
+              ChartConstants.heights.sum(),
+            ),
+            painter: LeftTitlesPainter(
+              itemsHeights: ChartConstants.heights,
+              titles: leftTitles,
+            ),
           ),
-          painter: LeftTitlesPainter(
-            itemsHeights: ChartConstants.heights,
-            titles: leftTitles,
+          Positioned(
+            left: leftTitlesWidth + chartOffset,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.xAxisTitlesHeight),
+              painter: XAxisTitlesPainter(
+                xSpots: _datesMillis,
+              ),
+            ),
           ),
-        ),
-        SizedBox(width: chartOffset),
-        CustomPaint(
-          size: Size(_chartWidth, ChartConstants.heights.sum()),
-          painter: VerticalDividersPainter(
-            xSpots: _datesMillis,
+          Positioned(
+            left: leftTitlesWidth + chartOffset,
+            top: ChartConstants.xAxisTitlesHeight,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.tempChartHeight),
+              painter: TemperaturePainter(
+                temps: weathers.map((e) => e.temperature),
+                dateMillis: _datesMillis,
+              ),
+            ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomPaint(
-                size: Size(_chartWidth, ChartConstants.xAxisTitlesHeight),
-                painter: XAxisTitlesPainter(
+          Positioned(
+            left: leftTitlesWidth + chartOffset,
+            top:
+            ChartConstants.xAxisTitlesHeight + ChartConstants.tempChartHeight,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.rainChartHeight),
+              painter: RainPainter(
+                rains: weathers.map((e) => e.rainGauge),
+                dateMillis: _datesMillis,
+              ),
+            ),
+          ),
+          Positioned(
+            left: leftTitlesWidth + chartOffset,
+            child: CustomPaint(
+                size: Size(_chartWidth, ChartConstants.heights.sum()),
+                painter: VerticalDividersPainter(
                   xSpots: _datesMillis,
-                ),
-              ),
-              CustomPaint(
-                size: Size(_chartWidth, ChartConstants.tempChartHeight),
-                painter: TemperaturePainter(
-                  temps: weathers.map((e) => e.temperature),
-                  dateMillis: _datesMillis,
-                ),
-              ),
-              CustomPaint(
-                size: Size(_chartWidth, ChartConstants.rainChartHeight),
-                painter: RainPainter(
-                  rains: weathers.map((e) => e.rainGauge),
-                  dateMillis: _datesMillis,
-                ),
-              ),
-            ],
+                )),
           ),
-        ),
-        SizedBox(width: chartOffset),
-      ],
+        ],
+      ),
     );
   }
 }

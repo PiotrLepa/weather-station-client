@@ -6,6 +6,7 @@ class ChartConstants {
   static final xAxisTitlesHeight = 50.0;
   static final tempChartHeight = 200.0;
   static final rainChartHeight = 100.0;
+  static final verticalDividerWidth = 1.0;
 
   static final heights = KtList.of(
     xAxisTitlesHeight,
