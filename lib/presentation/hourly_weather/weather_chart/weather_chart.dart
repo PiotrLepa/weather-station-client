@@ -4,6 +4,7 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/hourly_weather/weather_chart/humidity_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/left_titles_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/rain_painter.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/temperature_painter.dart';
@@ -94,6 +95,20 @@ class WeatherChart extends StatelessWidget {
           ),
           Positioned(
             left: leftTitlesWidth + chartOffset,
+            top: ChartConstants.xAxisTitlesHeight +
+                ChartConstants.tempChartHeight +
+                ChartConstants.rainChartHeight +
+                ChartConstants.windChartHeight,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.humidityChartHeight),
+              painter: HumidityPainter(
+                humidity: weathers.map((w) => w.humidity),
+                dateMillis: _datesMillis,
+              ),
+            ),
+          ),
+          Positioned(
+            left: leftTitlesWidth + chartOffset,
             child: CustomPaint(
                 size: Size(_chartWidth, ChartConstants.heights.sum()),
                 painter: VerticalDividersPainter(
@@ -105,8 +120,7 @@ class WeatherChart extends StatelessWidget {
     );
   }
 
-  KtList<double> _getFakeMinWeathersSpeed() =>
-      KtList.from([
+  KtList<double> _getFakeMinWeathersSpeed() => KtList.from([
         13.0,
         11.2,
         2.3,

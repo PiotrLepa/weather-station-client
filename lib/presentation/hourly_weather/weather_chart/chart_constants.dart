@@ -7,19 +7,17 @@ class ChartConstants {
   static final tempChartHeight = 100.0;
   static final rainChartHeight = 100.0;
   static final windChartHeight = 150.0;
+  static final humidityChartHeight = 100.0;
   static final verticalDividerWidth = 1.0;
 
-  static final heights = KtList.of(
-    xAxisTitlesHeight,
-    tempChartHeight,
-    rainChartHeight,
-    windChartHeight,
-  );
+  static final heights = KtList.of(xAxisTitlesHeight, tempChartHeight,
+      rainChartHeight, windChartHeight, humidityChartHeight);
 
   static final leftTitles = KtList.of(
     RawString('Godzina'),
     RawString('Temperatura'),
     RawString('Opady'),
     RawString('Prędkość\nwiatru'),
+    RawString('Wilgotność'),
   );
 }
