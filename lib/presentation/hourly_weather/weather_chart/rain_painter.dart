@@ -16,18 +16,6 @@ class RainPainter extends CustomPainter {
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
-  final _dotBorderPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = Colors.black
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 1;
-
-  final _dotFillPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = Colors.white
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 1;
-
   RainPainter({
     @required this.rains,
     @required this.dateMillis,
