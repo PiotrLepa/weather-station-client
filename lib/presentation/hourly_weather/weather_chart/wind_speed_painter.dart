@@ -54,7 +54,8 @@ class WindSpeedPainter extends CustomPainter {
     );
     _drawMaxSpeedsLine(canvas);
     _drawAvgSpeedsLine(canvas);
-    // _drawDots(canvas);
+    _drawMaxSpeedsDots(canvas);
+    _drawAvgSpeedsDots(canvas);
   }
 
   @override
@@ -98,34 +99,67 @@ class WindSpeedPainter extends CustomPainter {
     canvas.drawPath(path, _avgSpeedLinePaint);
   }
 
-// void _drawDots(Canvas canvas) {
-//   final circleRadius = 5.0;
-//
-//   final textStyle = TextStyle(
-//     color: Colors.black,
-//     fontSize: 15,
-//   );
-//
-//   for (int i = 0; i < temps.size; i++) {
-//     final double x = pixelCalculator.getPixelX(dateMillis[i]);
-//     final double y = pixelCalculator.getPixelY(temps[i]);
-//
-//     canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
-//     canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
-//
-//     final textSpan = TextSpan(
-//       text: '${temps[i]}°',
-//       style: textStyle,
-//     );
-//
-//     final textPainter = TextPainter(
-//       text: textSpan,
-//       textDirection: TextDirection.ltr,
-//       textAlign: TextAlign.center,
-//     )..layout();
-//
-//     final offset = Offset(x - textPainter.width / 2, y - 25);
-//     textPainter.paint(canvas, offset);
-//   }
-// }
+  void _drawMaxSpeedsDots(Canvas canvas) {
+    final circleRadius = 5.0;
+
+    final textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+    );
+
+    for (int i = 0; i < maxSpeeds.size; i++) {
+      final double x = _pixelCalculator.getPixelX(dateMillis[i]);
+      final double y = _pixelCalculator.getPixelY(maxSpeeds[i]);
+
+      canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
+      canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
+
+      final textSpan = TextSpan(
+        text: '${maxSpeeds[i]}',
+        style: textStyle,
+      );
+
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.center,
+      )
+        ..layout();
+
+      final offset = Offset(x - textPainter.width / 2, y - 25);
+      textPainter.paint(canvas, offset);
+    }
+  }
+
+  void _drawAvgSpeedsDots(Canvas canvas) {
+    final circleRadius = 5.0;
+
+    final textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+    );
+
+    for (int i = 0; i < avgSpeeds.size; i++) {
+      final double x = _pixelCalculator.getPixelX(dateMillis[i]);
+      final double y = _pixelCalculator.getPixelY(avgSpeeds[i]);
+
+      canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
+      canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
+
+      final textSpan = TextSpan(
+        text: '${avgSpeeds[i]}',
+        style: textStyle,
+      );
+
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.center,
+      )
+        ..layout();
+
+      final offset = Offset(x - textPainter.width / 2, y + 5);
+      textPainter.paint(canvas, offset);
+    }
+  }
 }
