@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
 
 class VerticalDividersPainter extends CustomPainter {
@@ -11,7 +12,7 @@ class VerticalDividersPainter extends CustomPainter {
   final _verticalDividerPaint = Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.grey
-    ..strokeWidth = 0.5;
+    ..strokeWidth = ChartConstants.verticalDividerWidth;
 
   VerticalDividersPainter({
     @required this.xSpots,
