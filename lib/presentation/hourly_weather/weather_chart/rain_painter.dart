@@ -5,14 +5,14 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
 
 class RainPainter extends CustomPainter {
-  final pixelCalculator = ChartPixelCalculator<int, double>();
+  final _pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> rains;
   final KtList<int> dateMillis;
 
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.blue
+    ..color = const Color(0xff27C4FF)
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
@@ -23,7 +23,7 @@ class RainPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    pixelCalculator.initialize(
+    _pixelCalculator.initialize(
       size,
       minX: dateMillis.min(),
       maxX: dateMillis.max(),
@@ -43,15 +43,21 @@ class RainPainter extends CustomPainter {
   void _drawBars(Canvas canvas, Size size) {
     final Path path = Path();
 
-    final barWidth = pixelCalculator.getPixelX(dateMillis[1]) -
-        pixelCalculator.getPixelX(dateMillis[0]);
+    final barWidth = _pixelCalculator.getPixelX(dateMillis[1]) -
+        _pixelCalculator.getPixelX(dateMillis[0]);
     final halfBarWidth = barWidth / 2;
 
     for (int i = 0; i < rains.size; i++) {
-      final x = pixelCalculator.getPixelX(dateMillis[i]);
-      final y = pixelCalculator.getPixelY(rains[i]);
+      final x = _pixelCalculator.getPixelX(dateMillis[i]);
+      final y = _pixelCalculator.getPixelY(rains[i]);
       path.addRect(
-          Rect.fromLTRB(x - halfBarWidth, y, x + halfBarWidth, size.height));
+        Rect.fromLTRB(
+          x - halfBarWidth,
+          y - 1,
+          x + halfBarWidth,
+          size.height,
+        ),
+      );
     }
 
     canvas.drawPath(path, _linePaint);
@@ -64,8 +70,8 @@ class RainPainter extends CustomPainter {
     );
 
     for (int i = 0; i < rains.size; i++) {
-      final double x = pixelCalculator.getPixelX(dateMillis[i]);
-      final double y = pixelCalculator.getPixelY(rains[i]);
+      final double x = _pixelCalculator.getPixelX(dateMillis[i]);
+      final double y = _pixelCalculator.getPixelY(rains[i]);
 
       final textSpan = TextSpan(
         text: '${rains[i]} mm',

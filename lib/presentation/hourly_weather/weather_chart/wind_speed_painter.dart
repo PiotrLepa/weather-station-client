@@ -49,8 +49,8 @@ class WindSpeedPainter extends CustomPainter {
           maxSpeeds.min() < avgSpeeds.min() ? maxSpeeds.min() : avgSpeeds.min(),
       maxY:
           maxSpeeds.max() > avgSpeeds.max() ? maxSpeeds.max() : avgSpeeds.max(),
-      topOffSet: 24,
-      bottomOffSet: 24,
+      topOffSet: 32,
+      bottomOffSet: 32,
     );
     _drawMaxSpeedsLine(canvas);
     _drawAvgSpeedsLine(canvas);

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
 
 class LeftTitlesPainter extends CustomPainter {
   final _titleStyle = TextStyle(
@@ -13,7 +14,7 @@ class LeftTitlesPainter extends CustomPainter {
   final _horizontalDividerPaint = Paint()
     ..style = PaintingStyle.stroke
     ..color = Colors.grey
-    ..strokeWidth = 0.5;
+    ..strokeWidth = ChartConstants.horizontalDividerWidth;
 
   final _verticalDividerWidth = 8.0;
 

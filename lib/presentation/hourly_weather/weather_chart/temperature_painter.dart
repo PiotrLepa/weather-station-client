@@ -12,7 +12,7 @@ class TemperaturePainter extends CustomPainter {
 
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.amber
+    ..color = const Color(0xfff0c419)
     ..strokeWidth = 2;
 
   final _dotBorderPaint = Paint()

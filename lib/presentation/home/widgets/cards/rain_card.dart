@@ -14,7 +14,7 @@ class RainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
-      color: const Color(0xffdcf3f4),
+      color: const Color(0xff27C4FF),
       iconPath: 'assets/icons/rain.svg',
       title: 'Opady',
       body: WeatherValue(
