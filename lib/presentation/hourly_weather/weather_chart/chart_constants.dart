@@ -6,7 +6,8 @@ class ChartConstants {
   static final xAxisTitlesHeight = 50.0;
   static final tempChartHeight = 100.0;
   static final rainChartHeight = 100.0;
-  static final windChartHeight = 150.0;
+  static final avgWindChartHeight = 60.0;
+  static final maxWindChartHeight = 60.0;
   static final humidityChartHeight = 100.0;
   static final hairPollutionChartHeight = 150.0;
   static final verticalDividerWidth = 1.0;
@@ -16,7 +17,8 @@ class ChartConstants {
     xAxisTitlesHeight,
     tempChartHeight,
     rainChartHeight,
-    windChartHeight,
+    maxWindChartHeight,
+    avgWindChartHeight,
     // humidityChartHeight,
     // hairPollutionChartHeight,
   );
@@ -25,6 +27,7 @@ class ChartConstants {
     RawString('Godzina'),
     RawString('Temperatura'),
     RawString('Opady'),
+    RawString('Porywy\nwiatru'),
     RawString('Prędkość\nwiatru'),
     // RawString('Wilgotność'),
     // RawString('Zanieczyszczenie'),
