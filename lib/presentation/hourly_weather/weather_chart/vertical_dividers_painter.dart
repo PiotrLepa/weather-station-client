@@ -10,7 +10,7 @@ class VerticalDividersPainter extends CustomPainter {
   final KtList<int> xSpots;
 
   final _topVerticalDividerPaint = Paint()
-    ..color = Colors.grey
+    ..color = ChartConstants.dividerColor
     ..strokeWidth = ChartConstants.verticalDividerWidth;
 
   final _bottomVerticalDividerPaint = Paint()
@@ -37,11 +37,6 @@ class VerticalDividersPainter extends CustomPainter {
   }
 
   void _drawVerticalLines(Canvas canvas, Size size) {
-    // final top = Offset(0, 0);
-    // final bottom = Offset(0, chartSize.height);
-
-    // canvas.drawLine(top, bottom, _verticalDividerPaint);
-
     final firstColorHeight = KtList.of(
       ChartConstants.xAxisTitlesHeight,
       ChartConstants.tempChartHeight,

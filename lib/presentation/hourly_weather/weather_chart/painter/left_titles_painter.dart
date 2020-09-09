@@ -13,10 +13,12 @@ class LeftTitlesPainter extends CustomPainter {
 
   final _horizontalDividerPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.grey
+    ..color = ChartConstants.dividerColor
     ..strokeWidth = ChartConstants.horizontalDividerWidth;
 
   final _verticalDividerWidth = 8.0;
+
+  final threeDots = '\u2026';
 
   final KtList<double> itemsHeights;
   final KtList<String> titles;
@@ -28,23 +30,25 @@ class LeftTitlesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double sum = 0;
+    double previousHeights = 0;
 
     for (int i = 0; i < itemsHeights.size; i++) {
-      final height = itemsHeights[i];
+      final containerHeight = itemsHeights[i];
       final title = titles[i];
 
       final titleContainer = Size(
         size.width - _verticalDividerWidth,
         size.height,
       );
-      _drawText(canvas, titleContainer, title, height, sum);
-      _drawHorizontalDivider(canvas, titleContainer, height, sum);
+      _drawText(
+          canvas, titleContainer, title, containerHeight, previousHeights);
+      _drawHorizontalDivider(
+          canvas, titleContainer, containerHeight, previousHeights);
 
-      sum += height;
+      previousHeights += containerHeight;
     }
 
-    _drawVerticalDivider(canvas, size);
+    _drawRightShadow(canvas, size);
   }
 
   @override
@@ -56,8 +60,8 @@ class LeftTitlesPainter extends CustomPainter {
     Canvas canvas,
     Size size,
     String title,
-    double height,
-    double sum,
+    double containerHeight,
+    double previousHeights,
   ) {
     final textSpan = TextSpan(
       text: title,
@@ -68,29 +72,34 @@ class LeftTitlesPainter extends CustomPainter {
       text: textSpan,
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
-    )..layout();
+      ellipsis: threeDots,
+    )..layout(maxWidth: size.width);
 
     final textOffset = Offset(
       (size.width - textPainter.width) / 2,
-      (height - textPainter.height) / 2 + sum,
+      (containerHeight - textPainter.height) / 2 + previousHeights,
     );
     textPainter.paint(canvas, textOffset);
   }
 
-  void _drawHorizontalDivider(
-    Canvas canvas,
-    Size size,
-    double height,
-    double sum,
-  ) {
+  void _drawHorizontalDivider(Canvas canvas,
+      Size size,
+      double containerHeight,
+      double previousHeights,) {
     canvas.drawLine(
-      Offset(0, height + sum - _horizontalDividerPaint.strokeWidth),
-      Offset(size.width, height + sum - _horizontalDividerPaint.strokeWidth),
+      Offset(
+        0,
+        containerHeight + previousHeights - _horizontalDividerPaint.strokeWidth,
+      ),
+      Offset(
+        size.width,
+        containerHeight + previousHeights - _horizontalDividerPaint.strokeWidth,
+      ),
       _horizontalDividerPaint,
     );
   }
 
-  void _drawVerticalDivider(Canvas canvas, Size size) {
+  void _drawRightShadow(Canvas canvas, Size size) {
     final rect = Rect.fromLTRB(
       size.width - _verticalDividerWidth,
       0,
@@ -98,8 +107,8 @@ class LeftTitlesPainter extends CustomPainter {
       size.height,
     );
     final colors = [
-      Colors.grey.withOpacity(0.4),
-      Colors.grey.withOpacity(0.05),
+      ChartConstants.dividerColor.withOpacity(0),
+      ChartConstants.dividerColor,
     ];
 
     final verticalDividerPaint = Paint()
