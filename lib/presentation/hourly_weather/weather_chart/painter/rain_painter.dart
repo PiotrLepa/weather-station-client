@@ -50,10 +50,11 @@ class RainPainter extends CustomPainter {
     for (int i = 0; i < rains.size; i++) {
       final x = _pixelCalculator.getPixelX(dateMillis[i]);
       final y = _pixelCalculator.getPixelY(rains[i]);
+
       path.addRect(
         Rect.fromLTRB(
           x - halfBarWidth,
-          y - 1,
+          y,
           x + halfBarWidth,
           size.height,
         ),
