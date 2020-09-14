@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/home/hourly/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 
 class LeftTitlesPainter extends CustomPainter {
   final _titleStyle = TextStyle(
@@ -82,10 +82,12 @@ class LeftTitlesPainter extends CustomPainter {
     textPainter.paint(canvas, textOffset);
   }
 
-  void _drawHorizontalDivider(Canvas canvas,
-      Size size,
-      double containerHeight,
-      double previousHeights,) {
+  void _drawHorizontalDivider(
+    Canvas canvas,
+    Size size,
+    double containerHeight,
+    double previousHeights,
+  ) {
     canvas.drawLine(
       Offset(
         0,

@@ -9,9 +9,7 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'hourly_weather_bloc.freezed.dart';
-
 part 'hourly_weather_event.dart';
-
 part 'hourly_weather_state.dart';
 
 @injectable
@@ -19,27 +17,24 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   WeatherRepository _weatherRepository;
 
   HourlyWeatherBloc(this._weatherRepository)
-      : super(HourlyWeatherState.initialLoading());
+      : super(HourlyWeatherState.initial());
 
   @override
   Stream<HourlyWeatherState> mapEventToState(HourlyWeatherEvent event) async* {
-    if (event is PageStarted) {
-      yield* _mapPageStartedEvent(event);
+    if (event is OnLoadClicked) {
+      yield* _mapOnLoadClicked(event);
     }
   }
 
-  Stream<HourlyWeatherState> _mapPageStartedEvent(
-    PageStarted event,
-  ) async* {
-    final request =
-        callApi(_weatherRepository.fetchHourlyWeather(DateTime(2020, 08, 29)));
+  Stream<HourlyWeatherState> _mapOnLoadClicked(OnLoadClicked event,) async* {
+    final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
     await for (final requestState in request) {
       yield* requestState.when(
         progress: () async* {
-          yield HourlyWeatherState.initialLoading();
+          yield HourlyWeatherState.loading();
         },
         success: (response) async* {
-          yield HourlyWeatherState.renderWeathers(response);
+          yield HourlyWeatherState.renderCharts(response);
         },
         error: (errorMessage) async* {
           yield HourlyWeatherState.renderError(errorMessage);

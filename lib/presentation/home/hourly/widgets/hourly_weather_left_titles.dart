@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
-import 'package:weather_station/presentation/home/hourly/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/home/hourly/weather_chart/painter/left_titles_painter.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/left_titles_painter.dart';
 
 class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
   final KtList<String> leftTitles;

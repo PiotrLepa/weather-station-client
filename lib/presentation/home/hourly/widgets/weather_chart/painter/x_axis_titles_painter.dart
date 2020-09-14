@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
-import 'package:weather_station/presentation/home/hourly/weather_chart/chart_pixel_utils.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class XAxisTitlesPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, int>();
