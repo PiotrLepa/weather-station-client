@@ -4,7 +4,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/core/presentation/widgets/common/fill_empty_space_sliver.dart';
 import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
-import 'package:weather_station/domain/bloc/home/home_bloc.dart';
+import 'package:weather_station/domain/bloc/current_weather/current_weather_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar_corners.dart';
@@ -14,9 +14,10 @@ class CurrentWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<HomeBloc>()..add(HomeEvent.pageStarted()),
+      create: (_) => getIt.get<CurrentWeatherBloc>()
+        ..add(CurrentWeatherEvent.pageStarted()),
       child: Scaffold(
-        body: BlocBuilder<HomeBloc, HomeState>(
+        body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
             return state.map(
               initialLoading: (_) => Center(child: LoadingIndicator()),
