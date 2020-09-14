@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
+import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
+  final _selectDateButtonKey = GlobalKey<ProgressButtonState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,19 +29,25 @@ class HourlyWeatherInitial extends StatelessWidget {
           SizedBox(height: 32),
           SizedBox(
             width: double.infinity,
-            child: RaisedButton(
+            child: ProgressButton(
+              key: _selectDateButtonKey,
+              text: 'Wybierz',
               onPressed: () async {
-                final date = await showDatePicker(
+                final selectedDate = await showDatePicker(
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime(2020, 06, 01),
                   lastDate: DateTime.now(),
                 );
-                context
-                    .bloc<HourlyWeatherBloc>()
-                    .add(HourlyWeatherEvent.onLoadClicked(date));
+
+                if (selectedDate != null) {
+                  _selectDateButtonKey.currentState.show();
+
+                  // context
+                  //     .bloc<HourlyWeatherBloc>()
+                  //     .add(HourlyWeatherEvent.onLoadClicked(date));
+                }
               },
-              child: Text("Wybierz"),
             ),
           )
         ],
