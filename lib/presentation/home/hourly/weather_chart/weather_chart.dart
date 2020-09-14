@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/vertical_dividers_painter.dart';
-
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/hourly_weather/weather_chart/painter/avg_wind_speed_painter.dart';
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/hourly_weather/weather_chart/painter/max_wind_speed_painter.dart';
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/hourly_weather/weather_chart/painter/rain_painter.dart';
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/hourly_weather/weather_chart/painter/temperature_painter.dart';
-import 'file:///C:/Users/Piotr/IdeaProjects/weather_station/lib/presentation/hourly_weather/weather_chart/painter/x_axis_titles_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/painter/avg_wind_speed_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/painter/max_wind_speed_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/painter/rain_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/painter/temperature_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/painter/x_axis_titles_painter.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/vertical_dividers_painter.dart';
 
 class WeatherChart extends StatelessWidget {
   final KtList<Weather> weathers;

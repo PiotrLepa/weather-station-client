@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
-import 'package:weather_station/presentation/home/widgets/weather_value.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/weather_value.dart';
 
 class PressureCard extends StatelessWidget {
   final int pressure;

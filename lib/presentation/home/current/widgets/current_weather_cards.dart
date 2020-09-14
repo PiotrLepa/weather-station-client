@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/home/widgets/cards/air_pollution_card.dart';
-import 'package:weather_station/presentation/home/widgets/cards/humidity_card.dart';
-import 'package:weather_station/presentation/home/widgets/cards/pressure_card.dart';
-import 'package:weather_station/presentation/home/widgets/cards/rain_card.dart';
-import 'package:weather_station/presentation/home/widgets/cards/temperature_card.dart';
-import 'package:weather_station/presentation/home/widgets/cards/wind_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/air_pollution_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/humidity_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/pressure_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/rain_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/temperature_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/wind_card.dart';
 
-class HomeCards extends StatelessWidget {
+class CurrentWeatherCards extends StatelessWidget {
   final Weather weather;
 
-  const HomeCards({
+  const CurrentWeatherCards({
     Key key,
     this.weather,
   }) : super(key: key);

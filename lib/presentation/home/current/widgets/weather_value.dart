@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
-import 'package:weather_station/presentation/home/widgets/weather_unit.dart';
+import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
 class WeatherValue extends StatelessWidget {
   final String value;

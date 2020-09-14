@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
-import 'package:weather_station/presentation/home/widgets/cards/weather_card.dart';
+import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 
 class HumidityCard extends StatelessWidget {
   final double humidity;

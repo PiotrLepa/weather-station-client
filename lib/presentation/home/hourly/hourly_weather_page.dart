@@ -8,9 +8,9 @@ import 'package:weather_station/core/presentation/widgets/common/disable_overscr
 import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/hourly_weather/hourly_weather_left_titles.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/weather_chart.dart';
+import 'package:weather_station/presentation/home/hourly/hourly_weather_left_titles.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/weather_chart.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
   @override

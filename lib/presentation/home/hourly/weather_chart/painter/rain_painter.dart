@@ -2,20 +2,22 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_pixel_utils.dart';
 
-class MaxWindSpeedPainter extends CustomPainter {
+class RainPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
-  final KtList<double> speeds;
+  final KtList<double> rains;
   final KtList<int> dateMillis;
 
-  final _containerPaint = Paint()
-    ..color = Colors.grey[300]
-    ..style = PaintingStyle.fill;
+  final _barPaint = Paint()
+    ..style = PaintingStyle.stroke
+    ..color = const Color(0xff27C4FF)
+    ..style = PaintingStyle.fill
+    ..strokeWidth = 2;
 
-  MaxWindSpeedPainter({
-    @required this.speeds,
+  RainPainter({
+    @required this.rains,
     @required this.dateMillis,
   });
 
@@ -25,11 +27,12 @@ class MaxWindSpeedPainter extends CustomPainter {
       size,
       minX: dateMillis.min(),
       maxX: dateMillis.max(),
-      minY: speeds.min(),
-      maxY: speeds.max(),
+      minY: rains.min(),
+      maxY: rains.max(),
+      topOffSet: 24,
     );
-    _drawContainer(canvas, size);
-    _drawText(canvas, size);
+    _drawBars(canvas, size);
+    _drawValues(canvas);
   }
 
   @override
@@ -37,49 +40,42 @@ class MaxWindSpeedPainter extends CustomPainter {
     return false;
   }
 
-  void _drawContainer(Canvas canvas, Size size) {
+  void _drawBars(Canvas canvas, Size size) {
     final Path path = Path();
 
     final barWidth = _pixelCalculator.getPixelX(dateMillis[1]) -
         _pixelCalculator.getPixelX(dateMillis[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < speeds.size; i++) {
+    for (int i = 0; i < rains.size; i++) {
       final x = _pixelCalculator.getPixelX(dateMillis[i]);
+      final y = _pixelCalculator.getPixelY(rains[i]);
 
       path.addRect(
         Rect.fromLTRB(
           x - halfBarWidth,
-          0,
+          y,
           x + halfBarWidth,
           size.height,
         ),
       );
     }
 
-    canvas.drawPath(path, _containerPaint);
+    canvas.drawPath(path, _barPaint);
   }
 
-  void _drawText(Canvas canvas, Size size) {
+  void _drawValues(Canvas canvas) {
     final textStyle = TextStyle(
       color: Colors.black,
       fontSize: 14,
     );
 
-    for (int i = 0; i < speeds.size; i++) {
+    for (int i = 0; i < rains.size; i++) {
       final double x = _pixelCalculator.getPixelX(dateMillis[i]);
-
-      var text;
-      if (speeds[i] > 15.0) {
-        text = 'Umiar.';
-      } else if (speeds[i] > 20.0) {
-        text = 'Silne';
-      } else {
-        text = 'Słabe';
-      }
+      final double y = _pixelCalculator.getPixelY(rains[i]);
 
       final textSpan = TextSpan(
-        text: text,
+        text: '${rains[i]} mm',
         style: textStyle,
       );
 
@@ -89,10 +85,7 @@ class MaxWindSpeedPainter extends CustomPainter {
         textAlign: TextAlign.center,
       )..layout();
 
-      final offset = Offset(
-        x - textPainter.width / 2,
-        (size.height - textPainter.height) / 2,
-      );
+      final offset = Offset(x - textPainter.width / 2, y - 25);
       textPainter.paint(canvas, offset);
     }
   }

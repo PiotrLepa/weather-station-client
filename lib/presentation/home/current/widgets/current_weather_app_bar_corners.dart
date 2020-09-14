@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomeAppBarCorners extends StatelessWidget {
+class CurrentWeatherAppBarCorners extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

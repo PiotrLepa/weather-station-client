@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_pixel_utils.dart';
 
-class AvgWindSpeedPainter extends CustomPainter {
+class MaxWindSpeedPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> speeds;
@@ -14,7 +14,7 @@ class AvgWindSpeedPainter extends CustomPainter {
     ..color = Colors.grey[300]
     ..style = PaintingStyle.fill;
 
-  AvgWindSpeedPainter({
+  MaxWindSpeedPainter({
     @required this.speeds,
     @required this.dateMillis,
   });
@@ -69,8 +69,17 @@ class AvgWindSpeedPainter extends CustomPainter {
     for (int i = 0; i < speeds.size; i++) {
       final double x = _pixelCalculator.getPixelX(dateMillis[i]);
 
+      var text;
+      if (speeds[i] > 15.0) {
+        text = 'Umiar.';
+      } else if (speeds[i] > 20.0) {
+        text = 'Silne';
+      } else {
+        text = 'Słabe';
+      }
+
       final textSpan = TextSpan(
-        text: '${speeds[i]}\nkm/h',
+        text: text,
         style: textStyle,
       );
 

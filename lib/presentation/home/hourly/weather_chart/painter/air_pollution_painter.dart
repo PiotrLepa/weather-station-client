@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_pixel_utils.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_pixel_utils.dart';
 
 class AirPollutionPainter extends CustomPainter {
   final pixelCalculator = ChartPixelCalculator<int, double>();

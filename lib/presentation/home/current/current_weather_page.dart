@@ -6,11 +6,11 @@ import 'package:weather_station/core/presentation/widgets/common/fill_empty_spac
 import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/home/widgets/home_app_bar.dart';
-import 'package:weather_station/presentation/home/widgets/home_app_bar_corners.dart';
-import 'package:weather_station/presentation/home/widgets/home_list.dart';
+import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar.dart';
+import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar_corners.dart';
+import 'package:weather_station/presentation/home/current/widgets/current_weather_cards.dart';
 
-class HomePage extends StatelessWidget {
+class CurrentWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -36,14 +36,14 @@ class HomePage extends StatelessWidget {
       behavior: DisableOverscrollGlowBehavior(),
       child: CustomScrollView(
         slivers: [
-          HomeAppBar(
+          CurrentWeatherAppBar(
             height: appBarHeight,
             expandedHeight: appBarExpandedHeight,
             location: weather.location,
             lastUpdateTime: weather.date,
           ),
-          HomeAppBarCorners(),
-          HomeCards(weather: weather),
+          CurrentWeatherAppBarCorners(),
+          CurrentWeatherCards(weather: weather),
           FillEmptySpaceSliver(
             minHeaderHeight: appBarHeight,
             maxHeaderHeight: appBarExpandedHeight,

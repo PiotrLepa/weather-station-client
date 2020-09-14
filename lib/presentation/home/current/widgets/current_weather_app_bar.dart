@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
-import 'package:weather_station/presentation/home/widgets/home_location.dart';
-import 'package:weather_station/presentation/home/widgets/home_update_time.dart';
+import 'package:weather_station/presentation/home/current/widgets/current_weather_location.dart';
+import 'package:weather_station/presentation/home/current/widgets/current_weather_update_time.dart';
 
-class HomeAppBar extends StatelessWidget {
+class CurrentWeatherAppBar extends StatelessWidget {
   final double height;
   final double expandedHeight;
   final String location;
   final DateTime lastUpdateTime;
 
-  const HomeAppBar({
+  const CurrentWeatherAppBar({
     Key key,
     @required this.height,
     @required this.expandedHeight,

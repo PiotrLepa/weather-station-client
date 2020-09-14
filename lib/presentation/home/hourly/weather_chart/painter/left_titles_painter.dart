@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/hourly_weather/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/weather_chart/chart_constants.dart';
 
 class LeftTitlesPainter extends CustomPainter {
   final _titleStyle = TextStyle(
