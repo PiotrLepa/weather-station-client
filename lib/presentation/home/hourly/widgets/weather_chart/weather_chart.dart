@@ -17,26 +17,29 @@ class WeatherChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollConfiguration(
-      behavior: DisableOverscrollGlowBehavior(),
-      child: SizedBox(
-        height: ChartConstants.heights.sum(),
-        child: CustomScrollView(
-          scrollDirection: Axis.horizontal,
-          slivers: [
-            SliverPersistentHeader(
-              floating: true,
-              delegate: HourlyWeatherLeftTitles(
-                leftTitles: ChartConstants.leftTitles
-                    .map((title) => context.translate(title)),
+    return Card(
+      elevation: 4,
+      child: ScrollConfiguration(
+        behavior: DisableOverscrollGlowBehavior(),
+        child: SizedBox(
+          height: ChartConstants.heights.sum(),
+          child: CustomScrollView(
+            scrollDirection: Axis.horizontal,
+            slivers: [
+              SliverPersistentHeader(
+                floating: true,
+                delegate: HourlyWeatherLeftTitles(
+                  leftTitles: ChartConstants.leftTitles
+                      .map((title) => context.translate(title)),
+                ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [WeatherChartContent(weathers: weathers)],
-              ),
-            )
-          ],
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [WeatherChartContent(weathers: weathers)],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
