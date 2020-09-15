@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ProgressButton extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
+  final Color color;
 
   const ProgressButton({
     Key key,
     @required this.text,
     @required this.onPressed,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,12 @@ class ProgressButtonState extends State<ProgressButton> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: widget.onPressed,
+      onPressed: () {
+        if (!_progressVisible) {
+          widget.onPressed();
+        }
+      },
+      color: widget.color ?? Theme.of(context).buttonTheme.colorScheme,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -30,9 +30,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
     await for (final requestState in request) {
       yield* requestState.when(
-        progress: () async* {
-          yield HourlyWeatherState.loading();
-        },
+        progress: () async* {},
         success: (response) async* {
           yield HourlyWeatherState.renderCharts(response);
         },

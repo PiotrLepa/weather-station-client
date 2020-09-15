@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
+import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
   final _selectDateButtonKey = GlobalKey<ProgressButtonState>();
@@ -32,26 +34,27 @@ class HourlyWeatherInitial extends StatelessWidget {
             child: ProgressButton(
               key: _selectDateButtonKey,
               text: 'Wybierz',
-              onPressed: () async {
-                final selectedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2020, 06, 01),
-                  lastDate: DateTime.now(),
-                );
-
-                if (selectedDate != null) {
-                  _selectDateButtonKey.currentState.show();
-
-                  // context
-                  //     .bloc<HourlyWeatherBloc>()
-                  //     .add(HourlyWeatherEvent.onLoadClicked(date));
-                }
-              },
+              onPressed: () => _showDatePicker(context),
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  Future _showDatePicker(BuildContext context) async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020, 06, 01),
+      lastDate: DateTime.now(),
+    );
+
+    if (selectedDate != null) {
+      _selectDateButtonKey.currentState.show();
+      context
+          .bloc<HourlyWeatherBloc>()
+          .add(HourlyWeatherEvent.onLoadClicked(selectedDate));
+    }
   }
 }

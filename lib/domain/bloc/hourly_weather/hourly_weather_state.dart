@@ -4,8 +4,6 @@ part of 'hourly_weather_bloc.dart';
 abstract class HourlyWeatherState with _$HourlyWeatherState {
   const factory HourlyWeatherState.initial() = Initial;
 
-  const factory HourlyWeatherState.loading() = Loading;
-
   const factory HourlyWeatherState.renderCharts(KtList<Weather> weathers) =
       RenderWeathers;
 

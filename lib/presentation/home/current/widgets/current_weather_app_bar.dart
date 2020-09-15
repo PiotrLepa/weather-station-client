@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_location.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_update_time.dart';
 
@@ -24,15 +23,6 @@ class CurrentWeatherAppBar extends StatelessWidget {
       expandedHeight: expandedHeight,
       pinned: true,
       title: Text('Pogoda'),
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: ThemeProvider.of(context).textColorInverted,
-          ),
-          onPressed: () {},
-        )
-      ],
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [

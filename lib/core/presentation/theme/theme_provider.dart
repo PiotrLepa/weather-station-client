@@ -52,7 +52,8 @@ class ThemeProvider {
           borderRadius: BorderRadius.circular(16),
         ),
         buttonColor: primaryColor,
-        textTheme: ButtonTextTheme.primary),
+        textTheme: ButtonTextTheme.primary,
+      ),
       appBarTheme: AppBarTheme(
         centerTitle: true,
         color: Colors.blue,
