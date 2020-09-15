@@ -42,7 +42,7 @@ class HourlyWeatherInitial extends StatelessWidget {
     );
   }
 
-  Future _showDatePicker(BuildContext context) async {
+  void _showDatePicker(BuildContext context) async {
     final selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),

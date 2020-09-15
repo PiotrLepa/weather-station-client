@@ -37,7 +37,8 @@ class RainPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as RainPainter;
+    return oldPainter.rains != rains || oldPainter.dateMillis != dateMillis;
   }
 
   void _drawBars(Canvas canvas, Size size) {

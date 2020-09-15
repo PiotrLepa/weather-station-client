@@ -33,7 +33,8 @@ class VerticalDividersPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as VerticalDividersPainter;
+    return oldPainter.xSpots != xSpots;
   }
 
   void _drawVerticalLines(Canvas canvas, Size size) {

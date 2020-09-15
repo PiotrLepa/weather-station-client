@@ -33,7 +33,8 @@ class XAxisTitlesPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as XAxisTitlesPainter;
+    return oldPainter.xSpots != xSpots;
   }
 
   void _drawTopTitles(Canvas canvas, Size size) {

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
+import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/presentation/home/current/widgets/half_circle_shape_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
 
 class HourlyWeatherHeader extends StatelessWidget {
-  final _selectDateButtonKey = GlobalKey<ProgressButtonState>();
+  final _changeDateButtonKey = GlobalKey<ProgressButtonState>();
 
   final DateTime day;
 
@@ -48,10 +50,10 @@ class HourlyWeatherHeader extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ProgressButton(
-                  key: _selectDateButtonKey,
+                  key: _changeDateButtonKey,
                   text: 'Zmień dzień',
                   color: Colors.white,
-                  onPressed: () {},
+                  onPressed: () => _showDatePicker(context),
                 ),
               ),
               SizedBox(height: 32),
@@ -60,5 +62,21 @@ class HourlyWeatherHeader extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showDatePicker(BuildContext context) async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020, 06, 01),
+      lastDate: DateTime.now(),
+    );
+
+    if (selectedDate != null) {
+      _changeDateButtonKey.currentState.show();
+      context
+          .bloc<HourlyWeatherBloc>()
+          .add(HourlyWeatherEvent.onLoadClicked(selectedDate));
+    }
   }
 }

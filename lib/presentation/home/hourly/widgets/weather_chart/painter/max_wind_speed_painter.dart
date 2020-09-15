@@ -34,7 +34,8 @@ class MaxWindSpeedPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as MaxWindSpeedPainter;
+    return oldPainter.speeds != speeds || oldPainter.dateMillis != dateMillis;
   }
 
   void _drawContainer(Canvas canvas, Size size) {

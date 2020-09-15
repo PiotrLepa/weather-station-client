@@ -49,7 +49,8 @@ class TemperaturePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as TemperaturePainter;
+    return oldPainter.temps != temps || oldPainter.dateMillis != dateMillis;
   }
 
   void _drawLines(Canvas canvas) {
