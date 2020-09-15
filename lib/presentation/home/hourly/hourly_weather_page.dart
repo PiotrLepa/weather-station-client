@@ -7,7 +7,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_app_bar.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_header.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_initial.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_left_titles.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
@@ -35,22 +35,17 @@ class HourlyWeatherPage extends StatelessWidget {
   }
 
   Widget _buildFakePage(BuildContext context, KtList<Weather> weathers) {
-    return CustomScrollView(
-      slivers: [
-        HourlyWeatherAppBar(day: weathers[0].date),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            // HourlyWeatherSelectedDate(day: weathers[0].date),
-            // SizedBox(height: 48),
-            SizedBox(height: 24),
-            _buildPage(context, weathers),
-            SizedBox(height: 48),
-            _buildPage(context, weathers),
-            SizedBox(height: 48),
-          ]),
-        ),
+    return SingleChildScrollView(
+        child: Column(
+      children: [
+        HourlyWeatherHeader(day: weathers[0].date),
+        SizedBox(height: 24),
+        _buildPage(context, weathers),
+        SizedBox(height: 48),
+        _buildPage(context, weathers),
+        SizedBox(height: 48),
       ],
-    );
+    ));
   }
 
   Widget _buildPage(BuildContext context, KtList<Weather> weathers) {

@@ -34,7 +34,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
           ),
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            fontSize: Dimens.scale(23),
+            fontSize: Dimens.scale(24),
             color: ThemeProvider.of(context).textColorInverted,
           ),
         ),

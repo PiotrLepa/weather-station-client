@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,6 +36,13 @@ class App extends StatelessWidget {
             navigatorKey: navigatorKey,
             builder: (BuildContext context, Widget child) {
               Dimens.initialize(context);
+
+              SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(
+                  statusBarColor: ThemeProvider.of(context).primaryColorDark,
+                ),
+              );
+
               return child;
             }),
       ),
