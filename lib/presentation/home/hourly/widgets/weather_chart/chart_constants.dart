@@ -9,7 +9,7 @@ class ChartConstants {
   static final avgWindChartHeight = 60.0;
   static final maxWindChartHeight = 60.0;
   static final humidityChartHeight = 100.0;
-  static final hairPollutionChartHeight = 150.0;
+  static final airPollutionChartHeight = 150.0;
 
   static final spotWidth = 60.0;
   static final verticalDividerWidth = 1.0;
@@ -23,6 +23,7 @@ class ChartConstants {
     rainChartHeight,
     maxWindChartHeight,
     avgWindChartHeight,
+    airPollutionChartHeight,
   );
 
   static final leftTitles = KtList.of(
@@ -31,5 +32,6 @@ class ChartConstants {
     RawString('Opady'),
     RawString('Porywy\nwiatru'),
     RawString('Prędkość\nwiatru'),
+    RawString('Smog'),
   );
 }

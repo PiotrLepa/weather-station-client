@@ -32,7 +32,7 @@ class AirPollutionCard extends StatelessWidget {
                   children: [
                     _buildPollutionValue('Pm 1', pm1.toString()),
                     _buildVerticalDivider(context),
-                    _buildPollutionValue('Pm 2', pm25.toString()),
+                    _buildPollutionValue('Pm 2.5', pm25.toString()),
                     _buildVerticalDivider(context),
                     _buildPollutionValue('Pm 10', pm10.toString()),
                   ],

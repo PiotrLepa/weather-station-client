@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/air_pollution_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/avg_wind_speed_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/max_wind_speed_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/rain_painter.dart';
@@ -80,11 +81,28 @@ class WeatherChartContent extends StatelessWidget {
             top: ChartConstants.xAxisTitlesHeight +
                 ChartConstants.tempChartHeight +
                 ChartConstants.rainChartHeight +
-                ChartConstants.avgWindChartHeight,
+                ChartConstants.maxWindChartHeight,
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.avgWindChartHeight),
               painter: AvgWindSpeedPainter(
                 speeds: weathers.map((w) => w.windSpeedAvg),
+                dateMillis: _datesMillis,
+              ),
+            ),
+          ),
+          Positioned(
+            left: chartOffset,
+            top: ChartConstants.xAxisTitlesHeight +
+                ChartConstants.tempChartHeight +
+                ChartConstants.rainChartHeight +
+                ChartConstants.maxWindChartHeight +
+                ChartConstants.avgWindChartHeight,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.airPollutionChartHeight),
+              painter: AirPollutionPainter(
+                pm1Spots: weathers.map((w) => w.pm1),
+                pm25Spots: weathers.map((w) => w.pm25),
+                pm10Spots: weathers.map((w) => w.pm10),
                 dateMillis: _datesMillis,
               ),
             ),

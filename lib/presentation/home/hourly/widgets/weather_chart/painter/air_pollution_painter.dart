@@ -7,42 +7,48 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 class AirPollutionPainter extends CustomPainter {
   final pixelCalculator = ChartPixelCalculator<int, double>();
 
-  final KtList<double> pm1;
-  final KtList<double> pm25;
-  final KtList<double> pm10;
+  final KtList<double> pm1Spots;
+  final KtList<double> pm25Spots;
+  final KtList<double> pm10Spots;
   final KtList<int> dateMillis;
 
   final _pm1BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.blue
+    ..color = Colors.deepPurple[200]
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   final _pm25BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.blueGrey
+    ..color = Colors.red[200]
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   final _pm10BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.lightBlue
+    ..color = Colors.green[200]
+    ..style = PaintingStyle.fill
+    ..strokeWidth = 2;
+
+  final _linePaint = Paint()
+    ..style = PaintingStyle.stroke
+    ..color = Colors.grey
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   AirPollutionPainter({
-    @required this.pm1,
-    @required this.pm25,
-    @required this.pm10,
+    @required this.pm1Spots,
+    @required this.pm25Spots,
+    @required this.pm10Spots,
     @required this.dateMillis,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final combinedYValues = [
-      ...pm1.asList(),
-      ...pm25.asList(),
-      ...pm10.asList(),
+      ...pm1Spots.asList(),
+      ...pm25Spots.asList(),
+      ...pm10Spots.asList(),
     ].toImmutableList();
 
     pixelCalculator.initialize(
@@ -54,12 +60,16 @@ class AirPollutionPainter extends CustomPainter {
       topOffSet: 24,
     );
     _drawBars(canvas, size);
-    // _drawValues(canvas);
+    _drawLines(canvas, size);
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    final oldPainter = oldDelegate as AirPollutionPainter;
+    return oldPainter.pm1Spots != pm1Spots ||
+        oldPainter.pm25Spots != pm25Spots ||
+        oldPainter.pm10Spots != pm10Spots ||
+        oldPainter.dateMillis != dateMillis;
   }
 
   void _drawBars(Canvas canvas, Size size) {
@@ -73,12 +83,12 @@ class AirPollutionPainter extends CustomPainter {
     final columnWidth = barWidth / 3;
     final halfColumnWidth = columnWidth / 2;
 
-    for (int i = 0; i < pm1.size; i++) {
+    for (int i = 0; i < pm1Spots.size; i++) {
       final x = pixelCalculator.getPixelX(dateMillis[i]);
       pm1Path.addRect(
         Rect.fromLTRB(
           x - halfBarWidth,
-          pixelCalculator.getPixelY(pm1[i]),
+          pixelCalculator.getPixelY(pm1Spots[i]),
           x - halfColumnWidth,
           size.height,
         ),
@@ -86,7 +96,7 @@ class AirPollutionPainter extends CustomPainter {
       pm25Path.addRect(
         Rect.fromLTRB(
           x - halfColumnWidth,
-          pixelCalculator.getPixelY(pm25[i]),
+          pixelCalculator.getPixelY(pm25Spots[i]),
           x + halfColumnWidth,
           size.height,
         ),
@@ -94,7 +104,7 @@ class AirPollutionPainter extends CustomPainter {
       pm10Path.addRect(
         Rect.fromLTRB(
           x + halfColumnWidth,
-          pixelCalculator.getPixelY(pm10[i]),
+          pixelCalculator.getPixelY(pm10Spots[i]),
           x + halfBarWidth,
           size.height,
         ),
@@ -106,29 +116,67 @@ class AirPollutionPainter extends CustomPainter {
     canvas.drawPath(pm10Path, _pm10BarPaint);
   }
 
-// void _drawValues(Canvas canvas) {
-//   final textStyle = TextStyle(
-//     color: Colors.black,
-//     fontSize: 14,
-//   );
-//
-//   for (int i = 0; i < rains.size; i++) {
-//     final double x = pixelCalculator.getPixelX(dateMillis[i]);
-//     final double y = pixelCalculator.getPixelY(rains[i]);
-//
-//     final textSpan = TextSpan(
-//       text: '${rains[i]} mm',
-//       style: textStyle,
-//     );
-//
-//     final textPainter = TextPainter(
-//       text: textSpan,
-//       textDirection: TextDirection.ltr,
-//       textAlign: TextAlign.center,
-//     )..layout();
-//
-//     final offset = Offset(x - textPainter.width / 2, y - 25);
-//     textPainter.paint(canvas, offset);
-//   }
-// }
+  void _drawLines(Canvas canvas, Size size) {
+    final containerWidth = pixelCalculator.getPixelX(dateMillis[1]) -
+        pixelCalculator.getPixelX(dateMillis[0]);
+    final halfContainerWidth = containerWidth / 2;
+
+    final textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 14,
+    );
+
+    final avg = pm1Spots.average();
+
+    for (int i = 0; i < pm1Spots.size; i++) {
+      final x = pixelCalculator.getPixelX(dateMillis[i]);
+      final max = KtList.of(pm1Spots[i], pm25Spots[i], pm10Spots[i]).max();
+      final yMax = pixelCalculator.getPixelY(avg);
+
+      canvas.drawLine(
+        Offset(x - halfContainerWidth, yMax),
+        Offset(x + halfContainerWidth, yMax),
+        _linePaint,
+      );
+
+      //   final textSpanMax = TextSpan(
+      //     text: '$max',
+      //     style: textStyle,
+      //   );
+      //
+      //   final textPainterMax = TextPainter(
+      //     text: textSpanMax,
+      //     textDirection: TextDirection.ltr,
+      //     textAlign: TextAlign.center,
+      //   )..layout();
+      //
+      //   final offsetMax = Offset(x - textPainterMax.width / 2, yMax - 20);
+      //   textPainterMax.paint(canvas, offsetMax);
+      //
+      //
+      //
+      //   final min = KtList.of(pm1Spots[i], pm25Spots[i], pm10Spots[i]).min();
+      //   final yMin = pixelCalculator.getPixelY(min);
+      //
+      //   canvas.drawLine(
+      //     Offset(x - halfContainerWidth, yMin),
+      //     Offset(x + halfContainerWidth, yMin),
+      //     _linePaint,
+      //   );
+      //
+      //   final textSpanMin = TextSpan(
+      //     text: '$min',
+      //     style: textStyle,
+      //   );
+      //
+      //   final textPainterMin = TextPainter(
+      //     text: textSpanMin,
+      //     textDirection: TextDirection.ltr,
+      //     textAlign: TextAlign.center,
+      //   )..layout();
+      //
+      //   final offsetMin = Offset(x - textPainterMin.width / 2, yMin + 5);
+      //   textPainterMin.paint(canvas, offsetMin);
+    }
+  }
 }
