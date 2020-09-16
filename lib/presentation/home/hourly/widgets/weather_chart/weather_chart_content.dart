@@ -103,6 +103,9 @@ class WeatherChartContent extends StatelessWidget {
                 pm1Spots: weathers.map((w) => w.pm1),
                 pm25Spots: weathers.map((w) => w.pm25),
                 pm10Spots: weathers.map((w) => w.pm10),
+                // pm1Spots: getFakeSpots(),
+                // pm25Spots: getFakeSpots(),
+                // pm10Spots: getFakeSpots(),
                 dateMillis: _datesMillis,
               ),
             ),
@@ -117,5 +120,34 @@ class WeatherChartContent extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  KtList<double> getFakeSpots() {
+    return KtList.from([
+      13.2,
+      15.3,
+      14.5,
+      17.1,
+      25.3,
+      22.4,
+      13.2,
+      15.3,
+      14.5,
+      17.1,
+      25.3,
+      22.4,
+      13.2,
+      15.3,
+      14.5,
+      17.1,
+      25.3,
+      22.4,
+      13.2,
+      15.3,
+      14.5,
+      17.1,
+      25.3,
+      22.4,
+    ]);
   }
 }

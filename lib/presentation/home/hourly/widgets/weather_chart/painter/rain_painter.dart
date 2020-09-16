@@ -27,7 +27,7 @@ class RainPainter extends CustomPainter {
       size,
       minX: dateMillis.min(),
       maxX: dateMillis.max(),
-      minY: rains.min(),
+      minY: 0,
       maxY: rains.max(),
       topOffSet: 24,
     );
