@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/left_titles_painter.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/chart_title.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/left_titles_painter2.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/legend_chart_title.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/normal_chart_title.dart';
 
 class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
   final KtList<String> leftTitles;
@@ -25,9 +28,8 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
           _leftTitlesWidth,
           ChartConstants.heights.sum(),
         ),
-        painter: LeftTitlesPainter(
-          itemsHeights: ChartConstants.heights,
-          titles: leftTitles,
+        painter: LeftTitlesPainter2(
+          titles: _getChartTitles(),
         ),
       ),
     );
@@ -36,6 +38,30 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(HourlyWeatherLeftTitles oldDelegate) {
     return oldDelegate.leftTitles != leftTitles;
+  }
+
+  KtList<ChartTitle> _getChartTitles() {
+    double sum = 0;
+    return leftTitles.mapIndexed((index, title) {
+      final itemHeight = ChartConstants.heights[index];
+      if (index == 5) {
+        final chartTitle = LegendChartTitle(
+          title,
+          itemHeight,
+          sum,
+          KtList.of(
+            ChartLegend('Pm 1', Colors.red),
+            ChartLegend('Pm 25', Colors.grey),
+            ChartLegend('Pm 10', Colors.blue),
+          ),
+        );
+        sum += itemHeight;
+        return chartTitle;
+      }
+      final chartTitle = NormalChartTitle(title, itemHeight, sum);
+      sum += itemHeight;
+      return chartTitle;
+    });
   }
 
   @override
