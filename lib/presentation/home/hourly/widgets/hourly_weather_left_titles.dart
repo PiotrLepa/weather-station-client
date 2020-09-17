@@ -34,7 +34,9 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(HourlyWeatherLeftTitles oldDelegate) => false;
+  bool shouldRebuild(HourlyWeatherLeftTitles oldDelegate) {
+    return oldDelegate.leftTitles != leftTitles;
+  }
 
   @override
   double get maxExtent => _leftTitlesWidth;

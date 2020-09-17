@@ -44,24 +44,9 @@ class AirPollutionPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // final combinedYValues = [
-    //   ...pm1Spots.asList(),
-    //   ...pm25Spots.asList(),
-    //   ...pm10Spots.asList(),
-    // ].toImmutableList();
-    //
-    // pixelCalculator.initialize(
-    //   size,
-    //   minX: dateMillis.min(),
-    //   maxX: dateMillis.max(),
-    //   minY: combinedYValues.min(),
-    //   maxY: combinedYValues.max(),
-    //   topOffSet: 24,
-    // );
-    // _drawBars(canvas, size);
-    final combinedYValues = KtMutableList<double>.empty();
+    final summedValues = KtMutableList<double>.empty();
     for (int i = 0; i < pm1Spots.size; i++) {
-      combinedYValues.add(pm1Spots[i] + pm25Spots[i] + pm10Spots[i]);
+      summedValues.add(pm1Spots[i] + pm25Spots[i] + pm10Spots[i]);
     }
 
     pixelCalculator.initialize(
@@ -69,7 +54,7 @@ class AirPollutionPainter extends CustomPainter {
       minX: dateMillis.min(),
       maxX: dateMillis.max(),
       minY: 0,
-      maxY: combinedYValues.max(),
+      maxY: summedValues.max(),
       topOffSet: 24,
     );
     _drawBars(canvas, size);
