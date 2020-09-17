@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/chart_title.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/chart_title.dart';
 
 class NormalChartTitle extends ChartTitle {
   static final _threeDots = '\u2026';
@@ -18,22 +20,34 @@ class NormalChartTitle extends ChartTitle {
 
   final _verticalDividerWidth = 8.0;
 
-  final String title;
+  final RKString title;
   final double itemHeight;
-  final double previousHeights;
 
-  NormalChartTitle(this.title, this.itemHeight, this.previousHeights);
+  NormalChartTitle(
+    this.title,
+    this.itemHeight,
+  ) : super(title, itemHeight);
 
   @override
-  Offset draw(Canvas canvas, Size size) {
-    _drawBottomDivider(canvas, size);
-    _drawRightShadow(canvas, size);
-    return _drawTitle(canvas, size);
+  Offset draw(
+    BuildContext context,
+    Canvas canvas,
+    Size size,
+    double previousHeights,
+  ) {
+    _drawBottomDivider(canvas, size, previousHeights);
+    _drawRightShadow(canvas, size, previousHeights);
+    return _drawTitle(context, canvas, size, previousHeights);
   }
 
-  Offset _drawTitle(Canvas canvas, Size size) {
+  Offset _drawTitle(
+    BuildContext context,
+    Canvas canvas,
+    Size size,
+    double previousHeights,
+  ) {
     final textSpan = TextSpan(
-      text: title,
+      text: context.translate(title),
       style: _titleStyle,
     );
 
@@ -56,7 +70,7 @@ class NormalChartTitle extends ChartTitle {
     );
   }
 
-  void _drawBottomDivider(Canvas canvas, Size size) {
+  void _drawBottomDivider(Canvas canvas, Size size, double previousHeights) {
     final y = itemHeight + previousHeights;
     canvas.drawLine(
       Offset(0, y),
@@ -65,7 +79,7 @@ class NormalChartTitle extends ChartTitle {
     );
   }
 
-  void _drawRightShadow(Canvas canvas, Size size) {
+  void _drawRightShadow(Canvas canvas, Size size, double previousHeights) {
     final rect = Rect.fromLTRB(
       size.width - _verticalDividerWidth,
       previousHeights,

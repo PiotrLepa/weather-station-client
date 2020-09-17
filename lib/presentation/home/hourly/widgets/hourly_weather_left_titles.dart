@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/chart_title.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/left_titles_painter2.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/legend_chart_title.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/normal_chart_title.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/chart_title.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/left_titles_painter.dart';
 
 class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
-  final KtList<String> leftTitles;
+  final KtList<ChartTitle> titles;
+  final double maxWidth;
 
-  final double _leftTitlesWidth;
-
-  HourlyWeatherLeftTitles({@required this.leftTitles})
-      : _leftTitlesWidth = leftTitles[1].length * 10.0;
+  HourlyWeatherLeftTitles({
+    @required this.titles,
+    @required this.maxWidth,
+  });
 
   @override
   Widget build(
@@ -22,14 +20,15 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: ThemeProvider.of(context).backgroundColor,
+      color: ChartConstants.backgroundColor,
       child: CustomPaint(
         size: Size(
-          _leftTitlesWidth,
+          maxWidth,
           ChartConstants.heights.sum(),
         ),
-        painter: LeftTitlesPainter2(
-          titles: _getChartTitles(),
+        painter: LeftTitlesPainter(
+          context: context,
+          titles: titles,
         ),
       ),
     );
@@ -37,35 +36,11 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(HourlyWeatherLeftTitles oldDelegate) {
-    return oldDelegate.leftTitles != leftTitles;
-  }
-
-  KtList<ChartTitle> _getChartTitles() {
-    double sum = 0;
-    return leftTitles.mapIndexed((index, title) {
-      final itemHeight = ChartConstants.heights[index];
-      if (index == 5) {
-        final chartTitle = LegendChartTitle(
-          title,
-          itemHeight,
-          sum,
-          KtList.of(
-            ChartLegend('Pm 1', Colors.red),
-            ChartLegend('Pm 25', Colors.grey),
-            ChartLegend('Pm 10', Colors.blue),
-          ),
-        );
-        sum += itemHeight;
-        return chartTitle;
-      }
-      final chartTitle = NormalChartTitle(title, itemHeight, sum);
-      sum += itemHeight;
-      return chartTitle;
-    });
+    return oldDelegate.titles != titles;
   }
 
   @override
-  double get maxExtent => _leftTitlesWidth;
+  double get maxExtent => maxWidth;
 
   @override
   double get minExtent => 50;

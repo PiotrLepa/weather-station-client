@@ -40,8 +40,8 @@ class VerticalDividersPainter extends CustomPainter {
   void _drawVerticalLines(Canvas canvas, Size size) {
     final firstColorHeight = KtList.of(
       ChartConstants.xAxisTitlesHeight,
-      ChartConstants.tempChartHeight,
-      ChartConstants.rainChartHeight,
+      ChartConstants.tempHeight,
+      ChartConstants.rainHeight,
     ).sum();
 
     for (int i = 0; i < xSpots.size - 1; i++) {

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class AirPollutionPainter extends CustomPainter {
@@ -14,19 +15,19 @@ class AirPollutionPainter extends CustomPainter {
 
   final _pm1BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.deepPurple[200]
+    ..color = ChartConstants.airPollutionPm1Color
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   final _pm25BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.red[200]
+    ..color = ChartConstants.airPollutionPm25Color
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 
   final _pm10BarPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = Colors.green[200]
+    ..color = ChartConstants.airPollutionPm10Color
     ..style = PaintingStyle.fill
     ..strokeWidth = 2;
 

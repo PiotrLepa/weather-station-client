@@ -21,16 +21,20 @@ class WeatherChart extends StatelessWidget {
       elevation: 4,
       child: ScrollConfiguration(
         behavior: DisableOverscrollGlowBehavior(),
-        child: SizedBox(
+        child: Container(
           height: ChartConstants.heights.sum(),
+          color: ChartConstants.backgroundColor,
           child: CustomScrollView(
             scrollDirection: Axis.horizontal,
             slivers: [
               SliverPersistentHeader(
                 floating: true,
                 delegate: HourlyWeatherLeftTitles(
-                  leftTitles: ChartConstants.leftTitles
-                      .map((title) => context.translate(title)),
+                  titles: ChartConstants.leftTitles,
+                  maxWidth: context
+                          .translate(ChartConstants.leftTitles[1].title)
+                          .length *
+                      10.0,
                 ),
               ),
               SliverList(

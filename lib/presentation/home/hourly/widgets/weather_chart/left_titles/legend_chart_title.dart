@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_title/normal_chart_title.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/normal_chart_title.dart';
 
 class LegendChartTitle extends NormalChartTitle {
   static final _threeDots = '\u2026';
@@ -15,21 +17,24 @@ class LegendChartTitle extends NormalChartTitle {
     ..style = PaintingStyle.stroke
     ..style = PaintingStyle.fill;
 
-  final String title;
+  final RKString title;
   final double itemHeight;
-  final double previousHeights;
   final KtList<ChartLegend> legends;
 
   LegendChartTitle(
     this.title,
     this.itemHeight,
-    this.previousHeights,
     this.legends,
-  ) : super(title, itemHeight, previousHeights);
+  ) : super(title, itemHeight);
 
   @override
-  Offset draw(Canvas canvas, Size size) {
-    final titleOffSet = super.draw(canvas, size);
+  Offset draw(
+    BuildContext context,
+    Canvas canvas,
+    Size size,
+    double previousHeights,
+  ) {
+    final titleOffSet = super.draw(context, canvas, size, previousHeights);
     final squareSize = 15.0;
     final spaceHeight = 5.0;
 
@@ -38,19 +43,18 @@ class LegendChartTitle extends NormalChartTitle {
         titleOffSet.dx,
         titleOffSet.dy + (squareSize + spaceHeight) * index,
       );
-      _drawLegend(canvas, size, squareSize, offSet, legend);
+      _drawLegend(context, canvas, size, squareSize, offSet, legend);
     });
 
     return titleOffSet;
   }
 
-  void _drawLegend(
-    Canvas canvas,
-    Size size,
-    double squareSize,
-    Offset titleOffset,
-    ChartLegend legend,
-  ) {
+  void _drawLegend(BuildContext context,
+      Canvas canvas,
+      Size size,
+      double squareSize,
+      Offset titleOffset,
+      ChartLegend legend,) {
     canvas.drawRect(
       Rect.fromLTWH(
         titleOffset.dx,
@@ -62,7 +66,7 @@ class LegendChartTitle extends NormalChartTitle {
     );
 
     final textSpan = TextSpan(
-      text: legend.text,
+      text: context.translate(legend.text),
       style: _legendStyle,
     );
 
@@ -82,11 +86,9 @@ class LegendChartTitle extends NormalChartTitle {
 }
 
 class ChartLegend {
-  final String text;
+  final RKString text;
   final Color color;
 
-  ChartLegend(
-    this.text,
-    this.color,
-  );
+  ChartLegend(this.text,
+      this.color,);
 }
