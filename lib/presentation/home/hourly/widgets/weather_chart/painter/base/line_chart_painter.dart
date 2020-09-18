@@ -10,6 +10,9 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   final KtList<X> xSpots;
   final KtList<Y> ySpots;
   final Color lineColor;
+  final Color dotBorderColor;
+  final Color dotFillColor;
+  final String unit;
   final int topOffset;
   final int bottomOffset;
 
@@ -18,14 +21,10 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     ..strokeWidth = 2;
 
   final _dotBorderPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = Colors.black
     ..style = PaintingStyle.fill
     ..strokeWidth = 1;
 
   final _dotFillPaint = Paint()
-    ..style = PaintingStyle.stroke
-    ..color = Colors.white
     ..style = PaintingStyle.fill
     ..strokeWidth = 1;
 
@@ -33,10 +32,15 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     @required this.ySpots,
     @required this.xSpots,
     @required this.lineColor,
+    this.dotBorderColor,
+    this.dotFillColor,
+    this.unit = '',
     this.topOffset = 0,
     this.bottomOffset = 0,
   }) {
     _linePaint.color = lineColor;
+    _dotBorderPaint.color = dotBorderColor ?? Colors.black;
+    _dotFillPaint.color = dotFillColor ?? Colors.white;
   }
 
   @override
@@ -94,7 +98,7 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
 
       final textSpan = TextSpan(
-        text: '${ySpots[i]}°',
+        text: '${ySpots[i]}$unit',
         style: textStyle,
       );
 

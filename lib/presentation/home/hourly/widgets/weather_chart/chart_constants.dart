@@ -9,6 +9,7 @@ class ChartConstants {
   static final maxWindHeight = 60.0;
   static final humidityHeight = 100.0;
   static final airPollutionHeight = 200.0;
+  static final pressureHeight = 100.0;
 
   static final spotWidth = 60.0;
   static final verticalDividerWidth = 1.0;
@@ -28,5 +29,6 @@ class ChartConstants {
     avgWindHeight,
     humidityHeight,
     airPollutionHeight,
+    pressureHeight,
   );
 }

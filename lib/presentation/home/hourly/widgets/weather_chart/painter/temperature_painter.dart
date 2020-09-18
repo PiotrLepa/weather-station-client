@@ -15,6 +15,7 @@ class TemperaturePainter extends LineChartPainter<int, int> {
           xSpots: timeSpots,
           ySpots: tempSpots,
           lineColor: const Color(0xfff0c419),
+          unit: '°',
           topOffset: 24,
           bottomOffset: 24,
         );

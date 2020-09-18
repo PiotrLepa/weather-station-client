@@ -7,6 +7,7 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/p
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/avg_wind_speed_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/humidity_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/max_wind_speed_painter.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/pressure_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/rain_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/temperature_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/x_axis_titles_painter.dart';
@@ -119,6 +120,23 @@ class WeatherChartContent extends StatelessWidget {
                 pm1Spots: weathers.map((w) => w.pm1),
                 pm25Spots: weathers.map((w) => w.pm25),
                 pm10Spots: weathers.map((w) => w.pm10),
+                timeSpots: _timeSpots,
+              ),
+            ),
+          ),
+          Positioned(
+            left: chartOffset,
+            top: ChartConstants.xAxisTitlesHeight +
+                ChartConstants.tempHeight +
+                ChartConstants.rainHeight +
+                ChartConstants.maxWindHeight +
+                ChartConstants.avgWindHeight +
+                ChartConstants.humidityHeight +
+                ChartConstants.airPollutionHeight,
+            child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.pressureHeight),
+              painter: PressurePainter(
+                pressureSpots: weathers.map((w) => w.pressure),
                 timeSpots: _timeSpots,
               ),
             ),
