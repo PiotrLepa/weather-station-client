@@ -24,9 +24,7 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     ..style = PaintingStyle.fill
     ..strokeWidth = 1;
 
-  final _dotFillPaint = Paint()
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 1;
+  final _dotFillPaint = Paint()..style = PaintingStyle.fill;
 
   LineChartPainter({
     @required this.ySpots,

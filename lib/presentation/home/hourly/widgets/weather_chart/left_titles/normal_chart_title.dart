@@ -82,11 +82,10 @@ class NormalChartTitle extends ChartTitle {
       size.width - _verticalDividerWidth,
       previousHeights,
       size.width,
-      size.height + previousHeights,
+      itemHeight + previousHeights,
     );
     final colors = [
       ChartConstants.dividerColor.withOpacity(0),
-      ChartConstants.dividerColor.withOpacity(0.3),
       ChartConstants.dividerColor,
     ];
 

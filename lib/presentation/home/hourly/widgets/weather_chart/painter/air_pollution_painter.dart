@@ -14,22 +14,16 @@ class AirPollutionPainter extends CustomPainter {
   final KtList<int> timeSpots;
 
   final _pm1BarPaint = Paint()
-    ..style = PaintingStyle.stroke
     ..color = ChartConstants.airPollutionPm1Color
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 2;
+    ..style = PaintingStyle.fill;
 
   final _pm25BarPaint = Paint()
-    ..style = PaintingStyle.stroke
     ..color = ChartConstants.airPollutionPm25Color
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 2;
+    ..style = PaintingStyle.fill;
 
   final _pm10BarPaint = Paint()
-    ..style = PaintingStyle.stroke
     ..color = ChartConstants.airPollutionPm10Color
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 2;
+    ..style = PaintingStyle.fill;
 
   final _spotValueStyle = TextStyle(
     color: Colors.black,

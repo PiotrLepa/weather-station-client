@@ -9,11 +9,11 @@ class VerticalDividersPainter extends CustomPainter {
   final pixelCalculator = ChartPixelCalculator<int, int>();
   final KtList<int> xSpots;
 
-  final _topVerticalDividerPaint = Paint()
+  final _verticalDividerPaint = Paint()
     ..color = ChartConstants.dividerColor
     ..strokeWidth = ChartConstants.verticalDividerWidth;
 
-  final _bottomVerticalDividerPaint = Paint()
+  final _windVerticalDividerPaint = Paint()
     ..color = Colors.white
     ..strokeWidth = ChartConstants.verticalDividerWidth;
 
@@ -38,10 +38,14 @@ class VerticalDividersPainter extends CustomPainter {
   }
 
   void _drawVerticalLines(Canvas canvas, Size size) {
-    final firstColorHeight = KtList.of(
+    final heightAboveWind = KtList.of(
       ChartConstants.xAxisTitlesHeight,
       ChartConstants.tempHeight,
       ChartConstants.rainHeight,
+    ).sum();
+    final windHeight = KtList.of(
+      ChartConstants.maxWindHeight,
+      ChartConstants.avgWindHeight,
     ).sum();
 
     for (int i = 0; i < xSpots.size - 1; i++) {
@@ -51,12 +55,12 @@ class VerticalDividersPainter extends CustomPainter {
       final centerX = currentX + difference / 2;
 
       final top1 = Offset(centerX, 0);
-      final bottom1 = Offset(centerX, firstColorHeight);
-      canvas.drawLine(top1, bottom1, _topVerticalDividerPaint);
+      final bottom1 = Offset(centerX, size.height);
+      canvas.drawLine(top1, bottom1, _verticalDividerPaint);
 
-      final top2 = Offset(centerX, firstColorHeight);
-      final bottom2 = Offset(centerX, size.height);
-      canvas.drawLine(top2, bottom2, _bottomVerticalDividerPaint);
+      final top2 = Offset(centerX, heightAboveWind);
+      final bottom2 = Offset(centerX, heightAboveWind + windHeight);
+      canvas.drawLine(top2, bottom2, _windVerticalDividerPaint);
     }
   }
 }

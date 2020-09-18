@@ -23,6 +23,7 @@ class LeftTitlesProvider {
           ChartLegend('Pm 10', ChartConstants.airPollutionPm10Color),
         ),
       ),
+      NormalChartTitle('Ciśnienie', ChartConstants.pressureHeight),
     );
   }
 }

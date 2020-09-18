@@ -11,10 +11,8 @@ class RainPainter extends CustomPainter {
   final KtList<int> timeSpots;
 
   final _barPaint = Paint()
-    ..style = PaintingStyle.stroke
     ..color = const Color(0xff27C4FF)
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 2;
+    ..style = PaintingStyle.fill;
 
   RainPainter({
     @required this.rainSpots,

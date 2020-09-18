@@ -7,8 +7,8 @@ import 'package:weather_station/core/presentation/date_time/date_time_formatter.
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class XAxisTitlesPainter extends CustomPainter {
-  final _pixelCalculator = ChartPixelCalculator<int, int>();
   final _dateFormatter = getIt<DateTimeFormatter>();
+  final _pixelCalculator = ChartPixelCalculator<int, int>();
   final _titleStyle = TextStyle(
     color: Colors.black,
     fontSize: 15,
