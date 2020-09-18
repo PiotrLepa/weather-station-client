@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/normal_chart_title.dart';
 
 class LegendChartTitle extends NormalChartTitle {
@@ -17,7 +15,7 @@ class LegendChartTitle extends NormalChartTitle {
     ..style = PaintingStyle.stroke
     ..style = PaintingStyle.fill;
 
-  final RKString title;
+  final String title;
   final double itemHeight;
   final KtList<ChartLegend> legends;
 
@@ -66,7 +64,7 @@ class LegendChartTitle extends NormalChartTitle {
     );
 
     final textSpan = TextSpan(
-      text: context.translate(legend.text),
+      text: legend.text,
       style: _legendStyle,
     );
 
@@ -86,7 +84,7 @@ class LegendChartTitle extends NormalChartTitle {
 }
 
 class ChartLegend {
-  final RKString text;
+  final String text;
   final Color color;
 
   ChartLegend(this.text,

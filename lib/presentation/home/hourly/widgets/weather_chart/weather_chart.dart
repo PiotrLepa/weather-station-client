@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_left_titles.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/left_titles_provider.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/weather_chart_content.dart';
 
 class WeatherChart extends StatelessWidget {
@@ -17,6 +17,7 @@ class WeatherChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final leftTitles = LeftTitlesProvider.getTitles(context);
     return Card(
       elevation: 4,
       child: ScrollConfiguration(
@@ -30,11 +31,8 @@ class WeatherChart extends StatelessWidget {
               SliverPersistentHeader(
                 floating: true,
                 delegate: HourlyWeatherLeftTitles(
-                  titles: ChartConstants.leftTitles,
-                  maxWidth: context
-                          .translate(ChartConstants.leftTitles[1].title)
-                          .length *
-                      10.0,
+                  titles: leftTitles,
+                  maxWidth: leftTitles[1].title.length * 10.0,
                 ),
               ),
               SliverList(

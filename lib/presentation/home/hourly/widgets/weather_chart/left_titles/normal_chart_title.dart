@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/chart_title.dart';
 
@@ -20,7 +18,7 @@ class NormalChartTitle extends ChartTitle {
 
   final _verticalDividerWidth = 8.0;
 
-  final RKString title;
+  final String title;
   final double itemHeight;
 
   NormalChartTitle(
@@ -47,7 +45,7 @@ class NormalChartTitle extends ChartTitle {
     double previousHeights,
   ) {
     final textSpan = TextSpan(
-      text: context.translate(title),
+      text: title,
       style: _titleStyle,
     );
 
