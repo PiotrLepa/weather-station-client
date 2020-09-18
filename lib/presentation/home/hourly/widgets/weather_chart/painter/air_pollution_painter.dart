@@ -56,7 +56,7 @@ class AirPollutionPainter extends CustomPainter {
       maxX: dateMillis.max(),
       minY: 0,
       maxY: summedValues.max(),
-      topOffSet: 24,
+      topOffSet: 12,
     );
     _drawBars(canvas, size);
   }

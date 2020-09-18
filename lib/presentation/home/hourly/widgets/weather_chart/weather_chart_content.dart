@@ -5,6 +5,7 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/air_pollution_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/avg_wind_speed_painter.dart';
+import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/humidity_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/max_wind_speed_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/rain_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/temperature_painter.dart';
@@ -97,14 +98,27 @@ class WeatherChartContent extends StatelessWidget {
                 ChartConstants.maxWindHeight +
                 ChartConstants.avgWindHeight,
             child: CustomPaint(
+              size: Size(_chartWidth, ChartConstants.humidityHeight),
+              painter: HumidityPainter(
+                humidity: weathers.map((w) => w.humidity),
+                dateMillis: _datesMillis,
+              ),
+            ),
+          ),
+          Positioned(
+            left: chartOffset,
+            top: ChartConstants.xAxisTitlesHeight +
+                ChartConstants.tempHeight +
+                ChartConstants.rainHeight +
+                ChartConstants.maxWindHeight +
+                ChartConstants.avgWindHeight +
+                ChartConstants.humidityHeight,
+            child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.airPollutionHeight),
               painter: AirPollutionPainter(
                 pm1Spots: weathers.map((w) => w.pm1),
                 pm25Spots: weathers.map((w) => w.pm25),
                 pm10Spots: weathers.map((w) => w.pm10),
-                // pm1Spots: getFakeSpots(),
-                // pm25Spots: getFakeSpots(),
-                // pm10Spots: getFakeSpots(),
                 dateMillis: _datesMillis,
               ),
             ),
@@ -119,34 +133,5 @@ class WeatherChartContent extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  KtList<double> getFakeSpots() {
-    return KtList.from([
-      13.2,
-      15.3,
-      14.5,
-      17.1,
-      25.3,
-      22.4,
-      13.2,
-      15.3,
-      14.5,
-      17.1,
-      25.3,
-      22.4,
-      13.2,
-      15.3,
-      14.5,
-      17.1,
-      25.3,
-      22.4,
-      13.2,
-      15.3,
-      14.5,
-      17.1,
-      25.3,
-      22.4,
-    ]);
   }
 }

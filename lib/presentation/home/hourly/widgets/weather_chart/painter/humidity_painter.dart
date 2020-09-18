@@ -41,15 +41,16 @@ class HumidityPainter extends CustomPainter {
       minY: humidity.min(),
       maxY: humidity.max(),
       topOffSet: 24,
-      bottomOffSet: 24,
+      bottomOffSet: 12,
     );
     _drawLines(canvas);
     _drawDots(canvas);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(HumidityPainter oldDelegate) {
+    return oldDelegate.humidity != humidity &&
+        oldDelegate.dateMillis != dateMillis;
   }
 
   void _drawLines(Canvas canvas) {
