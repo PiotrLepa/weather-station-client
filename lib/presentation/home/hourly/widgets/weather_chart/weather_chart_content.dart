@@ -14,13 +14,13 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/v
 
 class WeatherChartContent extends StatelessWidget {
   final KtList<Weather> weathers;
-  final KtList<int> _datesMillis;
+  final KtList<int> _timeSpots;
   final double _chartWidth;
 
   WeatherChartContent({
     Key key,
     @required this.weathers,
-  })  : _datesMillis = weathers.map((w) => w.date.millisecondsSinceEpoch),
+  })  : _timeSpots = weathers.map((w) => w.date.millisecondsSinceEpoch),
         _chartWidth = weathers.size * ChartConstants.spotWidth,
         super(key: key);
 
@@ -37,7 +37,7 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.xAxisTitlesHeight),
               painter: XAxisTitlesPainter(
-                xSpots: _datesMillis,
+                xSpots: _timeSpots,
               ),
             ),
           ),
@@ -47,8 +47,8 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.tempHeight),
               painter: TemperaturePainter(
-                temps: weathers.map((e) => e.temperature),
-                dateMillis: _datesMillis,
+                tempSpots: weathers.map((e) => e.temperature),
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -58,8 +58,8 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.rainHeight),
               painter: RainPainter(
-                rains: weathers.map((e) => e.rainGauge),
-                dateMillis: _datesMillis,
+                rainSpots: weathers.map((e) => e.rainGauge),
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -71,8 +71,8 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.maxWindHeight),
               painter: MaxWindSpeedPainter(
-                speeds: weathers.map((w) => w.windSpeedMax),
-                dateMillis: _datesMillis,
+                speedSpots: weathers.map((w) => w.windSpeedMax),
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -85,8 +85,8 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.avgWindHeight),
               painter: AvgWindSpeedPainter(
-                speeds: weathers.map((w) => w.windSpeedAvg),
-                dateMillis: _datesMillis,
+                speedSpots: weathers.map((w) => w.windSpeedAvg),
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -100,8 +100,8 @@ class WeatherChartContent extends StatelessWidget {
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.humidityHeight),
               painter: HumidityPainter(
-                humidity: weathers.map((w) => w.humidity),
-                dateMillis: _datesMillis,
+                humiditySpots: weathers.map((w) => w.humidity),
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -119,7 +119,7 @@ class WeatherChartContent extends StatelessWidget {
                 pm1Spots: weathers.map((w) => w.pm1),
                 pm25Spots: weathers.map((w) => w.pm25),
                 pm10Spots: weathers.map((w) => w.pm10),
-                dateMillis: _datesMillis,
+                timeSpots: _timeSpots,
               ),
             ),
           ),
@@ -127,7 +127,7 @@ class WeatherChartContent extends StatelessWidget {
             left: chartOffset,
             child: CustomPaint(
               size: Size(_chartWidth, ChartConstants.heights.sum()),
-              painter: VerticalDividersPainter(xSpots: _datesMillis),
+              painter: VerticalDividersPainter(xSpots: _timeSpots),
             ),
           ),
         ],

@@ -7,26 +7,26 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 class AvgWindSpeedPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
-  final KtList<double> speeds;
-  final KtList<int> dateMillis;
+  final KtList<double> speedSpots;
+  final KtList<int> timeSpots;
 
   final _containerPaint = Paint()
     ..color = Colors.grey[300]
     ..style = PaintingStyle.fill;
 
   AvgWindSpeedPainter({
-    @required this.speeds,
-    @required this.dateMillis,
+    @required this.speedSpots,
+    @required this.timeSpots,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minX: dateMillis.min(),
-      maxX: dateMillis.max(),
-      minY: speeds.min(),
-      maxY: speeds.max(),
+      minX: timeSpots.min(),
+      maxX: timeSpots.max(),
+      minY: speedSpots.min(),
+      maxY: speedSpots.max(),
     );
     _drawContainer(canvas, size);
     _drawText(canvas, size);
@@ -35,18 +35,19 @@ class AvgWindSpeedPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     final oldPainter = oldDelegate as AvgWindSpeedPainter;
-    return oldPainter.speeds != speeds || oldPainter.dateMillis != dateMillis;
+    return oldPainter.speedSpots != speedSpots ||
+        oldPainter.timeSpots != timeSpots;
   }
 
   void _drawContainer(Canvas canvas, Size size) {
     final Path path = Path();
 
-    final barWidth = _pixelCalculator.getPixelX(dateMillis[1]) -
-        _pixelCalculator.getPixelX(dateMillis[0]);
+    final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
+        _pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < speeds.size; i++) {
-      final x = _pixelCalculator.getPixelX(dateMillis[i]);
+    for (int i = 0; i < speedSpots.size; i++) {
+      final x = _pixelCalculator.getPixelX(timeSpots[i]);
 
       path.addRect(
         Rect.fromLTRB(
@@ -67,11 +68,11 @@ class AvgWindSpeedPainter extends CustomPainter {
       fontSize: 14,
     );
 
-    for (int i = 0; i < speeds.size; i++) {
-      final double x = _pixelCalculator.getPixelX(dateMillis[i]);
+    for (int i = 0; i < speedSpots.size; i++) {
+      final double x = _pixelCalculator.getPixelX(timeSpots[i]);
 
       final textSpan = TextSpan(
-        text: '${speeds[i]}\nkm/h',
+        text: '${speedSpots[i]}\nkm/h',
         style: textStyle,
       );
 

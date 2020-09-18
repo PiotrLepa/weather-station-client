@@ -7,8 +7,8 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 class RainPainter extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
-  final KtList<double> rains;
-  final KtList<int> dateMillis;
+  final KtList<double> rainSpots;
+  final KtList<int> timeSpots;
 
   final _barPaint = Paint()
     ..style = PaintingStyle.stroke
@@ -17,18 +17,18 @@ class RainPainter extends CustomPainter {
     ..strokeWidth = 2;
 
   RainPainter({
-    @required this.rains,
-    @required this.dateMillis,
+    @required this.rainSpots,
+    @required this.timeSpots,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minX: dateMillis.min(),
-      maxX: dateMillis.max(),
+      minX: timeSpots.min(),
+      maxX: timeSpots.max(),
       minY: 0,
-      maxY: rains.max(),
+      maxY: rainSpots.max(),
       topOffSet: 24,
     );
     _drawBars(canvas, size);
@@ -38,19 +38,20 @@ class RainPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     final oldPainter = oldDelegate as RainPainter;
-    return oldPainter.rains != rains || oldPainter.dateMillis != dateMillis;
+    return oldPainter.rainSpots != rainSpots ||
+        oldPainter.timeSpots != timeSpots;
   }
 
   void _drawBars(Canvas canvas, Size size) {
     final Path path = Path();
 
-    final barWidth = _pixelCalculator.getPixelX(dateMillis[1]) -
-        _pixelCalculator.getPixelX(dateMillis[0]);
+    final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
+        _pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < rains.size; i++) {
-      final x = _pixelCalculator.getPixelX(dateMillis[i]);
-      final y = _pixelCalculator.getPixelY(rains[i]);
+    for (int i = 0; i < rainSpots.size; i++) {
+      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       path.addRect(
         Rect.fromLTRB(
@@ -71,12 +72,12 @@ class RainPainter extends CustomPainter {
       fontSize: 14,
     );
 
-    for (int i = 0; i < rains.size; i++) {
-      final double x = _pixelCalculator.getPixelX(dateMillis[i]);
-      final double y = _pixelCalculator.getPixelY(rains[i]);
+    for (int i = 0; i < rainSpots.size; i++) {
+      final double x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final double y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       final textSpan = TextSpan(
-        text: '${rains[i]} mm',
+        text: '${rainSpots[i]} mm',
         style: textStyle,
       );
 

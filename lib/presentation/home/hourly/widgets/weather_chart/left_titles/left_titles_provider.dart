@@ -19,7 +19,7 @@ class LeftTitlesProvider {
         ChartConstants.airPollutionHeight,
         KtList.of(
           ChartLegend('Pm 1', ChartConstants.airPollutionPm1Color),
-          ChartLegend('Pm 25', ChartConstants.airPollutionPm25Color),
+          ChartLegend('Pm 2.5', ChartConstants.airPollutionPm25Color),
           ChartLegend('Pm 10', ChartConstants.airPollutionPm10Color),
         ),
       ),

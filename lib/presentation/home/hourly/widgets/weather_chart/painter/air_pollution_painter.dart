@@ -11,7 +11,7 @@ class AirPollutionPainter extends CustomPainter {
   final KtList<double> pm1Spots;
   final KtList<double> pm25Spots;
   final KtList<double> pm10Spots;
-  final KtList<int> dateMillis;
+  final KtList<int> timeSpots;
 
   final _pm1BarPaint = Paint()
     ..style = PaintingStyle.stroke
@@ -40,7 +40,7 @@ class AirPollutionPainter extends CustomPainter {
     @required this.pm1Spots,
     @required this.pm25Spots,
     @required this.pm10Spots,
-    @required this.dateMillis,
+    @required this.timeSpots,
   });
 
   @override
@@ -52,8 +52,8 @@ class AirPollutionPainter extends CustomPainter {
 
     pixelCalculator.initialize(
       size,
-      minX: dateMillis.min(),
-      maxX: dateMillis.max(),
+      minX: timeSpots.min(),
+      maxX: timeSpots.max(),
       minY: 0,
       maxY: summedValues.max(),
       topOffSet: 12,
@@ -67,16 +67,16 @@ class AirPollutionPainter extends CustomPainter {
     return oldPainter.pm1Spots != pm1Spots ||
         oldPainter.pm25Spots != pm25Spots ||
         oldPainter.pm10Spots != pm10Spots ||
-        oldPainter.dateMillis != dateMillis;
+        oldPainter.timeSpots != timeSpots;
   }
 
   void _drawBars(Canvas canvas, Size size) {
-    final barWidth = pixelCalculator.getPixelX(dateMillis[1]) -
-        pixelCalculator.getPixelX(dateMillis[0]);
+    final barWidth = pixelCalculator.getPixelX(timeSpots[1]) -
+        pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
     for (int i = 0; i < pm1Spots.size; i++) {
-      final x = pixelCalculator.getPixelX(dateMillis[i]);
+      final x = pixelCalculator.getPixelX(timeSpots[i]);
       final pm1Pixel = pixelCalculator.getPixelY(pm1Spots[i]);
       final pm25Pixel = pixelCalculator.getPixelY(pm25Spots[i]);
       final pm10Pixel = pixelCalculator.getPixelY(pm10Spots[i]);
