@@ -31,7 +31,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
             ),
             HomeLocation(location: location),
             SizedBox(height: 20),
-            HomeUpdateTime(lastUpdateTime: lastUpdateTime),
+            CurrentWeatherUpdateTime(lastUpdateTime: lastUpdateTime),
           ],
         ),
       ),

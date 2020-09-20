@@ -18,11 +18,13 @@ class CurrentWeatherPage extends StatelessWidget {
         ..add(CurrentWeatherEvent.pageStarted()),
       child: Scaffold(
         body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
+          buildWhen: (oldState, newState) => newState is! DoNothing,
           builder: (context, state) {
-            return state.map(
+            return state.maybeMap(
               initialLoading: (_) => Center(child: LoadingIndicator()),
               renderWeather: (s) => _buildPage(s.weather),
               renderError: (_) => Container(),
+              orElse: () => Container(),
             );
           },
         ),

@@ -36,8 +36,8 @@ class FlushbarHelper {
       );
 
   Future<void> showSuccess({
-    @required String message,
-    String title,
+    @required RKString message,
+    RKString title,
   }) =>
       _showFlushbar(
         flushbar: SuccessFlushbar(

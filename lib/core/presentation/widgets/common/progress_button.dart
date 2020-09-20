@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 class ProgressButton extends StatefulWidget {
   final String text;
+  final TextStyle textStyle;
+  final Color backgroundColor;
+  final Color progressColor;
   final VoidCallback onPressed;
-  final Color color;
 
   const ProgressButton({
     Key key,
     @required this.text,
     @required this.onPressed,
-    this.color,
+    this.textStyle,
+    this.progressColor,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -27,11 +31,16 @@ class ProgressButtonState extends State<ProgressButton> {
           widget.onPressed();
         }
       },
-      color: widget.color ?? Theme.of(context).buttonTheme.colorScheme,
+      color:
+          widget.backgroundColor ?? Theme.of(context).buttonTheme.colorScheme,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(_progressVisible ? 'Ładowanie...' : widget.text),
+          SizedBox(width: 16),
+          Text(
+            _progressVisible ? 'Ładowanie...' : widget.text,
+            style: widget.textStyle,
+          ),
           SizedBox(width: 16),
           Visibility(
             visible: _progressVisible,
@@ -40,6 +49,7 @@ class ProgressButtonState extends State<ProgressButton> {
               height: 24,
               child: CircularProgressIndicator(
                 strokeWidth: 3,
+                valueColor: AlwaysStoppedAnimation<Color>(widget.progressColor),
               ),
             ),
           )

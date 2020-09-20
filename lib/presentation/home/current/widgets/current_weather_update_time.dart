@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/util/plural_util.dart';
+import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
+import 'package:weather_station/domain/bloc/current_weather/current_weather_bloc.dart';
 
-class HomeUpdateTime extends StatelessWidget {
-  final DateTime lastUpdateTime;
+class CurrentWeatherUpdateTime extends StatelessWidget {
   final pluralUtil = getIt<PluralUtil>();
+  final _refreshButtonKey = GlobalKey<ProgressButtonState>();
 
-  HomeUpdateTime({
+  final DateTime lastUpdateTime;
+
+  CurrentWeatherUpdateTime({
     Key key,
     @required this.lastUpdateTime,
   }) : super(key: key);
@@ -55,17 +60,24 @@ class HomeUpdateTime extends StatelessWidget {
           ),
           Wrap(
             children: [
-              RaisedButton(
-                onPressed: () {},
-                color: ThemeProvider.of(context).primaryColorLight,
-                child: Text(
-                  "Odśwież",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: ThemeProvider
-                        .of(context)
-                        .textColorInverted,
-                  ),
+              ProgressButton(
+                key: _refreshButtonKey,
+                onPressed: () {
+                  _refreshButtonKey.currentState.show();
+                  context
+                      .bloc<CurrentWeatherBloc>()
+                      .add(CurrentWeatherEvent.refreshPressed());
+                },
+                backgroundColor: ThemeProvider
+                    .of(context)
+                    .primaryColorLight,
+                progressColor: Colors.white,
+                text: 'Odśwież',
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  color: ThemeProvider
+                      .of(context)
+                      .textColorInverted,
                 ),
               )
             ],

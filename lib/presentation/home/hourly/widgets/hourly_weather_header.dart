@@ -52,7 +52,7 @@ class HourlyWeatherHeader extends StatelessWidget {
                 child: ProgressButton(
                   key: _changeDateButtonKey,
                   text: 'Zmień dzień',
-                  color: Colors.white,
+                  backgroundColor: Colors.white,
                   onPressed: () => _showDatePicker(context),
                 ),
               ),
