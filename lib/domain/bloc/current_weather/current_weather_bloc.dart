@@ -36,26 +36,33 @@ class CurrentWeatherBloc
     );
   }
 
-  Stream<CurrentWeatherState> _mapPageStarted(PageStarted event,) async* {
+  Stream<CurrentWeatherState> _mapPageStarted(
+    PageStarted event,
+  ) async* {
     final request = callApi(_weatherRepository.fetchCurrentWeather());
     await for (final requestState in request) {
       yield* requestState.when(
         progress: () async* {
           yield CurrentWeatherState.initialLoading();
         },
-        success: (response) async* {
-          _fetchedWeather = response;
-          yield CurrentWeatherState.renderWeather(response);
+        success: (weather) async* {
+          _fetchedWeather = weather;
+          yield CurrentWeatherState.renderWeather(weather);
         },
-        error: (errorMessage) async* {
-          yield CurrentWeatherState.renderError(errorMessage);
+        error: (message) async* {
+          _flushbarHelper.showError(message: message);
+          yield CurrentWeatherState.renderError(
+            RawString('Nie udało się pobrać danych'),
+          );
         },
       );
     }
   }
 
-  Stream<CurrentWeatherState> _mapRefreshPage(RefreshPressed event,) async* {
-    yield CurrentWeatherState.doNothing();
+  Stream<CurrentWeatherState> _mapRefreshPage(
+    RefreshPressed event,
+  ) async* {
+    yield CurrentWeatherState.nothing();
 
     if (!_shouldRefreshWeather()) {
       _flushbarHelper.showSuccess(message: RawString('Dane są aktualne'));
@@ -65,13 +72,16 @@ class CurrentWeatherBloc
       await for (final requestState in request) {
         yield* requestState.when(
           progress: () async* {},
-          success: (response) async* {
-            _fetchedWeather = response;
+          success: (weather) async* {
+            _fetchedWeather = weather;
             _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
-            yield CurrentWeatherState.renderWeather(response);
+            yield CurrentWeatherState.renderWeather(weather);
           },
-          error: (errorMessage) async* {
-            yield CurrentWeatherState.renderError(errorMessage);
+          error: (message) async* {
+            _flushbarHelper.showError(message: message);
+            yield CurrentWeatherState.renderError(
+              RawString('Nie udało się pobrać danych'),
+            );
           },
         );
       }

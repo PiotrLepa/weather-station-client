@@ -49,7 +49,9 @@ class ProgressButtonState extends State<ProgressButton> {
               height: 24,
               child: CircularProgressIndicator(
                 strokeWidth: 3,
-                valueColor: AlwaysStoppedAnimation<Color>(widget.progressColor),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  widget.progressColor ?? widget.textStyle?.color,
+                ),
               ),
             ),
           )

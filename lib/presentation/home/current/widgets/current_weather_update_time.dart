@@ -33,7 +33,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
         children: [
           RichText(
             text:
-            TextSpan(style: DefaultTextStyle.of(context).style, children: [
+                TextSpan(style: DefaultTextStyle.of(context).style, children: [
               TextSpan(
                 text: 'Zaktualizowano: ',
                 style: TextStyle(
@@ -74,7 +74,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 progressColor: Colors.white,
                 text: 'Odśwież',
                 textStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: Dimens.scale(20),
                   color: ThemeProvider
                       .of(context)
                       .textColorInverted,

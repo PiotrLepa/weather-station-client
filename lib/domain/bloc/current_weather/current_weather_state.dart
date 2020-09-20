@@ -4,7 +4,7 @@ part of 'current_weather_bloc.dart';
 abstract class CurrentWeatherState with _$CurrentWeatherState {
   const factory CurrentWeatherState.initialLoading() = InitialLoading;
 
-  const factory CurrentWeatherState.doNothing() = DoNothing;
+  const factory CurrentWeatherState.nothing() = Nothing;
 
   const factory CurrentWeatherState.renderWeather(Weather weather) =
       RenderWeather;

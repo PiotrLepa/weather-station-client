@@ -18,10 +18,11 @@ class HourlyWeatherPage extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
           builder: (context, state) {
-            return SafeArea(
-              child: state.map(
+            return Scaffold(
+              appBar: AppBar(elevation: 0),
+              body: state.map(
                 initial: (_) => Center(child: HourlyWeatherInitial()),
-                renderCharts: (s) => _buildFakePage(context, s.weathers),
+                renderCharts: (s) => _buildPage(context, s.weathers),
                 renderError: (_) => Container(),
               ),
             );
@@ -31,13 +32,13 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFakePage(BuildContext context, KtList<Weather> weathers) {
+  Widget _buildPage(BuildContext context, KtList<Weather> weathers) {
     return ScrollConfiguration(
       behavior: DisableOverscrollGlowBehavior(),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            HourlyWeatherHeader(day: weathers[0].date),
+            Container(child: HourlyWeatherHeader(day: weathers[0].date)),
             SizedBox(height: 24),
             WeatherChart(weathers: weathers),
             SizedBox(height: 48),

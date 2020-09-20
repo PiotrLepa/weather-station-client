@@ -28,11 +28,10 @@ class HourlyWeatherHeader extends StatelessWidget {
           color: ThemeProvider.of(context).primaryColor,
         ),
         child: Padding(
-          padding: EdgeInsets.all(padding),
+          padding: EdgeInsets.fromLTRB(padding, 0, padding, padding),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 24),
+              // SizedBox(height: 24),
               Row(
                 children: [
                   HourlyWeatherSelectedDate(day: day),

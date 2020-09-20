@@ -8,7 +8,6 @@ import 'package:weather_station/core/injection/injection.dart';
 @lazySingleton
 class NetworkErrorHandler {
   Future<T> handleError<T>(dynamic error, StackTrace stackTrace) async {
-    logger.e("NetworkErrorHandler", error, stackTrace);
     if (error is DioError) {
       final apiException = _mapError(error);
       return Future.error(apiException);
@@ -18,6 +17,9 @@ class NetworkErrorHandler {
   }
 
   ApiException _mapError(DioError dioError) {
+    if (dioError.error is ApiException) {
+      return dioError.error as ApiException;
+    }
     final response = dioError.response;
     final statusCode = response?.statusCode;
     try {

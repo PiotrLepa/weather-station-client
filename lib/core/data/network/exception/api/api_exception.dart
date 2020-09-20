@@ -7,7 +7,7 @@ part 'api_exception.freezed.dart';
 @freezed
 abstract class ApiException with _$ApiException implements Exception {
   const factory ApiException.noConnection(
-    int code,
+    @nullable int code,
     @nullable String printableMessage,
   ) = NoConnection;
 
@@ -26,8 +26,6 @@ abstract class ApiException with _$ApiException implements Exception {
     @nullable String printableMessage,
   ) = InternalServerError;
 
-  const factory ApiException.unknownError(
-    int code,
-    @nullable String printableMessage,
-  ) = UnknownError;
+  const factory ApiException.unknownError(@nullable int code,
+      @nullable String printableMessage,) = UnknownError;
 }

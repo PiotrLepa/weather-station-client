@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 
@@ -34,6 +35,9 @@ class HourlyWeatherInitial extends StatelessWidget {
             child: ProgressButton(
               key: _selectDateButtonKey,
               text: 'Wybierz',
+              textStyle: TextStyle(
+                color: ThemeProvider.of(context).textColorInverted,
+              ),
               onPressed: () => _showDatePicker(context),
             ),
           ),

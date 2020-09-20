@@ -10,7 +10,7 @@ class ConnectionInterceptor extends InterceptorsWrapper {
     bool hasConnection = await DataConnectionChecker().hasConnection;
 
     if (!hasConnection) {
-      throw ApiException.noConnection(-1, null);
+      throw ApiException.noConnection(null, null);
     }
 
     return super.onRequest(options);
