@@ -5,6 +5,7 @@ class ProgressButton extends StatefulWidget {
   final TextStyle textStyle;
   final Color backgroundColor;
   final Color progressColor;
+  final bool showRefreshAutomatically;
   final VoidCallback onPressed;
 
   const ProgressButton({
@@ -14,6 +15,7 @@ class ProgressButton extends StatefulWidget {
     this.textStyle,
     this.progressColor,
     this.backgroundColor,
+    this.showRefreshAutomatically = false,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,9 @@ class ProgressButtonState extends State<ProgressButton> {
     return RaisedButton(
       onPressed: () {
         if (!_progressVisible) {
+          if (widget.showRefreshAutomatically) {
+            show();
+          }
           widget.onPressed();
         }
       },
@@ -50,7 +55,7 @@ class ProgressButtonState extends State<ProgressButton> {
               child: CircularProgressIndicator(
                 strokeWidth: 3,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  widget.progressColor ?? widget.textStyle?.color,
+                  _getProgressColor(),
                 ),
               ),
             ),
@@ -58,6 +63,15 @@ class ProgressButtonState extends State<ProgressButton> {
         ],
       ),
     );
+  }
+
+  Color _getProgressColor() {
+    if (widget.backgroundColor == null) {
+      return widget.progressColor ?? widget.textStyle?.color ?? Colors.white;
+    } else {
+      return widget.progressColor ??
+          widget.textStyle?.color; // else default progress color
+    }
   }
 
   void show() {
