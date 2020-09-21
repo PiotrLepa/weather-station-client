@@ -6,7 +6,12 @@ import 'package:weather_station/core/presentation/widgets/common/progress_button
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
-  final _selectDateButtonKey = GlobalKey<ProgressButtonState>();
+  final bool selectDateLoading;
+
+  const HourlyWeatherInitial({
+    Key key,
+    @required this.selectDateLoading,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class HourlyWeatherInitial extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ProgressButton(
-              key: _selectDateButtonKey,
+              loading: selectDateLoading,
               text: 'Wybierz',
               textStyle: TextStyle(
                 color: ThemeProvider.of(context).textColorInverted,
@@ -55,10 +60,9 @@ class HourlyWeatherInitial extends StatelessWidget {
     );
 
     if (selectedDate != null) {
-      _selectDateButtonKey.currentState.show();
       context
           .bloc<HourlyWeatherBloc>()
-          .add(HourlyWeatherEvent.onLoadClicked(selectedDate));
+          .add(HourlyWeatherEvent.loadPressed(selectedDate));
     }
   }
 }

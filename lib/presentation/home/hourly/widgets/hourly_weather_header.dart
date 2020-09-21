@@ -8,13 +8,14 @@ import 'package:weather_station/presentation/home/current/widgets/half_circle_sh
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
 
 class HourlyWeatherHeader extends StatelessWidget {
-  final _changeDateButtonKey = GlobalKey<ProgressButtonState>();
 
   final DateTime day;
+  final bool changeDayLoading;
 
   HourlyWeatherHeader({
     Key key,
     @required this.day,
+    @required this.changeDayLoading,
   }) : super(key: key);
 
   @override
@@ -49,8 +50,8 @@ class HourlyWeatherHeader extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ProgressButton(
-                  key: _changeDateButtonKey,
                   text: 'Zmień dzień',
+                  loading: changeDayLoading,
                   backgroundColor: Colors.white,
                   onPressed: () => _showDatePicker(context),
                 ),
@@ -72,10 +73,9 @@ class HourlyWeatherHeader extends StatelessWidget {
     );
 
     if (selectedDate != null) {
-      _changeDateButtonKey.currentState.show();
       context
           .bloc<HourlyWeatherBloc>()
-          .add(HourlyWeatherEvent.onLoadClicked(selectedDate));
+          .add(HourlyWeatherEvent.changeDatePressed(selectedDate));
     }
   }
 }

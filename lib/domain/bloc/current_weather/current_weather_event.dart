@@ -5,4 +5,6 @@ abstract class CurrentWeatherEvent with _$CurrentWeatherEvent {
   const factory CurrentWeatherEvent.pageStarted() = PageStarted;
 
   const factory CurrentWeatherEvent.refreshPressed() = RefreshPressed;
+
+  const factory CurrentWeatherEvent.retryPressed() = RetryPressed;
 }

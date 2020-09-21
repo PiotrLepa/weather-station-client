@@ -5,12 +5,14 @@ import 'package:weather_station/core/presentation/widgets/error/error_message.da
 class ErrorPage extends StatelessWidget {
   final RKString message;
   final VoidCallback onRetry;
+  final bool loading;
   final Key buttonKey;
 
   const ErrorPage({
     Key key,
     @required this.message,
     @required this.onRetry,
+    @required this.loading,
     this.buttonKey,
   }) : super(key: key);
 
@@ -21,6 +23,7 @@ class ErrorPage extends StatelessWidget {
         child: ErrorMessage(
           message: message,
           onRetry: onRetry,
+          loading: loading,
           buttonKey: buttonKey,
         ),
       ),

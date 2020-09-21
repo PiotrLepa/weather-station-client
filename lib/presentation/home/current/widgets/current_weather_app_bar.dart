@@ -7,6 +7,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
   final double expandedHeight;
   final String location;
   final DateTime lastUpdateTime;
+  final bool refreshLoading;
 
   const CurrentWeatherAppBar({
     Key key,
@@ -14,6 +15,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
     @required this.expandedHeight,
     @required this.location,
     @required this.lastUpdateTime,
+    @required this.refreshLoading,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,10 @@ class CurrentWeatherAppBar extends StatelessWidget {
             ),
             HomeLocation(location: location),
             SizedBox(height: 20),
-            CurrentWeatherUpdateTime(lastUpdateTime: lastUpdateTime),
+            CurrentWeatherUpdateTime(
+              lastUpdateTime: lastUpdateTime,
+              refreshLoading: refreshLoading,
+            ),
           ],
         ),
       ),

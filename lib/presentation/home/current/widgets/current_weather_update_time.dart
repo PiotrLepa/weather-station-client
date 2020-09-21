@@ -9,13 +9,14 @@ import 'package:weather_station/domain/bloc/current_weather/current_weather_bloc
 
 class CurrentWeatherUpdateTime extends StatelessWidget {
   final pluralUtil = getIt<PluralUtil>();
-  final _refreshButtonKey = GlobalKey<ProgressButtonState>();
 
   final DateTime lastUpdateTime;
+  final bool refreshLoading;
 
   CurrentWeatherUpdateTime({
     Key key,
     @required this.lastUpdateTime,
+    @required this.refreshLoading,
   }) : super(key: key);
 
   @override
@@ -61,23 +62,18 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
           Wrap(
             children: [
               ProgressButton(
-                key: _refreshButtonKey,
                 onPressed: () {
-                  _refreshButtonKey.currentState.show();
                   context
                       .bloc<CurrentWeatherBloc>()
                       .add(CurrentWeatherEvent.refreshPressed());
                 },
-                backgroundColor: ThemeProvider
-                    .of(context)
-                    .primaryColorLight,
+                loading: refreshLoading,
+                backgroundColor: ThemeProvider.of(context).primaryColorLight,
                 progressColor: Colors.white,
                 text: 'Odśwież',
                 textStyle: TextStyle(
                   fontSize: Dimens.scale(20),
-                  color: ThemeProvider
-                      .of(context)
-                      .textColorInverted,
+                  color: ThemeProvider.of(context).textColorInverted,
                 ),
               )
             ],

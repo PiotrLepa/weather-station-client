@@ -30,7 +30,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
         Text(
           getIt<DateTimeFormatter>().format(
             day,
-            DateTimeFormatter.DEFAULT_DATE_PATTERN,
+            DateTimeFormatter.defaultDatePattern,
           ),
           style: TextStyle(
             fontWeight: FontWeight.w800,

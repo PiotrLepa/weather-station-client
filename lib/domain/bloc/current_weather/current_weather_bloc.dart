@@ -33,6 +33,7 @@ class CurrentWeatherBloc
     yield* event.map(
       pageStarted: _mapPageStarted,
       refreshPressed: _mapRefreshPage,
+      retryPressed: _mapRetryPressed,
     );
   }
 
@@ -47,12 +48,16 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          yield CurrentWeatherState.renderWeather(weather);
+          yield CurrentWeatherState.renderWeather(
+            weather: weather,
+            refreshLoading: false,
+          );
         },
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
-            RawString('Podczas pobierania danych wystąpił błąd'),
+            message: RawString('Podczas pobierania danych wystąpił błąd'),
+            loading: false,
           );
         },
       );
@@ -62,28 +67,45 @@ class CurrentWeatherBloc
   Stream<CurrentWeatherState> _mapRefreshPage(
     RefreshPressed event,
   ) async* {
-    yield CurrentWeatherState.nothing();
     if (!_shouldRefreshWeather()) {
       _flushbarHelper.showSuccess(message: RawString('Dane są aktualne'));
-      yield CurrentWeatherState.renderWeather(_fetchedWeather);
+      yield CurrentWeatherState.renderWeather(
+        weather: _fetchedWeather,
+        refreshLoading: false,
+      );
       return;
     }
 
     final request = callApi(_weatherRepository.fetchCurrentWeather());
     await for (final requestState in request) {
       yield* requestState.when(
-        progress: () async* {},
+        progress: () async* {
+          yield CurrentWeatherState.renderWeather(
+            weather: _fetchedWeather,
+            refreshLoading: true,
+          );
+        },
         success: (weather) async* {
           _fetchedWeather = weather;
           _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
-          yield CurrentWeatherState.renderWeather(weather);
+          yield CurrentWeatherState.renderWeather(
+            weather: weather,
+            refreshLoading: false,
+          );
         },
         error: (message) async* {
           _flushbarHelper.showError(message: message);
-          yield CurrentWeatherState.hideErrorLoading();
-          yield CurrentWeatherState.renderError(
-            RawString('Podczas pobierania danych wystąpił błąd'),
-          );
+          if (_fetchedWeather != null) {
+            yield CurrentWeatherState.renderWeather(
+              weather: _fetchedWeather,
+              refreshLoading: false,
+            );
+          } else {
+            yield CurrentWeatherState.renderError(
+              message: RawString('Podczas pobierania danych wystąpił błąd'),
+              loading: false,
+            );
+          }
         },
       );
     }
@@ -93,4 +115,32 @@ class CurrentWeatherBloc
       _fetchedWeather == null ||
       (DateTime.now().difference(_fetchedWeather.date).inMinutes >=
           _weatherFetchDelayMinutes);
+
+  Stream<CurrentWeatherState> _mapRetryPressed(
+    RetryPressed event,
+  ) async* {
+    final request = callApi(_weatherRepository.fetchCurrentWeather());
+    await for (final requestState in request) {
+      yield* requestState.when(
+        progress: () async* {
+          final errorState = state as RenderError;
+          yield errorState.copyWith(loading: true);
+        },
+        success: (weather) async* {
+          _fetchedWeather = weather;
+          yield CurrentWeatherState.renderWeather(
+            weather: weather,
+            refreshLoading: false,
+          );
+        },
+        error: (message) async* {
+          _flushbarHelper.showError(message: message);
+          yield CurrentWeatherState.renderError(
+            message: RawString('Podczas pobierania danych wystąpił błąd'),
+            loading: false,
+          );
+        },
+      );
+    }
+  }
 }

@@ -8,12 +8,14 @@ import 'package:weather_station/core/presentation/widgets/common/progress_button
 class ErrorMessage extends StatelessWidget {
   final RKString message;
   final VoidCallback onRetry;
+  final bool loading;
   final Key buttonKey;
 
   const ErrorMessage({
     Key key,
     @required this.message,
     @required this.onRetry,
+    @required this.loading,
     this.buttonKey,
   }) : super(key: key);
 
@@ -42,8 +44,8 @@ class ErrorMessage extends StatelessWidget {
           ProgressButton(
             key: buttonKey,
             text: 'Ponów',
-            showRefreshAutomatically: true,
             onPressed: onRetry,
+            loading: loading,
           ),
         ],
       ),
