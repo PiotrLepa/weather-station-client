@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class HalfCircleShapePainter extends CustomPainter {
+class HalfBottomCircleShapePainter extends CustomPainter {
   final Color color;
 
-  HalfCircleShapePainter({@required this.color});
+  HalfBottomCircleShapePainter({@required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {

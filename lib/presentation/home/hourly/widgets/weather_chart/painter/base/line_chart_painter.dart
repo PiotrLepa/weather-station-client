@@ -7,15 +7,6 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   final _pixelCalculator = ChartPixelCalculator<X, Y>();
 
-  final KtList<X> xSpots;
-  final KtList<Y> ySpots;
-  final Color lineColor;
-  final Color dotBorderColor;
-  final Color dotFillColor;
-  final String unit;
-  final int topOffset;
-  final int bottomOffset;
-
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
     ..strokeWidth = 2;
@@ -25,6 +16,15 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     ..strokeWidth = 1;
 
   final _dotFillPaint = Paint()..style = PaintingStyle.fill;
+
+  final KtList<X> xSpots;
+  final KtList<Y> ySpots;
+  final Color lineColor;
+  final Color dotBorderColor;
+  final Color dotFillColor;
+  final String unit;
+  final int topOffset;
+  final int bottomOffset;
 
   LineChartPainter({
     @required this.ySpots,

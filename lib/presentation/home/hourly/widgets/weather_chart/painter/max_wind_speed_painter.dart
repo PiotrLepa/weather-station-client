@@ -5,18 +5,30 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class MaxWindSpeedPainter extends CustomPainter {
+  static const moderateMinWindSpeed = 15.0;
+  static const strongMinWindSpeed = 20.0;
+  static const _textStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+  );
+  static final _containerPaint = Paint()
+    ..color = Colors.grey[300]
+    ..style = PaintingStyle.fill;
+
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> speedSpots;
   final KtList<int> timeSpots;
-
-  final _containerPaint = Paint()
-    ..color = Colors.grey[300]
-    ..style = PaintingStyle.fill;
+  final String strongWindText;
+  final String moderateWindText;
+  final String weakWindText;
 
   MaxWindSpeedPainter({
     @required this.speedSpots,
     @required this.timeSpots,
+    @required this.strongWindText,
+    @required this.moderateWindText,
+    @required this.weakWindText,
   });
 
   @override
@@ -63,26 +75,12 @@ class MaxWindSpeedPainter extends CustomPainter {
   }
 
   void _drawText(Canvas canvas, Size size) {
-    final textStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 14,
-    );
-
     for (int i = 0; i < speedSpots.size; i++) {
       final double x = _pixelCalculator.getPixelX(timeSpots[i]);
 
-      var text;
-      if (speedSpots[i] > 15.0) {
-        text = 'Umiar.';
-      } else if (speedSpots[i] > 20.0) {
-        text = 'Silne';
-      } else {
-        text = 'Słabe';
-      }
-
       final textSpan = TextSpan(
-        text: text,
-        style: textStyle,
+        text: _getWindPowerText(speedSpots[i]),
+        style: _textStyle,
       );
 
       final textPainter = TextPainter(
@@ -96,6 +94,16 @@ class MaxWindSpeedPainter extends CustomPainter {
         (size.height - textPainter.height) / 2,
       );
       textPainter.paint(canvas, offset);
+    }
+  }
+
+  String _getWindPowerText(double speed) {
+    if (speed > moderateMinWindSpeed) {
+      return moderateWindText;
+    } else if (speed > strongMinWindSpeed) {
+      return strongWindText;
+    } else {
+      return weakWindText;
     }
   }
 }

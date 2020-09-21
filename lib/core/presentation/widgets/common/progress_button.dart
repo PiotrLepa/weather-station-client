@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 
 class ProgressButton extends StatelessWidget {
-  final String text;
+  final RKString text;
   final TextStyle textStyle;
   final Color backgroundColor;
   final Color progressColor;
@@ -32,7 +34,8 @@ class ProgressButton extends StatelessWidget {
         children: [
           SizedBox(width: 16),
           Text(
-            loading ? 'Ładowanie...' : text,
+            context
+                .translate(loading ? KeyString('progressButtonLoading') : text),
             style: textStyle,
           ),
           SizedBox(width: 16),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
@@ -19,7 +20,7 @@ class WindCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff5858C5),
       iconPath: 'assets/icons/wind.svg',
-      title: 'Prędkość wiatru',
+      title: KeyString('cardWind'),
       body: Column(
         children: [
           Stack(
@@ -37,7 +38,7 @@ class WindCard extends StatelessWidget {
               Positioned(
                 right: 12,
                 bottom: 0,
-                child: WeatherUnit(value: 'km/h'),
+                child: WeatherUnit(value: KeyString('windUnit')),
               ),
             ],
           ),

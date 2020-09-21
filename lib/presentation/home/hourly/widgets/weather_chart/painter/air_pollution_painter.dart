@@ -6,29 +6,29 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class AirPollutionPainter extends CustomPainter {
+  static const _spotValueStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+  );
+
+  static final _pm1BarPaint = Paint()
+    ..color = ChartConstants.airPollutionPm1Color
+    ..style = PaintingStyle.fill;
+
+  static final _pm25BarPaint = Paint()
+    ..color = ChartConstants.airPollutionPm25Color
+    ..style = PaintingStyle.fill;
+
+  static final _pm10BarPaint = Paint()
+    ..color = ChartConstants.airPollutionPm10Color
+    ..style = PaintingStyle.fill;
+
   final pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> pm1Spots;
   final KtList<double> pm25Spots;
   final KtList<double> pm10Spots;
   final KtList<int> timeSpots;
-
-  final _pm1BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm1Color
-    ..style = PaintingStyle.fill;
-
-  final _pm25BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm25Color
-    ..style = PaintingStyle.fill;
-
-  final _pm10BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm10Color
-    ..style = PaintingStyle.fill;
-
-  final _spotValueStyle = TextStyle(
-    color: Colors.black,
-    fontSize: 14,
-  );
 
   AirPollutionPainter({
     @required this.pm1Spots,

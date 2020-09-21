@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 import 'package:weather_station/presentation/home/current/current_weather_page.dart';
@@ -35,10 +36,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) =>
-      [
+  List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) => [
         BottomNavigationBarItem(
-          title: Text('Aktualna'),
+          title: Text(context.translateKey('tabTitleCurrent')),
           icon: _getBottomNavIcon(
             context,
             'assets/icons/current_weather.svg',
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          title: Text("Godzinowa"),
+          title: Text(context.translateKey('tabTitleHourly')),
           icon: _getBottomNavIcon(
             context,
             'assets/icons/hourly_weather.svg',

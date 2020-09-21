@@ -17,7 +17,7 @@ class HourlyWeatherPage extends StatelessWidget {
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
           builder: (context, state) {
             return Scaffold(
-              appBar: AppBar(elevation: 0),
+              appBar: AppBar(elevation: _getAppBarElevation(state)),
               body: state.map(
                 initial: (s) => Center(
                   child: HourlyWeatherInitial(
@@ -53,4 +53,10 @@ class HourlyWeatherPage extends StatelessWidget {
       ),
     );
   }
+
+  double _getAppBarElevation(HourlyWeatherState state) =>
+      state.map(
+        initial: (_) => 4,
+        renderCharts: (_) => 0,
+      );
 }

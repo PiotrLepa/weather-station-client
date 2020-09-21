@@ -5,18 +5,20 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class RainPainter extends CustomPainter {
+  static final _barPaint = Paint()
+    ..color = const Color(0xff27C4FF)
+    ..style = PaintingStyle.fill;
+
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> rainSpots;
   final KtList<int> timeSpots;
-
-  final _barPaint = Paint()
-    ..color = const Color(0xff27C4FF)
-    ..style = PaintingStyle.fill;
+  final String unit;
 
   RainPainter({
     @required this.rainSpots,
     @required this.timeSpots,
+    @required this.unit,
   });
 
   @override
@@ -75,7 +77,7 @@ class RainPainter extends CustomPainter {
       final double y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       final textSpan = TextSpan(
-        text: '${rainSpots[i]} mm',
+        text: '${rainSpots[i]} $unit',
         style: textStyle,
       );
 

@@ -18,7 +18,6 @@ class CurrentWeatherPage extends StatelessWidget {
         ..add(CurrentWeatherEvent.pageStarted()),
       child: Scaffold(
         body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
-          buildWhen: (oldState, newState) => newState is! Nothing,
           builder: (context, state) {
             return state.maybeMap(
               initialLoading: (_) => Center(child: LoadingIndicator()),

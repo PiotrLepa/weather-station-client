@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 
 class WeatherUnit extends StatelessWidget {
-  final String value;
+  final RKString value;
 
   const WeatherUnit({
     Key key,
@@ -13,7 +15,7 @@ class WeatherUnit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       child: Text(
-        value,
+        context.translate(value),
         style: TextStyle(
           fontSize: Dimens.scale(16),
           fontWeight: FontWeight.w700,

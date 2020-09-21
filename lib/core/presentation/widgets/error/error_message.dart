@@ -43,7 +43,7 @@ class ErrorMessage extends StatelessWidget {
           SizedBox(height: 24),
           ProgressButton(
             key: buttonKey,
-            text: 'Ponów',
+            text: KeyString('errorRetryButton'),
             onPressed: onRetry,
             loading: loading,
           ),

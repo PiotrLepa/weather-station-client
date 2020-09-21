@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
@@ -27,7 +29,7 @@ class HourlyWeatherInitial extends StatelessWidget {
           ),
           SizedBox(height: 24),
           Text(
-            'Wybierz datę, aby zobaczyć szczegółowe dane',
+            context.translateKey('hourlyWeatherInitialDescription'),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 18,
@@ -39,7 +41,7 @@ class HourlyWeatherInitial extends StatelessWidget {
             width: double.infinity,
             child: ProgressButton(
               loading: selectDateLoading,
-              text: 'Wybierz',
+              text: KeyString('hourlyWeatherInitialButton'),
               textStyle: TextStyle(
                 color: ThemeProvider.of(context).textColorInverted,
               ),

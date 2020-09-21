@@ -5,18 +5,20 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class AvgWindSpeedPainter extends CustomPainter {
+  static final _containerPaint = Paint()
+    ..color = Colors.grey[300]
+    ..style = PaintingStyle.fill;
+
   final _pixelCalculator = ChartPixelCalculator<int, double>();
 
   final KtList<double> speedSpots;
   final KtList<int> timeSpots;
-
-  final _containerPaint = Paint()
-    ..color = Colors.grey[300]
-    ..style = PaintingStyle.fill;
+  final String unit;
 
   AvgWindSpeedPainter({
     @required this.speedSpots,
     @required this.timeSpots,
+    @required this.unit,
   });
 
   @override
@@ -72,7 +74,7 @@ class AvgWindSpeedPainter extends CustomPainter {
       final double x = _pixelCalculator.getPixelX(timeSpots[i]);
 
       final textSpan = TextSpan(
-        text: '${speedSpots[i]}\nkm/h',
+        text: '${speedSpots[i]}\n$unit',
         style: textStyle,
       );
 

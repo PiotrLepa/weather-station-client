@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
 class WeatherValue extends StatelessWidget {
   final String value;
-  final String unit;
+  final RKString unit;
 
   const WeatherValue({
     Key key,

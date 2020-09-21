@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
-import 'package:weather_station/presentation/home/current/widgets/half_circle_shape_painter.dart';
+import 'package:weather_station/presentation/home/current/widgets/half_bottom_circle_shape_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
 
 class HourlyWeatherHeader extends StatelessWidget {
-
   final DateTime day;
   final bool changeDayLoading;
 
@@ -25,7 +25,7 @@ class HourlyWeatherHeader extends StatelessWidget {
     return Container(
       color: ThemeProvider.of(context).backgroundColor,
       child: CustomPaint(
-        painter: HalfCircleShapePainter(
+        painter: HalfBottomCircleShapePainter(
           color: ThemeProvider.of(context).primaryColor,
         ),
         child: Padding(
@@ -50,7 +50,7 @@ class HourlyWeatherHeader extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ProgressButton(
-                  text: 'Zmień dzień',
+                  text: KeyString('hourlyWeatherChangeDay'),
                   loading: changeDayLoading,
                   backgroundColor: Colors.white,
                   onPressed: () => _showDatePicker(context),

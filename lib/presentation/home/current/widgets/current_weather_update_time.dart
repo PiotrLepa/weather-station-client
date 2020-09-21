@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
@@ -36,7 +38,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
             text:
                 TextSpan(style: DefaultTextStyle.of(context).style, children: [
               TextSpan(
-                text: 'Zaktualizowano: ',
+                text: context.translateKey('weatherUpdateTime'),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: Dimens.scale(17),
@@ -44,11 +46,13 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: _formatLastUpdateTime(lastUpdateTime),
+                text: _formatLastUpdateTime(context, lastUpdateTime),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: Dimens.scale(14),
-                  color: ThemeProvider.of(context).textColorLight,
+                  color: ThemeProvider
+                      .of(context)
+                      .textColorLight,
                 ),
               ),
             ]),
@@ -68,12 +72,16 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                       .add(CurrentWeatherEvent.refreshPressed());
                 },
                 loading: refreshLoading,
-                backgroundColor: ThemeProvider.of(context).primaryColorLight,
+                backgroundColor: ThemeProvider
+                    .of(context)
+                    .primaryColorLight,
                 progressColor: Colors.white,
-                text: 'Odśwież',
+                text: KeyString('refresh'),
                 textStyle: TextStyle(
                   fontSize: Dimens.scale(20),
-                  color: ThemeProvider.of(context).textColorInverted,
+                  color: ThemeProvider
+                      .of(context)
+                      .textColorInverted,
                 ),
               )
             ],
@@ -83,37 +91,38 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
     );
   }
 
-  String _formatLastUpdateTime(DateTime lastUpdateTime) {
+  String _formatLastUpdateTime(BuildContext context, DateTime lastUpdateTime) {
     final difference = DateTime.now().difference(lastUpdateTime);
+    final agoString = context.translateKey('updateTimeAgo');
 
     if (difference.inDays >= 1) {
-      return 'Ponad dzień temu';
+      return '${context.translateKey('updateTimeMoreThanDay')} $agoString';
     } else if (difference.inHours >= 1) {
-      String hoursForm = _getHoursForm(difference.inHours);
-      return '${difference.inHours} $hoursForm temu';
+      String hoursForm = _getHoursForm(context, difference.inHours);
+      return '${difference.inHours} $hoursForm $agoString';
     } else if (difference.inMinutes == 0) {
-      return 'Teraz';
+      return context.translateKey('updateTimeNow');
     } else {
-      String minutesForm = _getMinutesForm(difference.inMinutes);
-      return '${difference.inMinutes} $minutesForm temu';
+      String minutesForm = _getMinutesForm(context, difference.inMinutes);
+      return '${difference.inMinutes} $minutesForm $agoString';
     }
   }
 
-  String _getMinutesForm(int minutes) {
+  String _getMinutesForm(BuildContext context, int minutes) {
     return pluralUtil.applyPlurals(
       quantity: minutes,
-      one: 'minutę',
-      few: 'minuty',
-      many: 'minut',
+      one: context.translateKey('pluralMinutesOne'),
+      few: context.translateKey('pluralMinutesFew'),
+      many: context.translateKey('pluralMinutesMany'),
     );
   }
 
-  String _getHoursForm(int hours) {
+  String _getHoursForm(BuildContext context, int hours) {
     return pluralUtil.applyPlurals(
       quantity: hours,
-      one: 'godzinę',
-      few: 'godziny',
-      many: 'godzin',
+      one: context.translateKey('pluralHoursOne'),
+      few: context.translateKey('pluralHoursFew'),
+      many: context.translateKey('pluralHoursMany'),
     );
   }
 }

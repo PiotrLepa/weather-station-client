@@ -7,13 +7,14 @@ import 'package:weather_station/core/presentation/date_time/date_time_formatter.
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class XAxisTitlesPainter extends CustomPainter {
-  final _dateFormatter = getIt<DateTimeFormatter>();
-  final _pixelCalculator = ChartPixelCalculator<int, int>();
-  final _titleStyle = TextStyle(
+  static final _titleStyle = TextStyle(
     color: Colors.black,
     fontSize: 15,
     fontWeight: FontWeight.w600,
   );
+
+  final _dateFormatter = getIt<DateTimeFormatter>();
+  final _pixelCalculator = ChartPixelCalculator<int, int>();
 
   final KtList<int> xSpots;
 
@@ -44,7 +45,7 @@ class XAxisTitlesPainter extends CustomPainter {
 
       final date = DateTime.fromMillisecondsSinceEpoch(spotData, isUtc: true);
       final textSpan = TextSpan(
-        text: _dateFormatter.format(date, 'HH:mm'),
+        text: _dateFormatter.format(date, DateTimeFormatter.defaultHourPattern),
         style: _titleStyle,
       );
 

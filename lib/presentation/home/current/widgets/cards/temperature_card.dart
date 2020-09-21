@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 
@@ -16,13 +18,13 @@ class TemperatureCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xfff0c419),
       iconPath: 'assets/icons/temp.svg',
-      title: 'Temperatura',
+      title: KeyString('cardTemperature'),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(width: 20),
           Text(
-            '$temperature °C',
+            '$temperature ${context.translateKey('temperatureUnit')}',
             style: TextStyle(
               fontSize: Dimens.scale(20),
               fontWeight: FontWeight.w900,

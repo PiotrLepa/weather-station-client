@@ -87,7 +87,8 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
+          _flushbarHelper.showSuccess(
+              message: RawString('Dane zaktualizowane'));
           yield CurrentWeatherState.renderWeather(
             weather: weather,
             refreshLoading: false,

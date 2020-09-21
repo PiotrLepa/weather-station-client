@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/widgets/common/rounded_divider.dart';
 
 class WeatherCard extends StatelessWidget {
   final Color color;
   final String iconPath;
-  final String title;
+  final RKString title;
   final Widget body;
 
   const WeatherCard({
@@ -42,7 +44,7 @@ class WeatherCard extends StatelessWidget {
               ),
               SizedBox(width: 6),
               Text(
-                title,
+                context.translate(title),
                 style: TextStyle(
                   fontSize: Dimens.scale(16),
                   fontWeight: FontWeight.w700,
