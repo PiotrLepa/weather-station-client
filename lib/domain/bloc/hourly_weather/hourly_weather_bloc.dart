@@ -35,24 +35,27 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   Stream<HourlyWeatherState> _mapOnLoadClicked(
     OnLoadClicked event,
   ) async* {
-    if (weatherDate != event.day) {
-      final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
-      await for (final requestState in request) {
-        yield* requestState.when(
-          progress: () async* {},
-          success: (weathers) async* {
-            weatherDate = weathers[0].date;
+    if (weatherDate == event.day) {
+      return;
+    }
+    final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
+    await for (final requestState in request) {
+      yield* requestState.when(
+        progress: () async* {},
+        success: (weathers) async* {
+          if (weatherDate != null) {
             _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
-            yield HourlyWeatherState.renderCharts(weathers);
-          },
-          error: (message) async* {
-            _flushbarHelper.showError(message: message);
-            yield HourlyWeatherState.renderError(
-              RawString('Nie udało się pobrać danych'),
-            );
-          },
-        );
-      }
+          }
+          weatherDate = weathers[0].date;
+          yield HourlyWeatherState.renderCharts(weathers);
+        },
+        error: (message) async* {
+          _flushbarHelper.showError(message: message);
+          yield HourlyWeatherState.renderError(
+            RawString('Nie udało się pobrać danych'),
+          );
+        },
+      );
     }
   }
 }

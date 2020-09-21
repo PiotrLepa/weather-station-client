@@ -52,7 +52,7 @@ class CurrentWeatherBloc
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
-            RawString('Nie udało się pobrać danych'),
+            RawString('Podczas pobierania danych wystąpił błąd'),
           );
         },
       );
@@ -63,35 +63,34 @@ class CurrentWeatherBloc
     RefreshPressed event,
   ) async* {
     yield CurrentWeatherState.nothing();
-
     if (!_shouldRefreshWeather()) {
       _flushbarHelper.showSuccess(message: RawString('Dane są aktualne'));
       yield CurrentWeatherState.renderWeather(_fetchedWeather);
-    } else {
-      final request = callApi(_weatherRepository.fetchCurrentWeather());
-      await for (final requestState in request) {
-        yield* requestState.when(
-          progress: () async* {},
-          success: (weather) async* {
-            _fetchedWeather = weather;
-            _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
-            yield CurrentWeatherState.renderWeather(weather);
-          },
-          error: (message) async* {
-            _flushbarHelper.showError(message: message);
-            yield CurrentWeatherState.renderError(
-              RawString('Nie udało się pobrać danych'),
-            );
-          },
-        );
-      }
+      return;
+    }
+
+    final request = callApi(_weatherRepository.fetchCurrentWeather());
+    await for (final requestState in request) {
+      yield* requestState.when(
+        progress: () async* {},
+        success: (weather) async* {
+          _fetchedWeather = weather;
+          _flushbarHelper.showSuccess(message: RawString('Zaktualizowano'));
+          yield CurrentWeatherState.renderWeather(weather);
+        },
+        error: (message) async* {
+          _flushbarHelper.showError(message: message);
+          yield CurrentWeatherState.hideErrorLoading();
+          yield CurrentWeatherState.renderError(
+            RawString('Podczas pobierania danych wystąpił błąd'),
+          );
+        },
+      );
     }
   }
 
   bool _shouldRefreshWeather() =>
-      DateTime
-          .now()
-          .difference(_fetchedWeather.date)
-          .inMinutes >=
-          _weatherFetchDelayMinutes;
+      _fetchedWeather == null ||
+      (DateTime.now().difference(_fetchedWeather.date).inMinutes >=
+          _weatherFetchDelayMinutes);
 }

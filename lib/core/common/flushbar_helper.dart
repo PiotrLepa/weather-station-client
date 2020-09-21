@@ -13,13 +13,11 @@ import 'package:weather_station/presentation/app.dart';
 class FlushbarHelper {
   BuildContext get _context => ExtendedNavigator.root.context;
 
-  bool _isFlushbarVisible = false;
+  AppFlushbar _currentFlushbar;
 
   void dismiss() {
-    if (_isFlushbarVisible) {
-      _isFlushbarVisible = false;
-      ExtendedNavigator.root.pop();
-    }
+    _currentFlushbar?.dismiss();
+    _currentFlushbar = null;
   }
 
   Future<void> showError({
@@ -73,11 +71,8 @@ class FlushbarHelper {
   Future<void> _showFlushbar({
     @required AppFlushbar flushbar,
   }) async {
-    if (_isFlushbarVisible) {
-      return;
-    }
-    _isFlushbarVisible = true;
-    await Future.delayed(Duration(milliseconds: 200));
+    _currentFlushbar?.dismiss();
+    _currentFlushbar = flushbar;
     return navigatorKey.currentState.push(
       flushbarRoute.showFlushbar(
         context: _context,
@@ -87,6 +82,6 @@ class FlushbarHelper {
   }
 
   void _onFlushbarDismiss() {
-    _isFlushbarVisible = false;
+    _currentFlushbar = null;
   }
 }

@@ -6,6 +6,8 @@ abstract class CurrentWeatherState with _$CurrentWeatherState {
 
   const factory CurrentWeatherState.nothing() = Nothing;
 
+  const factory CurrentWeatherState.hideErrorLoading() = HideErrorLoading;
+
   const factory CurrentWeatherState.renderWeather(Weather weather) =
       RenderWeather;
 
