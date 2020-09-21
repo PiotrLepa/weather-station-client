@@ -26,6 +26,8 @@ abstract class ApiException with _$ApiException implements Exception {
     @nullable String printableMessage,
   ) = InternalServerError;
 
-  const factory ApiException.unknownError(@nullable int code,
-      @nullable String printableMessage,) = UnknownError;
+  const factory ApiException.unknownError(
+    @nullable int code,
+    @nullable String printableMessage,
+  ) = UnknownError;
 }

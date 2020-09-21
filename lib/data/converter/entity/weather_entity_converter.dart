@@ -1,10 +1,17 @@
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/data/converter/converter.dart';
+import 'package:weather_station/core/presentation/date_time/date_time_parser.dart';
 import 'package:weather_station/data/model/weather/weather_model.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 
 @lazySingleton
 class WeatherConverter implements Converter<WeatherModel, Weather> {
+  final DateTimeParser dateTimeParser;
+
+  WeatherConverter(
+    this.dateTimeParser,
+  );
+
   @override
   Weather convert(WeatherModel model) => Weather(
         temperature: model.temperature.round(),
@@ -18,6 +25,6 @@ class WeatherConverter implements Converter<WeatherModel, Weather> {
         rainGauge: model.rainGauge,
         location: model.location ?? "Tarnów",
         // TODO
-        date: DateTime.parse(model.date),
+        date: dateTimeParser.fromNetwork(model.date),
       );
 }
