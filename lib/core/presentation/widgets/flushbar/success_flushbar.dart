@@ -15,8 +15,10 @@ class SuccessFlushbar extends AppFlushbar {
     @required VoidCallback onDismiss,
     RKString title,
   }) : super(
-    title: context.translate(title) ??
-              context.translateKey('successFlushbarTitle'),
+          key: key,
+          title: title != null
+              ? context.translate(title)
+              : context.translateKey('successFlushbarTitle'),
           message: context.translate(message),
           backgroundColor: ThemeProvider.of(context).accentColor,
           onDismiss: onDismiss,

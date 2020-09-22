@@ -63,14 +63,14 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   }
 
   void _drawLines(Canvas canvas) {
-    final Path path = Path();
+    final path = Path();
 
-    final double x = _pixelCalculator.getPixelX(xSpots[0]);
-    final double y = _pixelCalculator.getPixelY(ySpots[0]);
+    final x = _pixelCalculator.getPixelX(xSpots[0]);
+    final y = _pixelCalculator.getPixelY(ySpots[0]);
 
     path.moveTo(x, y);
 
-    for (int i = 1; i < ySpots.size; i++) {
+    for (var i = 1; i < ySpots.size; i++) {
       path.lineTo(
         _pixelCalculator.getPixelX(xSpots[i]),
         _pixelCalculator.getPixelY(ySpots[i]),
@@ -81,16 +81,16 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   }
 
   void _drawDots(Canvas canvas) {
-    final circleRadius = 5.0;
+    const circleRadius = 5.0;
 
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       color: Colors.black,
       fontSize: 15,
     );
 
-    for (int i = 0; i < ySpots.size; i++) {
-      final double x = _pixelCalculator.getPixelX(xSpots[i]);
-      final double y = _pixelCalculator.getPixelY(ySpots[i]);
+    for (var i = 0; i < ySpots.size; i++) {
+      final x = _pixelCalculator.getPixelX(xSpots[i]);
+      final y = _pixelCalculator.getPixelY(ySpots[i]);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);

@@ -11,49 +11,49 @@ class LeftTitlesProvider {
     return KtList.of(
       NormalChartTitle(
         context.translateKey('weatherChartXAxisTitle'),
-        ChartConstants.xAxisTitlesHeight,
+        xAxisTitlesHeight,
       ),
       NormalChartTitle(
         context.translateKey('cardTemperature'),
-        ChartConstants.tempHeight,
+        tempHeight,
       ),
       NormalChartTitle(
         context.translateKey('cardRain'),
-        ChartConstants.rainHeight,
+        rainHeight,
       ),
       NormalChartTitle(
         context.translateKey('chartWindMax'),
-        ChartConstants.maxWindHeight,
+        maxWindHeight,
       ),
       NormalChartTitle(
         context.translateKey('chartWindAvg'),
-        ChartConstants.avgWindHeight,
+        avgWindHeight,
       ),
       NormalChartTitle(
         context.translateKey('cardHumidity'),
-        ChartConstants.humidityHeight,
+        humidityHeight,
       ),
       LegendChartTitle(
         context.translateKey('cardAirPollutionShort'),
-        ChartConstants.airPollutionHeight,
+        airPollutionHeight,
         KtList.of(
           ChartLegend(
             context.translateKey('airPollutionPm1'),
-            ChartConstants.airPollutionPm1Color,
+            airPollutionPm1Color,
           ),
           ChartLegend(
             context.translateKey('airPollutionPm25'),
-            ChartConstants.airPollutionPm25Color,
+            airPollutionPm25Color,
           ),
           ChartLegend(
             context.translateKey('airPollutionPm10'),
-            ChartConstants.airPollutionPm10Color,
+            airPollutionPm10Color,
           ),
         ),
       ),
       NormalChartTitle(
         context.translateKey('cardPressure'),
-        ChartConstants.pressureHeight,
+        pressureHeight,
       ),
     );
   }

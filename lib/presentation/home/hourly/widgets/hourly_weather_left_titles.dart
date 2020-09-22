@@ -20,11 +20,11 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: ChartConstants.backgroundColor,
+      color: backgroundColor,
       child: CustomPaint(
         size: Size(
           maxWidth,
-          ChartConstants.heights.sum(),
+          heights.sum(),
         ),
         painter: LeftTitlesPainter(
           context: context,

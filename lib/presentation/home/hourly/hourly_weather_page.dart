@@ -39,23 +39,20 @@ class HourlyWeatherPage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              child: HourlyWeatherHeader(
-                day: state.weathers[0].date,
-                changeDayLoading: state.changeDateLoading,
-              ),
+            HourlyWeatherHeader(
+              day: state.weathers[0].date,
+              changeDayLoading: state.changeDateLoading,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             WeatherChart(weathers: state.weathers),
-            SizedBox(height: 48),
+            const SizedBox(height: 48),
           ],
         ),
       ),
     );
   }
 
-  double _getAppBarElevation(HourlyWeatherState state) =>
-      state.map(
+  double _getAppBarElevation(HourlyWeatherState state) => state.map(
         initial: (_) => 4,
         renderCharts: (_) => 0,
       );

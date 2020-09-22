@@ -12,10 +12,10 @@ class RestService extends BaseRestService {
     ResponseConverter responseConverter,
   ) : super(dio, responseConverter);
 
-  Future<WeatherModel> fetchCurrentWeather() => get("/weather");
+  Future<WeatherModel> fetchCurrentWeather() => get('/weather');
 
   Future<KtList<WeatherModel>> fetchHourlyWeather(String day) => getList(
-        "/weather/hourly",
-        params: {"day": day},
+        '/weather/hourly',
+        params: <String, String>{'day': day},
       );
 }

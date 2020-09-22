@@ -35,7 +35,7 @@ class WindCard extends StatelessWidget {
                       context.translateKey('cardWindMax'),
                       maxSpeed.toString(),
                     ),
-                    VerticalDivider(width: Dimens.scale(50)),
+                    VerticalDivider(width: scaleText(50)),
                     _buildWindValue(
                       context.translateKey('cardWindAvg'),
                       avgSpeed.toString(),
@@ -62,16 +62,16 @@ class WindCard extends StatelessWidget {
           name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: Dimens.scale(15),
+            fontSize: scaleText(15),
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           wind,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: Dimens.scale(20),
+            fontSize: scaleText(20),
             fontWeight: FontWeight.w900,
           ),
         ),

@@ -23,8 +23,8 @@ class WeatherChart extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: DisableOverscrollGlowBehavior(),
         child: Container(
-          height: ChartConstants.heights.sum(),
-          color: ChartConstants.backgroundColor,
+          height: heights.sum(),
+          color: backgroundColor,
           child: CustomScrollView(
             scrollDirection: Axis.horizontal,
             slivers: [

@@ -3,9 +3,7 @@ import 'package:flutter/painting.dart';
 class ChartPixelCalculator<X extends num, Y extends num> {
   Size _size;
   X _minX;
-  X _maxX;
   Y _minY;
-  Y _maxY;
   double _diffX;
   double _diffY;
   int _topOffSet;
@@ -22,16 +20,14 @@ class ChartPixelCalculator<X extends num, Y extends num> {
   }) {
     _size = size;
     _minX = minX;
-    _maxX = maxX;
     _minY = minY;
-    _maxY = maxY;
     _topOffSet = topOffSet ?? 0;
     _bottomOffSet = bottomOffSet ?? 0;
     if (minX != null && maxX != null) {
-      _diffX = maxX - minX.toDouble();
+      _diffX = maxX.toDouble() - minX.toDouble();
     }
     if (minY != null && maxY != null) {
-      _diffY = maxY - minY.toDouble();
+      _diffY = maxY.toDouble() - minY.toDouble();
     }
   }
 
@@ -57,7 +53,7 @@ class ChartPixelCalculator<X extends num, Y extends num> {
     }
 
     final usableHeight = _size.height - _topOffSet - _bottomOffSet;
-    double y = (spotY - _minY) / _diffY * usableHeight;
+    final y = (spotY - _minY) / _diffY * usableHeight;
     return _size.height - _bottomOffSet - y;
   }
 }

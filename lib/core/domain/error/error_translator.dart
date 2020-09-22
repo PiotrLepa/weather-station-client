@@ -10,11 +10,11 @@ class ErrorTranslator {
     }
     return exception
         .map(
-          noConnection: (mappedState) => "apiErrorNoConnection",
-          badRequest: (mappedState) => "apiErrorBadRequest",
-          notFound: (mappedState) => "apiErrorNotFound",
-          internalServerError: (mappedState) => "apiErrorInternalServerError",
-          unknownError: (mappedState) => "apiErrorUnknown",
+          noConnection: (mappedState) => 'apiErrorNoConnection',
+          badRequest: (mappedState) => 'apiErrorBadRequest',
+          notFound: (mappedState) => 'apiErrorNotFound',
+          internalServerError: (mappedState) => 'apiErrorInternalServerError',
+          unknownError: (mappedState) => 'apiErrorUnknown',
         )
         .toKeyString();
   }

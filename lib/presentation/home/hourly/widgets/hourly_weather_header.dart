@@ -12,7 +12,7 @@ class HourlyWeatherHeader extends StatelessWidget {
   final DateTime day;
   final bool changeDayLoading;
 
-  HourlyWeatherHeader({
+  const HourlyWeatherHeader({
     Key key,
     @required this.day,
     @required this.changeDayLoading,
@@ -20,7 +20,7 @@ class HourlyWeatherHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = 24.0;
+    const padding = 24.0;
 
     return Container(
       color: ThemeProvider.of(context).backgroundColor,
@@ -29,14 +29,14 @@ class HourlyWeatherHeader extends StatelessWidget {
           color: ThemeProvider.of(context).primaryColor,
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(padding, 0, padding, padding),
+          padding: const EdgeInsets.fromLTRB(padding, 0, padding, padding),
           child: Column(
             children: [
               // SizedBox(height: 24),
               Row(
                 children: [
                   HourlyWeatherSelectedDate(day: day),
-                  SizedBox(width: padding),
+                  const SizedBox(width: padding),
                   Expanded(
                     child: Assets.icons.weatherGraph.svg(
                       width: 72,
@@ -45,7 +45,7 @@ class HourlyWeatherHeader extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               SizedBox(
                 width: double.infinity,
                 child: ProgressButton(
@@ -55,7 +55,7 @@ class HourlyWeatherHeader extends StatelessWidget {
                   onPressed: () => _showDatePicker(context),
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -63,11 +63,11 @@ class HourlyWeatherHeader extends StatelessWidget {
     );
   }
 
-  void _showDatePicker(BuildContext context) async {
+  Future<void> _showDatePicker(BuildContext context) async {
     final selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020, 06, 01),
+      firstDate: DateTime(2020, 06),
       lastDate: DateTime.now(),
     );
 

@@ -34,7 +34,7 @@ class App extends StatelessWidget {
             router: Router(),
             navigatorKey: navigatorKey,
             builder: (BuildContext context, Widget child) {
-              Dimens.initialize(context);
+              initializeDimens(context);
               return child;
             }),
       ),

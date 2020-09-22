@@ -17,15 +17,15 @@ class CurrentWeatherBloc
     extends Bloc<CurrentWeatherEvent, CurrentWeatherState> {
   static const _weatherFetchDelayMinutes = 5;
 
-  WeatherRepository _weatherRepository;
-  FlushbarHelper _flushbarHelper;
+  final WeatherRepository _weatherRepository;
+  final FlushbarHelper _flushbarHelper;
 
   Weather _fetchedWeather;
 
   CurrentWeatherBloc(
     this._weatherRepository,
     this._flushbarHelper,
-  ) : super(CurrentWeatherState.initialLoading());
+  ) : super(const CurrentWeatherState.initialLoading());
 
   @override
   Stream<CurrentWeatherState> mapEventToState(
@@ -44,7 +44,7 @@ class CurrentWeatherBloc
     await for (final requestState in request) {
       yield* requestState.when(
         progress: () async* {
-          yield CurrentWeatherState.initialLoading();
+          yield const CurrentWeatherState.initialLoading();
         },
         success: (weather) async* {
           _fetchedWeather = weather;
@@ -54,7 +54,7 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          _flushbarHelper.showError(message: message);
+          await _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
             message: KeyString('fetchDataFailed'),
             loading: false,
@@ -68,7 +68,7 @@ class CurrentWeatherBloc
     RefreshPressed event,
   ) async* {
     if (!_shouldRefreshWeather()) {
-      _flushbarHelper.showSuccess(message: KeyString('dataUpToDate'));
+      await _flushbarHelper.showSuccess(message: KeyString('dataUpToDate'));
       yield CurrentWeatherState.renderWeather(
         weather: _fetchedWeather,
         refreshLoading: false,
@@ -87,14 +87,14 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          _flushbarHelper.showSuccess(message: KeyString('dataUpdated'));
+          await _flushbarHelper.showSuccess(message: KeyString('dataUpdated'));
           yield CurrentWeatherState.renderWeather(
             weather: weather,
             refreshLoading: false,
           );
         },
         error: (message) async* {
-          _flushbarHelper.showError(message: message);
+          await _flushbarHelper.showError(message: message);
           if (_fetchedWeather != null) {
             yield CurrentWeatherState.renderWeather(
               weather: _fetchedWeather,
@@ -134,7 +134,7 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          _flushbarHelper.showError(message: message);
+          await _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
             message: KeyString('fetchDataFailed'),
             loading: false,

@@ -33,28 +33,28 @@ class WeatherCard extends StatelessWidget {
             thickness: 4,
             radius: 12,
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 iconPath,
-                width: Dimens.scale(28),
-                height: Dimens.scale(28),
+                width: scaleText(28),
+                height: scaleText(28),
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Text(
                 context.translate(title),
                 style: TextStyle(
-                  fontSize: Dimens.scale(16),
+                  fontSize: scaleText(16),
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           body,
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );

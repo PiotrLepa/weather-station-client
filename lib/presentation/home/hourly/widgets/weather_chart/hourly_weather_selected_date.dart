@@ -23,11 +23,11 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
           context.translateKey('hourlyWeatherAppBarDay'),
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: Dimens.scale(20),
+            fontSize: scaleText(20),
             color: ThemeProvider.of(context).textColorLightInverted,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           getIt<DateTimeFormatter>().format(
             day,
@@ -35,7 +35,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
           ),
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            fontSize: Dimens.scale(24),
+            fontSize: scaleText(24),
             color: ThemeProvider.of(context).textColorInverted,
           ),
         ),

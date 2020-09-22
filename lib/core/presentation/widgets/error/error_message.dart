@@ -30,16 +30,16 @@ class ErrorMessage extends StatelessWidget {
             width: 72,
             height: 72,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             context.translate(message),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: Dimens.scale(19),
+              fontSize: scaleText(19),
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           ProgressButton(
             key: buttonKey,
             text: KeyString('errorRetryButton'),

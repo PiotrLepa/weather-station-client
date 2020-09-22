@@ -23,7 +23,7 @@ class HumidityCard extends StatelessWidget {
       body: Text(
         '$humidity ${context.translateKey('humidityUnit')}',
         style: TextStyle(
-          fontSize: Dimens.scale(20),
+          fontSize: scaleText(20),
           fontWeight: FontWeight.w900,
         ),
       ),

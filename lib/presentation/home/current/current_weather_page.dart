@@ -15,12 +15,12 @@ class CurrentWeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt.get<CurrentWeatherBloc>()
-        ..add(CurrentWeatherEvent.pageStarted()),
+        ..add(const CurrentWeatherEvent.pageStarted()),
       child: Scaffold(
         body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
             return state.maybeMap(
-              initialLoading: (_) => Center(child: LoadingIndicator()),
+              initialLoading: (_) => const Center(child: LoadingIndicator()),
               renderWeather: (s) => _buildPage(s),
               renderError: (s) => ErrorPage(
                 message: s.message,
@@ -28,7 +28,7 @@ class CurrentWeatherPage extends StatelessWidget {
                 onRetry: () {
                   context
                       .bloc<CurrentWeatherBloc>()
-                      .add(CurrentWeatherEvent.retryPressed());
+                      .add(const CurrentWeatherEvent.retryPressed());
                 },
               ),
               orElse: () => Container(),
@@ -40,8 +40,8 @@ class CurrentWeatherPage extends StatelessWidget {
   }
 
   Widget _buildPage(RenderWeather state) {
-    final appBarHeight = kToolbarHeight;
-    final appBarExpandedHeight = 300.0;
+    const appBarHeight = kToolbarHeight;
+    const appBarExpandedHeight = 300.0;
     return ScrollConfiguration(
       behavior: DisableOverscrollGlowBehavior(),
       child: CustomScrollView(
@@ -55,7 +55,7 @@ class CurrentWeatherPage extends StatelessWidget {
           ),
           CurrentWeatherAppBarCorners(),
           CurrentWeatherCards(weather: state.weather),
-          FillEmptySpaceSliver(
+          const FillEmptySpaceSliver(
             minHeaderHeight: appBarHeight,
             maxHeaderHeight: appBarExpandedHeight,
           ),

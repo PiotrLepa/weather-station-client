@@ -9,6 +9,7 @@ part of paged_call_state;
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$PagedCallStateTearOff {
   const _$PagedCallStateTearOff();
 
@@ -51,9 +52,11 @@ class _$PagedCallStateTearOff {
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $PagedCallState = _$PagedCallStateTearOff();
 
+/// @nodoc
 mixin _$PagedCallState<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
@@ -95,12 +98,14 @@ mixin _$PagedCallState<T> {
   });
 }
 
+/// @nodoc
 abstract class $PagedCallStateCopyWith<T, $Res> {
   factory $PagedCallStateCopyWith(
           PagedCallState<T> value, $Res Function(PagedCallState<T>) then) =
       _$PagedCallStateCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$PagedCallStateCopyWithImpl<T, $Res>
     implements $PagedCallStateCopyWith<T, $Res> {
   _$PagedCallStateCopyWithImpl(this._value, this._then);
@@ -110,12 +115,14 @@ class _$PagedCallStateCopyWithImpl<T, $Res>
   final $Res Function(PagedCallState<T>) _then;
 }
 
+/// @nodoc
 abstract class $InitialProgressCopyWith<T, $Res> {
   factory $InitialProgressCopyWith(
           InitialProgress<T> value, $Res Function(InitialProgress<T>) then) =
       _$InitialProgressCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$InitialProgressCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialProgressCopyWith<T, $Res> {
@@ -127,6 +134,7 @@ class _$InitialProgressCopyWithImpl<T, $Res>
   InitialProgress<T> get _value => super._value as InitialProgress<T>;
 }
 
+/// @nodoc
 class _$InitialProgress<T> implements InitialProgress<T> {
   const _$InitialProgress();
 
@@ -222,6 +230,7 @@ abstract class InitialProgress<T> implements PagedCallState<T> {
   const factory InitialProgress() = _$InitialProgress<T>;
 }
 
+/// @nodoc
 abstract class $InitialSuccessCopyWith<T, $Res> {
   factory $InitialSuccessCopyWith(
           InitialSuccess<T> value, $Res Function(InitialSuccess<T>) then) =
@@ -229,6 +238,7 @@ abstract class $InitialSuccessCopyWith<T, $Res> {
   $Res call({T result});
 }
 
+/// @nodoc
 class _$InitialSuccessCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialSuccessCopyWith<T, $Res> {
@@ -249,6 +259,7 @@ class _$InitialSuccessCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$InitialSuccess<T> implements InitialSuccess<T> {
   const _$InitialSuccess(this.result) : assert(result != null);
 
@@ -358,6 +369,7 @@ abstract class InitialSuccess<T> implements PagedCallState<T> {
   $InitialSuccessCopyWith<T, InitialSuccess<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $InitialErrorCopyWith<T, $Res> {
   factory $InitialErrorCopyWith(
           InitialError<T> value, $Res Function(InitialError<T>) then) =
@@ -365,6 +377,7 @@ abstract class $InitialErrorCopyWith<T, $Res> {
   $Res call({RKString errorMessage});
 }
 
+/// @nodoc
 class _$InitialErrorCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialErrorCopyWith<T, $Res> {
@@ -385,6 +398,7 @@ class _$InitialErrorCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$InitialError<T> implements InitialError<T> {
   const _$InitialError(this.errorMessage) : assert(errorMessage != null);
 
@@ -495,12 +509,14 @@ abstract class InitialError<T> implements PagedCallState<T> {
   $InitialErrorCopyWith<T, InitialError<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $AdditionalProgressCopyWith<T, $Res> {
   factory $AdditionalProgressCopyWith(AdditionalProgress<T> value,
           $Res Function(AdditionalProgress<T>) then) =
       _$AdditionalProgressCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$AdditionalProgressCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalProgressCopyWith<T, $Res> {
@@ -512,6 +528,7 @@ class _$AdditionalProgressCopyWithImpl<T, $Res>
   AdditionalProgress<T> get _value => super._value as AdditionalProgress<T>;
 }
 
+/// @nodoc
 class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   const _$AdditionalProgress();
 
@@ -607,6 +624,7 @@ abstract class AdditionalProgress<T> implements PagedCallState<T> {
   const factory AdditionalProgress() = _$AdditionalProgress<T>;
 }
 
+/// @nodoc
 abstract class $AdditionalSuccessCopyWith<T, $Res> {
   factory $AdditionalSuccessCopyWith(AdditionalSuccess<T> value,
           $Res Function(AdditionalSuccess<T>) then) =
@@ -614,6 +632,7 @@ abstract class $AdditionalSuccessCopyWith<T, $Res> {
   $Res call({T result});
 }
 
+/// @nodoc
 class _$AdditionalSuccessCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalSuccessCopyWith<T, $Res> {
@@ -634,6 +653,7 @@ class _$AdditionalSuccessCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   const _$AdditionalSuccess(this.result) : assert(result != null);
 
@@ -744,6 +764,7 @@ abstract class AdditionalSuccess<T> implements PagedCallState<T> {
   $AdditionalSuccessCopyWith<T, AdditionalSuccess<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $AdditionalErrorCopyWith<T, $Res> {
   factory $AdditionalErrorCopyWith(
           AdditionalError<T> value, $Res Function(AdditionalError<T>) then) =
@@ -751,6 +772,7 @@ abstract class $AdditionalErrorCopyWith<T, $Res> {
   $Res call({RKString errorMessage});
 }
 
+/// @nodoc
 class _$AdditionalErrorCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalErrorCopyWith<T, $Res> {
@@ -771,6 +793,7 @@ class _$AdditionalErrorCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$AdditionalError<T> implements AdditionalError<T> {
   const _$AdditionalError(this.errorMessage) : assert(errorMessage != null);
 

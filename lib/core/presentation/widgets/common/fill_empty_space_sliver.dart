@@ -5,7 +5,7 @@ class FillEmptySpaceSliver extends LeafRenderObjectWidget {
   final double minHeaderHeight;
   final double maxHeaderHeight;
 
-  FillEmptySpaceSliver({
+  const FillEmptySpaceSliver({
     @required this.minHeaderHeight,
     @required this.maxHeaderHeight,
   });
@@ -27,12 +27,12 @@ class _FillSpaceRenderer extends RenderSliver {
 
   @override
   void performLayout() {
-    double maxHeight = this.constraints.viewportMainAxisExtent -
-        (this.constraints.precedingScrollExtent - _maxHeaderHeight) -
+    var maxHeight = constraints.viewportMainAxisExtent -
+        (constraints.precedingScrollExtent - _maxHeaderHeight) -
         _minHeaderHeight;
 
     if (maxHeight < 0.0) maxHeight = 0.0;
 
-    this.geometry = SliverGeometry(scrollExtent: maxHeight);
+    geometry = SliverGeometry(scrollExtent: maxHeight);
   }
 }

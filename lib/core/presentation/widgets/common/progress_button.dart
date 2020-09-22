@@ -28,17 +28,17 @@ class ProgressButton extends StatelessWidget {
           onPressed();
         }
       },
-      color: backgroundColor ?? Theme.of(context).buttonTheme.colorScheme,
+      color: backgroundColor,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Text(
             context
                 .translate(loading ? KeyString('progressButtonLoading') : text),
             style: textStyle,
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Visibility(
             visible: loading,
             child: SizedBox(

@@ -33,7 +33,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
               height: height + MediaQuery.of(context).padding.top + 12,
             ),
             HomeLocation(location: location),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             CurrentWeatherUpdateTime(
               lastUpdateTime: lastUpdateTime,
               refreshLoading: refreshLoading,

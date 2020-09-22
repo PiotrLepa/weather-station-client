@@ -43,13 +43,13 @@ class RainPainter extends CustomPainter {
   }
 
   void _drawBars(Canvas canvas, Size size) {
-    final Path path = Path();
+    final path = Path();
 
     final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
         _pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < rainSpots.size; i++) {
+    for (var i = 0; i < rainSpots.size; i++) {
       final x = _pixelCalculator.getPixelX(timeSpots[i]);
       final y = _pixelCalculator.getPixelY(rainSpots[i]);
 
@@ -67,14 +67,14 @@ class RainPainter extends CustomPainter {
   }
 
   void _drawValues(Canvas canvas) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       color: Colors.black,
       fontSize: 14,
     );
 
-    for (int i = 0; i < rainSpots.size; i++) {
-      final double x = _pixelCalculator.getPixelX(timeSpots[i]);
-      final double y = _pixelCalculator.getPixelY(rainSpots[i]);
+    for (var i = 0; i < rainSpots.size; i++) {
+      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       final textSpan = TextSpan(
         text: '${rainSpots[i]} $unit',

@@ -17,12 +17,13 @@ class AppLocalizations {
   }
 
   Future load() async {
-    final String jsonString =
+    final jsonString =
         await rootBundle.loadString('lang/${locale.languageCode}.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final jsonMap = json.decode(jsonString) as Map<String, dynamic>;
+    final decodedMap = jsonMap.cast<String, String>();
 
     _localizedStrings =
-        jsonMap.map((key, value) => MapEntry(key, value.toString()));
+        decodedMap.map((key, value) => MapEntry(key, value.toString()));
   }
 
   String translate(RKString rawKeyString) =>
@@ -49,7 +50,7 @@ class _AppLocalizationsDelegate
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = AppLocalizations(locale, _localeProvider);
+    final localizations = AppLocalizations(locale, _localeProvider);
     await localizations.load();
     return localizations;
   }

@@ -63,7 +63,7 @@ class AirPollutionCard extends StatelessWidget {
   }
 
   Widget _buildVerticalDivider(BuildContext context) {
-    return VerticalDivider(width: Dimens.scale(50));
+    return VerticalDivider(width: scaleText(50));
   }
 
   Widget _buildPollutionValue(String name, String wind) {
@@ -73,16 +73,16 @@ class AirPollutionCard extends StatelessWidget {
           name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: Dimens.scale(15),
+            fontSize: scaleText(15),
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           wind,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: Dimens.scale(20),
+            fontSize: scaleText(20),
             fontWeight: FontWeight.w900,
           ),
         ),

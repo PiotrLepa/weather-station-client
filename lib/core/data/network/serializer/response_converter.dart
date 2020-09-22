@@ -13,13 +13,13 @@ class ResponseConverter {
     Future<Response> futureResponse,
   ) async {
     final response = await futureResponse;
-    return _modelDecoder.decode<T>(response.data);
+    return _modelDecoder.decode<T>(response.data) as T;
   }
 
   Future<KtList<T>> decodeResponseList<T>(
     Future<Response> futureResponse,
   ) async {
     final response = await futureResponse;
-    return _modelDecoder.decode<T>(response.data);
+    return _modelDecoder.decode<T>(response.data) as KtList<T>;
   }
 }

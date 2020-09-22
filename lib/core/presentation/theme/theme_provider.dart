@@ -11,11 +11,11 @@ class ThemeProvider {
 
   Color get primaryColorDark => Colors.blue[700];
 
-  Color get accentColor => Color(0xFF5CA594);
+  Color get accentColor => const Color(0xFF5CA594);
 
   Color get textColorInverted => Colors.white;
 
-  Color get textColorLightInverted => Color(0xFFE8E8E8);
+  Color get textColorLightInverted => const Color(0xFFE8E8E8);
 
   Color get textColorLight => Colors.grey;
 
@@ -23,13 +23,13 @@ class ThemeProvider {
 
   Color get backgroundColor => Colors.grey[50];
 
+  ThemeProvider({@required this.isDark});
+
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(
       isDark: MediaQuery.of(context).platformBrightness == Brightness.dark,
     );
   }
-
-  ThemeProvider({@required this.isDark});
 
   ThemeData getThemeData() {
     return ThemeData(
@@ -43,12 +43,12 @@ class ThemeProvider {
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
         button: TextStyle(
-          fontSize: Dimens.scale(20),
+          fontSize: scaleText(20),
           fontWeight: FontWeight.bold,
         ),
       ),
       buttonTheme: ButtonThemeData(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -61,14 +61,14 @@ class ThemeProvider {
         brightness: Brightness.dark,
         textTheme: TextTheme(
           headline6: TextStyle(
-            fontSize: Dimens.scale(22),
+            fontSize: scaleText(22),
             fontWeight: FontWeight.bold,
             color: textColorInverted,
           ),
         ),
       ),
-      dividerTheme: DividerThemeData(
-        color: const Color(0x1F000000),
+      dividerTheme: const DividerThemeData(
+        color: Color(0x1F000000),
         thickness: 1,
       ),
     );
