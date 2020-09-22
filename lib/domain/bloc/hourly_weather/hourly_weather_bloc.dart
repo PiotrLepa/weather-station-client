@@ -73,8 +73,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           yield currentState.copyWith(changeDateLoading: true);
         },
         success: (weathers) async* {
-          _flushbarHelper.showSuccess(
-              message: RawString('Dane zaktualizowane'));
+          _flushbarHelper.showSuccess(message: KeyString('dataUpdated'));
           _fetchedWeathers = weathers;
           yield HourlyWeatherState.renderCharts(
             weathers: weathers,

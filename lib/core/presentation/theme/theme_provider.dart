@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/gen/fonts.gen.dart';
 
 class ThemeProvider {
   final bool isDark;
@@ -38,7 +39,7 @@ class ThemeProvider {
       accentColor: accentColor,
       backgroundColor: backgroundColor,
       scaffoldBackgroundColor: backgroundColor,
-      fontFamily: 'Lato',
+      fontFamily: FontFamily.lato,
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
         button: TextStyle(

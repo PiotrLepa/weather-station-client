@@ -56,7 +56,7 @@ class CurrentWeatherBloc
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
-            message: RawString('Podczas pobierania danych wystąpił błąd'),
+            message: KeyString('fetchDataFailed'),
             loading: false,
           );
         },
@@ -68,7 +68,7 @@ class CurrentWeatherBloc
     RefreshPressed event,
   ) async* {
     if (!_shouldRefreshWeather()) {
-      _flushbarHelper.showSuccess(message: RawString('Dane są aktualne'));
+      _flushbarHelper.showSuccess(message: KeyString('dataUpToDate'));
       yield CurrentWeatherState.renderWeather(
         weather: _fetchedWeather,
         refreshLoading: false,
@@ -87,8 +87,7 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          _flushbarHelper.showSuccess(
-              message: RawString('Dane zaktualizowane'));
+          _flushbarHelper.showSuccess(message: KeyString('dataUpdated'));
           yield CurrentWeatherState.renderWeather(
             weather: weather,
             refreshLoading: false,
@@ -103,7 +102,7 @@ class CurrentWeatherBloc
             );
           } else {
             yield CurrentWeatherState.renderError(
-              message: RawString('Podczas pobierania danych wystąpił błąd'),
+              message: KeyString('fetchDataFailed'),
               loading: false,
             );
           }
@@ -137,7 +136,7 @@ class CurrentWeatherBloc
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield CurrentWeatherState.renderError(
-            message: RawString('Podczas pobierania danych wystąpił błąd'),
+            message: KeyString('fetchDataFailed'),
             loading: false,
           );
         },
