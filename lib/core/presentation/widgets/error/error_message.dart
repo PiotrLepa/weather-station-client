@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 
 class ErrorMessage extends StatelessWidget {
   final RKString message;
@@ -26,8 +26,7 @@ class ErrorMessage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            'assets/icons/error.svg',
+          Assets.icons.error.svg(
             width: 72,
             height: 72,
           ),

@@ -22,11 +22,11 @@ class LeftTitlesProvider {
         ChartConstants.rainHeight,
       ),
       NormalChartTitle(
-        context.translateKey('cardMaxWind'),
+        context.translateKey('chartWindMax'),
         ChartConstants.maxWindHeight,
       ),
       NormalChartTitle(
-        context.translateKey('cardWindAvg'),
+        context.translateKey('chartWindAvg'),
         ChartConstants.avgWindHeight,
       ),
       NormalChartTitle(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
@@ -22,7 +23,7 @@ class AirPollutionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return WeatherCard(
       color: const Color(0xff595959),
-      iconPath: 'assets/icons/air-pollution.svg',
+      iconPath: Assets.icons.airPollution.path,
       title: KeyString('cardAirPollution'),
       body: Column(
         children: [

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/current_weather_page.dart';
 import 'package:weather_station/presentation/home/hourly/hourly_weather_page.dart';
 
@@ -41,12 +42,12 @@ class HomeScreen extends StatelessWidget {
           title: Text(context.translateKey('tabTitleCurrent')),
           icon: _getBottomNavIcon(
             context,
-            'assets/icons/current_weather.svg',
+            Assets.icons.currentWeather.path,
             isActive: false,
           ),
           activeIcon: _getBottomNavIcon(
             context,
-            'assets/icons/current_weather.svg',
+            Assets.icons.currentWeather.path,
             isActive: true,
           ),
         ),
@@ -54,12 +55,12 @@ class HomeScreen extends StatelessWidget {
           title: Text(context.translateKey('tabTitleHourly')),
           icon: _getBottomNavIcon(
             context,
-            'assets/icons/hourly_weather.svg',
+            Assets.icons.hourlyWeather.path,
             isActive: false,
           ),
           activeIcon: _getBottomNavIcon(
             context,
-            'assets/icons/hourly_weather.svg',
+            Assets.icons.hourlyWeather.path,
             isActive: true,
           ),
         ),

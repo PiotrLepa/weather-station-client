@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
   final bool selectDateLoading;
@@ -22,8 +22,7 @@ class HourlyWeatherInitial extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(
-            'assets/icons/calendar.svg',
+          Assets.icons.calendar.svg(
             width: 60,
             height: 60,
           ),

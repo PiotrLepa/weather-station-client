@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 
 class HomeLocation extends StatelessWidget {
   final String location;
@@ -25,8 +25,7 @@ class HomeLocation extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/icons/marker.svg',
+          Assets.icons.marker.svg(
             width: 36,
             height: 36,
           ),
@@ -36,9 +35,7 @@ class HomeLocation extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: Dimens.scale(22),
-                color: ThemeProvider
-                    .of(context)
-                    .textColor),
+                color: ThemeProvider.of(context).textColor),
           )
         ],
       ),

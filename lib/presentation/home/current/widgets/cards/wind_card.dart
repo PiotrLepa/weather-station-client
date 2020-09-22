@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
@@ -19,7 +21,7 @@ class WindCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return WeatherCard(
       color: const Color(0xff5858C5),
-      iconPath: 'assets/icons/wind.svg',
+      iconPath: Assets.icons.wind.path,
       title: KeyString('cardWind'),
       body: Column(
         children: [
@@ -29,9 +31,15 @@ class WindCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildWindValue('Max', maxSpeed.toString()),
+                    _buildWindValue(
+                      context.translateKey('cardWindMax'),
+                      maxSpeed.toString(),
+                    ),
                     VerticalDivider(width: Dimens.scale(50)),
-                    _buildWindValue('Średnia', avgSpeed.toString()),
+                    _buildWindValue(
+                      context.translateKey('cardWindAvg'),
+                      avgSpeed.toString(),
+                    ),
                   ],
                 ),
               ),

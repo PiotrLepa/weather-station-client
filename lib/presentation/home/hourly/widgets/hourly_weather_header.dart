@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
+import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/half_bottom_circle_shape_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
 
@@ -38,8 +38,7 @@ class HourlyWeatherHeader extends StatelessWidget {
                   HourlyWeatherSelectedDate(day: day),
                   SizedBox(width: padding),
                   Expanded(
-                    child: SvgPicture.asset(
-                      'assets/icons/weather_graph.svg',
+                    child: Assets.icons.weatherGraph.svg(
                       width: 72,
                       height: 72,
                     ),
