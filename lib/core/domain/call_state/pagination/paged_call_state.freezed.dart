@@ -9,6 +9,7 @@ part of paged_call_state;
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$PagedCallStateTearOff {
   const _$PagedCallStateTearOff();
 
@@ -25,7 +26,7 @@ class _$PagedCallStateTearOff {
   }
 
 // ignore: unused_element
-  InitialError<T> initialError<T>(RKString errorMessage) {
+  InitialError<T> initialError<T>(PlainLocalizedString errorMessage) {
     return InitialError<T>(
       errorMessage,
     );
@@ -44,34 +45,36 @@ class _$PagedCallStateTearOff {
   }
 
 // ignore: unused_element
-  AdditionalError<T> additionalError<T>(RKString errorMessage) {
+  AdditionalError<T> additionalError<T>(PlainLocalizedString errorMessage) {
     return AdditionalError<T>(
       errorMessage,
     );
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $PagedCallState = _$PagedCallStateTearOff();
 
+/// @nodoc
 mixin _$PagedCallState<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -95,12 +98,14 @@ mixin _$PagedCallState<T> {
   });
 }
 
+/// @nodoc
 abstract class $PagedCallStateCopyWith<T, $Res> {
   factory $PagedCallStateCopyWith(
           PagedCallState<T> value, $Res Function(PagedCallState<T>) then) =
       _$PagedCallStateCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$PagedCallStateCopyWithImpl<T, $Res>
     implements $PagedCallStateCopyWith<T, $Res> {
   _$PagedCallStateCopyWithImpl(this._value, this._then);
@@ -110,12 +115,14 @@ class _$PagedCallStateCopyWithImpl<T, $Res>
   final $Res Function(PagedCallState<T>) _then;
 }
 
+/// @nodoc
 abstract class $InitialProgressCopyWith<T, $Res> {
   factory $InitialProgressCopyWith(
           InitialProgress<T> value, $Res Function(InitialProgress<T>) then) =
       _$InitialProgressCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$InitialProgressCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialProgressCopyWith<T, $Res> {
@@ -127,6 +134,7 @@ class _$InitialProgressCopyWithImpl<T, $Res>
   InitialProgress<T> get _value => super._value as InitialProgress<T>;
 }
 
+/// @nodoc
 class _$InitialProgress<T> implements InitialProgress<T> {
   const _$InitialProgress();
 
@@ -148,10 +156,10 @@ class _$InitialProgress<T> implements InitialProgress<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -167,10 +175,10 @@ class _$InitialProgress<T> implements InitialProgress<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -222,6 +230,7 @@ abstract class InitialProgress<T> implements PagedCallState<T> {
   const factory InitialProgress() = _$InitialProgress<T>;
 }
 
+/// @nodoc
 abstract class $InitialSuccessCopyWith<T, $Res> {
   factory $InitialSuccessCopyWith(
           InitialSuccess<T> value, $Res Function(InitialSuccess<T>) then) =
@@ -229,6 +238,7 @@ abstract class $InitialSuccessCopyWith<T, $Res> {
   $Res call({T result});
 }
 
+/// @nodoc
 class _$InitialSuccessCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialSuccessCopyWith<T, $Res> {
@@ -249,6 +259,7 @@ class _$InitialSuccessCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$InitialSuccess<T> implements InitialSuccess<T> {
   const _$InitialSuccess(this.result) : assert(result != null);
 
@@ -281,10 +292,10 @@ class _$InitialSuccess<T> implements InitialSuccess<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -300,10 +311,10 @@ class _$InitialSuccess<T> implements InitialSuccess<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -358,13 +369,16 @@ abstract class InitialSuccess<T> implements PagedCallState<T> {
   $InitialSuccessCopyWith<T, InitialSuccess<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $InitialErrorCopyWith<T, $Res> {
   factory $InitialErrorCopyWith(
           InitialError<T> value, $Res Function(InitialError<T>) then) =
       _$InitialErrorCopyWithImpl<T, $Res>;
-  $Res call({RKString errorMessage});
+
+  $Res call({PlainLocalizedString errorMessage});
 }
 
+/// @nodoc
 class _$InitialErrorCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $InitialErrorCopyWith<T, $Res> {
@@ -380,16 +394,19 @@ class _$InitialErrorCopyWithImpl<T, $Res>
     Object errorMessage = freezed,
   }) {
     return _then(InitialError<T>(
-      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
+      errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as PlainLocalizedString,
     ));
   }
 }
 
+/// @nodoc
 class _$InitialError<T> implements InitialError<T> {
   const _$InitialError(this.errorMessage) : assert(errorMessage != null);
 
   @override
-  final RKString errorMessage;
+  final PlainLocalizedString errorMessage;
 
   @override
   String toString() {
@@ -418,10 +435,10 @@ class _$InitialError<T> implements InitialError<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -437,10 +454,10 @@ class _$InitialError<T> implements InitialError<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -489,18 +506,22 @@ class _$InitialError<T> implements InitialError<T> {
 }
 
 abstract class InitialError<T> implements PagedCallState<T> {
-  const factory InitialError(RKString errorMessage) = _$InitialError<T>;
+  const factory InitialError(PlainLocalizedString errorMessage) =
+      _$InitialError<T>;
 
-  RKString get errorMessage;
+  PlainLocalizedString get errorMessage;
+
   $InitialErrorCopyWith<T, InitialError<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $AdditionalProgressCopyWith<T, $Res> {
   factory $AdditionalProgressCopyWith(AdditionalProgress<T> value,
           $Res Function(AdditionalProgress<T>) then) =
       _$AdditionalProgressCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$AdditionalProgressCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalProgressCopyWith<T, $Res> {
@@ -512,6 +533,7 @@ class _$AdditionalProgressCopyWithImpl<T, $Res>
   AdditionalProgress<T> get _value => super._value as AdditionalProgress<T>;
 }
 
+/// @nodoc
 class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   const _$AdditionalProgress();
 
@@ -533,10 +555,10 @@ class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -552,10 +574,10 @@ class _$AdditionalProgress<T> implements AdditionalProgress<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -607,6 +629,7 @@ abstract class AdditionalProgress<T> implements PagedCallState<T> {
   const factory AdditionalProgress() = _$AdditionalProgress<T>;
 }
 
+/// @nodoc
 abstract class $AdditionalSuccessCopyWith<T, $Res> {
   factory $AdditionalSuccessCopyWith(AdditionalSuccess<T> value,
           $Res Function(AdditionalSuccess<T>) then) =
@@ -614,6 +637,7 @@ abstract class $AdditionalSuccessCopyWith<T, $Res> {
   $Res call({T result});
 }
 
+/// @nodoc
 class _$AdditionalSuccessCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalSuccessCopyWith<T, $Res> {
@@ -634,6 +658,7 @@ class _$AdditionalSuccessCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   const _$AdditionalSuccess(this.result) : assert(result != null);
 
@@ -667,10 +692,10 @@ class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -686,10 +711,10 @@ class _$AdditionalSuccess<T> implements AdditionalSuccess<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -744,13 +769,16 @@ abstract class AdditionalSuccess<T> implements PagedCallState<T> {
   $AdditionalSuccessCopyWith<T, AdditionalSuccess<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $AdditionalErrorCopyWith<T, $Res> {
   factory $AdditionalErrorCopyWith(
           AdditionalError<T> value, $Res Function(AdditionalError<T>) then) =
       _$AdditionalErrorCopyWithImpl<T, $Res>;
-  $Res call({RKString errorMessage});
+
+  $Res call({PlainLocalizedString errorMessage});
 }
 
+/// @nodoc
 class _$AdditionalErrorCopyWithImpl<T, $Res>
     extends _$PagedCallStateCopyWithImpl<T, $Res>
     implements $AdditionalErrorCopyWith<T, $Res> {
@@ -766,16 +794,19 @@ class _$AdditionalErrorCopyWithImpl<T, $Res>
     Object errorMessage = freezed,
   }) {
     return _then(AdditionalError<T>(
-      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
+      errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as PlainLocalizedString,
     ));
   }
 }
 
+/// @nodoc
 class _$AdditionalError<T> implements AdditionalError<T> {
   const _$AdditionalError(this.errorMessage) : assert(errorMessage != null);
 
   @override
-  final RKString errorMessage;
+  final PlainLocalizedString errorMessage;
 
   @override
   String toString() {
@@ -804,10 +835,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
   Result when<Result extends Object>({
     @required Result initialProgress(),
     @required Result initialSuccess(T result),
-    @required Result initialError(RKString errorMessage),
+    @required Result initialError(PlainLocalizedString errorMessage),
     @required Result additionalProgress(),
     @required Result additionalSuccess(T result),
-    @required Result additionalError(RKString errorMessage),
+    @required Result additionalError(PlainLocalizedString errorMessage),
   }) {
     assert(initialProgress != null);
     assert(initialSuccess != null);
@@ -823,10 +854,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
   Result maybeWhen<Result extends Object>({
     Result initialProgress(),
     Result initialSuccess(T result),
-    Result initialError(RKString errorMessage),
+    Result initialError(PlainLocalizedString errorMessage),
     Result additionalProgress(),
     Result additionalSuccess(T result),
-    Result additionalError(RKString errorMessage),
+    Result additionalError(PlainLocalizedString errorMessage),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -875,8 +906,10 @@ class _$AdditionalError<T> implements AdditionalError<T> {
 }
 
 abstract class AdditionalError<T> implements PagedCallState<T> {
-  const factory AdditionalError(RKString errorMessage) = _$AdditionalError<T>;
+  const factory AdditionalError(PlainLocalizedString errorMessage) =
+  _$AdditionalError<T>;
 
-  RKString get errorMessage;
+  PlainLocalizedString get errorMessage;
+
   $AdditionalErrorCopyWith<T, AdditionalError<T>> get copyWith;
 }

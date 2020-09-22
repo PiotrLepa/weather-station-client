@@ -4,8 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/domain/bloc/bloc_helper.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
@@ -73,8 +73,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           yield currentState.copyWith(changeDateLoading: true);
         },
         success: (weathers) async* {
-          _flushbarHelper.showSuccess(
-              message: RawString('Dane zaktualizowane'));
+          _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           _fetchedWeathers = weathers;
           yield HourlyWeatherState.renderCharts(
             weathers: weathers,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/core/presentation/widgets/common/fill_empty_space_sliver.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
@@ -23,7 +24,7 @@ class CurrentWeatherPage extends StatelessWidget {
               initialLoading: (_) => Center(child: LoadingIndicator()),
               renderWeather: (s) => _buildPage(s),
               renderError: (s) => ErrorPage(
-                message: s.message,
+                message: Strings.fetchDataFailed,
                 loading: s.loading,
                 onRetry: () {
                   context

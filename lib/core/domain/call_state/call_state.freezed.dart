@@ -9,6 +9,7 @@ part of call_state;
 
 T _$identity<T>(T value) => value;
 
+/// @nodoc
 class _$CallStateTearOff {
   const _$CallStateTearOff();
 
@@ -25,28 +26,30 @@ class _$CallStateTearOff {
   }
 
 // ignore: unused_element
-  Error<T> error<T>(RKString errorMessage) {
+  Error<T> error<T>(PlainLocalizedString message) {
     return Error<T>(
-      errorMessage,
+      message,
     );
   }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $CallState = _$CallStateTearOff();
 
+/// @nodoc
 mixin _$CallState<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RKString errorMessage),
+    @required Result error(PlainLocalizedString message),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RKString errorMessage),
+    Result error(PlainLocalizedString message),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -64,12 +67,14 @@ mixin _$CallState<T> {
   });
 }
 
+/// @nodoc
 abstract class $CallStateCopyWith<T, $Res> {
   factory $CallStateCopyWith(
           CallState<T> value, $Res Function(CallState<T>) then) =
       _$CallStateCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$CallStateCopyWithImpl<T, $Res> implements $CallStateCopyWith<T, $Res> {
   _$CallStateCopyWithImpl(this._value, this._then);
 
@@ -78,12 +83,14 @@ class _$CallStateCopyWithImpl<T, $Res> implements $CallStateCopyWith<T, $Res> {
   final $Res Function(CallState<T>) _then;
 }
 
+/// @nodoc
 abstract class $ProgressCopyWith<T, $Res> {
   factory $ProgressCopyWith(
           Progress<T> value, $Res Function(Progress<T>) then) =
       _$ProgressCopyWithImpl<T, $Res>;
 }
 
+/// @nodoc
 class _$ProgressCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
     implements $ProgressCopyWith<T, $Res> {
   _$ProgressCopyWithImpl(Progress<T> _value, $Res Function(Progress<T>) _then)
@@ -93,6 +100,7 @@ class _$ProgressCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
   Progress<T> get _value => super._value as Progress<T>;
 }
 
+/// @nodoc
 class _$Progress<T> implements Progress<T> {
   const _$Progress();
 
@@ -114,7 +122,7 @@ class _$Progress<T> implements Progress<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RKString errorMessage),
+    @required Result error(PlainLocalizedString message),
   }) {
     assert(progress != null);
     assert(success != null);
@@ -127,7 +135,7 @@ class _$Progress<T> implements Progress<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RKString errorMessage),
+    Result error(PlainLocalizedString message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -170,12 +178,14 @@ abstract class Progress<T> implements CallState<T> {
   const factory Progress() = _$Progress<T>;
 }
 
+/// @nodoc
 abstract class $SuccessCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) then) =
       _$SuccessCopyWithImpl<T, $Res>;
   $Res call({@nullable T result});
 }
 
+/// @nodoc
 class _$SuccessCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
     implements $SuccessCopyWith<T, $Res> {
   _$SuccessCopyWithImpl(Success<T> _value, $Res Function(Success<T>) _then)
@@ -194,6 +204,7 @@ class _$SuccessCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
   }
 }
 
+/// @nodoc
 class _$Success<T> implements Success<T> {
   const _$Success(@nullable this.result);
 
@@ -227,7 +238,7 @@ class _$Success<T> implements Success<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RKString errorMessage),
+    @required Result error(PlainLocalizedString message),
   }) {
     assert(progress != null);
     assert(success != null);
@@ -240,7 +251,7 @@ class _$Success<T> implements Success<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RKString errorMessage),
+    Result error(PlainLocalizedString message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -287,12 +298,15 @@ abstract class Success<T> implements CallState<T> {
   $SuccessCopyWith<T, Success<T>> get copyWith;
 }
 
+/// @nodoc
 abstract class $ErrorCopyWith<T, $Res> {
   factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) then) =
       _$ErrorCopyWithImpl<T, $Res>;
-  $Res call({RKString errorMessage});
+
+  $Res call({PlainLocalizedString message});
 }
 
+/// @nodoc
 class _$ErrorCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
     implements $ErrorCopyWith<T, $Res> {
   _$ErrorCopyWithImpl(Error<T> _value, $Res Function(Error<T>) _then)
@@ -303,37 +317,37 @@ class _$ErrorCopyWithImpl<T, $Res> extends _$CallStateCopyWithImpl<T, $Res>
 
   @override
   $Res call({
-    Object errorMessage = freezed,
+    Object message = freezed,
   }) {
     return _then(Error<T>(
-      errorMessage == freezed ? _value.errorMessage : errorMessage as RKString,
+      message == freezed ? _value.message : message as PlainLocalizedString,
     ));
   }
 }
 
+/// @nodoc
 class _$Error<T> implements Error<T> {
-  const _$Error(this.errorMessage) : assert(errorMessage != null);
+  const _$Error(this.message) : assert(message != null);
 
   @override
-  final RKString errorMessage;
+  final PlainLocalizedString message;
 
   @override
   String toString() {
-    return 'CallState<$T>.error(errorMessage: $errorMessage)';
+    return 'CallState<$T>.error(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is Error<T> &&
-            (identical(other.errorMessage, errorMessage) ||
-                const DeepCollectionEquality()
-                    .equals(other.errorMessage, errorMessage)));
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errorMessage);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
 
   @override
   $ErrorCopyWith<T, Error<T>> get copyWith =>
@@ -344,12 +358,12 @@ class _$Error<T> implements Error<T> {
   Result when<Result extends Object>({
     @required Result progress(),
     @required Result success(@nullable T result),
-    @required Result error(RKString errorMessage),
+    @required Result error(PlainLocalizedString message),
   }) {
     assert(progress != null);
     assert(success != null);
     assert(error != null);
-    return error(errorMessage);
+    return error(message);
   }
 
   @override
@@ -357,12 +371,12 @@ class _$Error<T> implements Error<T> {
   Result maybeWhen<Result extends Object>({
     Result progress(),
     Result success(@nullable T result),
-    Result error(RKString errorMessage),
+    Result error(PlainLocalizedString message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error(errorMessage);
+      return error(message);
     }
     return orElse();
   }
@@ -397,8 +411,9 @@ class _$Error<T> implements Error<T> {
 }
 
 abstract class Error<T> implements CallState<T> {
-  const factory Error(RKString errorMessage) = _$Error<T>;
+  const factory Error(PlainLocalizedString message) = _$Error<T>;
 
-  RKString get errorMessage;
+  PlainLocalizedString get message;
+
   $ErrorCopyWith<T, Error<T>> get copyWith;
 }

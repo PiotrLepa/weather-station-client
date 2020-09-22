@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/air_pollution_painter.dart';
@@ -69,7 +69,7 @@ class WeatherChartContent extends StatelessWidget {
         painter: TemperaturePainter(
           tempSpots: weathers.map((e) => e.temperature),
           timeSpots: _timeSpots,
-          unit: context.translateKey('temperatureUnitShort'),
+          unit: Strings.temperatureUnitShort.get(context),
         ),
       ),
     );
@@ -82,9 +82,10 @@ class WeatherChartContent extends StatelessWidget {
       child: CustomPaint(
         size: Size(_chartWidth, ChartConstants.rainHeight),
         painter: RainPainter(
-            rainSpots: weathers.map((e) => e.rainGauge),
-            timeSpots: _timeSpots,
-            unit: context.translateKey('rainUnitShort')),
+          rainSpots: weathers.map((e) => e.rainGauge),
+          timeSpots: _timeSpots,
+          unit: Strings.rainUnitShort.get(context),
+        ),
       ),
     );
   }
@@ -100,9 +101,9 @@ class WeatherChartContent extends StatelessWidget {
         painter: MaxWindSpeedPainter(
           speedSpots: weathers.map((w) => w.windSpeedMax),
           timeSpots: _timeSpots,
-          strongWindText: context.translateKey('strongWindSpeed'),
-          moderateWindText: context.translateKey('moderateWindSpeed'),
-          weakWindText: context.translateKey('weakWindSpeed'),
+          strongWindText: Strings.strongWindSpeed.get(context),
+          moderateWindText: Strings.moderateWindSpeed.get(context),
+          weakWindText: Strings.weakWindSpeed.get(context),
         ),
       ),
     );
@@ -120,7 +121,7 @@ class WeatherChartContent extends StatelessWidget {
         painter: AvgWindSpeedPainter(
           speedSpots: weathers.map((w) => w.windSpeedAvg),
           timeSpots: _timeSpots,
-          unit: context.translateKey('windUnit'),
+          unit: Strings.windUnit.get(context),
         ),
       ),
     );
@@ -139,7 +140,7 @@ class WeatherChartContent extends StatelessWidget {
         painter: HumidityPainter(
           humiditySpots: weathers.map((w) => w.humidity),
           timeSpots: _timeSpots,
-          unit: context.translateKey('humidityUnit'),
+          unit: Strings.humidityUnit.get(context),
         ),
       ),
     );

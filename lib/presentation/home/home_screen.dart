@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
 
   List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) => [
         BottomNavigationBarItem(
-          title: Text(context.translateKey('tabTitleCurrent')),
+          title: Text(Strings.tabTitleCurrent.get(context)),
           icon: _getBottomNavIcon(
             context,
             Assets.icons.currentWeather.path,
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          title: Text(context.translateKey('tabTitleHourly')),
+          title: Text(Strings.tabTitleHourly.get(context)),
           icon: _getBottomNavIcon(
             context,
             Assets.icons.hourlyWeather.path,

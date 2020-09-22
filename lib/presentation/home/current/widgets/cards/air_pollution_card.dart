@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
@@ -24,7 +23,7 @@ class AirPollutionCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff595959),
       iconPath: Assets.icons.airPollution.path,
-      title: KeyString('cardAirPollution'),
+      title: Strings.cardAirPollution,
       body: Column(
         children: [
           IntrinsicHeight(
@@ -34,17 +33,17 @@ class AirPollutionCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildPollutionValue(
-                      context.translateKey('airPollutionPm1'),
+                      Strings.airPollutionPm1.get(context),
                       pm1.toString(),
                     ),
                     _buildVerticalDivider(context),
                     _buildPollutionValue(
-                      context.translateKey('airPollutionPm25'),
+                      Strings.airPollutionPm25.get(context),
                       pm25.toString(),
                     ),
                     _buildVerticalDivider(context),
                     _buildPollutionValue(
-                      context.translateKey('airPollutionPm10'),
+                      Strings.airPollutionPm10.get(context),
                       pm10.toString(),
                     ),
                   ],
@@ -52,7 +51,7 @@ class AirPollutionCard extends StatelessWidget {
                 Positioned(
                   right: 12,
                   bottom: 0,
-                  child: WeatherUnit(value: KeyString('airPollutionUnit')),
+                  child: WeatherUnit(value: Strings.airPollutionUnit),
                 ),
               ],
             ),

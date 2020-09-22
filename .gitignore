@@ -50,3 +50,4 @@ gen/
 *.gr.dart
 *.config.dart
 *.gen.dart
+*.al.dart

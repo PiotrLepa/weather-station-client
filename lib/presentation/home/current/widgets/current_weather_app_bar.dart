@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_location.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_update_time.dart';
 
@@ -25,7 +25,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
       toolbarHeight: height,
       expandedHeight: expandedHeight,
       pinned: true,
-      title: Text(context.translateKey('weatherPageAppBarTitle')),
+      title: Text(Strings.weatherPageAppBarTitle.get(context)),
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [
