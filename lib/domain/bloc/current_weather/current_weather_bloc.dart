@@ -54,8 +54,8 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
-          yield CurrentWeatherState.renderError(
+          _flushbarHelper.showError(message: message);
+          yield const CurrentWeatherState.renderError(
             loading: false,
           );
         },
@@ -67,7 +67,7 @@ class CurrentWeatherBloc
     RefreshPressed event,
   ) async* {
     if (!_shouldRefreshWeather()) {
-      await _flushbarHelper.showSuccess(message: Strings.dataUpToDate);
+      _flushbarHelper.showSuccess(message: Strings.dataUpToDate);
       yield CurrentWeatherState.renderWeather(
         weather: _fetchedWeather,
         refreshLoading: false,
@@ -86,21 +86,21 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          await _flushbarHelper.showSuccess(message: Strings.dataUpdated);
+          _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           yield CurrentWeatherState.renderWeather(
             weather: weather,
             refreshLoading: false,
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
+          _flushbarHelper.showError(message: message);
           if (_fetchedWeather != null) {
             yield CurrentWeatherState.renderWeather(
               weather: _fetchedWeather,
               refreshLoading: false,
             );
           } else {
-            yield CurrentWeatherState.renderError(
+            yield const CurrentWeatherState.renderError(
               loading: false,
             );
           }
@@ -132,8 +132,8 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
-          yield CurrentWeatherState.renderError(
+          _flushbarHelper.showError(message: message);
+          yield const CurrentWeatherState.renderError(
             loading: false,
           );
         },

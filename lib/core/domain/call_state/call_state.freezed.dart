@@ -302,7 +302,6 @@ abstract class Success<T> implements CallState<T> {
 abstract class $ErrorCopyWith<T, $Res> {
   factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) then) =
       _$ErrorCopyWithImpl<T, $Res>;
-
   $Res call({PlainLocalizedString message});
 }
 
@@ -414,6 +413,5 @@ abstract class Error<T> implements CallState<T> {
   const factory Error(PlainLocalizedString message) = _$Error<T>;
 
   PlainLocalizedString get message;
-
   $ErrorCopyWith<T, Error<T>> get copyWith;
 }

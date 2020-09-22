@@ -42,7 +42,7 @@ class WindCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
+              const Positioned(
                 right: 12,
                 bottom: 0,
                 child: WeatherUnit(value: Strings.windUnit),

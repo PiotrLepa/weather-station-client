@@ -48,7 +48,7 @@ class AirPollutionCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Positioned(
+                const Positioned(
                   right: 12,
                   bottom: 0,
                   child: WeatherUnit(value: Strings.airPollutionUnit),

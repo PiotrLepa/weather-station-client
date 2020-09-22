@@ -52,7 +52,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
+          _flushbarHelper.showError(message: message);
           yield const HourlyWeatherState.initial(selectDateLoading: false);
         },
       );
@@ -73,7 +73,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           yield currentState.copyWith(changeDateLoading: true);
         },
         success: (weathers) async* {
-          await _flushbarHelper.showSuccess(message: Strings.dataUpdated);
+          _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           _fetchedWeathers = weathers;
           yield HourlyWeatherState.renderCharts(
             weathers: weathers,
@@ -81,7 +81,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
+          _flushbarHelper.showError(message: message);
           yield HourlyWeatherState.renderCharts(
             weathers: _fetchedWeathers,
             changeDateLoading: false,

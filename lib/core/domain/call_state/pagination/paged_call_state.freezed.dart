@@ -374,7 +374,6 @@ abstract class $InitialErrorCopyWith<T, $Res> {
   factory $InitialErrorCopyWith(
           InitialError<T> value, $Res Function(InitialError<T>) then) =
       _$InitialErrorCopyWithImpl<T, $Res>;
-
   $Res call({PlainLocalizedString errorMessage});
 }
 
@@ -510,7 +509,6 @@ abstract class InitialError<T> implements PagedCallState<T> {
       _$InitialError<T>;
 
   PlainLocalizedString get errorMessage;
-
   $InitialErrorCopyWith<T, InitialError<T>> get copyWith;
 }
 
@@ -774,7 +772,6 @@ abstract class $AdditionalErrorCopyWith<T, $Res> {
   factory $AdditionalErrorCopyWith(
           AdditionalError<T> value, $Res Function(AdditionalError<T>) then) =
       _$AdditionalErrorCopyWithImpl<T, $Res>;
-
   $Res call({PlainLocalizedString errorMessage});
 }
 
@@ -907,9 +904,8 @@ class _$AdditionalError<T> implements AdditionalError<T> {
 
 abstract class AdditionalError<T> implements PagedCallState<T> {
   const factory AdditionalError(PlainLocalizedString errorMessage) =
-  _$AdditionalError<T>;
+      _$AdditionalError<T>;
 
   PlainLocalizedString get errorMessage;
-
   $AdditionalErrorCopyWith<T, AdditionalError<T>> get copyWith;
 }
