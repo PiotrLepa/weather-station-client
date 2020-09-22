@@ -15,10 +15,10 @@ class HomeLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: ThemeProvider.of(context).backgroundColor,
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
       ),
@@ -29,12 +29,12 @@ class HomeLocation extends StatelessWidget {
             width: 36,
             height: 36,
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Text(
             location,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: Dimens.scale(22),
+                fontSize: scaleText(22),
                 color: ThemeProvider.of(context).textColor),
           )
         ],

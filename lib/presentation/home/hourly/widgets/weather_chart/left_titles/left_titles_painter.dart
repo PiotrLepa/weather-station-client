@@ -15,7 +15,7 @@ class LeftTitlesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double previousHeights = 0;
+    var previousHeights = 0.0;
     titles.forEach((title) {
       title.draw(context, canvas, size, previousHeights);
       previousHeights += title.height;

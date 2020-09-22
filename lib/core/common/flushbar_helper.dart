@@ -1,6 +1,6 @@
 import 'package:auto_localized/auto_localized.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flushbar/flushbar_route.dart' as flushbarRoute;
+import 'package:flushbar/flushbar_route.dart' as flushbar_route;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -71,10 +71,10 @@ class FlushbarHelper {
   Future<void> _showFlushbar({
     @required AppFlushbar flushbar,
   }) async {
-    _currentFlushbar?.dismiss();
+    await _currentFlushbar?.dismiss();
     _currentFlushbar = flushbar;
     return navigatorKey.currentState.push(
-      flushbarRoute.showFlushbar(
+      flushbar_route.showFlushbar<void>(
         context: _context,
         flushbar: flushbar,
       ),

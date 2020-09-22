@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: must_be_immutable
-class AppFlushbar extends Flushbar {
+class AppFlushbar extends Flushbar<void> {
   AppFlushbar({
     Key key,
     @required String title,
@@ -15,7 +15,7 @@ class AppFlushbar extends Flushbar {
     bool infinityDuration = false,
     bool isDismissible = true,
   }) : super(
-          key: key,
+    key: key,
           title: title,
           message: message,
           isDismissible: isDismissible,
@@ -24,11 +24,11 @@ class AppFlushbar extends Flushbar {
           backgroundColor: backgroundColor ?? const Color(0xFF303030),
           mainButton: mainButton,
           flushbarStyle: FlushbarStyle.FLOATING,
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           borderRadius: 16,
-          duration: infinityDuration ? null : Duration(seconds: 3),
+          duration: infinityDuration ? null : const Duration(seconds: 3),
           boxShadows: [
-            BoxShadow(
+            const BoxShadow(
               color: Color(0x44FFFFFF),
               offset: Offset(0, 3),
               blurRadius: 4,

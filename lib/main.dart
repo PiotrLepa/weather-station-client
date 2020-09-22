@@ -5,10 +5,10 @@ import 'package:weather_station/core/domain/bloc/error_logger_bloc_observer.dart
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/presentation/app.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection(Env.dev);
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Bloc.observer = ErrorLoggerBlocObserver();
   runApp(App());
 }

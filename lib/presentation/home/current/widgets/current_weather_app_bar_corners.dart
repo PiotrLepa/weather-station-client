@@ -11,8 +11,8 @@ class CurrentWeatherAppBarCorners extends StatelessWidget {
           height: 20,
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.vertical(
-              top: const Radius.circular(16),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(16),
             ),
             border: Border.all(
               color: Theme.of(context).backgroundColor,

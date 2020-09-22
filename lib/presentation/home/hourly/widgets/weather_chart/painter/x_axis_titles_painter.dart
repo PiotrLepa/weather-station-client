@@ -7,7 +7,7 @@ import 'package:weather_station/core/presentation/date_time/date_time_formatter.
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class XAxisTitlesPainter extends CustomPainter {
-  static final _titleStyle = TextStyle(
+  static const _titleStyle = TextStyle(
     color: Colors.black,
     fontSize: 15,
     fontWeight: FontWeight.w600,
@@ -39,9 +39,9 @@ class XAxisTitlesPainter extends CustomPainter {
   }
 
   void _drawTopTitles(Canvas canvas, Size size) {
-    for (int i = 0; i < xSpots.size; i++) {
+    for (var i = 0; i < xSpots.size; i++) {
       final spotData = xSpots[i];
-      final double x = _pixelCalculator.getPixelX(spotData);
+      final x = _pixelCalculator.getPixelX(spotData);
 
       final date = DateTime.fromMillisecondsSinceEpoch(spotData, isUtc: true);
       final textSpan = TextSpan(

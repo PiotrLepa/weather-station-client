@@ -9,7 +9,7 @@ class RoundedDivider extends StatelessWidget {
   final Color color;
   final bool vertical;
 
-  RoundedDivider({
+  const RoundedDivider({
     this.size,
     this.thickness,
     this.indent,
@@ -21,21 +21,21 @@ class RoundedDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DividerThemeData dividerTheme = DividerTheme.of(context);
-    final double height = this.size ?? dividerTheme.space ?? 16.0;
-    final double thickness = this.thickness ?? dividerTheme.thickness ?? 0.0;
-    final double indent = this.indent ?? dividerTheme.indent ?? 0.0;
-    final double endIndent = this.endIndent ?? dividerTheme.endIndent ?? 0.0;
-    final double radius = this.radius ?? 12;
-    final bool vertical = this.vertical ?? false;
-    final Color color = this.color ??
+    final dividerTheme = DividerTheme.of(context);
+    final size = this.size ?? dividerTheme.space ?? 16.0;
+    final thickness = this.thickness ?? dividerTheme.thickness ?? 0.0;
+    final indent = this.indent ?? dividerTheme.indent ?? 0.0;
+    final endIndent = this.endIndent ?? dividerTheme.endIndent ?? 0.0;
+    final radius = this.radius ?? 12;
+    final vertical = this.vertical ?? false;
+    final color = this.color ??
         (context != null
             ? (DividerTheme.of(context).color ?? Theme.of(context).dividerColor)
             : null);
 
     return SizedBox(
-      height: vertical ? double.infinity : height,
-      width: vertical ? height : double.infinity,
+      height: vertical ? double.infinity : size,
+      width: vertical ? size : double.infinity,
       child: Center(
         child: Container(
           height: vertical ? double.infinity : thickness,

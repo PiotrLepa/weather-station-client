@@ -12,15 +12,15 @@ class AirPollutionPainter extends CustomPainter {
   );
 
   static final _pm1BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm1Color
+    ..color = airPollutionPm1Color
     ..style = PaintingStyle.fill;
 
   static final _pm25BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm25Color
+    ..color = airPollutionPm25Color
     ..style = PaintingStyle.fill;
 
   static final _pm10BarPaint = Paint()
-    ..color = ChartConstants.airPollutionPm10Color
+    ..color = airPollutionPm10Color
     ..style = PaintingStyle.fill;
 
   final pixelCalculator = ChartPixelCalculator<int, double>();
@@ -40,7 +40,7 @@ class AirPollutionPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final summedValues = KtMutableList<double>.empty();
-    for (int i = 0; i < pm1Spots.size; i++) {
+    for (var i = 0; i < pm1Spots.size; i++) {
       summedValues.add(pm1Spots[i] + pm25Spots[i] + pm10Spots[i]);
     }
 
@@ -69,7 +69,7 @@ class AirPollutionPainter extends CustomPainter {
         pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < pm1Spots.size; i++) {
+    for (var i = 0; i < pm1Spots.size; i++) {
       final x = pixelCalculator.getPixelX(timeSpots[i]);
       final pm1Pixel = pixelCalculator.getPixelY(pm1Spots[i]);
       final pm25Pixel = pixelCalculator.getPixelY(pm25Spots[i]);

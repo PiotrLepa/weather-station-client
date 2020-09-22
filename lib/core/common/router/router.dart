@@ -4,7 +4,7 @@ import 'package:weather_station/presentation/home/home_screen.dart';
 @MaterialAutoRouter(
   generateNavigationHelperExtension: true,
   routes: <AutoRoute>[
-    MaterialRoute(page: HomeScreen, initial: true),
+    MaterialRoute<void>(page: HomeScreen, initial: true),
   ],
 )
 class $Router {}

@@ -7,10 +7,10 @@ import 'package:weather_station/core/data/network/exception/api/api_exception.da
 class ConnectionInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(RequestOptions options) async {
-    bool hasConnection = await DataConnectionChecker().hasConnection;
+    final hasConnection = await DataConnectionChecker().hasConnection;
 
     if (!hasConnection) {
-      throw ApiException.noConnection(null, null);
+      throw const ApiException.noConnection(null, null);
     }
 
     return super.onRequest(options);

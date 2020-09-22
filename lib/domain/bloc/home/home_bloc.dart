@@ -9,7 +9,7 @@ part 'home_state.dart';
 
 @injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState.changePage(0));
+  HomeBloc() : super(const HomeState.changePage(0));
 
   @override
   Stream<HomeState> mapEventToState(

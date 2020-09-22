@@ -15,8 +15,8 @@ part 'hourly_weather_state.dart';
 
 @injectable
 class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
-  WeatherRepository _weatherRepository;
-  FlushbarHelper _flushbarHelper;
+  final WeatherRepository _weatherRepository;
+  final FlushbarHelper _flushbarHelper;
 
   KtList<Weather> _fetchedWeathers;
 
@@ -25,7 +25,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   HourlyWeatherBloc(
     this._weatherRepository,
     this._flushbarHelper,
-  ) : super(HourlyWeatherState.initial(selectDateLoading: false));
+  ) : super(const HourlyWeatherState.initial(selectDateLoading: false));
 
   @override
   Stream<HourlyWeatherState> mapEventToState(HourlyWeatherEvent event) async* {
@@ -42,7 +42,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     await for (final requestState in request) {
       yield* requestState.when(
         progress: () async* {
-          yield HourlyWeatherState.initial(selectDateLoading: true);
+          yield const HourlyWeatherState.initial(selectDateLoading: true);
         },
         success: (weathers) async* {
           _fetchedWeathers = weathers;
@@ -52,8 +52,8 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           );
         },
         error: (message) async* {
-          _flushbarHelper.showError(message: message);
-          yield HourlyWeatherState.initial(selectDateLoading: false);
+          await _flushbarHelper.showError(message: message);
+          yield const HourlyWeatherState.initial(selectDateLoading: false);
         },
       );
     }
@@ -73,7 +73,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           yield currentState.copyWith(changeDateLoading: true);
         },
         success: (weathers) async* {
-          _flushbarHelper.showSuccess(message: Strings.dataUpdated);
+          await _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           _fetchedWeathers = weathers;
           yield HourlyWeatherState.renderCharts(
             weathers: weathers,
@@ -81,7 +81,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
           );
         },
         error: (message) async* {
-          _flushbarHelper.showError(message: message);
+          await _flushbarHelper.showError(message: message);
           yield HourlyWeatherState.renderCharts(
             weathers: _fetchedWeathers,
             changeDateLoading: false,

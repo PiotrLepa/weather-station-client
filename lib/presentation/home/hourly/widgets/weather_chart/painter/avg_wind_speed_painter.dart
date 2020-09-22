@@ -42,13 +42,13 @@ class AvgWindSpeedPainter extends CustomPainter {
   }
 
   void _drawContainer(Canvas canvas, Size size) {
-    final Path path = Path();
+    final path = Path();
 
     final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
         _pixelCalculator.getPixelX(timeSpots[0]);
     final halfBarWidth = barWidth / 2;
 
-    for (int i = 0; i < speedSpots.size; i++) {
+    for (var i = 0; i < speedSpots.size; i++) {
       final x = _pixelCalculator.getPixelX(timeSpots[i]);
 
       path.addRect(
@@ -65,13 +65,13 @@ class AvgWindSpeedPainter extends CustomPainter {
   }
 
   void _drawText(Canvas canvas, Size size) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       color: Colors.black,
       fontSize: 14,
     );
 
-    for (int i = 0; i < speedSpots.size; i++) {
-      final double x = _pixelCalculator.getPixelX(timeSpots[i]);
+    for (var i = 0; i < speedSpots.size; i++) {
+      final x = _pixelCalculator.getPixelX(timeSpots[i]);
 
       final textSpan = TextSpan(
         text: '${speedSpots[i]}\n$unit',

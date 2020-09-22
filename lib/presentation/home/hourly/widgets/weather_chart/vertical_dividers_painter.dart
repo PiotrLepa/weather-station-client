@@ -10,12 +10,12 @@ class VerticalDividersPainter extends CustomPainter {
   final KtList<int> xSpots;
 
   final _verticalDividerPaint = Paint()
-    ..color = ChartConstants.dividerColor
-    ..strokeWidth = ChartConstants.verticalDividerWidth;
+    ..color = dividerColor
+    ..strokeWidth = verticalDividerWidth;
 
   final _windVerticalDividerPaint = Paint()
     ..color = Colors.white
-    ..strokeWidth = ChartConstants.verticalDividerWidth;
+    ..strokeWidth = verticalDividerWidth;
 
   VerticalDividersPainter({
     @required this.xSpots,
@@ -39,16 +39,16 @@ class VerticalDividersPainter extends CustomPainter {
 
   void _drawVerticalLines(Canvas canvas, Size size) {
     final heightAboveWind = KtList.of(
-      ChartConstants.xAxisTitlesHeight,
-      ChartConstants.tempHeight,
-      ChartConstants.rainHeight,
+      xAxisTitlesHeight,
+      tempHeight,
+      rainHeight,
     ).sum();
     final windHeight = KtList.of(
-      ChartConstants.maxWindHeight,
-      ChartConstants.avgWindHeight,
+      maxWindHeight,
+      avgWindHeight,
     ).sum();
 
-    for (int i = 0; i < xSpots.size - 1; i++) {
+    for (var i = 0; i < xSpots.size - 1; i++) {
       final currentX = pixelCalculator.getPixelX(xSpots[i]);
       final nextX = pixelCalculator.getPixelX(xSpots[i + 1]);
       final difference = nextX - currentX;

@@ -13,10 +13,11 @@ class ErrorFlushbar extends AppFlushbar {
     @required VoidCallback onDismiss,
     PlainLocalizedString title,
   }) : super(
+    key: key,
           title: context.translate(title ?? Strings.errorFlushbarTitle),
           message: message.get(context),
           backgroundColor: Theme.of(context).errorColor,
-          icon: Icon(
+          icon: const Icon(
             Icons.warning,
             color: Colors.white,
           ),

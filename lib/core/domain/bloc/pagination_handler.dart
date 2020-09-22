@@ -8,7 +8,7 @@ mixin PaginationHandler<T> {
 
   void onPageFetched({
     @required int page,
-    @required hasReachedEnd,
+    @required bool hasReachedEnd,
     @required KtList<T> items,
   }) {
     _page = page;

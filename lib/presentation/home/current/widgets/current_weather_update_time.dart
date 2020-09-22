@@ -25,8 +25,8 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
           Radius.circular(20),
@@ -41,15 +41,17 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 text: Strings.weatherUpdateTime.get(context),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: Dimens.scale(17),
-                  color: ThemeProvider.of(context).textColor,
+                  fontSize: scaleText(17),
+                  color: ThemeProvider
+                      .of(context)
+                      .textColor,
                 ),
               ),
               TextSpan(
                 text: _formatLastUpdateTime(context, lastUpdateTime),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: Dimens.scale(14),
+                  fontSize: scaleText(14),
                   color: ThemeProvider
                       .of(context)
                       .textColorLight,
@@ -57,7 +59,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
               ),
             ]),
           ),
-          Divider(
+          const Divider(
             height: 24,
             indent: 24,
             endIndent: 24,
@@ -69,7 +71,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 onPressed: () {
                   context
                       .bloc<CurrentWeatherBloc>()
-                      .add(CurrentWeatherEvent.refreshPressed());
+                      .add(const CurrentWeatherEvent.refreshPressed());
                 },
                 loading: refreshLoading,
                 backgroundColor: ThemeProvider
@@ -78,7 +80,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 progressColor: Colors.white,
                 text: Strings.refresh,
                 textStyle: TextStyle(
-                  fontSize: Dimens.scale(20),
+                  fontSize: scaleText(20),
                   color: ThemeProvider
                       .of(context)
                       .textColorInverted,

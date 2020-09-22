@@ -22,19 +22,19 @@ class TemperatureCard extends StatelessWidget {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Text(
             '$temperature ${Strings.temperatureUnit.get(context)}',
             style: TextStyle(
-              fontSize: Dimens.scale(20),
+              fontSize: scaleText(20),
               fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
           Icon(
             Icons.arrow_upward,
-            color: Color(0xfff0c419),
-            size: Dimens.scale(16),
+            color: const Color(0xfff0c419),
+            size: scaleText(16),
           ),
         ],
       ),

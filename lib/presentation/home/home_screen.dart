@@ -66,21 +66,18 @@ class HomeScreen extends StatelessWidget {
         ),
       ];
 
-  SvgPicture _getBottomNavIcon(BuildContext context,
-      String path, {
-        @required isActive,
-      }) {
+  SvgPicture _getBottomNavIcon(
+    BuildContext context,
+    String path, {
+    @required bool isActive,
+  }) {
     return SvgPicture.asset(
       path,
       width: 24,
       height: 24,
       color: isActive
-          ? ThemeProvider
-          .of(context)
-          .primaryColor
-          : ThemeProvider
-          .of(context)
-          .textColor,
+          ? ThemeProvider.of(context).primaryColor
+          : ThemeProvider.of(context).textColor,
     );
   }
 }

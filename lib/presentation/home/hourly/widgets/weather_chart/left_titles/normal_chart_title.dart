@@ -3,9 +3,9 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/chart_title.dart';
 
 class NormalChartTitle extends ChartTitle {
-  static final _threeDots = '\u2026';
+  static const _threeDots = '\u2026';
 
-  final _titleStyle = TextStyle(
+  final _titleStyle = const TextStyle(
     color: Colors.black,
     fontSize: 15,
     fontWeight: FontWeight.w600,
@@ -13,8 +13,8 @@ class NormalChartTitle extends ChartTitle {
 
   final _bottomDividerPaint = Paint()
     ..style = PaintingStyle.stroke
-    ..color = ChartConstants.dividerColor
-    ..strokeWidth = ChartConstants.horizontalDividerWidth;
+    ..color = dividerColor
+    ..strokeWidth = horizontalDividerWidth;
 
   final _verticalDividerWidth = 8.0;
 
@@ -85,8 +85,8 @@ class NormalChartTitle extends ChartTitle {
       itemHeight + previousHeights,
     );
     final colors = [
-      ChartConstants.dividerColor.withOpacity(0),
-      ChartConstants.dividerColor,
+      dividerColor.withOpacity(0),
+      dividerColor,
     ];
 
     final verticalDividerPaint = Paint()

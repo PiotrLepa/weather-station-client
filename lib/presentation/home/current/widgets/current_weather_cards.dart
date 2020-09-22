@@ -18,7 +18,7 @@ class CurrentWeatherCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 12,
         right: 12,
         bottom: 12,
@@ -33,7 +33,7 @@ class CurrentWeatherCards extends StatelessWidget {
                     temperature: weather.temperature,
                   ),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Expanded(
                   child: HumidityCard(
                     humidity: weather.humidity,
@@ -41,7 +41,7 @@ class CurrentWeatherCards extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               children: [
                 Expanded(
@@ -49,25 +49,25 @@ class CurrentWeatherCards extends StatelessWidget {
                     rainGauge: weather.rainGauge,
                   ),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Expanded(
                     child: PressureCard(
                   pressure: weather.pressure,
                 )),
               ],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             AirPollutionCard(
               pm1: weather.pm1,
               pm25: weather.pm25,
               pm10: weather.pm10,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             WindCard(
               maxSpeed: weather.windSpeedMax,
               avgSpeed: weather.windSpeedAvg,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
           ],
         ),
       ),

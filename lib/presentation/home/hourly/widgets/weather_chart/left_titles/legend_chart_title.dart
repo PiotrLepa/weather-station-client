@@ -3,9 +3,9 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/normal_chart_title.dart';
 
 class LegendChartTitle extends NormalChartTitle {
-  static final _threeDots = '\u2026';
+  static const _threeDots = '\u2026';
 
-  static final _legendStyle = TextStyle(
+  static const _legendStyle = TextStyle(
     color: Colors.black,
     fontSize: 11,
     fontWeight: FontWeight.w500,
@@ -33,8 +33,8 @@ class LegendChartTitle extends NormalChartTitle {
     double previousHeights,
   ) {
     final titleOffSet = super.draw(context, canvas, size, previousHeights);
-    final squareSize = 15.0;
-    final spaceHeight = 5.0;
+    const squareSize = 15.0;
+    const spaceHeight = 5.0;
 
     legends.forEachIndexed((index, legend) {
       final offSet = Offset(

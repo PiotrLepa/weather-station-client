@@ -17,7 +17,7 @@ class HourlyWeatherInitial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -25,16 +25,16 @@ class HourlyWeatherInitial extends StatelessWidget {
             width: 60,
             height: 60,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Text(
             Strings.hourlyWeatherInitialDescription.get(context),
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           SizedBox(
             width: double.infinity,
             child: ProgressButton(
@@ -51,11 +51,11 @@ class HourlyWeatherInitial extends StatelessWidget {
     );
   }
 
-  void _showDatePicker(BuildContext context) async {
+  Future<void> _showDatePicker(BuildContext context) async {
     final selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020, 06, 01),
+      firstDate: DateTime(2020, 06),
       lastDate: DateTime.now(),
     );
 
