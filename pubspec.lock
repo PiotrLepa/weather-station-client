@@ -35,14 +35,14 @@ packages:
       name: auto_localized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2"
+    version: "0.6.0"
   auto_localized_generator:
     dependency: "direct dev"
     description:
       name: auto_localized_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2"
+    version: "0.6.0"
   auto_route:
     dependency: "direct main"
     description:
