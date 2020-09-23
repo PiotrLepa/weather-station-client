@@ -14,7 +14,7 @@ const spotWidth = 60.0;
 const verticalDividerWidth = 1.0;
 const horizontalDividerWidth = 0.5;
 
-final backgroundColor = Colors.white;
+const backgroundColor = Colors.white;
 final dividerColor = Colors.grey[300];
 final airPollutionPm1Color = Colors.deepPurple[200];
 final airPollutionPm25Color = Colors.red[200];

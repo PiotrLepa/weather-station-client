@@ -26,9 +26,8 @@ class WeatherRepositoryImpl extends WeatherRepository {
       .handleNetworkError();
 
   @override
-  Future<KtList<Weather>> fetchHourlyWeather(DateTime day) =>
-      _service
-          .fetchHourlyWeather(
+  Future<KtList<Weather>> fetchHourlyWeather(DateTime day) => _service
+      .fetchHourlyWeather(
         _dateFormatter.format(day, DateTimeFormatter.networkDatePattern),
       )
       .then((list) => list.map(_weatherConverter.convert))

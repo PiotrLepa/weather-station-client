@@ -7,12 +7,11 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/p
 class TemperaturePainter extends LineChartPainter<int, int> {
   final KtList<int> tempSpots;
   final KtList<int> timeSpots;
-  final String unit;
 
   TemperaturePainter({
     @required this.tempSpots,
     @required this.timeSpots,
-    @required this.unit,
+    @required String unit,
   }) : super(
           xSpots: timeSpots,
           ySpots: tempSpots,

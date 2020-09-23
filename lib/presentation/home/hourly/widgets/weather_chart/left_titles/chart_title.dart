@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 abstract class ChartTitle {
   final String title;
-  final double height;
+  final double itemHeight;
 
-  ChartTitle(this.title, this.height);
+  ChartTitle(this.title, this.itemHeight);
 
   Offset draw(
     BuildContext context,

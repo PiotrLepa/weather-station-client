@@ -50,6 +50,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Lint
+  lint: ^1.2.0
+
   # Testing
   mockito: ^4.1.1
 

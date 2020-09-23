@@ -209,7 +209,6 @@ linter:
     # https://dart-lang.github.io/linter/lints/avoid_unused_constructor_parameters.html
     - avoid_unused_constructor_parameters
 
-    # TODO double check
     # For async functions use `Future<void>` as return value, not `void`
     # This allows usage of the await keyword and prevents operations from running in parallel.
     # pedantic: disabled
@@ -416,7 +415,7 @@ linter:
     # Types for local variables may improve readability.
     # pedantic: enabled
     # https://dart-lang.github.io/linter/lints/omit_local_variable_types.html
-    # - omit_local_variable_types
+    - omit_local_variable_types
 
     # Defining interfaces (abstract classes), with only one method, makes sense architecture wise
     # Discussion: https://github.com/passsy/dart-lint/issues/2
@@ -618,7 +617,7 @@ linter:
     # Use whatever makes you happy. noexcuse doesn't define a style
     # pedantic: enabled
     # https://dart-lang.github.io/linter/lints/prefer_single_quotes.html
-    # - prefer_single_quotes
+    - prefer_single_quotes
 
     # Allows potential usage of const
     # pedantic: enabled
