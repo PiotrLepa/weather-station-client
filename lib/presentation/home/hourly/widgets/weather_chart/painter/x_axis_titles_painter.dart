@@ -43,7 +43,7 @@ class XAxisTitlesPainter extends CustomPainter {
       final spotData = xSpots[i];
       final x = _pixelCalculator.getPixelX(spotData);
 
-      final date = DateTime.fromMillisecondsSinceEpoch(spotData, isUtc: true);
+      final date = DateTime.fromMillisecondsSinceEpoch(spotData);
       final textSpan = TextSpan(
         text: _dateFormatter.format(date, DateTimeFormatter.defaultHourPattern),
         style: _titleStyle,
