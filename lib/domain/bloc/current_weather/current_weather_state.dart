@@ -10,6 +10,7 @@ abstract class CurrentWeatherState with _$CurrentWeatherState {
   }) = RenderWeather;
 
   const factory CurrentWeatherState.renderError({
+    @required PlainLocalizedString message,
     @required bool loading,
   }) = RenderError;
 }

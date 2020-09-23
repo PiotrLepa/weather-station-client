@@ -71,7 +71,7 @@ class FlushbarHelper {
   Future<void> _showFlushbar({
     @required AppFlushbar flushbar,
   }) async {
-    await _currentFlushbar?.dismiss();
+    _currentFlushbar?.dismiss();
     _currentFlushbar = flushbar;
     return navigatorKey.currentState.push(
       flushbar_route.showFlushbar<void>(

@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -56,6 +56,7 @@ class CurrentWeatherBloc
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield const CurrentWeatherState.renderError(
+            message: Strings.fetchDataFailed,
             loading: false,
           );
         },
@@ -101,6 +102,7 @@ class CurrentWeatherBloc
             );
           } else {
             yield const CurrentWeatherState.renderError(
+              message: Strings.fetchDataFailed,
               loading: false,
             );
           }
@@ -134,6 +136,7 @@ class CurrentWeatherBloc
         error: (message) async* {
           _flushbarHelper.showError(message: message);
           yield const CurrentWeatherState.renderError(
+            message: Strings.fetchDataFailed,
             loading: false,
           );
         },
