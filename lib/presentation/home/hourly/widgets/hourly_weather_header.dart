@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
@@ -49,7 +49,7 @@ class HourlyWeatherHeader extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ProgressButton(
-                  text: KeyString('hourlyWeatherChangeDay'),
+                  text: Strings.hourlyWeatherChangeDay,
                   loading: changeDayLoading,
                   backgroundColor: Colors.white,
                   onPressed: () => _showDatePicker(context),

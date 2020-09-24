@@ -49,3 +49,4 @@ app.*.map.json
 *.gr.dart
 *.config.dart
 *.gen.dart
+*.al.dart

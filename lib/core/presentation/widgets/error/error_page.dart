@@ -1,9 +1,9 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_message.dart';
 
 class ErrorPage extends StatelessWidget {
-  final RKString message;
+  final PlainLocalizedString message;
   final VoidCallback onRetry;
   final bool loading;
   final Key buttonKey;

@@ -1,11 +1,11 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
 class WeatherValue extends StatelessWidget {
   final String value;
-  final RKString unit;
+  final PlainLocalizedString unit;
 
   const WeatherValue({
     Key key,
@@ -26,9 +26,7 @@ class WeatherValue extends StatelessWidget {
             fontWeight: FontWeight.w900,
           ),
         ),
-        WeatherUnit(
-          value: unit,
-        ),
+        WeatherUnit(value: unit),
       ],
     );
   }

@@ -18,12 +18,9 @@ class NormalChartTitle extends ChartTitle {
 
   final _verticalDividerWidth = 8.0;
 
-  final String title;
-  final double itemHeight;
-
   NormalChartTitle(
-    this.title,
-    this.itemHeight,
+    String title,
+    double itemHeight,
   ) : super(title, itemHeight);
 
   @override

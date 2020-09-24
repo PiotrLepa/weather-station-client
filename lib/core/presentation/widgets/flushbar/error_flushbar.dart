@@ -1,7 +1,7 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 
 // ignore: must_be_immutable
@@ -9,15 +9,13 @@ class ErrorFlushbar extends AppFlushbar {
   ErrorFlushbar({
     Key key,
     @required BuildContext context,
-    @required RKString message,
+    @required PlainLocalizedString message,
     @required VoidCallback onDismiss,
-    RKString title,
+    PlainLocalizedString title,
   }) : super(
-          key: key,
-          title: title != null
-              ? context.translate(title)
-              : context.translateKey('errorFlushbarTitle'),
-          message: context.translate(message),
+    key: key,
+          title: context.translate(title ?? Strings.errorFlushbarTitle),
+          message: message.get(context),
           backgroundColor: Theme.of(context).errorColor,
           icon: const Icon(
             Icons.warning,

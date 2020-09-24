@@ -5,6 +5,7 @@ import 'package:weather_station/core/common/locale_provider.dart';
 @lazySingleton
 class DateTimeFormatter {
   static const defaultDatePattern = 'dd-MM-yyyy';
+  static const networkDatePattern = 'yyyy-MM-dd';
   static const defaultHourPattern = 'HH:mm';
 
   final LocaleProvider localeProvider;

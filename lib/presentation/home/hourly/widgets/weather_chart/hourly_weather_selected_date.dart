@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
 class HourlyWeatherSelectedDate extends StatelessWidget {
@@ -20,7 +20,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          context.translateKey('hourlyWeatherAppBarDay'),
+          Strings.hourlyWeatherAppBarDay.get(context),
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: scaleText(20),

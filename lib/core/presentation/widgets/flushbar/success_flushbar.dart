@@ -1,8 +1,8 @@
 // ignore: must_be_immutable
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 
@@ -11,15 +11,13 @@ class SuccessFlushbar extends AppFlushbar {
   SuccessFlushbar({
     Key key,
     @required BuildContext context,
-    @required RKString message,
+    @required PlainLocalizedString message,
     @required VoidCallback onDismiss,
-    RKString title,
+    PlainLocalizedString title,
   }) : super(
-          key: key,
-          title: title != null
-              ? context.translate(title)
-              : context.translateKey('successFlushbarTitle'),
-          message: context.translate(message),
+    key: key,
+          title: context.translate(title ?? Strings.successFlushbarTitle),
+          message: message.get(context),
           backgroundColor: ThemeProvider.of(context).accentColor,
           onDismiss: onDismiss,
         );

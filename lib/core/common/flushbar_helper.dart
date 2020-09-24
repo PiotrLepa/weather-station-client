@@ -1,9 +1,9 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flushbar/flushbar_route.dart' as flushbar_route;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/error_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/success_flushbar.dart';
@@ -21,8 +21,8 @@ class FlushbarHelper {
   }
 
   Future<void> showError({
-    @required RKString message,
-    RKString title,
+    @required PlainLocalizedString message,
+    PlainLocalizedString title,
   }) =>
       _showFlushbar(
         flushbar: ErrorFlushbar(
@@ -34,8 +34,8 @@ class FlushbarHelper {
       );
 
   Future<void> showSuccess({
-    @required RKString message,
-    RKString title,
+    @required PlainLocalizedString message,
+    PlainLocalizedString title,
   }) =>
       _showFlushbar(
         flushbar: SuccessFlushbar(
@@ -71,7 +71,7 @@ class FlushbarHelper {
   Future<void> _showFlushbar({
     @required AppFlushbar flushbar,
   }) async {
-    await _currentFlushbar?.dismiss();
+    _currentFlushbar?.dismiss();
     _currentFlushbar = flushbar;
     return navigatorKey.currentState.push(
       flushbar_route.showFlushbar<void>(

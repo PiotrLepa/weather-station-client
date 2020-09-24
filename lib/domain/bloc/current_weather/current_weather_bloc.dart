@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
 import 'package:weather_station/core/domain/bloc/bloc_helper.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
@@ -54,9 +54,9 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
-          yield CurrentWeatherState.renderError(
-            message: KeyString('fetchDataFailed'),
+          _flushbarHelper.showError(message: message);
+          yield const CurrentWeatherState.renderError(
+            message: Strings.fetchDataFailed,
             loading: false,
           );
         },
@@ -68,7 +68,7 @@ class CurrentWeatherBloc
     RefreshPressed event,
   ) async* {
     if (!_shouldRefreshWeather()) {
-      await _flushbarHelper.showSuccess(message: KeyString('dataUpToDate'));
+      _flushbarHelper.showSuccess(message: Strings.dataUpToDate);
       yield CurrentWeatherState.renderWeather(
         weather: _fetchedWeather,
         refreshLoading: false,
@@ -87,22 +87,22 @@ class CurrentWeatherBloc
         },
         success: (weather) async* {
           _fetchedWeather = weather;
-          await _flushbarHelper.showSuccess(message: KeyString('dataUpdated'));
+          _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           yield CurrentWeatherState.renderWeather(
             weather: weather,
             refreshLoading: false,
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
+          _flushbarHelper.showError(message: message);
           if (_fetchedWeather != null) {
             yield CurrentWeatherState.renderWeather(
               weather: _fetchedWeather,
               refreshLoading: false,
             );
           } else {
-            yield CurrentWeatherState.renderError(
-              message: KeyString('fetchDataFailed'),
+            yield const CurrentWeatherState.renderError(
+              message: Strings.fetchDataFailed,
               loading: false,
             );
           }
@@ -134,9 +134,9 @@ class CurrentWeatherBloc
           );
         },
         error: (message) async* {
-          await _flushbarHelper.showError(message: message);
-          yield CurrentWeatherState.renderError(
-            message: KeyString('fetchDataFailed'),
+          _flushbarHelper.showError(message: message);
+          yield const CurrentWeatherState.renderError(
+            message: Strings.fetchDataFailed,
             loading: false,
           );
         },

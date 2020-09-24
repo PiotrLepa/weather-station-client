@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
@@ -22,7 +21,7 @@ class WindCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff5858C5),
       iconPath: Assets.icons.wind.path,
-      title: KeyString('cardWind'),
+      title: Strings.cardWind,
       body: Column(
         children: [
           Stack(
@@ -32,21 +31,21 @@ class WindCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildWindValue(
-                      context.translateKey('cardWindMax'),
+                      Strings.cardWindMax.get(context),
                       maxSpeed.toString(),
                     ),
                     VerticalDivider(width: scaleText(50)),
                     _buildWindValue(
-                      context.translateKey('cardWindAvg'),
+                      Strings.cardWindAvg.get(context),
                       avgSpeed.toString(),
                     ),
                   ],
                 ),
               ),
-              Positioned(
+              const Positioned(
                 right: 12,
                 bottom: 0,
-                child: WeatherUnit(value: KeyString('windUnit')),
+                child: WeatherUnit(value: Strings.windUnit),
               ),
             ],
           ),

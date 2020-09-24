@@ -7,12 +7,11 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/p
 class HumidityPainter extends LineChartPainter<int, double> {
   final KtList<double> humiditySpots;
   final KtList<int> timeSpots;
-  final String unit;
 
   HumidityPainter({
     @required this.humiditySpots,
     @required this.timeSpots,
-    @required this.unit,
+    @required String unit,
   }) : super(
           xSpots: timeSpots,
           ySpots: humiditySpots,

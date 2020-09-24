@@ -15,13 +15,11 @@ class LegendChartTitle extends NormalChartTitle {
     ..style = PaintingStyle.stroke
     ..style = PaintingStyle.fill;
 
-  final String title;
-  final double itemHeight;
   final KtList<ChartLegend> legends;
 
   LegendChartTitle(
-    this.title,
-    this.itemHeight,
+    String title,
+    double itemHeight,
     this.legends,
   ) : super(title, itemHeight);
 

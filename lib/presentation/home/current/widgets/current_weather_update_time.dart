@@ -1,9 +1,9 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/util/plural_util.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
@@ -36,9 +36,9 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
         children: [
           RichText(
             text:
-                TextSpan(style: DefaultTextStyle.of(context).style, children: [
+            TextSpan(style: DefaultTextStyle.of(context).style, children: [
               TextSpan(
-                text: context.translateKey('weatherUpdateTime'),
+                text: Strings.weatherUpdateTime.get(context),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: scaleText(17),
@@ -78,7 +78,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                     .of(context)
                     .primaryColorLight,
                 progressColor: Colors.white,
-                text: KeyString('refresh'),
+                text: Strings.refresh,
                 textStyle: TextStyle(
                   fontSize: scaleText(20),
                   color: ThemeProvider
@@ -95,36 +95,36 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
 
   String _formatLastUpdateTime(BuildContext context, DateTime lastUpdateTime) {
     final difference = DateTime.now().difference(lastUpdateTime);
-    final agoString = context.translateKey('updateTimeAgo');
+    final agoString = Strings.updateTimeAgo.get(context);
 
     if (difference.inDays >= 1) {
-      return '${context.translateKey('updateTimeMoreThanDay')} $agoString';
+      return '${Strings.updateTimeMoreThanDay.get(context)} $agoString';
     } else if (difference.inHours >= 1) {
-      final hoursForm = _getHoursForm(context, difference.inHours);
+      final hoursForm = _getHoursForm(difference.inHours).get(context);
       return '${difference.inHours} $hoursForm $agoString';
     } else if (difference.inMinutes == 0) {
-      return context.translateKey('updateTimeNow');
+      return Strings.updateTimeNow.get(context);
     } else {
-      final minutesForm = _getMinutesForm(context, difference.inMinutes);
+      final minutesForm = _getMinutesForm(difference.inMinutes).get(context);
       return '${difference.inMinutes} $minutesForm $agoString';
     }
   }
 
-  String _getMinutesForm(BuildContext context, int minutes) {
+  PlainLocalizedString _getMinutesForm(int minutes) {
     return pluralUtil.applyPlurals(
       quantity: minutes,
-      one: context.translateKey('pluralMinutesOne'),
-      few: context.translateKey('pluralMinutesFew'),
-      many: context.translateKey('pluralMinutesMany'),
+      one: Strings.pluralMinutesOne,
+      few: Strings.pluralMinutesFew,
+      many: Strings.pluralMinutesMany,
     );
   }
 
-  String _getHoursForm(BuildContext context, int hours) {
+  PlainLocalizedString _getHoursForm(int hours) {
     return pluralUtil.applyPlurals(
       quantity: hours,
-      one: context.translateKey('pluralHoursOne'),
-      few: context.translateKey('pluralHoursFew'),
-      many: context.translateKey('pluralHoursMany'),
+      one: Strings.pluralHoursOne,
+      few: Strings.pluralHoursFew,
+      many: Strings.pluralHoursMany,
     );
   }
 }

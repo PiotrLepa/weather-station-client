@@ -1,9 +1,9 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 
 class ProgressButton extends StatelessWidget {
-  final RKString text;
+  final PlainLocalizedString text;
   final TextStyle textStyle;
   final Color backgroundColor;
   final Color progressColor;
@@ -34,8 +34,7 @@ class ProgressButton extends StatelessWidget {
         children: [
           const SizedBox(width: 16),
           Text(
-            context
-                .translate(loading ? KeyString('progressButtonLoading') : text),
+            context.translate(loading ? Strings.progressButtonLoading : text),
             style: textStyle,
           ),
           const SizedBox(width: 16),

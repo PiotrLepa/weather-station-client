@@ -1,12 +1,12 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/common/raw_key_string.dart';
-import 'package:weather_station/core/extension/build_context_extension.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 
 class ErrorMessage extends StatelessWidget {
-  final RKString message;
+  final PlainLocalizedString message;
   final VoidCallback onRetry;
   final bool loading;
   final Key buttonKey;
@@ -32,7 +32,7 @@ class ErrorMessage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            context.translate(message),
+            message.get(),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w700,
@@ -42,7 +42,7 @@ class ErrorMessage extends StatelessWidget {
           const SizedBox(height: 24),
           ProgressButton(
             key: buttonKey,
-            text: KeyString('errorRetryButton'),
+            text: Strings.errorRetryButton,
             onPressed: onRetry,
             loading: loading,
           ),
