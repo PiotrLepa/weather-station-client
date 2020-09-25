@@ -1,18 +1,21 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/current_weather_page.dart';
 import 'package:weather_station/presentation/home/hourly/hourly_weather_page.dart';
+import 'package:weather_station/presentation/home/settings/settings_page.dart';
 
 class HomeScreen extends StatelessWidget {
   final _pages = [
     CurrentWeatherPage(),
     HourlyWeatherPage(),
+    SettingsPage(),
   ];
 
   @override
@@ -38,33 +41,42 @@ class HomeScreen extends StatelessWidget {
   }
 
   List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) => [
-        BottomNavigationBarItem(
-          title: Text(Strings.tabTitleCurrent.get(context)),
-          icon: _getBottomNavIcon(
-            context,
-            Assets.icons.currentWeather.path,
-            isActive: false,
-          ),
-          activeIcon: _getBottomNavIcon(
-            context,
-            Assets.icons.currentWeather.path,
-            isActive: true,
-          ),
+        _getBottomNavItem(
+          context,
+          Strings.tabTitleCurrent,
+          Assets.icons.currentWeather,
         ),
-        BottomNavigationBarItem(
-          title: Text(Strings.tabTitleHourly.get(context)),
-          icon: _getBottomNavIcon(
-            context,
-            Assets.icons.hourlyWeather.path,
-            isActive: false,
-          ),
-          activeIcon: _getBottomNavIcon(
-            context,
-            Assets.icons.hourlyWeather.path,
-            isActive: true,
-          ),
+        _getBottomNavItem(
+          context,
+          Strings.tabTitleHourly,
+          Assets.icons.hourlyWeather,
+        ),
+        _getBottomNavItem(
+          context,
+          Strings.tabTitleSettings,
+          Assets.icons.settings,
         ),
       ];
+
+  BottomNavigationBarItem _getBottomNavItem(
+    BuildContext context,
+    PlainLocalizedString title,
+    SvgGenImage icon,
+  ) {
+    return BottomNavigationBarItem(
+      title: Text(title.get(context)),
+      icon: _getBottomNavIcon(
+        context,
+        icon.path,
+        isActive: false,
+      ),
+      activeIcon: _getBottomNavIcon(
+        context,
+        icon.path,
+        isActive: true,
+      ),
+    );
+  }
 
   SvgPicture _getBottomNavIcon(
     BuildContext context,
