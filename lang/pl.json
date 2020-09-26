@@ -56,5 +56,6 @@
   "hourlyWeatherInitialDescription": "Wybierz datę, aby zobaczyć szczegółowe dane",
   "hourlyWeatherInitialButton": "Wybierz",
   "hourlyWeatherAppBarDay": "Dane z dnia",
-  "settingsAppBarTitle": "Ustawienia"
+  "settingsAppBarTitle": "Ustawienia",
+  "settingsItemConfigureWifiOnArduino": "Skonfiguruj WiFi na arduino"
 }
