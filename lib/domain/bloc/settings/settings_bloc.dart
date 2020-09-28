@@ -17,14 +17,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsEvent event,
   ) async* {
     if (event is OnConfigureWifiClicked) {
-      yield* mapOnConfigureWifiClicked(event);
+      mapOnConfigureWifiClicked(event);
     }
   }
 
-  // ignore: missing_return
-  Stream<SettingsState> mapOnConfigureWifiClicked(
+  void mapOnConfigureWifiClicked(
     OnConfigureWifiClicked event,
   ) {
-    ExtendedNavigator.root.push(Routes.arduinoWifiScreen);
+    ExtendedNavigator.root.push(Routes.configureArduinoScreen);
   }
 }
