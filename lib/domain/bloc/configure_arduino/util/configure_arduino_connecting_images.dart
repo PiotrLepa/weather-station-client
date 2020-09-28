@@ -13,7 +13,7 @@ var _nextIndex = 0;
 SvgGenImage getNextImage() {
   final image = _connectingImages[_nextIndex];
   _nextIndex++;
-  if (_nextIndex >= _connectingImages.size - 1) {
+  if (_nextIndex >= _connectingImages.size) {
     _nextIndex = 0;
   }
   return image;
