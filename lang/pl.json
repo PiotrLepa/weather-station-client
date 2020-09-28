@@ -58,5 +58,6 @@
   "hourlyWeatherAppBarDay": "Dane z dnia",
   "settingsAppBarTitle": "Ustawienia",
   "settingsItemConfigureWifiOnArduino": "Skonfiguruj WiFi na arduino",
-  "arduinoWifiConnectingWithDevice": "Łączenie z urządzeniem..."
+  "arduinoWifiConnectingWithDevice": "Łączenie z urządzeniem...",
+  "connectToDeviceError": "Wystąpił błąd podczas łączenie z urządzeniem"
 }

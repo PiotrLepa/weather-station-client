@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:weather_station/core/common/logger/logger.dart';
+import 'package:weather_station/core/common/flushbar_helper.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/bloc/configure_arduino/util/configure_arduino_connecting_images.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 
@@ -22,11 +23,12 @@ class ConfigureArduinoBloc
     extends Bloc<ConfigureArduinoEvent, ConfigureArduinoState> {
   static const arduinoBleName = 'ESP-32 WeatherStation';
 
+  final FlushbarHelper _flushbarHelper;
   final BleManager _bleManager;
 
   Peripheral _device;
 
-  ConfigureArduinoBloc(this._bleManager)
+  ConfigureArduinoBloc(this._flushbarHelper, this._bleManager)
       : super(ConfigureArduinoState.loading(getNextImage()));
 
   @override
@@ -40,7 +42,7 @@ class ConfigureArduinoBloc
 
   @override
   Future<void> close() async {
-    await _device.disconnectOrCancelConnection();
+    await _device?.disconnectOrCancelConnection();
     await _bleManager.stopPeripheralScan();
     await _bleManager.destroyClient();
     return super.close();
@@ -68,22 +70,21 @@ class ConfigureArduinoBloc
   Future<ConfigureArduinoState> _setupBleManager() async {
     return _bleManager
         .createClient()
-        .then((value) => _checkPermissions())
-        .catchError((dynamic e) => logger.d('Permission check error', e))
-        .then((value) => _waitForBluetoothPoweredOn())
-        .catchError((dynamic e) => logger.d('_waitForBluetoothPoweredOn', e))
-        .then((value) => _scanForDevice())
-        .catchError((dynamic e) => logger.d('_scanForDevice', e))
+        .then((_) => _checkPermissions())
+        .catchError((dynamic _) =>
+        _flushbarHelper.showError(
+            message: Strings.connectToDeviceError)) // TODO error screen
+        .then((_) => _enableBluetooth())
+        .then((_) => _scanForDevice())
         .then((peripheral) => peripheral.connect())
-        .catchError((dynamic e) => logger.d('connect', e))
-        .then((value) {
-      return const ConfigureArduinoState.renderWifiInputs();
-    });
+        .then((_) => const ConfigureArduinoState.renderWifiInputs())
+        .catchError((dynamic _) =>
+        _flushbarHelper.showError(message: Strings.connectToDeviceError));
   }
 
   Future<void> _checkPermissions() async {
     if (Platform.isAndroid) {
-      final permissionStatus = await Permission.location.request();
+      final permissionStatus = await Permission.locationWhenInUse.request();
 
       if (permissionStatus != PermissionStatus.granted) {
         return Future.error(Exception("Location permission not granted"));
@@ -91,19 +92,10 @@ class ConfigureArduinoBloc
     }
   }
 
-  Future<void> _waitForBluetoothPoweredOn() async {
-    final completer = Completer<void>();
-    StreamSubscription<BluetoothState> subscription;
-    subscription = _bleManager.observeBluetoothState().listen(
-      (bluetoothState) async {
-        if (bluetoothState == BluetoothState.POWERED_ON &&
-            !completer.isCompleted) {
-          await subscription.cancel();
-          completer.complete();
-        }
-      },
-    );
-    return completer.future;
+  Future<void> _enableBluetooth() async {
+    if (await _bleManager.bluetoothState() != BluetoothState.POWERED_ON) {
+      await _bleManager.enableRadio();
+    }
   }
 
   Future<Peripheral> _scanForDevice() {
