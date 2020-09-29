@@ -9,5 +9,8 @@ abstract class DeviceConnectionException
   const factory DeviceConnectionException.permissionNotGranted() =
       PermissionNotGranted;
 
+  const factory DeviceConnectionException.permissionPermanentlyDenied() =
+      PermissionPermanentlyDenied;
+
   const factory DeviceConnectionException.unknown() = Unknown;
 }

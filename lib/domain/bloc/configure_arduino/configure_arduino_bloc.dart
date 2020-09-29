@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:async/async.dart' show StreamGroup;
+import 'package:auto_localized/auto_localized.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/bloc/configure_arduino/util/device_connection_exception.dart';
 import 'package:weather_station/domain/bloc/configure_arduino/util/device_connector.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/util/loading_images_provider.dart';
-import 'package:weather_station/gen/assets.gen.dart';
 
 part 'configure_arduino_bloc.freezed.dart';
-
 part 'configure_arduino_event.dart';
-
 part 'configure_arduino_state.dart';
 
 @injectable
@@ -28,14 +27,16 @@ class ConfigureArduinoBloc
   ConfigureArduinoBloc(
     this._flushbarHelper,
     this._deviceConnector,
-  ) : super(ConfigureArduinoState.loading(getNextLoadingImage()));
+  ) : super(const ConfigureArduinoState.nothing());
 
   @override
   Stream<ConfigureArduinoState> mapEventToState(
     ConfigureArduinoEvent event,
   ) async* {
     yield* event.map(
-      onScreenStarted: mapOnScreenStarted,
+      onScreenStarted: _mapOnScreenStarted,
+      onRetryClicked: _mapOnRetryClicked,
+      onPermissionDialogPositiveClicked: _mapOnPermissionDialogPositiveClicked,
     );
   }
 
@@ -45,36 +46,69 @@ class ConfigureArduinoBloc
     return super.close();
   }
 
-  Stream<ConfigureArduinoState> mapOnScreenStarted(
-    OnScreenStarted event,
-  ) async* {
-    final imageStream = Stream<ConfigureArduinoState>.periodic(
-      const Duration(seconds: 1),
-          (_) => ConfigureArduinoState.loading(getNextLoadingImage()),
-    );
+  Stream<ConfigureArduinoState> _mapOnScreenStarted(
+      OnScreenStarted event,) async* {
+    if (await Permission.locationWhenInUse.isPermanentlyDenied) {
+      yield const ConfigureArduinoState.renderError(
+        message: Strings.connectToDevicePermissionError,
+        loading: false,
+      );
+      yield* _showPermissionInfoDialog();
+      return;
+    }
+    yield* _setupBleManager();
+  }
 
-    final mergedStates = StreamGroup.merge<ConfigureArduinoState>(
-      [imageStream, _setupBleManager().asStream()],
-    );
-    await for (final newState in mergedStates) {
-      yield newState;
-      if (newState is RenderWifiInputs) {
-        return;
-      }
+  Stream<ConfigureArduinoState> _mapOnRetryClicked(
+      OnRetryClicked event,) async* {
+    if (await Permission.locationWhenInUse.isPermanentlyDenied) {
+      yield* _showPermissionInfoDialog();
+      return;
+    }
+    yield* _setupBleManager();
+  }
+
+  Stream<ConfigureArduinoState> _showPermissionInfoDialog() async* {
+    yield const ConfigureArduinoState.showPermissionInfoDialog();
+    yield const ConfigureArduinoState.nothing();
+  }
+
+  Stream<ConfigureArduinoState> _mapOnPermissionDialogPositiveClicked(
+      OnPermissionDialogPositiveClicked event,) async* {
+    final opened = await openAppSettings();
+    if (!opened) {
+      _flushbarHelper.showError(message: Strings.openAppSettingsError);
     }
   }
 
-  Future<ConfigureArduinoState> _setupBleManager() async {
-    return _deviceConnector
+  Stream<ConfigureArduinoState> _setupBleManager() async* {
+    yield const ConfigureArduinoState.connecting();
+    yield await _deviceConnector
         .setupBleManager()
         .then((_) => const ConfigureArduinoState.renderWifiInputs())
-        .catchError((Object e) {
-      final message = (e as DeviceConnectionException).map(
-        permissionNotGranted: (_) => Strings.connectToDeviceError,
-        unknown: (_) => Strings.connectToDeviceError,
-      );
-      _flushbarHelper.showError(message: message);
-      return Future.value(const ConfigureArduinoState.renderError());
-    }, test: (e) => e is DeviceConnectionException);
+        .catchError(
+          (Object e) {
+        PlainLocalizedString message;
+        if (e is DeviceConnectionException) {
+          message = e.map(
+            permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
+            permissionPermanentlyDenied: (_) =>
+            Strings.connectToDevicePermissionError,
+            unknown: (_) => Strings.connectToDeviceUnknownError,
+          );
+        } else {
+          message = Strings.connectToDeviceUnknownError;
+        }
+
+        _flushbarHelper.showError(message: message);
+        return Future.value(
+          ConfigureArduinoState.renderError(
+            message: message,
+            loading: false,
+          ),
+        );
+      },
+      test: (e) => e is DeviceConnectionException,
+    );
   }
 }

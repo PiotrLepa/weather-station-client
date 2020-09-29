@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,20 +18,63 @@ class ConfigureArduinoScreen extends StatelessWidget {
         ..add(const ConfigureArduinoEvent.onScreenStarted()),
       child: Scaffold(
         appBar: AppBar(),
-        body: BlocBuilder<ConfigureArduinoBloc, ConfigureArduinoState>(
+        body: BlocConsumer<ConfigureArduinoBloc, ConfigureArduinoState>(
+          listener: (context, state) {
+            state.maybeMap(
+              showPermissionInfoDialog: (_) {
+                _showPermissionInfoDialog(context);
+              },
+              orElse: () {},
+            );
+          },
+          buildWhen: (oldState, newState) =>
+              newState is Connecting ||
+              newState is RenderWifiInputs ||
+              newState is RenderError,
           builder: (context, state) {
-            return state.map(
-              loading: (s) => ConfigureArduinoConnecting(image: s.image),
+            return state.maybeMap(
+              connecting: (s) => ConfigureArduinoConnecting(),
               renderWifiInputs: (s) => ConfigureArduinoWifiInputs(),
-              renderError: (s) =>
-                  ErrorPage(
-                    onRetry: () {},
-                    message: Strings.apiErrorUnknown,
-                    loading: false,
-                  ),
+              renderError: (s) => ErrorPage(
+                onRetry: () {
+                  context
+                      .bloc<ConfigureArduinoBloc>()
+                      .add(const ConfigureArduinoEvent.onRetryClicked());
+                },
+                message: s.message,
+                loading: s.loading,
+              ),
+              orElse: () => Container(),
             );
           },
         ),
+      ),
+    );
+  }
+
+  void _showPermissionInfoDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(Strings.permissionInfoDialogTitle.get(context)),
+        content: Text(Strings.permissionInfoDialogMessage.get(context)),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () {
+              ExtendedNavigator.root.pop();
+            },
+            child: Text(Strings.dialogCancel.get(context)),
+          ),
+          FlatButton(
+            onPressed: () {
+              ExtendedNavigator.root.pop();
+              context.bloc<ConfigureArduinoBloc>().add(
+                  const ConfigureArduinoEvent
+                      .onPermissionDialogPositiveClicked());
+            },
+            child: Text(Strings.dialogOk.get(context)),
+          )
+        ],
       ),
     );
   }

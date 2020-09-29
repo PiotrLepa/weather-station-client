@@ -59,5 +59,11 @@
   "settingsAppBarTitle": "Ustawienia",
   "settingsItemConfigureWifiOnArduino": "Skonfiguruj WiFi na arduino",
   "arduinoWifiConnectingWithDevice": "Łączenie z urządzeniem...",
-  "connectToDeviceError": "Wystąpił błąd podczas łączenie z urządzeniem"
+  "connectToDeviceUnknownError": "Wystąpił błąd podczas łączenie z urządzeniem",
+  "connectToDevicePermissionError": "Aby połączyć się z urządzeniem wymagane jest pozwolenie do lokalizacji",
+  "dialogOk": "OK",
+  "dialogCancel": "Anuluj",
+  "permissionInfoDialogTitle": "Uprawnienia",
+  "permissionInfoDialogMessage": "Aby połączyć się z urządzeniem przejdź do ustawień i pozwól na uprawnienia do lokalizacji",
+  "openAppSettingsError": "Wystąpił błąd przy próbie otworzenia ustawień"
 }

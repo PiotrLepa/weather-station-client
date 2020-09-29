@@ -24,10 +24,13 @@ class DeviceConnector {
         .then((_) => _scanForDevice())
         .then((peripheral) => peripheral.connect())
         .catchError(
-          (dynamic _) => Future<DeviceConnectionException>.error(
-            const DeviceConnectionException.unknown(),
-          ),
-        );
+          (dynamic e) =>
+      Future<DeviceConnectionException>.error(
+        e is DeviceConnectionException
+            ? e
+            : const DeviceConnectionException.unknown(),
+      ),
+    );
   }
 
   Future<void> close() async {
@@ -40,7 +43,11 @@ class DeviceConnector {
     if (Platform.isAndroid) {
       final permissionStatus = await Permission.locationWhenInUse.request();
 
-      if (permissionStatus != PermissionStatus.granted) {
+      if (permissionStatus == PermissionStatus.permanentlyDenied) {
+        return Future.error(
+          const DeviceConnectionException.permissionPermanentlyDenied(),
+        );
+      } else if (permissionStatus != PermissionStatus.granted) {
         return Future.error(
           const DeviceConnectionException.permissionNotGranted(),
         );
@@ -54,30 +61,37 @@ class DeviceConnector {
     }
   }
 
-  Future<Peripheral> _scanForDevice() {
-    return _bleManager
-        .startPeripheralScan(scanMode: ScanMode.lowLatency)
-        .firstWhere((scanResult) => scanResult.peripheral.name == deviceBleName)
-        .then((scanResult) {
-      device = scanResult.peripheral;
-      return scanResult.peripheral;
-    });
-  }
+  // Future<Peripheral> _scanForDevice() {
+  //   return _bleManager
+  //       .startPeripheralScan(scanMode: ScanMode.lowLatency)
+  //       .firstWhere(
+  //         (scanResult) => scanResult.peripheral.name == deviceBleName,
+  //       )
+  //       .catchError((dynamic e) {
+  //   }).then((scanResult) {
+  //     if (scanResult != null) {
+  //       device = scanResult.peripheral;
+  //       return scanResult.peripheral;
+  //     } else {
+  //       return Future.value();
+  //     }
+  //   });
+  // }
 
-// Future<Peripheral> _scanForDevice() {
-//   final device = Completer<Peripheral>();
-//   StreamSubscription<ScanResult> scan;
-//   scan = _bleManager
-//       .startPeripheralScan(scanMode: ScanMode.lowLatency)
-//       .listen((ScanResult scanResult) async {
-//     final peripheral = scanResult.peripheral;
-//     if (peripheral.name == deviceBleName) {
-//       scan.cancel();
-//       _device = peripheral;
-//       await _bleManager.stopPeripheralScan();
-//       device.complete(peripheral);
-//     }
-//   });
-//   return device.future;
-// }
+  Future<Peripheral> _scanForDevice() {
+    final completer = Completer<Peripheral>();
+    StreamSubscription<ScanResult> scan;
+    scan = _bleManager
+        .startPeripheralScan(scanMode: ScanMode.lowLatency)
+        .listen((ScanResult scanResult) async {
+      final peripheral = scanResult.peripheral;
+      if (peripheral.name == deviceBleName) {
+        scan.cancel();
+        device = peripheral;
+        await _bleManager.stopPeripheralScan();
+        completer.complete(peripheral);
+      }
+    });
+    return completer.future;
+  }
 }
