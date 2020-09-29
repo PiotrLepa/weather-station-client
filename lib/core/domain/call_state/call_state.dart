@@ -1,5 +1,3 @@
-library call_state;
-
 import 'package:auto_localized/auto_localized.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

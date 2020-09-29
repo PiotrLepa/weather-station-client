@@ -47,7 +47,8 @@ class ConfigureArduinoBloc
   }
 
   Stream<ConfigureArduinoState> _mapOnScreenStarted(
-      OnScreenStarted event,) async* {
+    OnScreenStarted event,
+  ) async* {
     if (await Permission.locationWhenInUse.isPermanentlyDenied) {
       yield const ConfigureArduinoState.renderError(
         message: Strings.connectToDevicePermissionError,

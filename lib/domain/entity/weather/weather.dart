@@ -1,5 +1,3 @@
-library weather;
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather.freezed.dart';

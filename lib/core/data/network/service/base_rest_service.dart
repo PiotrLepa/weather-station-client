@@ -30,11 +30,11 @@ abstract class BaseRestService {
 
   Future<KtList<T>> getList<T>(
     String path, {
-        Serializable data,
-        Map<String, String> params,
-        Map<String, String> headers,
-        String contentType,
-      }) =>
+    Serializable data,
+    Map<String, String> params,
+    Map<String, String> headers,
+    String contentType,
+  }) =>
       _responseConverter.decodeResponseList(createRequest<dynamic>(
         'GET',
         path,
@@ -44,7 +44,8 @@ abstract class BaseRestService {
         contentType: contentType,
       ));
 
-  Future<T> post<T>(String path, {
+  Future<T> post<T>(
+    String path, {
     Serializable data,
     Map<String, String> params,
     Map<String, String> headers,
@@ -59,7 +60,8 @@ abstract class BaseRestService {
         contentType: contentType,
       ));
 
-  Future<T> put<T>(String path, {
+  Future<T> put<T>(
+    String path, {
     Serializable data,
     Map<String, String> params,
     Map<String, String> headers,
@@ -74,13 +76,14 @@ abstract class BaseRestService {
         contentType: contentType,
       ));
 
-  Future<Response<T>> createRequest<T>(String method,
-      String path, {
-        Serializable data,
-        Map<String, String> params,
-        Map<String, String> headers,
-        String contentType,
-      }) async =>
+  Future<Response<T>> createRequest<T>(
+    String method,
+    String path, {
+    Serializable data,
+    Map<String, String> params,
+    Map<String, String> headers,
+    String contentType,
+  }) async =>
       _dio.request(path,
           data: data?.toJson(),
           queryParameters: params,

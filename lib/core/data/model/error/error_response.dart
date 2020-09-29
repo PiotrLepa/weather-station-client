@@ -1,5 +1,3 @@
-library error_response;
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'error_response.freezed.dart';

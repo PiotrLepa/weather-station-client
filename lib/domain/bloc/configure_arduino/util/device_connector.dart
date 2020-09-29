@@ -24,13 +24,12 @@ class DeviceConnector {
         .then((_) => _scanForDevice())
         .then((peripheral) => peripheral.connect())
         .catchError(
-          (dynamic e) =>
-      Future<DeviceConnectionException>.error(
-        e is DeviceConnectionException
-            ? e
-            : const DeviceConnectionException.unknown(),
-      ),
-    );
+          (dynamic e) => Future<DeviceConnectionException>.error(
+            e is DeviceConnectionException
+                ? e
+                : const DeviceConnectionException.unknown(),
+          ),
+        );
   }
 
   Future<void> close() async {
@@ -81,17 +80,18 @@ class DeviceConnector {
   Future<Peripheral> _scanForDevice() {
     final completer = Completer<Peripheral>();
     StreamSubscription<ScanResult> scan;
-    scan = _bleManager
-        .startPeripheralScan(scanMode: ScanMode.lowLatency)
-        .listen((ScanResult scanResult) async {
-      final peripheral = scanResult.peripheral;
-      if (peripheral.name == deviceBleName) {
-        scan.cancel();
-        device = peripheral;
-        await _bleManager.stopPeripheralScan();
-        completer.complete(peripheral);
-      }
-    });
+    scan =
+        _bleManager.startPeripheralScan(scanMode: ScanMode.lowLatency).listen(
+              (ScanResult scanResult) async {
+            final peripheral = scanResult.peripheral;
+            if (peripheral.name == deviceBleName) {
+              scan.cancel();
+              device = peripheral;
+              await _bleManager.stopPeripheralScan();
+              completer.complete(peripheral);
+            }
+          },
+        );
     return completer.future;
   }
 }
