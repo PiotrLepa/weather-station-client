@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
 import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_bloc.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_connecting.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_inputs.dart';
@@ -20,6 +22,12 @@ class ConfigureArduinoScreen extends StatelessWidget {
             return state.map(
               loading: (s) => ConfigureArduinoConnecting(image: s.image),
               renderWifiInputs: (s) => ConfigureArduinoWifiInputs(),
+              renderError: (s) =>
+                  ErrorPage(
+                    onRetry: () {},
+                    message: Strings.apiErrorUnknown,
+                    loading: false,
+                  ),
             );
           },
         ),
