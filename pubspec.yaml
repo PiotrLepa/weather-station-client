@@ -71,7 +71,6 @@ dev_dependencies:
   freezed: ^0.12.1
 
 flutter_gen:
-  output: gen/assets/
   integrations:
     flutter_svg: true
 
