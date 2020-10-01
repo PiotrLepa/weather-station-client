@@ -2,14 +2,18 @@ import 'package:auto_localized/auto_localized.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/domain/bloc/bloc_helper.dart';
-import 'package:weather_station/core/domain/bloc/event_cubit.dart';
+import 'package:weather_station/core/domain/cubit/call_wrapper.dart';
+import 'package:weather_station/core/domain/cubit/cubit_event.dart';
+import 'package:weather_station/core/domain/cubit/cubit_state.dart';
+import 'package:weather_station/core/domain/cubit/event_cubit.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'current_weather_bloc.freezed.dart';
+
 part 'current_weather_event.dart';
+
 part 'current_weather_state.dart';
 
 @injectable
@@ -36,7 +40,9 @@ class CurrentWeatherBloc
     );
   }
 
-  Future<void> _mapPageStarted(PageStarted event,) async {
+  Future<void> _mapPageStarted(
+    PageStarted event,
+  ) async {
     await callWrapper<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () => emit(const InitialLoading()),
@@ -102,8 +108,11 @@ class CurrentWeatherBloc
 
   bool _shouldRefreshWeather() =>
       _fetchedWeather == null ||
-      (DateTime.now().difference(_fetchedWeather.date).inMinutes >=
-          _weatherFetchDelayMinutes);
+          (DateTime
+              .now()
+              .difference(_fetchedWeather.date)
+              .inMinutes >=
+              _weatherFetchDelayMinutes);
 
   Future<void> _mapRetryPressed(RetryPressed event,) async {
     await callWrapper<Weather>(

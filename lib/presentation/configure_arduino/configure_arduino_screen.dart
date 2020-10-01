@@ -6,7 +6,7 @@ import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_bloc.dart';
+import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_cubit.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_connecting.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_inputs.dart';
 

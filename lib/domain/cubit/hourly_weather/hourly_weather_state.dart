@@ -1,7 +1,9 @@
-part of 'hourly_weather_bloc.dart';
+part of 'hourly_weather_cubit.dart';
 
 @freezed
-abstract class HourlyWeatherState with _$HourlyWeatherState {
+abstract class HourlyWeatherState
+    with _$HourlyWeatherState
+    implements CubitState {
   const factory HourlyWeatherState.initial({
     @required bool selectDateLoading,
   }) = Initial;

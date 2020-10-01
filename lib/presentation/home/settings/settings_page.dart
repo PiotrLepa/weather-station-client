@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
+import 'package:weather_station/domain/bloc/settings/settings_cubit.dart';
 import 'package:weather_station/presentation/home/settings/widget/settings_item.dart';
 
 class SettingsPage extends StatelessWidget {

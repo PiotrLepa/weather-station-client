@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/util/device_connection_exception.dart';
+import 'package:weather_station/domain/cubit/configure_arduino/util/device_connection_exception.dart';
 
 @lazySingleton
 class DeviceConnector {
@@ -82,16 +82,16 @@ class DeviceConnector {
     StreamSubscription<ScanResult> scan;
     scan =
         _bleManager.startPeripheralScan(scanMode: ScanMode.lowLatency).listen(
-              (ScanResult scanResult) async {
-            final peripheral = scanResult.peripheral;
-            if (peripheral.name == deviceBleName) {
-              scan.cancel();
-              device = peripheral;
-              await _bleManager.stopPeripheralScan();
-              completer.complete(peripheral);
-            }
-          },
-        );
+      (ScanResult scanResult) async {
+        final peripheral = scanResult.peripheral;
+        if (peripheral.name == deviceBleName) {
+          scan.cancel();
+          device = peripheral;
+          await _bleManager.stopPeripheralScan();
+          completer.complete(peripheral);
+        }
+      },
+    );
     return completer.future;
   }
 }

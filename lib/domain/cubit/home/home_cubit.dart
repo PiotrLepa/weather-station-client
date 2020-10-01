@@ -1,14 +1,18 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:weather_station/core/domain/bloc/event_cubit.dart';
+import 'package:weather_station/core/domain/cubit/cubit_event.dart';
+import 'package:weather_station/core/domain/cubit/cubit_state.dart';
+import 'package:weather_station/core/domain/cubit/event_cubit.dart';
 
 part 'home_bloc.freezed.dart';
+
 part 'home_event.dart';
+
 part 'home_state.dart';
 
 @injectable
-class HomeBloc extends EventCubit<HomeEvent, HomeState> {
-  HomeBloc() : super(const HomeState.changePage(0));
+class HomeCubit extends EventCubit<HomeEvent, HomeState> {
+  HomeCubit() : super(const HomeState.changePage(0));
 
   @override
   Future<void> onEvent(HomeEvent event) async {

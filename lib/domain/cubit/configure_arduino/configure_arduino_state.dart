@@ -1,7 +1,9 @@
-part of 'configure_arduino_bloc.dart';
+part of 'configure_arduino_cubit.dart';
 
 @freezed
-abstract class ConfigureArduinoState with _$ConfigureArduinoState {
+abstract class ConfigureArduinoState
+    with _$ConfigureArduinoState
+    implements CubitState {
   const factory ConfigureArduinoState.nothing() = Nothing;
 
   const factory ConfigureArduinoState.connecting() = Connecting;

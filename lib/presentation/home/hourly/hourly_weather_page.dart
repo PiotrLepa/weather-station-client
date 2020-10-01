@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
-import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
+import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_cubit.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_header.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_initial.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/weather_chart.dart';

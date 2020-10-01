@@ -1,7 +1,9 @@
 part of 'current_weather_bloc.dart';
 
 @freezed
-abstract class CurrentWeatherState with _$CurrentWeatherState {
+abstract class CurrentWeatherState
+    with _$CurrentWeatherState
+    implements CubitState {
   const factory CurrentWeatherState.initialLoading() = InitialLoading;
 
   const factory CurrentWeatherState.renderWeather({
