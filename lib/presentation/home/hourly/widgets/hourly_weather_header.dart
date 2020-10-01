@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
-import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_cubit.dart';
+import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/half_bottom_circle_shape_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
@@ -72,9 +72,7 @@ class HourlyWeatherHeader extends StatelessWidget {
     );
 
     if (selectedDate != null) {
-      context
-          .bloc<HourlyWeatherBloc>()
-          .add(HourlyWeatherEvent.changeDatePressed(selectedDate));
+      context.bloc<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
     }
   }
 }

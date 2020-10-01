@@ -6,7 +6,7 @@ import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_cubit.dart';
+import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_bloc.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_connecting.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_inputs.dart';
 
@@ -14,8 +14,8 @@ class ConfigureArduinoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<ConfigureArduinoBloc>()
-        ..add(const ConfigureArduinoEvent.onScreenStarted()),
+      create: (_) =>
+          getIt<ConfigureArduinoBloc>()..add(const OnScreenStarted()),
       child: Scaffold(
         appBar: AppBar(),
         body: BlocConsumer<ConfigureArduinoBloc, ConfigureArduinoState>(
@@ -39,7 +39,7 @@ class ConfigureArduinoScreen extends StatelessWidget {
                 onRetry: () {
                   context
                       .bloc<ConfigureArduinoBloc>()
-                      .add(const ConfigureArduinoEvent.onRetryClicked());
+                      .add(const OnRetryClicked());
                 },
                 message: s.message,
                 loading: s.loading,
@@ -69,8 +69,7 @@ class ConfigureArduinoScreen extends StatelessWidget {
             onPressed: () {
               appNavigator.pop();
               context.bloc<ConfigureArduinoBloc>().add(
-                  const ConfigureArduinoEvent
-                      .onPermissionDialogPositiveClicked());
+                  const OnPermissionDialogPositiveClicked());
             },
             child: Text(Strings.dialogOk.get(context)),
           )

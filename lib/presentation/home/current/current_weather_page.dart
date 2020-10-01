@@ -14,8 +14,7 @@ class CurrentWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<CurrentWeatherBloc>()
-        ..add(const CurrentWeatherEvent.pageStarted()),
+      create: (_) => getIt.get<CurrentWeatherBloc>()..add(const PageStarted()),
       child: Scaffold(
         body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
@@ -26,9 +25,8 @@ class CurrentWeatherPage extends StatelessWidget {
                 message: s.message,
                 loading: s.loading,
                 onRetry: () {
-                  context
-                      .bloc<CurrentWeatherBloc>()
-                      .add(const CurrentWeatherEvent.retryPressed());
+                  context.bloc<CurrentWeatherBloc>().add(
+                          const RetryPressed());
                 },
               ),
               orElse: () => Container(),

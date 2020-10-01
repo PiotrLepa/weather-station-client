@@ -71,7 +71,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
                 onPressed: () {
                   context
                       .bloc<CurrentWeatherBloc>()
-                      .add(const CurrentWeatherEvent.refreshPressed());
+                      .add(const RefreshPressed());
                 },
                 loading: refreshLoading,
                 backgroundColor: ThemeProvider
