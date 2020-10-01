@@ -4,6 +4,7 @@ import 'package:flushbar/flushbar_route.dart' as flushbar_route;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/error_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/success_flushbar.dart';
@@ -11,7 +12,7 @@ import 'package:weather_station/presentation/app.dart';
 
 @lazySingleton
 class FlushbarHelper {
-  BuildContext get _context => ExtendedNavigator.root.context;
+  BuildContext get _context => appNavigator.context;
 
   AppFlushbar _currentFlushbar;
 

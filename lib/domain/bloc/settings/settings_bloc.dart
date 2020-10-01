@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:weather_station/core/common/router/router.gr.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 
 part 'settings_bloc.freezed.dart';
 part 'settings_event.dart';
@@ -24,6 +24,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   void mapOnConfigureWifiClicked(
     OnConfigureWifiClicked event,
   ) {
-    ExtendedNavigator.root.push(Routes.configureArduinoScreen);
+    appNavigator.pushConfigureArduinoScreen();
   }
 }

@@ -1,8 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
@@ -61,13 +61,13 @@ class ConfigureArduinoScreen extends StatelessWidget {
         actions: <Widget>[
           FlatButton(
             onPressed: () {
-              ExtendedNavigator.root.pop();
+              appNavigator.pop();
             },
             child: Text(Strings.dialogCancel.get(context)),
           ),
           FlatButton(
             onPressed: () {
-              ExtendedNavigator.root.pop();
+              appNavigator.pop();
               context.bloc<ConfigureArduinoBloc>().add(
                   const ConfigureArduinoEvent
                       .onPermissionDialogPositiveClicked());
