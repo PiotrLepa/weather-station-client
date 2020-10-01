@@ -1,50 +1,58 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weather_station/core/common/logger/logger.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
-import 'package:weather_station/core/domain/call_state/call_state.dart';
-import 'package:weather_station/core/domain/call_state/pagination/paged_call_state.dart';
 import 'package:weather_station/core/domain/error/error_translator.dart';
 import 'package:weather_station/core/injection/injection.dart';
 
-Stream<CallState<T>> callApi<T>(
-  Future<T> call,
-) async* {
+Future<void> callWrapper<T>({
+  @required Future<T> call,
+  void Function() onProgress,
+  void Function(T) onSuccess,
+  void Function(PlainLocalizedString) onError,
+}) async {
   try {
-    yield const CallState.progress();
+    onProgress?.call();
     final result = await call;
-    yield CallState.success(result);
+    onSuccess?.call(result);
   } on ApiException catch (e) {
     final errorMessage = getIt.get<ErrorTranslator>().translate(e);
-    yield CallState.error(errorMessage);
+    onError?.call(errorMessage);
   } catch (e, s) {
-    logger.e('bloc helper fetch', e, s);
+    logger.e('call wrapper', e, s);
   }
 }
 
-Stream<PagedCallState<T>> callPagedApi<T>({
+Future<void> callPagedApi<T>({
   @required Future<T> call,
   @required int page,
-}) async* {
+  void Function() onInitialProgress,
+  void Function(T) onInitialSuccess,
+  void Function(PlainLocalizedString) onInitialError,
+  void Function() onAdditionalProgress,
+  void Function(T) onAdditionalSuccess,
+  void Function(PlainLocalizedString) onAdditionalError,
+}) async {
   try {
     if (page == 0) {
-      yield const PagedCallState.initialProgress();
+      onInitialProgress();
     } else {
-      yield const PagedCallState.additionalProgress();
+      onAdditionalProgress();
     }
     final result = await call;
     if (page == 0) {
-      yield PagedCallState.initialSuccess(result);
+      onInitialSuccess(result);
     } else {
-      yield PagedCallState.additionalSuccess(result);
+      onAdditionalSuccess(result);
     }
   } on ApiException catch (e) {
     final errorMessage = getIt.get<ErrorTranslator>().translate(e);
     if (page == 0) {
-      yield PagedCallState.initialError(errorMessage);
+      onInitialError(errorMessage);
     } else {
-      yield PagedCallState.additionalError(errorMessage);
+      onAdditionalError(errorMessage);
     }
   } catch (e, s) {
-    logger.e('bloc helper fetch', e, s);
+    logger.e('paged call wrapper', e, s);
   }
 }

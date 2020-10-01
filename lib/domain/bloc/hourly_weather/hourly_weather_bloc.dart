@@ -1,9 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/domain/bloc/bloc_helper.dart';
+import 'package:weather_station/core/domain/bloc/event_cubit.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
@@ -13,7 +13,8 @@ part 'hourly_weather_event.dart';
 part 'hourly_weather_state.dart';
 
 @injectable
-class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
+class HourlyWeatherBloc
+    extends EventCubit<HourlyWeatherEvent, HourlyWeatherState> {
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
 
@@ -27,66 +28,58 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   ) : super(const HourlyWeatherState.initial(selectDateLoading: false));
 
   @override
-  Stream<HourlyWeatherState> mapEventToState(HourlyWeatherEvent event) async* {
-    yield* event.map(
+  Future<void> onEvent(HourlyWeatherEvent event) async {
+    await event.map(
       loadPressed: _mapLoadPressed,
       changeDatePressed: mapChangeDatePressed,
     );
   }
 
-  Stream<HourlyWeatherState> _mapLoadPressed(
-    LoadPressed event,
-  ) async* {
-    final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
-    await for (final requestState in request) {
-      yield* requestState.when(
-        progress: () async* {
-          yield const HourlyWeatherState.initial(selectDateLoading: true);
+  Future<void> _mapLoadPressed(LoadPressed event,) async {
+    await callWrapper<KtList<Weather>>(
+        call: _weatherRepository.fetchHourlyWeather(event.day),
+        onProgress: () {
+          emit(const Initial(selectDateLoading: true));
         },
-        success: (weathers) async* {
+        onSuccess: (weathers) {
           _fetchedWeathers = weathers;
-          yield HourlyWeatherState.renderCharts(
+          emit(RenderCharts(
             weathers: weathers,
             changeDateLoading: false,
-          );
+          ));
         },
-        error: (message) async* {
+        onError: (message) {
           _flushbarHelper.showError(message: message);
-          yield const HourlyWeatherState.initial(selectDateLoading: false);
-        },
-      );
-    }
+          emit(const Initial(selectDateLoading: false));
+        });
   }
 
-  Stream<HourlyWeatherState> mapChangeDatePressed(
-    ChangeDatePressed event,
-  ) async* {
+  Future<void> mapChangeDatePressed(ChangeDatePressed event,) async {
     if (event.day == _weatherDate) {
       return;
     }
-    final request = callApi(_weatherRepository.fetchHourlyWeather(event.day));
-    await for (final requestState in request) {
-      yield* requestState.when(
-        progress: () async* {
+
+    await callWrapper<KtList<Weather>>(
+        call: _weatherRepository.fetchHourlyWeather(event.day),
+        onProgress: () {
           final currentState = state as RenderCharts;
-          yield currentState.copyWith(changeDateLoading: true);
+          emit(currentState.copyWith(changeDateLoading: true));
         },
-        success: (weathers) async* {
+        onSuccess: (weathers) {
+          _fetchedWeathers = weathers;
           _flushbarHelper.showSuccess(message: Strings.dataUpdated);
           _fetchedWeathers = weathers;
-          yield HourlyWeatherState.renderCharts(
+          emit(RenderCharts(
             weathers: weathers,
             changeDateLoading: false,
-          );
+          ));
         },
-        error: (message) async* {
+        onError: (message) {
           _flushbarHelper.showError(message: message);
-          yield HourlyWeatherState.renderCharts(
+          emit(RenderCharts(
             weathers: _fetchedWeathers,
             changeDateLoading: false,
-          );
-        },
-      );
-    }
+          ));
+        });
   }
 }

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_station/core/common/router/router.gr.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
