@@ -11,24 +11,25 @@ import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/util/device_connection_exception.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/util/device_connector.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/arduino_configurator.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_credentials/wifi_credentials.dart';
 
 part 'configure_arduino_bloc.freezed.dart';
+
 part 'configure_arduino_event.dart';
+
 part 'configure_arduino_state.dart';
 
 @injectable
 class ConfigureArduinoBloc
     extends CustomBloc<ConfigureArduinoEvent, ConfigureArduinoState> {
-  static const deviceBleName = 'ESP-32 WeatherStation';
-
   final FlushbarHelper _flushbarHelper;
-  final DeviceConnector _deviceConnector;
+  final ArduinoConfigurator _arduinoConfigurator;
 
   ConfigureArduinoBloc(
     this._flushbarHelper,
-    this._deviceConnector,
+    this._arduinoConfigurator,
   ) : super(const Nothing());
 
   @override
@@ -42,7 +43,7 @@ class ConfigureArduinoBloc
 
   @override
   Future<void> close() async {
-    await _deviceConnector.close();
+    await _arduinoConfigurator.close();
     return super.close();
   }
 
@@ -86,23 +87,23 @@ class ConfigureArduinoBloc
   Future<void> _emitSetupBleState() async {
     emit(const Connecting());
 
-    final newState = await _deviceConnector
+    await _arduinoConfigurator
         .setupBleManager()
-        .then<ConfigureArduinoState>((_) => const RenderWifiInputs())
+        .then((_) => emit(const RenderWifiInputs()))
+        .then((_) => _arduinoConfigurator.getAvailableWifiList())
+        .then((wifiList) =>
+        _arduinoConfigurator.sendWifiCredentials(
+            WifiCredentials(name: wifiList[1].name, password: 'password')))
         .catchError(
           (Object e) {
         final message = _getSetupBleErrorMessage(e);
         _flushbarHelper.showError(message: message);
-        return Future<ConfigureArduinoState>.value(
-          RenderError(
-            message: message,
-            loading: false,
-          ),
-        );
+        emit(RenderError(
+          message: message,
+          loading: false,
+        ));
       },
     );
-
-    emit(newState);
   }
 
   PlainLocalizedString _getSetupBleErrorMessage(Object e) {
