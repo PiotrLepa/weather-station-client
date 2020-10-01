@@ -9,6 +9,7 @@ import 'package:weather_station/core/presentation/widgets/error/error_page.dart'
 import 'package:weather_station/domain/bloc/configure_arduino/configure_arduino_bloc.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_connecting.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_inputs.dart';
+import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_list.dart';
 
 class ConfigureArduinoScreen extends StatelessWidget {
   @override
@@ -28,12 +29,15 @@ class ConfigureArduinoScreen extends StatelessWidget {
             );
           },
           buildWhen: (oldState, newState) =>
-              newState is Connecting ||
+          newState is Connecting ||
+              newState is RenderWifiList ||
               newState is RenderWifiInputs ||
               newState is RenderError,
           builder: (context, state) {
             return state.maybeMap(
               connecting: (s) => ConfigureArduinoConnecting(),
+              renderWifiList: (s) =>
+                  ConfigureArduinoWifiList(wifiList: s.wifiList),
               renderWifiInputs: (s) => ConfigureArduinoWifiInputs(),
               renderError: (s) => ErrorPage(
                 onRetry: () {
@@ -68,8 +72,9 @@ class ConfigureArduinoScreen extends StatelessWidget {
           FlatButton(
             onPressed: () {
               appNavigator.pop();
-              context.bloc<ConfigureArduinoBloc>().add(
-                  const OnPermissionDialogPositiveClicked());
+              context
+                  .bloc<ConfigureArduinoBloc>()
+                  .add(const OnPermissionDialogPositiveClicked());
             },
             child: Text(Strings.dialogOk.get(context)),
           )

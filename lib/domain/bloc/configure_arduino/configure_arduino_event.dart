@@ -10,4 +10,7 @@ abstract class ConfigureArduinoEvent
 
   const factory ConfigureArduinoEvent.onPermissionDialogPositiveClicked() =
       OnPermissionDialogPositiveClicked;
+
+  const factory ConfigureArduinoEvent.onWifiSelected(WifiCredentials wifi) =
+      OnWifiSelected;
 }
