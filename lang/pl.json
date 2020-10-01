@@ -15,6 +15,7 @@
   "updateTimeAgo": "temu",
   "tabTitleCurrent": "Aktualna",
   "tabTitleHourly": "Godzinowa",
+  "tabTitleSettings": "Ustawienia",
   "updateTimeNow": "Teraz",
   "pluralMinutesOne": "minutę",
   "pluralMinutesFew": "minuty",
@@ -54,5 +55,15 @@
   "hourlyWeatherChangeDay": "Zmień dzień",
   "hourlyWeatherInitialDescription": "Wybierz datę, aby zobaczyć szczegółowe dane",
   "hourlyWeatherInitialButton": "Wybierz",
-  "hourlyWeatherAppBarDay": "Dane z dnia"
+  "hourlyWeatherAppBarDay": "Dane z dnia",
+  "settingsAppBarTitle": "Ustawienia",
+  "settingsItemConfigureWifiOnArduino": "Skonfiguruj WiFi na arduino",
+  "arduinoWifiConnectingWithDevice": "Łączenie z urządzeniem...",
+  "connectToDeviceUnknownError": "Wystąpił błąd podczas łączenie z urządzeniem",
+  "connectToDevicePermissionError": "Aby połączyć się z urządzeniem wymagane jest pozwolenie do lokalizacji",
+  "dialogOk": "OK",
+  "dialogCancel": "Anuluj",
+  "permissionInfoDialogTitle": "Uprawnienia",
+  "permissionInfoDialogMessage": "Aby połączyć się z urządzeniem przejdź do ustawień i pozwól na uprawnienia do lokalizacji",
+  "openAppSettingsError": "Wystąpił błąd przy próbie otworzenia ustawień"
 }
