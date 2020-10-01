@@ -15,9 +15,7 @@ import 'package:weather_station/domain/bloc/configure_arduino/util/device_connec
 import 'package:weather_station/domain/bloc/configure_arduino/util/device_connector.dart';
 
 part 'configure_arduino_bloc.freezed.dart';
-
 part 'configure_arduino_event.dart';
-
 part 'configure_arduino_state.dart';
 
 @injectable
@@ -48,7 +46,9 @@ class ConfigureArduinoBloc
     return super.close();
   }
 
-  Future<void> _mapOnScreenStarted(OnScreenStarted event,) async {
+  Future<void> _mapOnScreenStarted(
+    OnScreenStarted event,
+  ) async {
     if (await Permission.locationWhenInUse.isPermanentlyDenied) {
       emit(const RenderError(
         message: Strings.connectToDevicePermissionError,
@@ -57,15 +57,17 @@ class ConfigureArduinoBloc
       await _showPermissionInfoDialog();
       return;
     }
-    await _setupBleManager();
+    await _emitSetupBleState();
   }
 
-  Future<void> _mapOnRetryClicked(OnRetryClicked event,) async {
+  Future<void> _mapOnRetryClicked(
+    OnRetryClicked event,
+  ) async {
     if (await Permission.locationWhenInUse.isPermanentlyDenied) {
       await _showPermissionInfoDialog();
       return;
     }
-    await _setupBleManager();
+    await _emitSetupBleState();
   }
 
   Future<void> _showPermissionInfoDialog() async {
@@ -81,37 +83,38 @@ class ConfigureArduinoBloc
     }
   }
 
-  Future<void> _setupBleManager() async {
+  Future<void> _emitSetupBleState() async {
     emit(const Connecting());
 
     final newState = await _deviceConnector
         .setupBleManager()
-        .then((_) => const RenderWifiInputs())
+        .then<ConfigureArduinoState>((_) => const RenderWifiInputs())
         .catchError(
           (Object e) {
-        PlainLocalizedString message;
-        if (e is DeviceConnectionException) {
-          message = e.map(
-            permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
-            permissionPermanentlyDenied: (_) =>
-            Strings.connectToDevicePermissionError,
-            unknown: (_) => Strings.connectToDeviceUnknownError,
-          );
-        } else {
-          message = Strings.connectToDeviceUnknownError;
-        }
-
+        final message = _getSetupBleErrorMessage(e);
         _flushbarHelper.showError(message: message);
-        return Future.value(
+        return Future<ConfigureArduinoState>.value(
           RenderError(
             message: message,
             loading: false,
           ),
         );
       },
-      test: (e) => e is DeviceConnectionException,
     );
 
     emit(newState);
+  }
+
+  PlainLocalizedString _getSetupBleErrorMessage(Object e) {
+    if (e is DeviceConnectionException) {
+      return e.map(
+        permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
+        permissionPermanentlyDenied: (_) =>
+        Strings.connectToDevicePermissionError,
+        unknown: (_) => Strings.connectToDeviceUnknownError,
+      );
+    } else {
+      return Strings.connectToDeviceUnknownError;
+    }
   }
 }
