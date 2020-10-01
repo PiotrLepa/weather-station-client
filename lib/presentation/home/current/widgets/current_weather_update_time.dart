@@ -36,15 +36,13 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
         children: [
           RichText(
             text:
-            TextSpan(style: DefaultTextStyle.of(context).style, children: [
+                TextSpan(style: DefaultTextStyle.of(context).style, children: [
               TextSpan(
                 text: Strings.weatherUpdateTime.get(context),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: scaleText(17),
-                  color: ThemeProvider
-                      .of(context)
-                      .textColor,
+                  color: ThemeProvider.of(context).textColor,
                 ),
               ),
               TextSpan(
