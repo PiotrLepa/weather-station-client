@@ -20,7 +20,7 @@ class ArduinoConfigurator {
 
   final BleManager _bleManager;
 
-  Peripheral device;
+  Peripheral _device;
 
   ArduinoConfigurator(this._bleManager);
 
@@ -33,29 +33,23 @@ class ArduinoConfigurator {
         .then((device) => device.connect().then((_) => device))
         .then((device) => device.discoverAllServicesAndCharacteristics())
         .catchError(
-          (dynamic e) => Future<DeviceConnectionException>.error(
-            e is DeviceConnectionException
-                ? e
-                : const DeviceConnectionException.unknown(),
-          ),
+          (Object e) => Future<DeviceConnectionException>.error(_mapError(e)),
         );
   }
 
-  Future<KtList<WifiName>> getAvailableWifiList() {
-    return device
-        .readCharacteristic(serviceUuid, characteristicUuid)
-        .then((characteristics) {
-      final string = _decode(characteristics.value);
-      final list = json.decode(string) as Iterable<dynamic>;
-      return list
-          .map((dynamic value) =>
-              WifiName.fromJson(value as Map<String, dynamic>))
-          .toKtList();
-    });
+  Stream<KtList<WifiName>> observeAvailableWifiList() {
+    // yield await _getWifiNames(); // TODO neded?
+    return _device
+        .monitorCharacteristic(serviceUuid, characteristicUuid)
+        .asyncMap((_) => _getWifiNames())
+        .map((event) {
+      event.get(5);
+      return event;
+    }).handleError((Object e) => throw _mapError(e));
   }
 
   Future<void> sendWifiCredentials(WifiCredentials wifi) {
-    return device.writeCharacteristic(
+    return _device.writeCharacteristic(
       serviceUuid,
       characteristicUuid,
       _encode(json.encode(wifi.toJson())),
@@ -64,14 +58,42 @@ class ArduinoConfigurator {
   }
 
   Future<void> close() async {
-    await device?.disconnectOrCancelConnection();
-    await _bleManager.stopPeripheralScan();
+    await disconnectAndCancelOperations();
     await _bleManager.destroyClient();
+  }
+
+  Future<void> disconnectAndCancelOperations() async {
+    if (_device != null && await _device.isConnected()) {
+      await _device.disconnectOrCancelConnection();
+      _device = null;
+    }
+    await _bleManager.stopPeripheralScan();
+  }
+
+  Future<KtList<WifiName>> _getWifiNames() {
+    return _device
+        .readCharacteristic(serviceUuid, characteristicUuid)
+        .then(_parseWifiNames);
+  }
+
+  DeviceConnectionException _mapError(Object error) {
+    return error is DeviceConnectionException
+        ? error
+        : const DeviceConnectionException.unknown();
   }
 
   Uint8List _encode(String value) => Uint8List.fromList(utf8.encode(value));
 
   String _decode(Uint8List value) => utf8.decode(value);
+
+  KtList<WifiName> _parseWifiNames(CharacteristicWithValue characteristic) {
+    final string = _decode(characteristic.value);
+    final list = json.decode(string) as Iterable<dynamic>;
+    return list
+        .map(
+            (dynamic value) => WifiName.fromJson(value as Map<String, dynamic>))
+        .toKtList();
+  }
 
   Future<void> _checkPermissions() async {
     if (Platform.isAndroid) {
@@ -104,7 +126,7 @@ class ArduinoConfigurator {
         final peripheral = scanResult.peripheral;
         if (peripheral.name == deviceBleName) {
           scan.cancel();
-          device = peripheral;
+          _device = peripheral;
           await _bleManager.stopPeripheralScan();
           completer.complete(peripheral);
         }

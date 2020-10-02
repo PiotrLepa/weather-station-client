@@ -27,6 +27,8 @@ class ConfigureArduinoBloc
   final FlushbarHelper _flushbarHelper;
   final ArduinoConfigurator _arduinoConfigurator;
 
+  StreamSubscription<KtList<WifiName>> _availableWifiSubscription;
+
   ConfigureArduinoBloc(
     this._flushbarHelper,
     this._arduinoConfigurator,
@@ -44,6 +46,7 @@ class ConfigureArduinoBloc
 
   @override
   Future<void> close() async {
+    await _availableWifiSubscription?.cancel();
     await _arduinoConfigurator.close();
     return super.close();
   }
@@ -59,7 +62,7 @@ class ConfigureArduinoBloc
       await _showPermissionInfoDialog();
       return;
     }
-    await _emitSetupBleState();
+    _emitArduinoConfiguratorStates();
   }
 
   Future<void> _mapOnRetryClicked(
@@ -69,7 +72,7 @@ class ConfigureArduinoBloc
       await _showPermissionInfoDialog();
       return;
     }
-    await _emitSetupBleState();
+    _emitArduinoConfiguratorStates();
   }
 
   Future<void> _showPermissionInfoDialog() async {
@@ -97,23 +100,28 @@ class ConfigureArduinoBloc
     );
   }
 
-  Future<void> _emitSetupBleState() async {
+  void _emitArduinoConfiguratorStates() {
     emit(const Connecting());
 
-    await _arduinoConfigurator
+    _availableWifiSubscription = _arduinoConfigurator
         .setupBleManager()
-        .then((_) => _arduinoConfigurator.getAvailableWifiList())
-        .then((wifiList) => emit(RenderWifiList(wifiList)))
-        .catchError(
-      (Object e) {
-        final message = _translateArduinoException(e);
-        _flushbarHelper.showError(message: message);
-        emit(RenderError(
-          message: message,
-          loading: false,
-        ));
-      },
-    );
+        .asStream()
+        .asyncExpand((_) => _arduinoConfigurator.observeAvailableWifiList())
+        .handleError(_handleArduinoErrors)
+        .listen((wifiList) => emit(RenderWifiList(wifiList)));
+  }
+
+  void _handleArduinoErrors(Object error) {
+    _availableWifiSubscription?.cancel();
+    _availableWifiSubscription = null;
+    _arduinoConfigurator.disconnectAndCancelOperations();
+
+    final message = _translateArduinoException(error);
+    _flushbarHelper.showError(message: message);
+    emit(RenderError(
+      message: message,
+      loading: false,
+    ));
   }
 
   PlainLocalizedString _translateArduinoException(Object e) {
