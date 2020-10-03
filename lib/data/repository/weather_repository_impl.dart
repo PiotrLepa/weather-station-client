@@ -10,7 +10,7 @@ import 'package:weather_station/domain/repository/weather_repository.dart';
 @LazySingleton(as: WeatherRepository)
 class WeatherRepositoryImpl extends WeatherRepository {
   final RestService _service;
-  final WeatherConverter _weatherConverter;
+  final WeatherEntityConverter _weatherConverter;
   final DateTimeFormatter _dateFormatter;
 
   WeatherRepositoryImpl(

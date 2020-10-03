@@ -5,10 +5,10 @@ import 'package:weather_station/data/model/weather/weather_model.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 
 @lazySingleton
-class WeatherConverter implements Converter<WeatherModel, Weather> {
+class WeatherEntityConverter implements Converter<WeatherModel, Weather> {
   final DateTimeParser dateTimeParser;
 
-  WeatherConverter(
+  WeatherEntityConverter(
     this.dateTimeParser,
   );
 

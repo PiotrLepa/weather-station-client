@@ -12,13 +12,15 @@ import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/domain/entity/arduino_connection_exception/arduino_connection_exception.dart';
+import 'package:weather_station/domain/entity/wifi/wifi.dart';
+import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/arduino_configurator.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_credentials/wifi_credentials.dart';
 
 part 'configure_arduino_bloc.freezed.dart';
+
 part 'configure_arduino_event.dart';
+
 part 'configure_arduino_state.dart';
 
 @injectable
@@ -125,11 +127,11 @@ class ConfigureArduinoBloc
   }
 
   PlainLocalizedString _translateArduinoException(Object e) {
-    if (e is DeviceConnectionException) {
+    if (e is ArduinoConnectionException) {
       return e.map(
         permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
         permissionPermanentlyDenied: (_) =>
-        Strings.connectToDevicePermissionError,
+            Strings.connectToDevicePermissionError,
         unknown: (_) => Strings.connectToDeviceUnknownError,
       );
     } else {

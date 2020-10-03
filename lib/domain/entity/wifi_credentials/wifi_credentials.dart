@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'wifi_credentials.freezed.dart';
-
 part 'wifi_credentials.g.dart';
 
 @freezed

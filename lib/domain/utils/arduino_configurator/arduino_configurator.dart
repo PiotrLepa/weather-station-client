@@ -5,10 +5,10 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:weather_station/domain/entity/arduino_connection_exception/arduino_connection_exception.dart';
+import 'package:weather_station/domain/entity/wifi/wifi.dart';
+import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 import 'package:weather_station/domain/repository/arduino_repository.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_credentials/wifi_credentials.dart';
 
 @lazySingleton
 class ArduinoConfigurator {
@@ -50,11 +50,11 @@ class ArduinoConfigurator {
 
       if (permissionStatus == PermissionStatus.permanentlyDenied) {
         return Future.error(
-          const DeviceConnectionException.permissionPermanentlyDenied(),
+          const ArduinoConnectionException.permissionPermanentlyDenied(),
         );
       } else if (permissionStatus != PermissionStatus.granted) {
         return Future.error(
-          const DeviceConnectionException.permissionNotGranted(),
+          const ArduinoConnectionException.permissionNotGranted(),
         );
       }
     }

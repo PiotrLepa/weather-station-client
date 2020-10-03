@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
+import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_item.dart';
 
 class ConfigureArduinoWifiList extends StatelessWidget {

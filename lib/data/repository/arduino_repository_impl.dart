@@ -1,10 +1,11 @@
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/data/converter/entity/wifi_entity_converter.dart';
 import 'package:weather_station/data/service/ble_service.dart';
+import 'package:weather_station/domain/entity/arduino_connection_exception/arduino_connection_exception.dart';
+import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/repository/arduino_repository.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
 
 @LazySingleton(as: ArduinoRepository)
 class ArduinoRepositoryImpl extends ArduinoRepository {
@@ -15,8 +16,9 @@ class ArduinoRepositoryImpl extends ArduinoRepository {
   static const _wifiListCharacteristic = 'db7a9839-79a5-455f-a213-736f25691050';
 
   final BleService _bleService;
+  final WifiEntityConverter _wifiEntityConverter;
 
-  ArduinoRepositoryImpl(this._bleService);
+  ArduinoRepositoryImpl(this._bleService, this._wifiEntityConverter);
 
   @override
   Future<Peripheral> connect() {
@@ -39,6 +41,7 @@ class ArduinoRepositoryImpl extends ArduinoRepository {
           serviceUuid: _service,
           characteristicUuid: _wifiListCharacteristic,
         )
+        .map((wifiList) => wifiList.map(_wifiEntityConverter.convert))
         .handleError((Object e) => throw _mapError(e));
   }
 
@@ -54,13 +57,13 @@ class ArduinoRepositoryImpl extends ArduinoRepository {
     return _bleService.close(device).catchError(_handleFutureError);
   }
 
-  Future<DeviceConnectionException> _handleFutureError(Object error) {
-    return Future<DeviceConnectionException>.error(_mapError(error));
+  Future<ArduinoConnectionException> _handleFutureError(Object error) {
+    return Future<ArduinoConnectionException>.error(_mapError(error));
   }
 
-  DeviceConnectionException _mapError(Object error) {
-    return error is DeviceConnectionException
+  ArduinoConnectionException _mapError(Object error) {
+    return error is ArduinoConnectionException
         ? error
-        : const DeviceConnectionException.unknown();
+        : const ArduinoConnectionException.unknown();
   }
 }

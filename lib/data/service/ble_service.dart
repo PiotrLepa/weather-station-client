@@ -7,7 +7,7 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/extension/iterable_extension.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
+import 'package:weather_station/data/model/wifi/wifi_model.dart';
 
 @lazySingleton
 class BleService {
@@ -37,14 +37,15 @@ class BleService {
     return device.readCharacteristic(serviceUuid, characteristicUuid);
   }
 
-  var resultJson = "";
-
-  Stream<KtList<Wifi>> observeWifiList({
+  Stream<KtList<WifiModel>> observeWifiList({
     @required Peripheral device,
     @required String serviceUuid,
     @required String characteristicUuid,
   }) {
-    final transformer = StreamTransformer<String, KtList<Wifi>>.fromHandlers(
+    String resultJson;
+
+    final transformer =
+        StreamTransformer<String, KtList<WifiModel>>.fromHandlers(
       handleData: (json, sink) {
         if (json == 'start') {
           resultJson = '';
@@ -68,13 +69,14 @@ class BleService {
 
   String _decode(Uint8List value) => utf8.decode(value);
 
-  KtList<Wifi> _parseWifiModel(String value) {
+  KtList<WifiModel> _parseWifiModel(String value) {
     if (value.isEmpty) {
       return KtList.empty();
     }
     final list = json.decode(value) as Iterable<dynamic>;
     return list
-        .map((dynamic value) => Wifi.fromJson(value as Map<String, dynamic>))
+        .map((dynamic value) =>
+        WifiModel.fromJson(value as Map<String, dynamic>))
         .toKtList();
   }
 
