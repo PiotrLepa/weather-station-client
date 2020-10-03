@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_name/wifi_name.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
 
 class ConfigureArduinoWifiItem extends StatelessWidget {
-  final WifiName item;
+  final Wifi item;
 
   const ConfigureArduinoWifiItem({
     Key key,

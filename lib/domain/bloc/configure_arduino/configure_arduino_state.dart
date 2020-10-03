@@ -8,8 +8,8 @@ abstract class ConfigureArduinoState
 
   const factory ConfigureArduinoState.connecting() = Connecting;
 
-  const factory ConfigureArduinoState.renderWifiList(
-      KtList<WifiName> wifiList) = RenderWifiList;
+  const factory ConfigureArduinoState.renderWifiList(KtList<Wifi> wifiList) =
+      RenderWifiList;
 
   const factory ConfigureArduinoState.renderWifiInputs() = RenderWifiInputs;
 

@@ -9,14 +9,17 @@ import 'package:kt_dart/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_station/core/extension/iterable_extension.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_credentials/wifi_credentials.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_name/wifi_name.dart';
 
 @lazySingleton
 class ArduinoConfigurator {
   static const deviceBleName = 'ESP-32 WeatherStation';
   static const serviceUuid = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
-  static const characteristicUuid = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
+  static const startScanCharacteristicUuid =
+      '53ce635f-255d-4cdb-9ece-dc8ba92180aa';
+  static const wifiListCharacteristicUuid =
+      'db7a9839-79a5-455f-a213-736f25691050';
 
   final BleManager _bleManager;
 
@@ -37,21 +40,40 @@ class ArduinoConfigurator {
         );
   }
 
-  Stream<KtList<WifiName>> observeAvailableWifiList() {
-    // yield await _getWifiNames(); // TODO neded?
-    return _device
-        .monitorCharacteristic(serviceUuid, characteristicUuid)
-        .asyncMap((_) => _getWifiNames())
-        .map((event) {
-      event.get(5);
-      return event;
-    }).handleError((Object e) => throw _mapError(e));
+  var resultJson = "";
+
+  Stream<KtList<Wifi>> observeAvailableWifiList() async* {
+    await _device
+        .readCharacteristic(serviceUuid, startScanCharacteristicUuid)
+        .catchError(
+          (Object e) => Future<DeviceConnectionException>.error(_mapError(e)),
+        );
+
+    final transformer = StreamTransformer<String, KtList<Wifi>>.fromHandlers(
+      handleData: (json, sink) {
+        if (json == 'start') {
+          resultJson = '';
+        } else if (json == 'end') {
+          sink.add(_parseWifiModel(resultJson));
+        } else {
+          resultJson += json;
+        }
+      },
+    );
+
+    yield* _device
+        .monitorCharacteristic(serviceUuid, wifiListCharacteristicUuid)
+        .asyncMap((_) =>
+            _device.readCharacteristic(serviceUuid, wifiListCharacteristicUuid))
+        .asyncMap((characteristic) => _decode(characteristic.value))
+        .transform(transformer)
+        .handleError((Object e) => throw _mapError(e));
   }
 
   Future<void> sendWifiCredentials(WifiCredentials wifi) {
     return _device.writeCharacteristic(
       serviceUuid,
-      characteristicUuid,
+      wifiListCharacteristicUuid,
       _encode(json.encode(wifi.toJson())),
       true,
     );
@@ -70,12 +92,6 @@ class ArduinoConfigurator {
     await _bleManager.stopPeripheralScan();
   }
 
-  Future<KtList<WifiName>> _getWifiNames() {
-    return _device
-        .readCharacteristic(serviceUuid, characteristicUuid)
-        .then(_parseWifiNames);
-  }
-
   DeviceConnectionException _mapError(Object error) {
     return error is DeviceConnectionException
         ? error
@@ -86,12 +102,13 @@ class ArduinoConfigurator {
 
   String _decode(Uint8List value) => utf8.decode(value);
 
-  KtList<WifiName> _parseWifiNames(CharacteristicWithValue characteristic) {
-    final string = _decode(characteristic.value);
-    final list = json.decode(string) as Iterable<dynamic>;
+  KtList<Wifi> _parseWifiModel(String value) {
+    if (value.isEmpty) {
+      return KtList.empty();
+    }
+    final list = json.decode(value) as Iterable<dynamic>;
     return list
-        .map(
-            (dynamic value) => WifiName.fromJson(value as Map<String, dynamic>))
+        .map((dynamic value) => Wifi.fromJson(value as Map<String, dynamic>))
         .toKtList();
   }
 

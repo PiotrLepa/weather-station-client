@@ -14,8 +14,8 @@ import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/arduino_configurator.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/exception/device_connection_exception.dart';
+import 'package:weather_station/domain/utils/arduino_configurator/model/wifi/wifi.dart';
 import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_credentials/wifi_credentials.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/model/wifi_name/wifi_name.dart';
 
 part 'configure_arduino_bloc.freezed.dart';
 part 'configure_arduino_event.dart';
@@ -27,7 +27,7 @@ class ConfigureArduinoBloc
   final FlushbarHelper _flushbarHelper;
   final ArduinoConfigurator _arduinoConfigurator;
 
-  StreamSubscription<KtList<WifiName>> _availableWifiSubscription;
+  StreamSubscription<KtList<Wifi>> _availableWifiSubscription;
 
   ConfigureArduinoBloc(
     this._flushbarHelper,
