@@ -104,7 +104,7 @@ class ConfigureArduinoBloc
     emit(const Connecting());
 
     _availableWifiSubscription = _arduinoConfigurator
-        .setupBleManager()
+        .connect()
         .asStream()
         .asyncExpand((_) => _arduinoConfigurator.observeAvailableWifiList())
         .handleError(_handleArduinoErrors)
