@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
     SvgGenImage icon,
   ) {
     return BottomNavigationBarItem(
-      title: Text(title.get(context)),
+      label: title.get(context),
       icon: _getBottomNavIcon(
         context,
         icon.path,

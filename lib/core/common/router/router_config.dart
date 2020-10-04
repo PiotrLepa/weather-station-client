@@ -9,4 +9,4 @@ import 'package:weather_station/presentation/home/home_screen.dart';
     MaterialRoute<void>(page: ConfigureArduinoScreen),
   ],
 )
-class $Router {}
+class $RouterConfig {}

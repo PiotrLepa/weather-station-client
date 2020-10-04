@@ -32,10 +32,10 @@ dependencies:
   auto_route: ^0.6.7
 
   # Logging
-  logger: ^0.9.3
+  logger: ^0.9.4
 
   # Data classes & json serialization
-  kt_dart: ^0.7.0+1
+  kt_dart: ^0.8.0
   freezed_annotation: ^0.12.0
   json_serializable: ^3.5.0
 

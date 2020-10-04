@@ -4,6 +4,6 @@ import 'package:flutter/widgets.dart';
 class ConfigureArduinoWifiInputs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Fetched');
+    return const Text('Fetched');
   }
 }

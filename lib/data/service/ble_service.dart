@@ -71,7 +71,7 @@ class BleService {
 
   KtList<WifiModel> _parseWifiModel(String value) {
     if (value.isEmpty) {
-      return KtList.empty();
+      return const KtList.empty();
     }
     final list = json.decode(value) as Iterable<dynamic>;
     return list
