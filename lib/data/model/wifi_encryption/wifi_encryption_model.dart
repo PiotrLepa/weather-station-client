@@ -1,4 +1,4 @@
-enum WifiEncryption {
+enum WifiEncryptionModel {
   open,
   wep,
   wpa,

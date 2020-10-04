@@ -1,17 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weather_station/domain/enum/wifi/wifi_encryption.dart';
+import 'package:weather_station/domain/entity/signal_strength/signal_strength.dart';
+import 'package:weather_station/domain/entity/wifi_encryption/wifi_encryption.dart';
 
 part 'wifi.freezed.dart';
-part 'wifi.g.dart';
 
 @freezed
 abstract class Wifi with _$Wifi {
   const factory Wifi({
     @required String name,
     @required WifiEncryption encryption,
-    @required int rssi,
+    @required SignalStrength signalStrength,
   }) = _Wifi;
-
-  factory Wifi.fromJson(Map<String, dynamic> json) => _$WifiFromJson(json);
-  static const fromJsonFactory = _$WifiFromJson;
 }
