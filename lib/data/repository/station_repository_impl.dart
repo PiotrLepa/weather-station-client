@@ -3,12 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/data/converter/entity/wifi_entity_converter.dart';
 import 'package:weather_station/data/service/ble_service.dart';
-import 'package:weather_station/domain/entity/arduino_connection_exception/arduino_connection_exception.dart';
+import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
-import 'package:weather_station/domain/repository/arduino_repository.dart';
+import 'package:weather_station/domain/repository/station_repository.dart';
 
-@LazySingleton(as: ArduinoRepository)
-class ArduinoRepositoryImpl extends ArduinoRepository {
+@LazySingleton(as: StationRepository)
+class StationRepositoryImpl extends StationRepository {
   static const _deviceName = 'ESP-32 WeatherStation';
   static const _service = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
   static const _startScanCharacteristic =
@@ -18,7 +18,7 @@ class ArduinoRepositoryImpl extends ArduinoRepository {
   final BleService _bleService;
   final WifiEntityConverter _wifiEntityConverter;
 
-  ArduinoRepositoryImpl(this._bleService, this._wifiEntityConverter);
+  StationRepositoryImpl(this._bleService, this._wifiEntityConverter);
 
   @override
   Future<Peripheral> connect() {
@@ -57,13 +57,11 @@ class ArduinoRepositoryImpl extends ArduinoRepository {
     return _bleService.close(device).catchError(_handleFutureError);
   }
 
-  Future<ArduinoConnectionException> _handleFutureError(Object error) {
-    return Future<ArduinoConnectionException>.error(_mapError(error));
+  Future<StationException> _handleFutureError(Object error) {
+    return Future<StationException>.error(_mapError(error));
   }
 
-  ArduinoConnectionException _mapError(Object error) {
-    return error is ArduinoConnectionException
-        ? error
-        : const ArduinoConnectionException.unknown();
+  StationException _mapError(Object error) {
+    return error is StationException ? error : const StationException.unknown();
   }
 }

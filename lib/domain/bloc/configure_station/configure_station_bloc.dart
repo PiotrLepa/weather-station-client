@@ -12,32 +12,32 @@ import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/entity/arduino_connection_exception/arduino_connection_exception.dart';
+import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
-import 'package:weather_station/domain/utils/arduino_configurator/arduino_configurator.dart';
+import 'package:weather_station/domain/utils/station_configurator/station_configurator.dart';
 
-part 'configure_arduino_bloc.freezed.dart';
+part 'configure_station_bloc.freezed.dart';
 
-part 'configure_arduino_event.dart';
+part 'configure_station_event.dart';
 
-part 'configure_arduino_state.dart';
+part 'configure_station_state.dart';
 
 @injectable
-class ConfigureArduinoBloc
-    extends CustomBloc<ConfigureArduinoEvent, ConfigureArduinoState> {
+class ConfigureStationBloc
+    extends CustomBloc<ConfigureStationEvent, ConfigureStationState> {
   final FlushbarHelper _flushbarHelper;
-  final ArduinoConfigurator _arduinoConfigurator;
+  final StationConfigurator _stationConfigurator;
 
   StreamSubscription<KtList<Wifi>> _availableWifiSubscription;
 
-  ConfigureArduinoBloc(
+  ConfigureStationBloc(
     this._flushbarHelper,
-    this._arduinoConfigurator,
+    this._stationConfigurator,
   ) : super(const Nothing());
 
   @override
-  Future<void> onEvent(ConfigureArduinoEvent event) async {
+  Future<void> onEvent(ConfigureStationEvent event) async {
     await event.map(
       onScreenStarted: _mapOnScreenStarted,
       onRetryClicked: _mapOnRetryClicked,
@@ -49,7 +49,7 @@ class ConfigureArduinoBloc
   @override
   Future<void> close() async {
     await _availableWifiSubscription?.cancel();
-    await _arduinoConfigurator.close();
+    await _stationConfigurator.close();
     return super.close();
   }
 
@@ -64,7 +64,7 @@ class ConfigureArduinoBloc
       await _showPermissionInfoDialog();
       return;
     }
-    _emitArduinoConfiguratorStates();
+    _emitStationConfigurationStates();
   }
 
   Future<void> _mapOnRetryClicked(
@@ -74,7 +74,7 @@ class ConfigureArduinoBloc
       await _showPermissionInfoDialog();
       return;
     }
-    _emitArduinoConfiguratorStates();
+    _emitStationConfigurationStates();
   }
 
   Future<void> _showPermissionInfoDialog() async {
@@ -94,21 +94,21 @@ class ConfigureArduinoBloc
   Future<void> _mapOnWifiSelected(
     OnWifiSelected event,
   ) async {
-    await _arduinoConfigurator.sendWifiCredentials(event.wifi).catchError(
-      (Object e) {
-        final message = _translateArduinoException(e);
+    await _stationConfigurator.sendWifiCredentials(event.wifi).catchError(
+          (Object e) {
+        final message = _translateStationException(e);
         _flushbarHelper.showError(message: message);
       },
     );
   }
 
-  void _emitArduinoConfiguratorStates() {
+  void _emitStationConfigurationStates() {
     emit(const Connecting());
 
-    _availableWifiSubscription = _arduinoConfigurator
+    _availableWifiSubscription = _stationConfigurator
         .connect()
         .asStream()
-        .asyncExpand((_) => _arduinoConfigurator.observeAvailableWifiList())
+        .asyncExpand((_) => _stationConfigurator.observeAvailableWifiList())
         .handleError(_handleArduinoErrors)
         .listen((wifiList) => emit(RenderWifiList(wifiList)));
   }
@@ -116,9 +116,9 @@ class ConfigureArduinoBloc
   void _handleArduinoErrors(Object error) {
     _availableWifiSubscription?.cancel();
     _availableWifiSubscription = null;
-    _arduinoConfigurator.disconnectAndCancelOperations();
+    _stationConfigurator.disconnectAndCancelOperations();
 
-    final message = _translateArduinoException(error);
+    final message = _translateStationException(error);
     _flushbarHelper.showError(message: message);
     emit(RenderError(
       message: message,
@@ -126,12 +126,12 @@ class ConfigureArduinoBloc
     ));
   }
 
-  PlainLocalizedString _translateArduinoException(Object e) {
-    if (e is ArduinoConnectionException) {
+  PlainLocalizedString _translateStationException(Object e) {
+    if (e is StationException) {
       return e.map(
         permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
         permissionPermanentlyDenied: (_) =>
-            Strings.connectToDevicePermissionError,
+        Strings.connectToDevicePermissionError,
         unknown: (_) => Strings.connectToDeviceUnknownError,
       );
     } else {

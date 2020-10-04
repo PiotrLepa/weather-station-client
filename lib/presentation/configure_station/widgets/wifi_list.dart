@@ -3,12 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
-import 'package:weather_station/presentation/configure_arduino/widgets/configure_arduino_wifi_item.dart';
+import 'package:weather_station/presentation/configure_station/widgets/wifi_item.dart';
 
-class ConfigureArduinoWifiList extends StatelessWidget {
+class WifiList extends StatelessWidget {
   final KtList<Wifi> wifiList;
 
-  const ConfigureArduinoWifiList({
+  const WifiList({
     Key key,
     @required this.wifiList,
   }) : super(key: key);
@@ -28,7 +28,7 @@ class ConfigureArduinoWifiList extends StatelessWidget {
           itemCount: wifiList.size,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return ConfigureArduinoWifiItem(
+            return WifiItem(
               item: wifiList[index],
             );
           },

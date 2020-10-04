@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
       child: Column(
         children: [
           SettingsItem(
-            name: Strings.settingsItemConfigureWifiOnArduino,
+            name: Strings.settingsItemConfigureWifiOnStation,
             onPressed: () {
               context.bloc<SettingsBloc>().add(const OnConfigureWifiClicked());
             },

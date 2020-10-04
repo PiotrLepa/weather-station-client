@@ -5,23 +5,21 @@ import 'package:flutter/widgets.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/bloc/configure_arduino/util/loading_images_provider.dart';
+import 'package:weather_station/domain/utils/loading_images_provider.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 
-class ConfigureArduinoConnecting extends StatefulWidget {
+class ConnectingToStation extends StatefulWidget {
   @override
-  _ConfigureArduinoConnectingState createState() =>
-      _ConfigureArduinoConnectingState();
+  _ConnectingToStationState createState() => _ConnectingToStationState();
 }
 
-class _ConfigureArduinoConnectingState
-    extends State<ConfigureArduinoConnecting> {
+class _ConnectingToStationState extends State<ConnectingToStation> {
   final _imagesProvider = getIt<LoadingImagesProvider>();
 
   SvgGenImage _image;
   Timer _timer;
 
-  _ConfigureArduinoConnectingState() {
+  _ConnectingToStationState() {
     _image = _imagesProvider.getNext();
   }
 
@@ -51,7 +49,7 @@ class _ConfigureArduinoConnectingState
           SizedBox(
             width: double.infinity,
             child: Text(
-              Strings.arduinoWifiConnectingWithDevice.get(context),
+              Strings.connectingWithStation.get(context),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w400,

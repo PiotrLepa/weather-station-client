@@ -7,9 +7,7 @@ import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 
 part 'settings_bloc.freezed.dart';
-
 part 'settings_event.dart';
-
 part 'settings_state.dart';
 
 @injectable
@@ -26,6 +24,6 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
   Future<void> _mapOnConfigureWifiClicked(
     OnConfigureWifiClicked event,
   ) async {
-    appNavigator.pushConfigureArduinoScreen();
+    appNavigator.pushConfigureStationScreen();
   }
 }
