@@ -18,9 +18,7 @@ import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.
 import 'package:weather_station/domain/utils/station_configurator/station_configurator.dart';
 
 part 'configure_station_bloc.freezed.dart';
-
 part 'configure_station_event.dart';
-
 part 'configure_station_state.dart';
 
 @injectable
@@ -109,11 +107,11 @@ class ConfigureStationBloc
         .connect()
         .asStream()
         .asyncExpand((_) => _stationConfigurator.observeAvailableWifiList())
-        .handleError(_handleArduinoErrors)
+        .handleError(_handleStationErrors)
         .listen((wifiList) => emit(RenderWifiList(wifiList)));
   }
 
-  void _handleArduinoErrors(Object error) {
+  void _handleStationErrors(Object error) {
     _availableWifiSubscription?.cancel();
     _availableWifiSubscription = null;
     _stationConfigurator.disconnectAndCancelOperations();

@@ -21,7 +21,11 @@ class ThemeProvider {
 
   Color get textColor => Colors.black87;
 
+  Color get backgroundColorLight => Colors.white;
+
   Color get backgroundColor => Colors.grey[50];
+
+  Color get backgroundColorDark => Colors.grey[200];
 
   ThemeProvider({@required this.isDark});
 

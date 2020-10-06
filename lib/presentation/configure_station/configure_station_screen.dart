@@ -9,7 +9,7 @@ import 'package:weather_station/core/presentation/widgets/error/error_page.dart'
 import 'package:weather_station/domain/bloc/configure_station/configure_station_bloc.dart';
 import 'package:weather_station/presentation/configure_station/widgets/connecting_to_station.dart';
 import 'package:weather_station/presentation/configure_station/widgets/wifi_credentials_inputs.dart';
-import 'package:weather_station/presentation/configure_station/widgets/wifi_list.dart';
+import 'package:weather_station/presentation/configure_station/widgets/wifi_list_page.dart';
 
 class ConfigureStationScreen extends StatelessWidget {
   @override
@@ -36,18 +36,17 @@ class ConfigureStationScreen extends StatelessWidget {
           builder: (context, state) {
             return state.maybeMap(
               connecting: (s) => ConnectingToStation(),
-              renderWifiList: (s) => WifiList(wifiList: s.wifiList),
+              renderWifiList: (s) => WifiListPage(wifiList: s.wifiList),
               renderWifiInputs: (s) => WifiCredentialsInputs(),
-              renderError: (s) =>
-                  ErrorPage(
-                    onRetry: () {
-                      context
-                          .bloc<ConfigureStationBloc>()
-                          .add(const OnRetryClicked());
-                    },
-                    message: s.message,
-                    loading: s.loading,
-                  ),
+              renderError: (s) => ErrorPage(
+                onRetry: () {
+                  context
+                      .bloc<ConfigureStationBloc>()
+                      .add(const OnRetryClicked());
+                },
+                message: s.message,
+                loading: s.loading,
+              ),
               orElse: () => Container(),
             );
           },
