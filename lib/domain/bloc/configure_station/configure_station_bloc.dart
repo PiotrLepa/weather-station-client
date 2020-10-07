@@ -18,7 +18,9 @@ import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.
 import 'package:weather_station/domain/utils/station_configurator/station_configurator.dart';
 
 part 'configure_station_bloc.freezed.dart';
+
 part 'configure_station_event.dart';
+
 part 'configure_station_state.dart';
 
 @injectable
@@ -37,11 +39,12 @@ class ConfigureStationBloc
   @override
   Future<void> onEvent(ConfigureStationEvent event) async {
     await event.map(
-      onScreenStarted: _mapOnScreenStarted,
-      onRetryClicked: _mapOnRetryClicked,
-      onPermissionDialogPositiveClicked: _mapOnPermissionDialogPositiveClicked,
-      onWifiSelected: _mapOnWifiSelected,
-    );
+        onScreenStarted: _mapOnScreenStarted,
+        onRetryClicked: _mapOnRetryClicked,
+        onPermissionDialogPositiveClicked:
+            _mapOnPermissionDialogPositiveClicked,
+        onWifiSelected: _mapOnWifiSelected,
+        onPasswordInserted: _mapOnPasswordInserted);
   }
 
   @override
@@ -81,18 +84,22 @@ class ConfigureStationBloc
   }
 
   Future<void> _mapOnPermissionDialogPositiveClicked(
-    OnPermissionDialogPositiveClicked event,
-  ) async {
+    OnPermissionDialogPositiveClicked event,) async {
     final opened = await openAppSettings();
     if (!opened) {
       _flushbarHelper.showError(message: Strings.openAppSettingsError);
     }
   }
 
-  Future<void> _mapOnWifiSelected(
-    OnWifiSelected event,
-  ) async {
-    await _stationConfigurator.sendWifiCredentials(event.wifi).catchError(
+  Future<void> _mapOnWifiSelected(OnWifiSelected event,) async {
+    emit(ShowWifiPasswordInputDialog(event.wifi));
+    emit(const Nothing());
+  }
+
+  Future<void> _mapOnPasswordInserted(OnPasswordInserted event,) async {
+    await _stationConfigurator
+        .sendWifiCredentials(event.wifiCredentials)
+        .catchError(
           (Object e) {
         final message = _translateStationException(e);
         _flushbarHelper.showError(message: message);

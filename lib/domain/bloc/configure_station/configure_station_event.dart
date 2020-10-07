@@ -11,6 +11,9 @@ abstract class ConfigureStationEvent
   const factory ConfigureStationEvent.onPermissionDialogPositiveClicked() =
       OnPermissionDialogPositiveClicked;
 
-  const factory ConfigureStationEvent.onWifiSelected(WifiCredentials wifi) =
+  const factory ConfigureStationEvent.onWifiSelected(Wifi wifi) =
       OnWifiSelected;
+
+  const factory ConfigureStationEvent.onPasswordInserted(
+      WifiCredentials wifiCredentials) = OnPasswordInserted;
 }
