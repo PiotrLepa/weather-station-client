@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:weather_station/core/injection/injection.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/domain/utils/loading_images_provider.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 

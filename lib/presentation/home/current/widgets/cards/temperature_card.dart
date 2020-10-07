@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 

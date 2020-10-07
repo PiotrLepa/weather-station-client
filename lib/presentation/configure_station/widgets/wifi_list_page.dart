@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/presentation/configure_station/widgets/wifi_list.dart';
 

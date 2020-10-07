@@ -27,13 +27,8 @@ class StationConfigurator {
     return _stationRepository.observeWifiList(_device);
   }
 
-  Future<void> sendWifiCredentials(WifiCredentials wifi) {
-    // return _device.writeCharacteristic(
-    //   serviceUuid,
-    //   wifiListCharacteristicUuid,
-    //   _encode(json.encode(wifi.toJson())),
-    //   true,
-    // );
+  Future<void> sendWifiCredentials(WifiCredentials wifiCredentials) {
+    return _stationRepository.sendWifiCredentials(_device, wifiCredentials);
   }
 
   Future<void> close() async {

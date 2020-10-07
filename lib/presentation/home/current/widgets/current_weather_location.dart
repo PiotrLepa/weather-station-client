@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 
 class HomeLocation extends StatelessWidget {

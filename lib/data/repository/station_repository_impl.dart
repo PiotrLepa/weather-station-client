@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -5,6 +7,7 @@ import 'package:weather_station/data/converter/entity/wifi_entity_converter.dart
 import 'package:weather_station/data/service/ble_service.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
+import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 import 'package:weather_station/domain/repository/station_repository.dart';
 
 @LazySingleton(as: StationRepository)
@@ -29,10 +32,10 @@ class StationRepositoryImpl extends StationRepository {
   Stream<KtList<Wifi>> observeWifiList(Peripheral device) async* {
     await _bleService
         .readCharacteristic(
-          device: device,
-          serviceUuid: _service,
-          characteristicUuid: _startScanCharacteristic,
-        )
+      device: device,
+      serviceUuid: _service,
+      characteristicUuid: _startScanCharacteristic,
+    )
         .catchError(_handleFutureError);
 
     yield* _bleService
@@ -43,6 +46,19 @@ class StationRepositoryImpl extends StationRepository {
         )
         .map((wifiList) => wifiList.map(_wifiEntityConverter.convert))
         .handleError((Object e) => throw _mapError(e));
+  }
+
+  @override
+  Future<void> sendWifiCredentials(
+    Peripheral device,
+    WifiCredentials wifiCredentials,
+  ) {
+    return _bleService.writeCharacteristic(
+      value: json.encode(wifiCredentials.toJson()),
+      device: device,
+      serviceUuid: _service,
+      characteristicUuid: _wifiListCharacteristic,
+    );
   }
 
   @override

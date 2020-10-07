@@ -1,6 +1,6 @@
 import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
 class WeatherValue extends StatelessWidget {

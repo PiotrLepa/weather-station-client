@@ -37,6 +37,20 @@ class BleService {
     return device.readCharacteristic(serviceUuid, characteristicUuid);
   }
 
+  Future<Characteristic> writeCharacteristic({
+    @required String value,
+    @required Peripheral device,
+    @required String serviceUuid,
+    @required String characteristicUuid,
+  }) {
+    return device.writeCharacteristic(
+      serviceUuid,
+      characteristicUuid,
+      _encode(value),
+      true,
+    );
+  }
+
   Stream<KtList<WifiModel>> observeWifiList({
     @required Peripheral device,
     @required String serviceUuid,

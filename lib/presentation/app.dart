@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
-import 'package:weather_station/core/presentation/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

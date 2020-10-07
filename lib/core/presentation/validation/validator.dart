@@ -8,7 +8,7 @@ abstract class Validator {
 class RequiredValidator extends Validator {
   @override
   PlainLocalizedString validate(String value) {
-    if (value.isEmpty) {
+    if (value.trim().isEmpty) {
       return Strings.validationErrorRequired;
     }
     return null;

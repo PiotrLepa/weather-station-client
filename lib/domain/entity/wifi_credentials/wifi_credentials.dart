@@ -7,7 +7,7 @@ part 'wifi_credentials.g.dart';
 abstract class WifiCredentials with _$WifiCredentials {
   const factory WifiCredentials({
     @required String name,
-    @required String password,
+    String password,
   }) = _WifiCredentials;
 
   factory WifiCredentials.fromJson(Map<String, dynamic> json) =>

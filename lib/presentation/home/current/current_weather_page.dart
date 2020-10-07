@@ -4,7 +4,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/core/presentation/widgets/common/fill_empty_space_sliver.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
-import 'package:weather_station/core/presentation/widgets/loading_indicator.dart';
+import 'package:weather_station/core/presentation/widgets/loading/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/current_weather/current_weather_bloc.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar.dart';
 import 'package:weather_station/presentation/home/current/widgets/current_weather_app_bar_corners.dart';

@@ -15,12 +15,11 @@ import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
+import 'package:weather_station/domain/entity/wifi_encryption/wifi_encryption.dart';
 import 'package:weather_station/domain/utils/station_configurator/station_configurator.dart';
 
 part 'configure_station_bloc.freezed.dart';
-
 part 'configure_station_event.dart';
-
 part 'configure_station_state.dart';
 
 @injectable
@@ -84,23 +83,35 @@ class ConfigureStationBloc
   }
 
   Future<void> _mapOnPermissionDialogPositiveClicked(
-    OnPermissionDialogPositiveClicked event,) async {
+    OnPermissionDialogPositiveClicked event,
+  ) async {
     final opened = await openAppSettings();
     if (!opened) {
       _flushbarHelper.showError(message: Strings.openAppSettingsError);
     }
   }
 
-  Future<void> _mapOnWifiSelected(OnWifiSelected event,) async {
+  Future<void> _mapOnWifiSelected(
+    OnWifiSelected event,
+  ) async {
+    if (event.wifi.encryption is Open) {
+      final credentials = WifiCredentials(name: event.wifi.name);
+      await _sendWifiCredentials(credentials);
+      return;
+    }
     emit(ShowWifiPasswordInputDialog(event.wifi));
     emit(const Nothing());
   }
 
-  Future<void> _mapOnPasswordInserted(OnPasswordInserted event,) async {
-    await _stationConfigurator
-        .sendWifiCredentials(event.wifiCredentials)
-        .catchError(
-          (Object e) {
+  Future<void> _mapOnPasswordInserted(
+    OnPasswordInserted event,
+  ) async {
+    await _sendWifiCredentials(event.wifiCredentials);
+  }
+
+  Future<void> _sendWifiCredentials(WifiCredentials credentials) {
+    return _stationConfigurator.sendWifiCredentials(credentials).catchError(
+      (Object e) {
         final message = _translateStationException(e);
         _flushbarHelper.showError(message: message);
       },
