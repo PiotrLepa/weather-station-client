@@ -8,15 +8,21 @@ import 'package:weather_station/domain/bloc/configure_station/configure_station_
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 
-class WifiPasswordInputDialog extends StatelessWidget {
-  final _passwordFormKey = GlobalKey<AppFormFieldState>();
-
+class WifiPasswordInputDialog extends StatefulWidget {
   final Wifi wifi;
 
-  WifiPasswordInputDialog({
+  const WifiPasswordInputDialog({
     Key key,
     @required this.wifi,
   }) : super(key: key);
+
+  @override
+  _WifiPasswordInputDialogState createState() =>
+      _WifiPasswordInputDialogState();
+}
+
+class _WifiPasswordInputDialogState extends State<WifiPasswordInputDialog> {
+  final _passwordFormKey = GlobalKey<AppFormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class WifiPasswordInputDialog extends StatelessWidget {
             if (_passwordFormKey.currentState.isValid) {
               appNavigator.pop();
               final credentials = WifiCredentials(
-                name: wifi.name,
+                name: widget.wifi.name,
                 password: _passwordFormKey.currentState.value,
               );
               context

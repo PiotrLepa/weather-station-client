@@ -28,13 +28,13 @@ class AppFormField extends StatefulWidget {
 class AppFormFieldState extends State<AppFormField> {
   final _formFieldKey = GlobalKey<FormFieldState>();
 
-  bool get isValid => _isValid;
-
-  String get value => _value;
-
   var _isValid = false;
 
   var _value = '';
+
+  bool get isValid => _isValid;
+
+  String get value => _value;
 
   @override
   Widget build(BuildContext context) {
