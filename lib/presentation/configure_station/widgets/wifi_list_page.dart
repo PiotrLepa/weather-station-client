@@ -30,7 +30,7 @@ class WifiListPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Expanded(child: WifiList(wifiList: wifiList)),
       ],
     );

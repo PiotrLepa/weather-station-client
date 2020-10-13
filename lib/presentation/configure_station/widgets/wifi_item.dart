@@ -16,8 +16,9 @@ class WifiItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(12),
+      color: ThemeProvider.of(context).backgroundColorLight,
       child: Row(
         children: [
           const SizedBox(width: 12),

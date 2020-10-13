@@ -12,6 +12,7 @@ import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
@@ -29,6 +30,7 @@ class ConfigureStationBloc
   final StationConfigurator _stationConfigurator;
 
   StreamSubscription<KtList<Wifi>> _availableWifiSubscription;
+  StreamSubscription<ConnectToWifiResult> _connectToWifiResultSubscription;
 
   ConfigureStationBloc(
     this._flushbarHelper,
@@ -49,6 +51,8 @@ class ConfigureStationBloc
   @override
   Future<void> close() async {
     await _availableWifiSubscription?.cancel();
+    await _connectToWifiResultSubscription?.cancel();
+    await _stationConfigurator.disconnectAndCancelOperations();
     await _stationConfigurator.close();
     return super.close();
   }
@@ -106,40 +110,70 @@ class ConfigureStationBloc
   Future<void> _mapOnPasswordInserted(
     OnPasswordInserted event,
   ) async {
+    _observeConnectToWifiResult();
     await _sendWifiCredentials(event.wifiCredentials);
   }
 
   Future<void> _sendWifiCredentials(WifiCredentials credentials) {
     return _stationConfigurator.sendWifiCredentials(credentials).catchError(
-      (Object e) {
+          (Object e) {
         final message = _translateStationException(e);
         _flushbarHelper.showError(message: message);
       },
     );
   }
 
+  void _observeConnectToWifiResult() {
+    if (_connectToWifiResultSubscription != null) {
+      return;
+    }
+
+    _connectToWifiResultSubscription =
+        _stationConfigurator.observeConnectToWifiResult().handleError(
+              (Object error) async {
+            await _connectToWifiResultSubscription?.cancel();
+            _connectToWifiResultSubscription = null;
+            _stationConfigurator.disconnectAndCancelOperations();
+
+            final message = _translateStationException(error);
+            _flushbarHelper.showError(message: message); // TODO stop progress
+          },
+        ).listen(
+              (result) {
+            // TODO stop progress
+            result.map(
+              connected: (_) {},
+              error: (_) {},
+            );
+          },
+        );
+  }
+
   void _emitStationConfigurationStates() {
     emit(const Connecting());
+
+    if (_availableWifiSubscription != null) {
+      return;
+    }
 
     _availableWifiSubscription = _stationConfigurator
         .connect()
         .asStream()
         .asyncExpand((_) => _stationConfigurator.observeAvailableWifiList())
-        .handleError(_handleStationErrors)
-        .listen((wifiList) => emit(RenderWifiList(wifiList)));
-  }
+        .handleError(
+          (Object error) async {
+        await _availableWifiSubscription?.cancel();
+        _availableWifiSubscription = null;
+        _stationConfigurator.disconnectAndCancelOperations();
 
-  void _handleStationErrors(Object error) {
-    _availableWifiSubscription?.cancel();
-    _availableWifiSubscription = null;
-    _stationConfigurator.disconnectAndCancelOperations();
-
-    final message = _translateStationException(error);
-    _flushbarHelper.showError(message: message);
-    emit(RenderError(
-      message: message,
-      loading: false,
-    ));
+        final message = _translateStationException(error);
+        _flushbarHelper.showError(message: message);
+        emit(RenderError(
+          message: message,
+          loading: false,
+        ));
+      },
+    ).listen((wifiList) => emit(RenderWifiList(wifiList)));
   }
 
   PlainLocalizedString _translateStationException(Object e) {
