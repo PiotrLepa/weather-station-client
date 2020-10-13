@@ -5,6 +5,7 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
@@ -25,6 +26,10 @@ class StationConfigurator {
 
   Stream<KtList<Wifi>> observeAvailableWifiList() {
     return _stationRepository.observeWifiList(_device);
+  }
+
+  Stream<ConnectToWifiResult> observeConnectToWifiResult() {
+    return _stationRepository.observeConnectToWifiResult(_device);
   }
 
   Future<void> sendWifiCredentials(WifiCredentials wifiCredentials) {

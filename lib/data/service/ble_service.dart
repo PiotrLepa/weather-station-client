@@ -7,6 +7,7 @@ import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/extension/iterable_extension.dart';
+import 'package:weather_station/data/model/connect_to_wifi_result/connect_to_wifi_result_model.dart';
 import 'package:weather_station/data/model/wifi/wifi_model.dart';
 
 @lazySingleton
@@ -24,6 +25,10 @@ class BleService {
         .then(
       (device) async {
         await device.discoverAllServicesAndCharacteristics();
+        final a = await device.services();
+        final b = await device
+            .characteristics('a386aa2b-ce06-460c-bd02-9743997288b2');
+        final c = await device.services();
         return device;
       },
     );
@@ -75,8 +80,28 @@ class BleService {
         .monitorCharacteristic(serviceUuid, characteristicUuid)
         .asyncMap(
             (_) => device.readCharacteristic(serviceUuid, characteristicUuid))
-        .asyncMap((characteristic) => _decode(characteristic.value))
+        .map((characteristic) => _decode(characteristic.value))
         .transform(transformer);
+  }
+
+  Stream<ConnectToWifiResultModel> observeConnectToWifiResult({
+    @required Peripheral device,
+    @required String serviceUuid,
+    @required String characteristicUuid,
+  }) {
+    return device
+        .monitorCharacteristic(serviceUuid, characteristicUuid)
+        .map((characteristic) => _decode(characteristic.value))
+        .map(
+      (result) {
+        switch (result) {
+          case 'connected':
+            return ConnectToWifiResultModel.connected;
+          default:
+            return ConnectToWifiResultModel.error;
+        }
+      },
+    );
   }
 
   Uint8List _encode(String value) => Uint8List.fromList(utf8.encode(value));
