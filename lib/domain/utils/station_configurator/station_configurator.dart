@@ -11,7 +11,7 @@ import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 import 'package:weather_station/domain/repository/station_repository.dart';
 
-@lazySingleton
+@injectable
 class StationConfigurator {
   final StationRepository _stationRepository;
 
@@ -24,24 +24,42 @@ class StationConfigurator {
         await _checkPermissions().then((_) => _stationRepository.connect());
   }
 
-  Stream<KtList<Wifi>> observeAvailableWifiList() {
-    return _stationRepository.observeWifiList(_device);
+  Future<KtList<Wifi>> getAvailableWifiList() {
+    return _connectIfDisconnected()
+        .then((_) => _stationRepository.observeWifiList(_device).first);
   }
 
-  Stream<ConnectToWifiResult> observeConnectToWifiResult() {
-    return _stationRepository.observeConnectToWifiResult(_device);
+  Future<ConnectToWifiResult> sendWifiCredentials(
+    WifiCredentials wifiCredentials,
+  ) async {
+    return _connectIfDisconnected()
+        .then((_) => _stationRepository.observeConnectToWifiResult(_device))
+        .then(
+      (connectionResult) async {
+        final result = connectionResult.first;
+
+        // give time to start observe connect to wifi result
+        await Future<void>.delayed(const Duration(seconds: 1)).then((_) =>
+            _stationRepository.sendWifiCredentials(_device, wifiCredentials));
+
+        return result;
+      },
+    );
   }
 
-  Future<void> sendWifiCredentials(WifiCredentials wifiCredentials) {
-    return _stationRepository.sendWifiCredentials(_device, wifiCredentials);
-  }
-
-  Future<void> close() async {
+  Future<void> close() {
     return _stationRepository.close(_device);
   }
 
   Future<void> disconnectAndCancelOperations() async {
     return _stationRepository.disconnectAndCancelOperations(_device);
+  }
+
+  Future<void> _connectIfDisconnected() async {
+    final isConnected = _device != null && await _device.isConnected();
+    if (!isConnected) {
+      await connect();
+    }
   }
 
   Future<void> _checkPermissions() async {

@@ -25,10 +25,6 @@ class BleService {
         .then(
       (device) async {
         await device.discoverAllServicesAndCharacteristics();
-        final a = await device.services();
-        final b = await device
-            .characteristics('a386aa2b-ce06-460c-bd02-9743997288b2');
-        final c = await device.services();
         return device;
       },
     );

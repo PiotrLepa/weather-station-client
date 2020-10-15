@@ -13,7 +13,6 @@ import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
@@ -29,9 +28,6 @@ class ConfigureStationBloc
     extends CustomBloc<ConfigureStationEvent, ConfigureStationState> {
   final FlushbarHelper _flushbarHelper;
   final StationConfigurator _stationConfigurator;
-
-  StreamSubscription<KtList<Wifi>> _availableWifiSubscription;
-  StreamSubscription<ConnectToWifiResult> _connectToWifiResultSubscription;
 
   ConfigureStationBloc(
     this._flushbarHelper,
@@ -51,8 +47,6 @@ class ConfigureStationBloc
 
   @override
   Future<void> close() async {
-    await _availableWifiSubscription?.cancel();
-    await _connectToWifiResultSubscription?.cancel();
     await _stationConfigurator.disconnectAndCancelOperations();
     await _stationConfigurator.close();
     return super.close();
@@ -112,75 +106,41 @@ class ConfigureStationBloc
     OnPasswordInserted event,
   ) async {
     emit(const ShowConnectingToWifiDialog());
-    _observeConnectToWifiResult();
-    await Future<void>.delayed(
-        const Duration(seconds: 1)); // give ble time to start observing
     await _sendWifiCredentials(event.wifiCredentials);
   }
 
   Future<void> _sendWifiCredentials(WifiCredentials credentials) {
     return _stationConfigurator.sendWifiCredentials(credentials).catchError(
-          (Object e) {
-        final message = _translateStationException(e);
-        _flushbarHelper.showError(message: message);
-      },
-    );
-  }
-
-  void _observeConnectToWifiResult() {
-    if (_connectToWifiResultSubscription != null) {
-      return;
-    }
-
-    _connectToWifiResultSubscription =
-        _stationConfigurator.observeConnectToWifiResult().handleError(
-      (Object error) async {
-        await _connectToWifiResultSubscription?.cancel();
-        _connectToWifiResultSubscription = null;
-        _stationConfigurator.disconnectAndCancelOperations();
-
-        appNavigator.pop();
+      (Object error) {
+        appNavigator.pop(); // dismiss connecting dialog
 
         final message = _translateStationException(error);
         _flushbarHelper.showError(message: message);
       },
-    ).listen(
-      (result) {
-        appNavigator.pop();
-        result.map(
-          connected: (_) {
-            appNavigator.pop();
-            _flushbarHelper.showSuccess(
-              message: Strings.connectStationToWifiSuccess,
-            );
-          },
-          error: (_) {
-            _flushbarHelper.showError(
-              message: Strings.connectStationToWifiError,
-            );
-          },
-        );
-      },
-    );
+    ).then((result) async {
+      appNavigator.pop(); // dismiss connecting dialog
+
+      result.map(
+        connected: (_) {
+          appNavigator.pop();
+          _flushbarHelper.showSuccess(
+            message: Strings.connectStationToWifiSuccess,
+          );
+        },
+        error: (_) {
+          _flushbarHelper.showError(
+            message: Strings.connectStationToWifiError,
+          );
+        },
+      );
+    });
   }
 
   void _emitStationConfigurationStates() {
     emit(const Connecting());
 
-    if (_availableWifiSubscription != null) {
-      return;
-    }
-
-    _availableWifiSubscription = _stationConfigurator
-        .connect()
-        .asStream()
-        .asyncExpand((_) => _stationConfigurator.observeAvailableWifiList())
-        .handleError(
+    _stationConfigurator.getAvailableWifiList().catchError(
           (Object error) async {
-        await _availableWifiSubscription?.cancel();
-        _availableWifiSubscription = null;
-        _stationConfigurator.disconnectAndCancelOperations();
-
         final message = _translateStationException(error);
         _flushbarHelper.showError(message: message);
         emit(RenderError(
@@ -188,7 +148,9 @@ class ConfigureStationBloc
           loading: false,
         ));
       },
-    ).listen((wifiList) => emit(RenderWifiList(wifiList)));
+    ).then((wifiList) {
+      emit(RenderWifiList(wifiList));
+    });
   }
 
   PlainLocalizedString _translateStationException(Object e) {
@@ -197,6 +159,7 @@ class ConfigureStationBloc
         permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
         permissionPermanentlyDenied: (_) =>
         Strings.connectToDevicePermissionError,
+        disconnected: (_) => Strings.deviceDisconnected,
         unknown: (_) => Strings.connectToDeviceUnknownError,
       );
     } else {

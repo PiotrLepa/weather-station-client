@@ -49,10 +49,10 @@ class StationRepositoryImpl extends StationRepository {
 
     yield* _bleService
         .observeWifiList(
-      device: device,
-      serviceUuid: _service,
-      characteristicUuid: _wifiListCharacteristic,
-    )
+          device: device,
+          serviceUuid: _service,
+          characteristicUuid: _wifiListCharacteristic,
+        )
         .map((wifiList) => wifiList.map(_wifiEntityConverter.convert))
         .handleError((Object e) => throw _mapError(e));
   }
@@ -73,12 +73,14 @@ class StationRepositoryImpl extends StationRepository {
   @override
   Future<void> sendWifiCredentials(Peripheral device,
       WifiCredentials wifiCredentials,) {
-    return _bleService.writeCharacteristic(
+    return _bleService
+        .writeCharacteristic(
       value: json.encode(wifiCredentials.toJson()),
       device: device,
       serviceUuid: _service,
       characteristicUuid: _wifiListCharacteristic,
-    );
+    )
+        .catchError(_handleFutureError);
   }
 
   @override
@@ -98,6 +100,18 @@ class StationRepositoryImpl extends StationRepository {
   }
 
   StationException _mapError(Object error) {
-    return error is StationException ? error : const StationException.unknown();
+    if (error is StationException) {
+      return error;
+    }
+    if (error is! BleError) {
+      return const StationException.unknown();
+    }
+    final mappedError = error as BleError;
+    switch (mappedError.errorCode.value) {
+      case BleErrorCode.deviceDisconnected:
+        return const StationException.disconnected();
+      default:
+        return const StationException.unknown();
+    }
   }
 }
