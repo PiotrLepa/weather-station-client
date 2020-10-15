@@ -11,14 +11,17 @@ abstract class ConfigureStationState
   const factory ConfigureStationState.renderWifiList(KtList<Wifi> wifiList) =
       RenderWifiList;
 
-  const factory ConfigureStationState.showWifiPasswordInputDialog(Wifi wifi) =
-      ShowWifiPasswordInputDialog;
-
   const factory ConfigureStationState.renderError({
     @required PlainLocalizedString message,
     @required bool loading,
   }) = RenderError;
 
+  const factory ConfigureStationState.showWifiPasswordInputDialog(Wifi wifi) =
+      ShowWifiPasswordInputDialog;
+
   const factory ConfigureStationState.showPermissionInfoDialog() =
       ShowPermissionInfoDialog;
+
+  const factory ConfigureStationState.showConnectingToWifiDialog() =
+      ShowConnectingToWifiDialog;
 }

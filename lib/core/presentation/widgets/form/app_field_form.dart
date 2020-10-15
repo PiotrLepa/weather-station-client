@@ -65,6 +65,10 @@ class AppFormFieldState extends State<AppFormField> {
     );
   }
 
+  bool validate() {
+    return _formFieldKey.currentState.validate();
+  }
+
   String _validate(BuildContext context, String value) {
     for (var i = 0; i < widget.validators.length; i++) {
       final validator = widget.validators[i];

@@ -48,7 +48,7 @@ class _WifiPasswordInputDialogState extends State<WifiPasswordInputDialog> {
         ),
         FlatButton(
           onPressed: () {
-            if (_passwordFormKey.currentState.isValid) {
+            if (_passwordFormKey.currentState.validate()) {
               appNavigator.pop();
               final credentials = WifiCredentials(
                 name: widget.wifi.name,

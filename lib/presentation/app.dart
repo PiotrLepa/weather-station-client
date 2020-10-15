@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         theme: ThemeProvider(isDark: false).getThemeData(),
         // darkTheme: ThemeProvider(isDark: true).getThemeData(),
         builder: ExtendedNavigator.builder(
-            router: RouterConfig(),
+            router: AppRouter(),
             navigatorKey: navigatorKey,
             builder: (BuildContext context, Widget child) {
               initializeDimens(context);

@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
@@ -110,7 +111,10 @@ class ConfigureStationBloc
   Future<void> _mapOnPasswordInserted(
     OnPasswordInserted event,
   ) async {
+    emit(const ShowConnectingToWifiDialog());
     _observeConnectToWifiResult();
+    await Future<void>.delayed(
+        const Duration(seconds: 1)); // give ble time to start observing
     await _sendWifiCredentials(event.wifiCredentials);
   }
 
@@ -130,23 +134,34 @@ class ConfigureStationBloc
 
     _connectToWifiResultSubscription =
         _stationConfigurator.observeConnectToWifiResult().handleError(
-              (Object error) async {
-            await _connectToWifiResultSubscription?.cancel();
-            _connectToWifiResultSubscription = null;
-            _stationConfigurator.disconnectAndCancelOperations();
+      (Object error) async {
+        await _connectToWifiResultSubscription?.cancel();
+        _connectToWifiResultSubscription = null;
+        _stationConfigurator.disconnectAndCancelOperations();
 
-            final message = _translateStationException(error);
-            _flushbarHelper.showError(message: message); // TODO stop progress
+        appNavigator.pop();
+
+        final message = _translateStationException(error);
+        _flushbarHelper.showError(message: message);
+      },
+    ).listen(
+      (result) {
+        appNavigator.pop();
+        result.map(
+          connected: (_) {
+            appNavigator.pop();
+            _flushbarHelper.showSuccess(
+              message: Strings.connectStationToWifiSuccess,
+            );
           },
-        ).listen(
-              (result) {
-            // TODO stop progress
-            result.map(
-              connected: (_) {},
-              error: (_) {},
+          error: (_) {
+            _flushbarHelper.showError(
+              message: Strings.connectStationToWifiError,
             );
           },
         );
+      },
+    );
   }
 
   void _emitStationConfigurationStates() {

@@ -69,8 +69,11 @@
   "permissionInfoDialogTitle": "Uprawnienia",
   "permissionInfoDialogMessage": "Aby połączyć się z urządzeniem przejdź do ustawień i pozwól na uprawnienia do lokalizacji",
   "openAppSettingsError": "Wystąpił błąd przy próbie otworzenia ustawień",
-  "selectWifiToConnect": "Wybierz sieć, z która ma sie połączyć stacja",
+  "selectWifiToConnect": "Wybierz sieć, z którą ma sie połączyć stacja",
   "wifiPasswordDialogTitle": "Wpisz hasło do wifi",
   "wifiPasswordInputLabel": "Hasło",
-  "connect": "Połącz"
+  "connect": "Połącz",
+  "connecting": "Łączenie...",
+  "connectStationToWifiError": "Sprawdź czy hasło jest prawidłowe",
+  "connectStationToWifiSuccess": "Połączono z wifi"
 }
