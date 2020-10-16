@@ -109,16 +109,9 @@ class ConfigureStationBloc
   }
 
   Future<void> _sendWifiCredentials(WifiCredentials credentials) {
-    return _stationConfigurator.sendWifiCredentials(credentials).catchError(
-      (Object error) {
-        appNavigator.pop(); // dismiss connecting dialog
-
-        final message = _translateStationException(error);
-        if (message != null) {
-          _flushbarHelper.showError(message: message);
-        }
-      },
-    ).then((result) async {
+    return _stationConfigurator
+        .sendWifiCredentials(credentials)
+        .then((result) async {
       appNavigator.pop(); // dismiss connecting dialog
 
       result.map(
@@ -134,13 +127,24 @@ class ConfigureStationBloc
           );
         },
       );
-    });
+    }).catchError(
+      (Object error) {
+        appNavigator.pop(); // dismiss connecting dialog
+
+        final message = _translateStationException(error);
+        if (message != null) {
+          _flushbarHelper.showError(message: message);
+        }
+      },
+    );
   }
 
   void _emitStationConfigurationStates() {
     emit(const Connecting());
 
-    _stationConfigurator.getAvailableWifiList().catchError(
+    _stationConfigurator.getAvailableWifiList().then((wifiList) {
+      emit(RenderWifiList(wifiList));
+    }).catchError(
           (Object error) async {
         final message = _translateStationException(error);
         if (message != null) {
@@ -151,9 +155,7 @@ class ConfigureStationBloc
           ));
         }
       },
-    ).then((wifiList) {
-      emit(RenderWifiList(wifiList));
-    });
+    );
   }
 
   PlainLocalizedString _translateStationException(Object e) {

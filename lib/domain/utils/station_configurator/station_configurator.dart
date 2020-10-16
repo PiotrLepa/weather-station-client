@@ -25,8 +25,10 @@ class StationConfigurator {
   }
 
   Future<KtList<Wifi>> getAvailableWifiList() {
-    return _connectIfDisconnected()
-        .then((_) => _stationRepository.observeWifiList(_device).first);
+    return _connectIfDisconnected().then((_) {
+      final a = _stationRepository.observeWifiList(_device).first;
+      return a;
+    });
   }
 
   Future<ConnectToWifiResult> sendWifiCredentials(
