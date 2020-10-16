@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
-import 'package:weather_station/presentation/home/settings/widget/settings_item.dart';
+import 'package:weather_station/presentation/home/settings/widget/settings_list.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -18,32 +18,10 @@ class SettingsPage extends StatelessWidget {
               appBar: AppBar(
                 title: Text(Strings.settingsAppBarTitle.get(context)),
               ),
-              body: _buildPage(context),
+              body: SettingsList(),
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildPage(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          SettingsItem(
-            name: Strings.settingsItemConfigureWifiOnStation,
-            onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnConfigureWifiClicked());
-            },
-          ),
-          SettingsItem(
-            name: Strings.aboutAppItem,
-            onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnAboutAppClicked());
-            },
-          ),
-        ],
       ),
     );
   }
