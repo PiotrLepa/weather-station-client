@@ -17,7 +17,7 @@ class SettingsItem extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        elevation: 6,
+        elevation: 4,
         child: InkWell(
           onTap: onPressed,
           child: Padding(
