@@ -25,7 +25,12 @@ class LicenseList extends StatelessWidget {
           onTap: () {
             context.bloc<LicenseListBloc>().add(OnLicenseClicked(item));
           },
-          child: LicenseItem(name: item.name),
+          child: LicenseItem(
+            name: item.name,
+            onLinkClicked: (url) {
+              context.bloc<LicenseListBloc>().add(OnLinkClicked(url));
+            },
+          ),
         );
       },
       separatorBuilder: (context, index) {

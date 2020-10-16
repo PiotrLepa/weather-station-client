@@ -4,4 +4,6 @@ part of 'license_list_bloc.dart';
 abstract class LicenseListEvent with _$LicenseListEvent implements BlocEvent {
   const factory LicenseListEvent.onLicenseClicked(License item) =
       OnLicenseClicked;
+
+  const factory LicenseListEvent.onLinkClicked(String url) = OnLinkClicked;
 }

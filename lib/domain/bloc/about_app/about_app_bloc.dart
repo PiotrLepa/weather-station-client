@@ -28,7 +28,13 @@ class AboutAppBloc extends CustomBloc<AboutAppEvent, AboutAppState> {
 
   Future<void> _mapOnIconsClicked(
     OnIconsClicked event,
-  ) async {}
+  ) async {
+    final licenses = await licenseProvider.getIconsLicenses();
+    appNavigator.pushLicenseListScreen(
+      title: Strings.aboutAppIconsItem,
+      licenses: licenses,
+    );
+  }
 
   Future<void> _mapOnPackagesClicked(
     OnPackagesClicked event,

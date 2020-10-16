@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
@@ -18,14 +19,23 @@ class LicenseListBloc extends CustomBloc<LicenseListEvent, LicenseListState> {
   Future<void> onEvent(LicenseListEvent event) async {
     await event.map(
       onLicenseClicked: _mapOnLicenseClicked,
+      onLinkClicked: _mapOnLinkClicked,
     );
   }
 
   Future<void> _mapOnLicenseClicked(
     OnLicenseClicked event,
   ) async {
-    if (event.item != null) {
+    if (event.item.details != null) {
       appNavigator.pushLicenseDetailsScreen(license: event.item);
+    }
+  }
+
+  Future<void> _mapOnLinkClicked(
+    OnLinkClicked event,
+  ) async {
+    if (await canLaunch(event.url)) {
+      await launch(event.url);
     }
   }
 }

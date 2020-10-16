@@ -19,7 +19,7 @@ class WindCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WeatherCard(
-      color: const Color(0xff5858C5),
+      color: const Color(0xff869644),
       iconPath: Assets.icons.wind.path,
       title: Strings.cardWind,
       body: Column(
