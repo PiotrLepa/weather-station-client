@@ -75,5 +75,8 @@
   "connect": "Połącz",
   "connecting": "Łączenie...",
   "connectStationToWifiError": "Sprawdź czy hasło jest prawidłowe",
-  "connectStationToWifiSuccess": "Połączono z wifi"
+  "connectStationToWifiSuccess": "Połączono z wifi",
+  "aboutAppItem": "O aplikacji",
+  "aboutAppIconsItem": "Ikony",
+  "aboutAppPackagesItem": "Pakiety"
 }

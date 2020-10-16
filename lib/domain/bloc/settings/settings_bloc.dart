@@ -18,6 +18,7 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
   Future<void> onEvent(SettingsEvent event) async {
     await event.map(
       onConfigureWifiClicked: _mapOnConfigureWifiClicked,
+      onAboutAppClicked: _mapOnAboutAppClicked,
     );
   }
 
@@ -25,5 +26,11 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
     OnConfigureWifiClicked event,
   ) async {
     appNavigator.pushConfigureStationScreen();
+  }
+
+  Future<void> _mapOnAboutAppClicked(
+    OnAboutAppClicked event,
+  ) async {
+    appNavigator.pushAboutAppScreen();
   }
 }

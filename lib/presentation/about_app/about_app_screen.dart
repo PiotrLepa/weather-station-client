@@ -6,7 +6,7 @@ import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
 import 'package:weather_station/presentation/home/settings/widget/settings_item.dart';
 
-class SettingsPage extends StatelessWidget {
+class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                title: Text(Strings.settingsAppBarTitle.get(context)),
+                title: Text(Strings.aboutAppItem.get(context)),
               ),
               body: _buildPage(context),
             );
@@ -32,16 +32,12 @@ class SettingsPage extends StatelessWidget {
       child: Column(
         children: [
           SettingsItem(
-            name: Strings.settingsItemConfigureWifiOnStation,
-            onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnConfigureWifiClicked());
-            },
+            name: Strings.aboutAppIconsItem,
+            onPressed: () {},
           ),
           SettingsItem(
-            name: Strings.aboutAppItem,
-            onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnAboutAppClicked());
-            },
+            name: Strings.aboutAppPackagesItem,
+            onPressed: () {},
           ),
         ],
       ),

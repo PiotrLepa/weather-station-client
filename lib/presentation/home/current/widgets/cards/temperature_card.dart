@@ -30,12 +30,6 @@ class TemperatureCard extends StatelessWidget {
               fontWeight: FontWeight.w900,
             ),
           ),
-          const SizedBox(width: 4),
-          Icon(
-            Icons.arrow_upward,
-            color: const Color(0xfff0c419),
-            size: scaleText(16),
-          ),
         ],
       ),
     );
