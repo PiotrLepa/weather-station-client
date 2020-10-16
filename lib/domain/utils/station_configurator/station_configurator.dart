@@ -47,12 +47,9 @@ class StationConfigurator {
     );
   }
 
-  Future<void> close() {
-    return _stationRepository.close(_device);
-  }
-
-  Future<void> disconnectAndCancelOperations() async {
-    return _stationRepository.disconnectAndCancelOperations(_device);
+  Future<void> close() async {
+    await _stationRepository.disconnectAndCancelOperations(_device);
+    await _stationRepository.close(_device);
   }
 
   Future<void> _connectIfDisconnected() async {

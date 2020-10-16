@@ -111,7 +111,7 @@ class BleService {
     final list = json.decode(value) as Iterable<dynamic>;
     return list
         .map((dynamic value) =>
-        WifiModel.fromJson(value as Map<String, dynamic>))
+            WifiModel.fromJson(value as Map<String, dynamic>))
         .toKtList();
   }
 

@@ -64,7 +64,6 @@
   "connectingWithStation": "Łączenie z stacją...",
   "connectToDeviceUnknownError": "Wystąpił błąd podczas łączenie z urządzeniem",
   "connectToDevicePermissionError": "Aby połączyć się z urządzeniem wymagane jest pozwolenie do lokalizacji",
-  "deviceDisconnected": "Rozłączono",
   "dialogOk": "OK",
   "dialogCancel": "Anuluj",
   "permissionInfoDialogTitle": "Uprawnienia",

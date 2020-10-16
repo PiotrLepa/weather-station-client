@@ -47,7 +47,6 @@ class ConfigureStationBloc
 
   @override
   Future<void> close() async {
-    await _stationConfigurator.disconnectAndCancelOperations();
     await _stationConfigurator.close();
     return super.close();
   }
@@ -115,7 +114,9 @@ class ConfigureStationBloc
         appNavigator.pop(); // dismiss connecting dialog
 
         final message = _translateStationException(error);
-        _flushbarHelper.showError(message: message);
+        if (message != null) {
+          _flushbarHelper.showError(message: message);
+        }
       },
     ).then((result) async {
       appNavigator.pop(); // dismiss connecting dialog
@@ -142,11 +143,13 @@ class ConfigureStationBloc
     _stationConfigurator.getAvailableWifiList().catchError(
           (Object error) async {
         final message = _translateStationException(error);
-        _flushbarHelper.showError(message: message);
-        emit(RenderError(
-          message: message,
-          loading: false,
-        ));
+        if (message != null) {
+          _flushbarHelper.showError(message: message);
+          emit(RenderError(
+            message: message,
+            loading: false,
+          ));
+        }
       },
     ).then((wifiList) {
       emit(RenderWifiList(wifiList));
@@ -158,8 +161,8 @@ class ConfigureStationBloc
       return e.map(
         permissionNotGranted: (_) => Strings.connectToDevicePermissionError,
         permissionPermanentlyDenied: (_) =>
-        Strings.connectToDevicePermissionError,
-        disconnected: (_) => Strings.deviceDisconnected,
+            Strings.connectToDevicePermissionError,
+        cancelled: (_) => null,
         unknown: (_) => Strings.connectToDeviceUnknownError,
       );
     } else {

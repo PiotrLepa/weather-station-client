@@ -62,10 +62,10 @@ class StationRepositoryImpl extends StationRepository {
       Peripheral device) async* {
     yield* _bleService
         .observeConnectToWifiResult(
-      device: device,
-      serviceUuid: _service,
-      characteristicUuid: _connectToWifiResultCharacteristic,
-    )
+          device: device,
+          serviceUuid: _service,
+          characteristicUuid: _connectToWifiResultCharacteristic,
+        )
         .map(_connectToWifiEntityConverter.convert)
         .handleError((Object e) => throw _mapError(e));
   }
@@ -108,8 +108,8 @@ class StationRepositoryImpl extends StationRepository {
     }
     final mappedError = error as BleError;
     switch (mappedError.errorCode.value) {
-      case BleErrorCode.deviceDisconnected:
-        return const StationException.disconnected();
+      case BleErrorCode.operationCancelled:
+        return const StationException.cancelled();
       default:
         return const StationException.unknown();
     }

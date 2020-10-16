@@ -9,7 +9,7 @@ abstract class StationException with _$StationException implements Exception {
   const factory StationException.permissionPermanentlyDenied() =
       PermissionPermanentlyDenied;
 
-  const factory StationException.disconnected() = Disconnected;
+  const factory StationException.cancelled() = Cancelled;
 
   const factory StationException.unknown() = Unknown;
 }
