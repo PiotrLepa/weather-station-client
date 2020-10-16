@@ -5,12 +5,11 @@ import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/utils/license/license_provider.dart';
 
 part 'about_app_bloc.freezed.dart';
-
 part 'about_app_event.dart';
-
 part 'about_app_state.dart';
 
 @injectable
@@ -35,6 +34,9 @@ class AboutAppBloc extends CustomBloc<AboutAppEvent, AboutAppState> {
     OnPackagesClicked event,
   ) async {
     final licences = await licenseProvider.getPackagesLicenses();
-    appNavigator.pushLicenseListScreen(licences: licences);
+    appNavigator.pushLicenseListScreen(
+      title: Strings.aboutAppPackagesItem,
+      licences: licences,
+    );
   }
 }

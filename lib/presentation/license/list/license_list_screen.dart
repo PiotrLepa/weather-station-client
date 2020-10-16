@@ -1,47 +1,40 @@
+import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/injection/injection.dart';
-import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
+import 'package:weather_station/domain/bloc/license_list/license_list_bloc.dart';
 import 'package:weather_station/domain/entity/license/license.dart';
+import 'package:weather_station/presentation/license/list/widgets/license_list.dart';
 
 class LicenseListScreen extends StatelessWidget {
+  final PlainLocalizedString title;
   final KtList<License> licences;
 
   const LicenseListScreen({
     Key key,
+    @required this.title,
     @required this.licences,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<SettingsBloc>(),
+      create: (_) => getIt.get<LicenseListBloc>(),
       child: Scaffold(
-        body: BlocBuilder<SettingsBloc, SettingsState>(
+        appBar: AppBar(
+          title: Text(title.get(context)),
+        ),
+        body: BlocBuilder<LicenseListBloc, LicenseListState>(
           builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(Strings.aboutAppItem.get(context)),
-              ),
-              body: _buildPage(context),
+            return state.map(
+              renderItems: (_) {
+                return LicenseList(licences: licences);
+              },
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildPage(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: ListView.builder(
-        itemCount: licences.size,
-        itemBuilder: (context, index) {
-          return Text(licences[index].name);
-        },
       ),
     );
   }

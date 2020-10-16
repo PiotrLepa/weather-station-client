@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/domain/bloc/about_app/about_app_bloc.dart';
-import 'package:weather_station/presentation/home/settings/widget/settings_item.dart';
+import 'package:weather_station/presentation/about_app/widget/about_app_list.dart';
 
 class AboutAppScreen extends StatelessWidget {
   @override
@@ -19,33 +19,11 @@ class AboutAppScreen extends StatelessWidget {
                 appBar: AppBar(
                   title: Text(Strings.aboutAppItem.get(context)),
                 ),
-                body: _buildPage(context),
+                body: AboutAppList(),
               );
             });
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildPage(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          SettingsItem(
-            name: Strings.aboutAppIconsItem,
-            onPressed: () {
-              context.bloc<AboutAppBloc>().add(const OnIconsClicked());
-            },
-          ),
-          SettingsItem(
-            name: Strings.aboutAppPackagesItem,
-            onPressed: () {
-              context.bloc<AboutAppBloc>().add(const OnPackagesClicked());
-            },
-          ),
-        ],
       ),
     );
   }
