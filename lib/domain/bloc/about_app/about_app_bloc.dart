@@ -33,10 +33,10 @@ class AboutAppBloc extends CustomBloc<AboutAppEvent, AboutAppState> {
   Future<void> _mapOnPackagesClicked(
     OnPackagesClicked event,
   ) async {
-    final licences = await licenseProvider.getPackagesLicenses();
+    final licenses = await licenseProvider.getPackagesLicenses();
     appNavigator.pushLicenseListScreen(
       title: Strings.aboutAppPackagesItem,
-      licences: licences,
+      licenses: licenses,
     );
   }
 }

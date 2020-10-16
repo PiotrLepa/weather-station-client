@@ -10,12 +10,12 @@ import 'package:weather_station/presentation/license/list/widgets/license_list.d
 
 class LicenseListScreen extends StatelessWidget {
   final PlainLocalizedString title;
-  final KtList<License> licences;
+  final KtList<License> licenses;
 
   const LicenseListScreen({
     Key key,
     @required this.title,
-    @required this.licences,
+    @required this.licenses,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class LicenseListScreen extends StatelessWidget {
           builder: (context, state) {
             return state.map(
               renderItems: (_) {
-                return LicenseList(licences: licences);
+                return LicenseList(licenses: licenses);
               },
             );
           },

@@ -8,19 +8,19 @@ import 'package:weather_station/domain/entity/license/license.dart';
 import 'package:weather_station/presentation/license/list/widgets/license_item.dart';
 
 class LicenseList extends StatelessWidget {
-  final KtList<License> licences;
+  final KtList<License> licenses;
 
   const LicenseList({
     Key key,
-    @required this.licences,
+    @required this.licenses,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: licences.size,
+      itemCount: licenses.size,
       itemBuilder: (context, index) {
-        final item = licences[index];
+        final item = licenses[index];
         return InkWell(
           onTap: () {
             context.bloc<LicenseListBloc>().add(OnLicenseClicked(item));
