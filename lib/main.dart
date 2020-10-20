@@ -7,7 +7,7 @@ import 'package:weather_station/presentation/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureInjection(Env.dev);
+  await configureInjection();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Bloc.observer = getIt<ErrorLoggerBlocObserver>();
   runApp(App());

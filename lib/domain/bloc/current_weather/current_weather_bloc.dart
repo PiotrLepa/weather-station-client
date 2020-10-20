@@ -61,23 +61,21 @@ class CurrentWeatherBloc
     );
   }
 
-  Future<void> _mapRefreshPage(RefreshPressed event,) async {
+  Future<void> _mapRefreshPage(
+    RefreshPressed event,
+  ) async {
     if (!_shouldRefreshWeather()) {
       _flushbarHelper.showSuccess(message: Strings.dataUpToDate);
-      emit(RenderWeather(
-        weather: _fetchedWeather,
-        refreshLoading: false,
-      ));
       return;
     }
 
     await callWrapper<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {
-        RenderWeather(
+        emit(RenderWeather(
           weather: _fetchedWeather,
           refreshLoading: true,
-        );
+        ));
       },
       onSuccess: (weather) {
         _fetchedWeather = weather;
@@ -89,17 +87,22 @@ class CurrentWeatherBloc
       },
       onError: (message) {
         _flushbarHelper.showError(message: message);
-        if (_fetchedWeather != null) {
-          emit(RenderWeather(
-            weather: _fetchedWeather,
-            refreshLoading: false,
-          ));
-        } else {
-          emit(const RenderError(
-            message: Strings.fetchDataFailed,
-            loading: false,
-          ));
-        }
+        emit(RenderWeather(
+          weather: _fetchedWeather,
+          refreshLoading: false,
+        ));
+        // TODO can _fetchedWeather be null?
+        // if (_fetchedWeather != null) {
+        //   emit(RenderWeather(
+        //     weather: _fetchedWeather,
+        //     refreshLoading: false,
+        //   ));
+        // } else {
+        //   emit(const RenderError(
+        //     message: Strings.fetchDataFailed,
+        //     loading: false,
+        //   ));
+        // }
       },
     );
   }
