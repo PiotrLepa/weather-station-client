@@ -11,15 +11,13 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'current_weather_bloc.freezed.dart';
-
 part 'current_weather_event.dart';
-
 part 'current_weather_state.dart';
 
 @injectable
 class CurrentWeatherBloc
     extends CustomBloc<CurrentWeatherEvent, CurrentWeatherState> {
-  static const _weatherFetchDelayMinutes = 5;
+  static const weatherFetchDelay = Duration(minutes: 5);
 
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
@@ -108,11 +106,8 @@ class CurrentWeatherBloc
 
   bool _shouldRefreshWeather() =>
       _fetchedWeather == null ||
-          (DateTime
-              .now()
-              .difference(_fetchedWeather.date)
-              .inMinutes >=
-              _weatherFetchDelayMinutes);
+          (DateTime.now().difference(_fetchedWeather.date) >=
+              weatherFetchDelay);
 
   Future<void> _mapRetryPressed(RetryPressed event,) async {
     await callWrapper<Weather>(
