@@ -5,9 +5,7 @@ import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 
 part 'home_bloc.freezed.dart';
-
 part 'home_event.dart';
-
 part 'home_state.dart';
 
 @injectable
@@ -17,12 +15,12 @@ class HomeBloc extends CustomBloc<HomeEvent, HomeState> {
   @override
   Future<void> onEvent(HomeEvent event) async {
     await event.map(
-      onBottomNavigationClicked: _mapOnBottomNavigationClicked,
+      bottomNavigationClicked: _mapBottomNavigationClicked,
     );
   }
 
-  Future<void> _mapOnBottomNavigationClicked(
-    OnBottomNavigationClicked event,
+  Future<void> _mapBottomNavigationClicked(
+    BottomNavigationClicked event,
   ) async {
     emit(ChangePage(event.index));
   }
