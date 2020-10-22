@@ -4,10 +4,10 @@ part 'api_exception.freezed.dart';
 
 @freezed
 abstract class ApiException with _$ApiException implements Exception {
-  const factory ApiException.noConnection(
-    @nullable int code,
-    @nullable String printableMessage,
-  ) = NoConnection;
+  const factory ApiException.noConnection([
+    int code,
+    String printableMessage,
+  ]) = NoConnection;
 
   const factory ApiException.badRequest(
     int code,

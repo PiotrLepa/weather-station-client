@@ -11,15 +11,13 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'current_weather_bloc.freezed.dart';
-
 part 'current_weather_event.dart';
-
 part 'current_weather_state.dart';
 
 @injectable
 class CurrentWeatherBloc
     extends CustomBloc<CurrentWeatherEvent, CurrentWeatherState> {
-  static const _weatherFetchDelayMinutes = 5;
+  static const weatherFetchDelay = Duration(minutes: 5);
 
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
@@ -63,23 +61,21 @@ class CurrentWeatherBloc
     );
   }
 
-  Future<void> _mapRefreshPage(RefreshPressed event,) async {
+  Future<void> _mapRefreshPage(
+    RefreshPressed event,
+  ) async {
     if (!_shouldRefreshWeather()) {
       _flushbarHelper.showSuccess(message: Strings.dataUpToDate);
-      emit(RenderWeather(
-        weather: _fetchedWeather,
-        refreshLoading: false,
-      ));
       return;
     }
 
     await callWrapper<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {
-        RenderWeather(
+        emit(RenderWeather(
           weather: _fetchedWeather,
           refreshLoading: true,
-        );
+        ));
       },
       onSuccess: (weather) {
         _fetchedWeather = weather;
@@ -91,28 +87,30 @@ class CurrentWeatherBloc
       },
       onError: (message) {
         _flushbarHelper.showError(message: message);
-        if (_fetchedWeather != null) {
-          emit(RenderWeather(
-            weather: _fetchedWeather,
-            refreshLoading: false,
-          ));
-        } else {
-          emit(const RenderError(
-            message: Strings.fetchDataFailed,
-            loading: false,
-          ));
-        }
+        emit(RenderWeather(
+          weather: _fetchedWeather,
+          refreshLoading: false,
+        ));
+        // TODO can _fetchedWeather be null?
+        // if (_fetchedWeather != null) {
+        //   emit(RenderWeather(
+        //     weather: _fetchedWeather,
+        //     refreshLoading: false,
+        //   ));
+        // } else {
+        //   emit(const RenderError(
+        //     message: Strings.fetchDataFailed,
+        //     loading: false,
+        //   ));
+        // }
       },
     );
   }
 
   bool _shouldRefreshWeather() =>
       _fetchedWeather == null ||
-          (DateTime
-              .now()
-              .difference(_fetchedWeather.date)
-              .inMinutes >=
-              _weatherFetchDelayMinutes);
+          (DateTime.now().difference(_fetchedWeather.date) >=
+              weatherFetchDelay);
 
   Future<void> _mapRetryPressed(RetryPressed event,) async {
     await callWrapper<Weather>(

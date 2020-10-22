@@ -5,10 +5,4 @@ import 'package:weather_station/core/injection/injection.config.dart';
 final getIt = GetIt.instance;
 
 @InjectableInit()
-Future<void> configureInjection(String environment) async =>
-    $initGetIt(getIt, environment: environment);
-
-abstract class Env {
-  static const dev = 'dev';
-  static const prod = 'prod';
-}
+Future<void> configureInjection() async => $initGetIt(getIt);
