@@ -31,7 +31,7 @@ class CurrentWeatherPage extends StatelessWidget {
                     loading: s.loading,
                     onRetry: () {
                       context
-                          .bloc<CurrentWeatherBloc>()
+                          .read<CurrentWeatherBloc>()
                           .add(const RetryPressed());
                     },
                   )),

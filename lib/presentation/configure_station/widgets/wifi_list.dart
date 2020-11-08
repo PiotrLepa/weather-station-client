@@ -42,7 +42,7 @@ class WifiList extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   context
-                      .bloc<ConfigureStationBloc>()
+                      .read<ConfigureStationBloc>()
                       .add(OnWifiSelected(wifiList[index]));
                 },
                 child: Column(

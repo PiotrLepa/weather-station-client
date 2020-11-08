@@ -15,13 +15,13 @@ class AboutAppList extends StatelessWidget {
           SettingsItem(
             name: Strings.aboutAppIconsItem,
             onPressed: () {
-              context.bloc<AboutAppBloc>().add(const OnIconsClicked());
+              context.read<AboutAppBloc>().add(const OnIconsClicked());
             },
           ),
           SettingsItem(
             name: Strings.aboutAppPackagesItem,
             onPressed: () {
-              context.bloc<AboutAppBloc>().add(const OnPackagesClicked());
+              context.read<AboutAppBloc>().add(const OnPackagesClicked());
             },
           ),
         ],

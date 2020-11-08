@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
 import 'package:weather_station/domain/bloc/configure_station/configure_station_bloc.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
@@ -41,7 +39,7 @@ class ConfigureStationPage extends StatelessWidget {
           renderWifiList: (s) => WifiListPage(wifiList: s.wifiList),
           renderError: (s) => ErrorPage(
             onRetry: () {
-              context.bloc<ConfigureStationBloc>().add(const OnRetryClicked());
+              context.read<ConfigureStationBloc>().add(const OnRetryClicked());
             },
             message: s.message,
             loading: s.loading,
@@ -56,7 +54,7 @@ class ConfigureStationPage extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
-        value: context.bloc<ConfigureStationBloc>(),
+        value: context.read<ConfigureStationBloc>(),
         child: PermissionInfoDialog(),
       ),
     );
@@ -69,7 +67,7 @@ class ConfigureStationPage extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
-        value: context.bloc<ConfigureStationBloc>(),
+        value: context.read<ConfigureStationBloc>(),
         child: WifiPasswordInputDialog(
           wifi: wifi,
         ),
@@ -84,7 +82,7 @@ class ConfigureStationPage extends StatelessWidget {
       builder: (_) => WillPopScope(
         onWillPop: () async => false,
         child: BlocProvider.value(
-          value: context.bloc<ConfigureStationBloc>(),
+          value: context.read<ConfigureStationBloc>(),
           child: ConnectingToWifiDialog(),
         ),
       ),

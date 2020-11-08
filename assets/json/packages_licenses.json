@@ -102,5 +102,9 @@
   {
     "name": "Freezed",
     "details": "MIT"
+  },
+  {
+    "name": "Firebase Messaging ",
+    "details": "BSD"
   }
 ]

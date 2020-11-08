@@ -15,13 +15,13 @@ class SettingsList extends StatelessWidget {
           SettingsItem(
             name: Strings.settingsItemConfigureWifiOnStation,
             onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnConfigureWifiClicked());
+              context.read<SettingsBloc>().add(const OnConfigureWifiClicked());
             },
           ),
           SettingsItem(
             name: Strings.aboutAppItem,
             onPressed: () {
-              context.bloc<SettingsBloc>().add(const OnAboutAppClicked());
+              context.read<SettingsBloc>().add(const OnAboutAppClicked());
             },
           ),
         ],
