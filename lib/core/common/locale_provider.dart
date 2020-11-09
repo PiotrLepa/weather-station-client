@@ -5,4 +5,6 @@ import 'package:injectable/injectable.dart';
 @lazySingleton
 class LocaleProvider {
   Locale get currentLocale => AutoLocalization.instance.locale;
+
+  String get currentLanguageCode => currentLocale.languageCode;
 }

@@ -17,7 +17,7 @@ class DateTimeFormatter {
   String format(DateTime date, String pattern) {
     return DateFormat(
       pattern,
-      localeProvider.currentLocale.toLanguageTag(),
+      localeProvider.currentLanguageCode,
     ).format(date);
   }
 }
