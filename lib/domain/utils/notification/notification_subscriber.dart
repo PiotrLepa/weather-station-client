@@ -5,7 +5,7 @@ import 'package:weather_station/domain/utils/storage/push_notifications_storage.
 
 @lazySingleton
 class NotificationSubscriber {
-  static const topicRainDetector = 'rain_detector';
+  static const topicRainDetected = 'rain_detected';
 
   final FirebaseMessaging _firebaseMessaging;
   final LocaleProvider _localeProvider;

@@ -53,10 +53,10 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
     final enable = event.isChecked;
     if (enable) {
       await _notificationSubscriber
-          .subscribe(NotificationSubscriber.topicRainDetector);
+          .subscribe(NotificationSubscriber.topicRainDetected);
     } else {
       await _notificationSubscriber
-          .unsubscribe(NotificationSubscriber.topicRainDetector);
+          .unsubscribe(NotificationSubscriber.topicRainDetected);
     }
     emit(RenderItems(pushEnabled: enable));
   }
