@@ -12,8 +12,10 @@ class AppFlushbar extends Flushbar<void> {
     Color backgroundColor,
     Widget icon,
     FlatButton mainButton,
+    FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM,
     bool infinityDuration = false,
     bool isDismissible = true,
+    List<BoxShadow> boxShadows,
   }) : super(
     key: key,
           title: title,
@@ -27,13 +29,15 @@ class AppFlushbar extends Flushbar<void> {
           margin: const EdgeInsets.all(8),
           borderRadius: 16,
           duration: infinityDuration ? null : const Duration(seconds: 3),
-          boxShadows: [
-            const BoxShadow(
-              color: Color(0x44FFFFFF),
-              offset: Offset(0, 3),
-              blurRadius: 4,
-            )
-          ],
+          flushbarPosition: flushbarPosition,
+          boxShadows: boxShadows ??
+              [
+                const BoxShadow(
+                  color: Color(0x44FFFFFF),
+                  offset: Offset(0, 3),
+                  blurRadius: 4,
+                )
+              ],
           onStatusChanged: (status) {
             if (status == FlushbarStatus.DISMISSED) onDismiss();
           },

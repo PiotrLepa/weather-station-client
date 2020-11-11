@@ -19,10 +19,14 @@ class FcmService {
 
   Stream<NotificationModel> getRainDetectedMessages() {
     return _messages
-        .where(
-          (event) => _filterByType(event, FcmMessageTypeModel.RAIN_DETECTED),
-        )
+        // .where(
+        //   (event) => _filterByType(event, FcmMessageTypeModel.RAIN_DETECTED),
+        // ) // TODO update backend
         .map((event) => event.notification);
+  }
+
+  bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) {
+    return model.data[pushType] == FcmMessageTypeModel.RAIN_DETECTED;
   }
 
   Stream<FcmMessageModel> _getMessages() {
@@ -31,22 +35,18 @@ class FcmService {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         logger.d('on message $message');
-        controller.add(FcmMessageModel.fromJson(message));
+        controller.add(FcmMessageModel.customFromJson(message));
       },
       onLaunch: (Map<String, dynamic> message) async {
         logger.d('on launch $message');
-        controller.add(FcmMessageModel.fromJson(message));
+        controller.add(FcmMessageModel.customFromJson(message));
       },
       onResume: (Map<String, dynamic> message) async {
         logger.d('on launch $message');
-        controller.add(FcmMessageModel.fromJson(message));
+        controller.add(FcmMessageModel.customFromJson(message));
       },
     );
 
     return controller.stream;
-  }
-
-  bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) {
-    return model.data[pushType] == FcmMessageTypeModel.RAIN_DETECTED;
   }
 }

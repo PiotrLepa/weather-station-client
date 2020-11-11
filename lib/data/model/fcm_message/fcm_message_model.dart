@@ -3,8 +3,6 @@ import 'package:weather_station/data/model/notification/notification_model.dart'
 
 part 'fcm_message_model.freezed.dart';
 
-part 'fcm_message_model.g.dart';
-
 @freezed
 abstract class FcmMessageModel with _$FcmMessageModel {
   const factory FcmMessageModel({
@@ -12,7 +10,14 @@ abstract class FcmMessageModel with _$FcmMessageModel {
     @required Map<String, dynamic> data,
   }) = _FcmMessageModel;
 
-  factory FcmMessageModel.fromJson(Map<String, dynamic> json) =>
-      _$FcmMessageModelFromJson(json);
-  static const fromJsonFactory = _$FcmMessageModelFromJson;
+  static FcmMessageModel customFromJson(Map<String, dynamic> json) {
+    return _$_FcmMessageModel(
+      notification: json['notification'] == null
+          ? null
+          : NotificationModel.fromJson(
+              (json['notification'] as Map<dynamic, dynamic>)
+                  .cast<String, dynamic>()),
+      data: (json['data'] as Map<dynamic, dynamic>).cast<String, dynamic>(),
+    );
+  }
 }
