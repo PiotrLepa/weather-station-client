@@ -16,8 +16,21 @@ class SuccessFlushbar extends AppFlushbar {
     PlainLocalizedString title,
   }) : super(
     key: key,
-          title: context.translate(title ?? Strings.successFlushbarTitle),
-          message: message.get(context),
+          title: Text(
+            context.translate(title ?? Strings.successFlushbarTitle),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+              color: ThemeProvider.of(context).textColorInverted,
+            ),
+          ),
+          message: Text(
+            message.get(context),
+            style: TextStyle(
+              fontSize: 14,
+              color: ThemeProvider.of(context).textColorInverted,
+            ),
+          ),
           backgroundColor: ThemeProvider.of(context).accentColor,
           onDismiss: onDismiss,
         );

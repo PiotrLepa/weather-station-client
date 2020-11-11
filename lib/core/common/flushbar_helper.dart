@@ -62,12 +62,12 @@ class FlushbarHelper {
       );
 
   Future<void> show({
-    String title,
-    String message,
+    Widget title,
+    Widget message,
     Color backgroundColor,
     Widget icon,
     FlatButton mainButton,
-    bool infinityDuration = false,
+    Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
   }) =>
       _showFlushbar(
@@ -77,7 +77,7 @@ class FlushbarHelper {
           backgroundColor: backgroundColor,
           icon: icon,
           mainButton: mainButton,
-          infinityDuration: infinityDuration,
+          duration: duration,
           isDismissible: isDismissible,
           onDismiss: _onFlushbarDismiss,
         ),

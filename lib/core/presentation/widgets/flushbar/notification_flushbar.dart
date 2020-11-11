@@ -18,8 +18,21 @@ class NotificationFlushbar extends AppFlushbar {
     PlainLocalizedString title,
   }) : super(
           key: key,
-          title: context.translate(title ?? Strings.notificationFlushbarTitle),
-          message: message.get(context),
+          title: Text(
+            context.translate(title ?? Strings.notificationFlushbarTitle),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+              color: ThemeProvider.of(context).accentColor,
+            ),
+          ),
+          message: Text(
+            message.get(context),
+            style: TextStyle(
+              fontSize: 14,
+              color: ThemeProvider.of(context).accentColor,
+            ),
+          ),
           backgroundColor: Colors.white,
           icon: Assets.icons.notification.svg(
             width: 24,
@@ -27,11 +40,9 @@ class NotificationFlushbar extends AppFlushbar {
           ),
           onDismiss: onDismiss,
           flushbarPosition: FlushbarPosition.TOP,
-          infinityDuration: true,
           boxShadows: [
             BoxShadow(
               color: ThemeProvider.of(context).accentColor,
-              // offset: const Offset(0, 3),
               blurRadius: 4,
             )
           ],
