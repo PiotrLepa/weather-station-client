@@ -1,4 +1,4 @@
-const pushType = 'PUSH_TYPE';
+const fcmMessageType = 'TYPE';
 
 enum FcmMessageTypeModel {
   // ignore: constant_identifier_names

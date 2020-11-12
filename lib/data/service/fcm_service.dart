@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
+import 'package:weather_station/core/common/enum_helper.dart';
 import 'package:weather_station/core/common/logger/logger.dart';
 import 'package:weather_station/data/model/fcm_message/fcm_message_model.dart';
 import 'package:weather_station/data/model/fcm_message_type/fcm_message_type_model.dart';
@@ -19,14 +20,15 @@ class FcmService {
 
   Stream<NotificationModel> getRainDetectedMessages() {
     return _messages
-        // .where(
-        //   (event) => _filterByType(event, FcmMessageTypeModel.RAIN_DETECTED),
-        // ) // TODO update backend
+        .where(
+          (event) => _filterByType(event, FcmMessageTypeModel.RAIN_DETECTED),
+        )
         .map((event) => event.notification);
   }
 
   bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) {
-    return model.data[pushType] == FcmMessageTypeModel.RAIN_DETECTED;
+    return model.data[fcmMessageType] ==
+        enumToString(FcmMessageTypeModel.RAIN_DETECTED);
   }
 
   Stream<FcmMessageModel> _getMessages() {
