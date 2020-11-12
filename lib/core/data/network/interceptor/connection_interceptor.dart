@@ -5,9 +5,13 @@ import 'package:weather_station/core/data/network/exception/api/api_exception.da
 
 @lazySingleton
 class ConnectionInterceptor extends InterceptorsWrapper {
+  final DataConnectionChecker _dataConnectionChecker;
+
+  ConnectionInterceptor(this._dataConnectionChecker);
+
   @override
   Future onRequest(RequestOptions options) async {
-    final hasConnection = await DataConnectionChecker().hasConnection;
+    final hasConnection = await _dataConnectionChecker.hasConnection;
 
     if (!hasConnection) {
       throw const NoConnection();
