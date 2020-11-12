@@ -60,7 +60,7 @@ class HourlyWeatherInitial extends StatelessWidget {
     );
 
     if (selectedDate != null) {
-      context.bloc<HourlyWeatherBloc>().add(LoadPressed(selectedDate));
+      context.read<HourlyWeatherBloc>().add(LoadPressed(selectedDate));
     }
   }
 }

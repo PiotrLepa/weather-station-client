@@ -6,6 +6,7 @@
   "apiErrorUnknown": "Nieznany błąd",
   "errorFlushbarTitle": "Coś poszło nie tak",
   "successFlushbarTitle": "Udało się!",
+  "notificationFlushbarTitle": "Powiadomienie",
   "validation_error_required": "Pole wymagane",
   "validation_error_min_length": "Wartość za krótka",
   "validation_error_max_length": "Wartość za długa",
@@ -77,6 +78,7 @@
   "connectStationToWifiError": "Sprawdź czy hasło jest prawidłowe",
   "connectStationToWifiSuccess": "Połączono z wifi",
   "aboutAppItem": "O aplikacji",
+  "poshNotificationsItem": "Powiadomienia PUSH",
   "aboutAppIconsItem": "Ikony",
   "aboutAppPackagesItem": "Pakiety"
 }

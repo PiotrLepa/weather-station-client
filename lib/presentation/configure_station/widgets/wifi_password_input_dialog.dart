@@ -55,7 +55,7 @@ class _WifiPasswordInputDialogState extends State<WifiPasswordInputDialog> {
                 password: _passwordFormKey.currentState.value,
               );
               context
-                  .bloc<ConfigureStationBloc>()
+                  .read<ConfigureStationBloc>()
                   .add(OnPasswordInserted(credentials));
             }
           },

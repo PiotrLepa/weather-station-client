@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/error_flushbar.dart';
+import 'package:weather_station/core/presentation/widgets/flushbar/notification_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/success_flushbar.dart';
 import 'package:weather_station/presentation/app.dart';
 
@@ -47,13 +48,26 @@ class FlushbarHelper {
         ),
       );
 
+  Future<void> showNotification({
+    @required PlainLocalizedString message,
+    PlainLocalizedString title,
+  }) =>
+      _showFlushbar(
+        flushbar: NotificationFlushbar(
+          context: _context,
+          title: title,
+          message: message,
+          onDismiss: _onFlushbarDismiss,
+        ),
+      );
+
   Future<void> show({
-    String title,
-    String message,
+    Widget title,
+    Widget message,
     Color backgroundColor,
     Widget icon,
     FlatButton mainButton,
-    bool infinityDuration = false,
+    Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
   }) =>
       _showFlushbar(
@@ -63,7 +77,7 @@ class FlushbarHelper {
           backgroundColor: backgroundColor,
           icon: icon,
           mainButton: mainButton,
-          infinityDuration: infinityDuration,
+          duration: duration,
           isDismissible: isDismissible,
           onDismiss: _onFlushbarDismiss,
         ),

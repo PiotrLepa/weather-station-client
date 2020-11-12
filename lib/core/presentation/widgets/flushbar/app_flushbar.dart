@@ -6,18 +6,20 @@ import 'package:flutter/widgets.dart';
 class AppFlushbar extends Flushbar<void> {
   AppFlushbar({
     Key key,
-    @required String title,
-    @required String message,
+    @required Widget title,
+    @required Widget message,
     @required VoidCallback onDismiss,
     Color backgroundColor,
     Widget icon,
     FlatButton mainButton,
-    bool infinityDuration = false,
+    FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM,
+    Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
+    List<BoxShadow> boxShadows,
   }) : super(
-    key: key,
-          title: title,
-          message: message,
+          key: key,
+          titleText: title,
+          messageText: message,
           isDismissible: isDismissible,
           icon: icon,
           shouldIconPulse: false,
@@ -26,14 +28,16 @@ class AppFlushbar extends Flushbar<void> {
           flushbarStyle: FlushbarStyle.FLOATING,
           margin: const EdgeInsets.all(8),
           borderRadius: 16,
-          duration: infinityDuration ? null : const Duration(seconds: 3),
-          boxShadows: [
-            const BoxShadow(
-              color: Color(0x44FFFFFF),
-              offset: Offset(0, 3),
-              blurRadius: 4,
-            )
-          ],
+          duration: duration,
+          flushbarPosition: flushbarPosition,
+          boxShadows: boxShadows ??
+              [
+                const BoxShadow(
+                  color: Color(0x44FFFFFF),
+                  offset: Offset(0, 3),
+                  blurRadius: 4,
+                )
+              ],
           onStatusChanged: (status) {
             if (status == FlushbarStatus.DISMISSED) onDismiss();
           },

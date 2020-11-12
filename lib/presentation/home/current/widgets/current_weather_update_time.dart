@@ -68,7 +68,7 @@ class CurrentWeatherUpdateTime extends StatelessWidget {
               ProgressButton(
                 onPressed: () {
                   context
-                      .bloc<CurrentWeatherBloc>()
+                      .read<CurrentWeatherBloc>()
                       .add(const RefreshPressed());
                 },
                 loading: refreshLoading,

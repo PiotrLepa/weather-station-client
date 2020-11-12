@@ -22,7 +22,7 @@ dependencies:
   data_connection_checker: ^0.3.4
 
   # State management
-  flutter_bloc: ^6.0.6
+  flutter_bloc: ^6.1.0
 
   # Dependency Injection
   get_it: ^5.0.1
@@ -42,6 +42,12 @@ dependencies:
   # Multi language support
   auto_localized: ^0.7.0
 
+  # Firebase
+  firebase_messaging: ^7.0.3
+
+  # Storage
+  shared_preferences: ^0.5.12+4
+
   flushbar: ^1.10.4
 
   flutter_svg: ^0.18.0
@@ -52,7 +58,7 @@ dependencies:
 
   flutter_html: ^1.0.2
 
-  url_launcher: ^5.7.5
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -63,10 +69,10 @@ dev_dependencies:
 
   # Testing
   mockito: ^4.1.1
-  bloc_test: ^7.0.4
+  bloc_test: ^7.1.0
 
   # Generators
-  build_runner: ^1.10.3
+  build_runner: ^1.10.4
   injectable_generator: ^1.0.6
   auto_route_generator: ^0.6.10
   flutter_gen: ^1.2.1
