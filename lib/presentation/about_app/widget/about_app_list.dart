@@ -18,7 +18,7 @@ class AboutAppList extends StatelessWidget {
               context.read<AboutAppBloc>().add(const OnIconsClicked());
             },
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           SettingsItem(
             name: Strings.aboutAppPackagesItem,
             onPressed: () {
