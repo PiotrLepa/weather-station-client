@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/gen/assets.gen.dart';
+import 'package:weather_station/presentation/home/settings/widget/settings_item_wrapper.dart';
 
 class SettingsSwitchItem extends StatelessWidget {
   final PlainLocalizedString name;
@@ -18,38 +19,34 @@ class SettingsSwitchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: ThemeProvider.of(context).backgroundColor,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-        ),
-        child: Row(
-          children: [
-            const SizedBox(width: 16),
-            Assets.icons.notification.svg(
-              width: 24,
-              height: 24,
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Text(
-                name.get(context),
-                style: TextStyle(
-                  fontSize: scaleText(16),
-                  fontWeight: FontWeight.w500,
-                ),
+    return SettingsItemWrapper(
+      backgroundColor: ThemeProvider.of(context).backgroundColor,
+      onTap: () {
+        onSwitchChanged(!isChecked);
+      },
+      child: Row(
+        children: [
+          const SizedBox(width: 16),
+          Assets.icons.notification.svg(
+            width: 24,
+            height: 24,
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Text(
+              name.get(context),
+              style: TextStyle(
+                fontSize: scaleText(16),
+                fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(width: 20),
-            Switch(
-              value: isChecked,
-              onChanged: onSwitchChanged,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 20),
+          Switch(
+            value: isChecked,
+            onChanged: onSwitchChanged,
+          ),
+        ],
       ),
     );
   }
