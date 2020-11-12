@@ -11,7 +11,7 @@ class ThemeProvider {
 
   Color get primaryColorDark => Colors.blue[700];
 
-  Color get accentColor => const Color(0xFF5CA594);
+  Color get accentColor => const Color(0xFF71887A);
 
   Color get textColorInverted => Colors.white;
 
