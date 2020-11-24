@@ -51,7 +51,7 @@ class CurrentWeatherBloc
           refreshLoading: false,
         ));
       },
-      onError: (message) {
+      onError: (_, message) {
         _flushbarHelper.showError(message: message);
         emit(const RenderError(
           message: Strings.fetchDataFailed,
@@ -85,7 +85,7 @@ class CurrentWeatherBloc
           refreshLoading: false,
         ));
       },
-      onError: (message) {
+      onError: (_, message) {
         _flushbarHelper.showError(message: message);
         emit(RenderWeather(
           weather: _fetchedWeather,
@@ -126,7 +126,7 @@ class CurrentWeatherBloc
           refreshLoading: false,
         ));
       },
-      onError: (message) {
+      onError: (_, message) {
         _flushbarHelper.showError(message: message);
         emit(const RenderError(
           message: Strings.fetchDataFailed,

@@ -11,9 +11,7 @@ import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'hourly_weather_bloc.freezed.dart';
-
 part 'hourly_weather_event.dart';
-
 part 'hourly_weather_state.dart';
 
 @injectable
@@ -54,7 +52,7 @@ class HourlyWeatherBloc
             changeDateLoading: false,
           ));
         },
-        onError: (message) {
+        onError: (_, message) {
           _flushbarHelper.showError(message: message);
           emit(const Initial(selectDateLoading: false));
         });
@@ -82,7 +80,7 @@ class HourlyWeatherBloc
             changeDateLoading: false,
           ));
         },
-        onError: (message) {
+        onError: (_, message) {
           _flushbarHelper.showError(message: message);
           emit(RenderCharts(
             weathers: _fetchedWeathers,

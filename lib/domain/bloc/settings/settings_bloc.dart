@@ -3,29 +3,23 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/common/router/routing.dart';
-import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
-import 'package:weather_station/core/domain/error/error_translator.dart';
-import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/domain/call/call_wrapper.dart';
 import 'package:weather_station/domain/utils/notification/notification_subscriber.dart';
 
 part 'settings_bloc.freezed.dart';
-
 part 'settings_event.dart';
-
 part 'settings_state.dart';
 
 @injectable
 class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
   final NotificationSubscriber _notificationSubscriber;
-  final ErrorTranslator _errorTranslator;
   final FlushbarHelper _flushbarHelper;
 
   SettingsBloc(
     this._notificationSubscriber,
-    this._errorTranslator,
     this._flushbarHelper,
   ) : super(const Loading());
 
@@ -65,19 +59,18 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
     final enable = event.isChecked;
     final request = enable
         ? _notificationSubscriber
-        .subscribe(NotificationSubscriber.topicRainDetected)
+            .subscribe(NotificationSubscriber.topicRainDetected)
         : _notificationSubscriber
-        .unsubscribe(NotificationSubscriber.topicRainDetected);
+            .unsubscribe(NotificationSubscriber.topicRainDetected);
 
-    await request
-        .then((value) => emit(RenderItems(pushEnabled: enable)))
-        .catchError(_handleNotificationSubscriberError);
-  }
-
-  void _handleNotificationSubscriberError(Object error) {
-    final message = error is ApiException
-        ? _errorTranslator.translate(error)
-        : Strings.apiErrorUnknown;
-    _flushbarHelper.showError(message: message);
+    callWrapper<void>(
+      call: request,
+      onSuccess: (_) {
+        emit(RenderItems(pushEnabled: enable));
+      },
+      onError: (_, message) {
+        _flushbarHelper.showError(message: message);
+      },
+    );
   }
 }

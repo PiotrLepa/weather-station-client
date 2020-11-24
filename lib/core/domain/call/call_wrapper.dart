@@ -9,7 +9,7 @@ Future<void> callWrapper<T>({
   @required Future<T> call,
   void Function() onProgress,
   void Function(T) onSuccess,
-  void Function(PlainLocalizedString) onError,
+  void Function(Exception, PlainLocalizedString) onError,
 }) async {
   try {
     onProgress?.call();
@@ -17,7 +17,10 @@ Future<void> callWrapper<T>({
     onSuccess?.call(result);
   } on ApiException catch (e) {
     final errorMessage = getIt.get<ErrorTranslator>().translate(e);
-    onError?.call(errorMessage);
+    onError?.call(e, errorMessage);
+  } on Exception catch (e) {
+    final errorMessage = getIt.get<ErrorTranslator>().translate(e);
+    onError?.call(e, errorMessage);
   } catch (e, s) {
     logger.e('call wrapper', e, s);
   }

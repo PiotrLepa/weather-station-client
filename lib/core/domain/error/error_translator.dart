@@ -6,16 +6,20 @@ import 'package:weather_station/core/presentation/language/strings.al.dart';
 
 @lazySingleton
 class ErrorTranslator {
-  PlainLocalizedString translate(ApiException exception) {
-    if (exception.printableMessage != null) {
-      return exception.printableMessage.toLocalized();
+  PlainLocalizedString translate(Exception exception) {
+    if (exception is ApiException) {
+      if (exception.printableMessage != null) {
+        return exception.printableMessage.toLocalized();
+      }
+      return exception.map(
+        noConnection: (_) => Strings.apiErrorNoConnection,
+        badRequest: (_) => Strings.apiErrorBadRequest,
+        notFound: (_) => Strings.apiErrorNotFound,
+        internalServerError: (_) => Strings.apiErrorInternalServerError,
+        unknownError: (_) => Strings.apiErrorUnknown,
+      );
+    } else {
+      return Strings.apiErrorUnknown;
     }
-    return exception.map(
-      noConnection: (_) => Strings.apiErrorNoConnection,
-      badRequest: (_) => Strings.apiErrorBadRequest,
-      notFound: (_) => Strings.apiErrorNotFound,
-      internalServerError: (_) => Strings.apiErrorInternalServerError,
-      unknownError: (_) => Strings.apiErrorUnknown,
-    );
   }
 }

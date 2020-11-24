@@ -12,7 +12,9 @@ import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
+import 'package:weather_station/core/domain/call/call_wrapper.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
@@ -95,40 +97,43 @@ class ConfigureStationBloc
     if (event.wifi.encryption is Open) {
       final credentials = WifiCredentials(name: event.wifi.name);
       await _sendWifiCredentials(credentials);
-      return;
+    } else {
+      emit(ShowWifiPasswordInputDialog(event.wifi));
+      emit(const Nothing());
     }
-    emit(ShowWifiPasswordInputDialog(event.wifi));
-    emit(const Nothing());
   }
 
   Future<void> _mapOnPasswordInserted(
     OnPasswordInserted event,
   ) async {
-    emit(const ShowConnectingToWifiDialog());
     await _sendWifiCredentials(event.wifiCredentials);
   }
 
-  Future<void> _sendWifiCredentials(WifiCredentials credentials) {
-    return _stationConfigurator
-        .sendWifiCredentials(credentials)
-        .then((result) async {
-      appNavigator.pop(); // dismiss connecting dialog
+  Future<void> _sendWifiCredentials(WifiCredentials credentials) async {
+    await callWrapper<ConnectToWifiResult>(
+      call: _stationConfigurator.sendWifiCredentials(credentials),
+      onProgress: () {
+        emit(const ShowConnectingToWifiDialog());
+        emit(const Nothing());
+      },
+      onSuccess: (result) {
+        appNavigator.pop(); // dismiss connecting dialog
 
-      result.map(
-        connected: (_) {
-          appNavigator.pop();
-          _flushbarHelper.showSuccess(
-            message: Strings.connectStationToWifiSuccess,
-          );
-        },
-        error: (_) {
-          _flushbarHelper.showError(
-            message: Strings.connectStationToWifiError,
-          );
-        },
-      );
-    }).catchError(
-      (Object error) {
+        result.map(
+          connected: (_) {
+            appNavigator.pop();
+            _flushbarHelper.showSuccess(
+              message: Strings.connectStationToWifiSuccess,
+            );
+          },
+          error: (_) {
+            _flushbarHelper.showError(
+              message: Strings.connectStationToWifiError,
+            );
+          },
+        );
+      },
+      onError: (error, _) {
         appNavigator.pop(); // dismiss connecting dialog
 
         final message = _translateStationException(error);
@@ -140,22 +145,24 @@ class ConfigureStationBloc
   }
 
   void _emitStationConfigurationStates() {
-    emit(const Connecting());
-
-    _stationConfigurator.getAvailableWifiList().then((wifiList) {
-      emit(RenderWifiList(wifiList));
-    }).catchError(
-          (Object error) async {
-        final message = _translateStationException(error);
-        if (message != null) {
-          _flushbarHelper.showError(message: message);
-          emit(RenderError(
-            message: message,
-            loading: false,
-          ));
-        }
-      },
-    );
+    callWrapper<KtList<Wifi>>(
+        call: _stationConfigurator.getAvailableWifiList(),
+        onProgress: () {
+          emit(const Connecting());
+        },
+        onSuccess: (wifiList) {
+          emit(RenderWifiList(wifiList));
+        },
+        onError: (error, _) {
+          final message = _translateStationException(error);
+          if (message != null) {
+            _flushbarHelper.showError(message: message);
+            emit(RenderError(
+              message: message,
+              loading: false,
+            ));
+          }
+        });
   }
 
   PlainLocalizedString _translateStationException(Object e) {
