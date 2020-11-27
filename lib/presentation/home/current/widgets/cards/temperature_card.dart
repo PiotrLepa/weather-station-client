@@ -6,7 +6,7 @@ import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/cards/weather_card.dart';
 
 class TemperatureCard extends StatelessWidget {
-  final int temperature;
+  final double temperature;
 
   const TemperatureCard({
     Key key,

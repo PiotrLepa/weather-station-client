@@ -7,9 +7,9 @@ import 'package:weather_station/presentation/home/current/widgets/cards/weather_
 import 'package:weather_station/presentation/home/current/widgets/weather_unit.dart';
 
 class AirPollutionCard extends StatelessWidget {
-  final double pm1;
-  final double pm25;
-  final double pm10;
+  final int pm1;
+  final int pm25;
+  final int pm10;
 
   const AirPollutionCard({
     Key key,

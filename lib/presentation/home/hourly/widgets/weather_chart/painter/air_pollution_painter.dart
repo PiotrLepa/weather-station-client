@@ -23,11 +23,11 @@ class AirPollutionPainter extends CustomPainter {
     ..color = airPollutionPm10Color
     ..style = PaintingStyle.fill;
 
-  final pixelCalculator = ChartPixelCalculator<int, double>();
+  final pixelCalculator = ChartPixelCalculator<int, int>();
 
-  final KtList<double> pm1Spots;
-  final KtList<double> pm25Spots;
-  final KtList<double> pm10Spots;
+  final KtList<int> pm1Spots;
+  final KtList<int> pm25Spots;
+  final KtList<int> pm10Spots;
   final KtList<int> timeSpots;
 
   AirPollutionPainter({
@@ -39,7 +39,7 @@ class AirPollutionPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final summedValues = KtMutableList<double>.empty();
+    final summedValues = KtMutableList<int>.empty();
     for (var i = 0; i < pm1Spots.size; i++) {
       summedValues.add(pm1Spots[i] + pm25Spots[i] + pm10Spots[i]);
     }
@@ -121,7 +121,7 @@ class AirPollutionPainter extends CustomPainter {
     @required double right,
     @required double bottom,
     @required double x,
-    @required double value,
+    @required int value,
     @required Paint paint,
   }) {
     canvas.drawRect(
@@ -138,7 +138,7 @@ class AirPollutionPainter extends CustomPainter {
 
   void _drawSpotValue(
     Canvas canvas,
-    double value,
+    int value,
     double x,
     double y,
   ) {

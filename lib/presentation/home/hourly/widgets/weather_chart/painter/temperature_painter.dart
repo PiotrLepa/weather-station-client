@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/base/line_chart_painter.dart';
 
-class TemperaturePainter extends LineChartPainter<int, int> {
-  final KtList<int> tempSpots;
+class TemperaturePainter extends LineChartPainter<int, double> {
+  final KtList<double> tempSpots;
   final KtList<int> timeSpots;
 
   TemperaturePainter({
