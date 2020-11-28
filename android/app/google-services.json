@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "524478036034",
-    "firebase_url": "https://weather-station-2e121.firebaseio.com",
-    "project_id": "weather-station-2e121",
-    "storage_bucket": "weather-station-2e121.appspot.com"
+    "project_number": "147195645602",
+    "firebase_url": "https://weather-station-714d9.firebaseio.com",
+    "project_id": "weather-station-714d9",
+    "storage_bucket": "weather-station-714d9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:524478036034:android:8c5f459435fea1a162d5db",
+        "mobilesdk_app_id": "1:147195645602:android:fa9290340ff011085851fb",
         "android_client_info": {
           "package_name": "com.piotr.weather_station"
         }
       },
       "oauth_client": [
         {
-          "client_id": "524478036034-ra2n4qcobb9b01ha52ku9f62hv1r6thd.apps.googleusercontent.com",
+          "client_id": "147195645602-0eu8ndnr71l47q5oprlf6752rhbtbh2g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.piotr.weather_station",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "524478036034-7s6r6s56mhbfkgtr1i5u2d20ftmvf1jb.apps.googleusercontent.com",
+          "client_id": "147195645602-b311sui8lv5kjd8q9ebi7bbd6hru1nmf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAl9cnbua3hGdntnbW0cUGb-_08KdTDlHw"
+          "current_key": "AIzaSyBOb2vyzUHMGe6alz-SsGohEX-pIPavYvA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "524478036034-7s6r6s56mhbfkgtr1i5u2d20ftmvf1jb.apps.googleusercontent.com",
+              "client_id": "147195645602-b311sui8lv5kjd8q9ebi7bbd6hru1nmf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
