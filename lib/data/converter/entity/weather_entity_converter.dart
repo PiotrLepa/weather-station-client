@@ -23,8 +23,7 @@ class WeatherEntityConverter implements Converter<WeatherModel, Weather> {
         windSpeedMax: model.windSpeedMax,
         windSpeedAvg: model.windSpeedAvg,
         rainGauge: model.rainGauge,
-        location: model.location ?? 'Tarnów',
-        // TODO
         date: dateTimeParser.fromNetwork(model.date),
+        address: model.address,
       );
 }

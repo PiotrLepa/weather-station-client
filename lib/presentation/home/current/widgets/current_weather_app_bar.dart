@@ -6,7 +6,7 @@ import 'package:weather_station/presentation/home/current/widgets/current_weathe
 class CurrentWeatherAppBar extends StatelessWidget {
   final double height;
   final double expandedHeight;
-  final String location;
+  final String address;
   final DateTime lastUpdateTime;
   final bool refreshLoading;
 
@@ -14,7 +14,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
     Key key,
     @required this.height,
     @required this.expandedHeight,
-    @required this.location,
+    @required this.address,
     @required this.lastUpdateTime,
     @required this.refreshLoading,
   }) : super(key: key);
@@ -32,8 +32,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
             SizedBox(
               height: height + MediaQuery.of(context).padding.top + 12,
             ),
-            HomeLocation(location: location),
-            const SizedBox(height: 20),
+            ..._getAddressWidget(),
             CurrentWeatherUpdateTime(
               lastUpdateTime: lastUpdateTime,
               refreshLoading: refreshLoading,
@@ -42,5 +41,16 @@ class CurrentWeatherAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _getAddressWidget() {
+    if (address != null) {
+      return [
+        HomeLocation(location: address),
+        const SizedBox(height: 20),
+      ];
+    } else {
+      return [];
+    }
   }
 }

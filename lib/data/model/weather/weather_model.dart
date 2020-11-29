@@ -16,7 +16,7 @@ abstract class WeatherModel with _$WeatherModel {
     @required double windSpeedAvg,
     @required double rainGauge,
     @required String date,
-    String location,
+    String address,
   }) = _WeatherModel;
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) =>

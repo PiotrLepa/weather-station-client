@@ -19,7 +19,7 @@ class CurrentWeatherContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const appBarHeight = kToolbarHeight;
-    const appBarExpandedHeight = 300.0;
+    final appBarExpandedHeight = weather.address != null ? 300.0 : 210.0;
     return ScrollConfiguration(
       behavior: DisableOverscrollGlowBehavior(),
       child: CustomScrollView(
@@ -27,13 +27,13 @@ class CurrentWeatherContent extends StatelessWidget {
           CurrentWeatherAppBar(
             height: appBarHeight,
             expandedHeight: appBarExpandedHeight,
-            location: weather.location,
+            address: weather.address,
             lastUpdateTime: weather.date,
             refreshLoading: refreshLoading,
           ),
           CurrentWeatherAppBarCorners(),
           CurrentWeatherCards(weather: weather),
-          const FillEmptySpaceSliver(
+          FillEmptySpaceSliver(
             minHeaderHeight: appBarHeight,
             maxHeaderHeight: appBarExpandedHeight,
           ),

@@ -17,13 +17,13 @@ final weather = Weather(
   temperature: 20,
   humidity: 60.5,
   pressure: 1000,
-  pm1: 10.5,
-  pm25: 25.3,
-  pm10: 18.3,
+  pm1: 10,
+  pm25: 25,
+  pm10: 18,
   windSpeedAvg: 0.5,
   windSpeedMax: 10.3,
   rainGauge: 0.7,
-  location: 'Tarnów',
+  address: 'Tarnów',
   date: DateTime(2020, 8, 11),
 );
 

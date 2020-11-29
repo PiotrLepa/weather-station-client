@@ -14,7 +14,7 @@ abstract class Weather with _$Weather {
     @required double windSpeedMax,
     @required double windSpeedAvg,
     @required double rainGauge,
-    @required String location,
     @required DateTime date,
+    String address,
   }) = _Weather;
 }
