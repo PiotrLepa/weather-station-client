@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:147195645602:android:fa9290340ff011085851fb",
+        "mobilesdk_app_id": "1:147195645602:android:e8474395230d483e5851fb",
         "android_client_info": {
           "package_name": "com.piotr.weather_station"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "147195645602-0eu8ndnr71l47q5oprlf6752rhbtbh2g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.piotr.weather_station",
-            "certificate_hash": "a59d4fa1905d1b02cbe1dbb485716750f79fabd7"
-          }
-        },
         {
           "client_id": "147195645602-b311sui8lv5kjd8q9ebi7bbd6hru1nmf.apps.googleusercontent.com",
           "client_type": 3
