@@ -6,7 +6,7 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class VerticalDividersPainter extends CustomPainter {
-  final pixelCalculator = ChartPixelCalculator<int, int>();
+  final _pixelCalculator = ChartPixelCalculator<int>();
   final KtList<int> xSpots;
 
   final _verticalDividerPaint = Paint()
@@ -23,11 +23,7 @@ class VerticalDividersPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    pixelCalculator.initialize(
-      size,
-      minX: xSpots.min(),
-      maxX: xSpots.max(),
-    );
+    _pixelCalculator.initialize(size);
     _drawVerticalLines(canvas, size);
   }
 
@@ -49,8 +45,8 @@ class VerticalDividersPainter extends CustomPainter {
     ).sum();
 
     for (var i = 0; i < xSpots.size - 1; i++) {
-      final currentX = pixelCalculator.getPixelX(xSpots[i]);
-      final nextX = pixelCalculator.getPixelX(xSpots[i + 1]);
+      final currentX = _pixelCalculator.getPixelX(i);
+      final nextX = _pixelCalculator.getPixelX(i + 1);
       final difference = nextX - currentX;
       final centerX = currentX + difference / 2;
 

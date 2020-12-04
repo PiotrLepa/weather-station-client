@@ -5,7 +5,7 @@ import 'package:kt_dart/collection.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_pixel_utils.dart';
 
 class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
-  final _pixelCalculator = ChartPixelCalculator<X, Y>();
+  final _pixelCalculator = ChartPixelCalculator<Y>();
 
   final _linePaint = Paint()
     ..style = PaintingStyle.stroke
@@ -45,8 +45,6 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minX: xSpots.min(),
-      maxX: xSpots.max(),
       minY: ySpots.min(),
       maxY: ySpots.max(),
       topOffSet: topOffset,
@@ -65,14 +63,14 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   void _drawLines(Canvas canvas) {
     final path = Path();
 
-    final x = _pixelCalculator.getPixelX(xSpots[0]);
+    final x = _pixelCalculator.getPixelX(0);
     final y = _pixelCalculator.getPixelY(ySpots[0]);
 
     path.moveTo(x, y);
 
     for (var i = 1; i < ySpots.size; i++) {
       path.lineTo(
-        _pixelCalculator.getPixelX(xSpots[i]),
+        _pixelCalculator.getPixelX(i),
         _pixelCalculator.getPixelY(ySpots[i]),
       );
     }
@@ -89,7 +87,7 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     );
 
     for (var i = 0; i < ySpots.size; i++) {
-      final x = _pixelCalculator.getPixelX(xSpots[i]);
+      final x = _pixelCalculator.getPixelX(i);
       final y = _pixelCalculator.getPixelY(ySpots[i]);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);

@@ -9,7 +9,7 @@ class AvgWindSpeedPainter extends CustomPainter {
     ..color = Colors.grey[300]
     ..style = PaintingStyle.fill;
 
-  final _pixelCalculator = ChartPixelCalculator<int, double>();
+  final _pixelCalculator = ChartPixelCalculator<double>();
 
   final KtList<double> speedSpots;
   final KtList<int> timeSpots;
@@ -25,8 +25,6 @@ class AvgWindSpeedPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minX: timeSpots.min(),
-      maxX: timeSpots.max(),
       minY: speedSpots.min(),
       maxY: speedSpots.max(),
     );
@@ -44,12 +42,12 @@ class AvgWindSpeedPainter extends CustomPainter {
   void _drawContainer(Canvas canvas, Size size) {
     final path = Path();
 
-    final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
-        _pixelCalculator.getPixelX(timeSpots[0]);
+    final barWidth =
+        _pixelCalculator.getPixelX(1) - _pixelCalculator.getPixelX(0);
     final halfBarWidth = barWidth / 2;
 
     for (var i = 0; i < speedSpots.size; i++) {
-      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final x = _pixelCalculator.getPixelX(i);
 
       path.addRect(
         Rect.fromLTRB(
@@ -71,7 +69,7 @@ class AvgWindSpeedPainter extends CustomPainter {
     );
 
     for (var i = 0; i < speedSpots.size; i++) {
-      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final x = _pixelCalculator.getPixelX(i);
 
       final textSpan = TextSpan(
         text: '${speedSpots[i]}\n$unit',

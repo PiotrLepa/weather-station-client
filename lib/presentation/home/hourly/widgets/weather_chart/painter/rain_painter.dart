@@ -9,7 +9,7 @@ class RainPainter extends CustomPainter {
     ..color = const Color(0xff27C4FF)
     ..style = PaintingStyle.fill;
 
-  final _pixelCalculator = ChartPixelCalculator<int, double>();
+  final _pixelCalculator = ChartPixelCalculator<double>();
 
   final KtList<double> rainSpots;
   final KtList<int> timeSpots;
@@ -25,8 +25,6 @@ class RainPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minX: timeSpots.min(),
-      maxX: timeSpots.max(),
       minY: 0,
       maxY: rainSpots.max(),
       topOffSet: 24,
@@ -45,12 +43,12 @@ class RainPainter extends CustomPainter {
   void _drawBars(Canvas canvas, Size size) {
     final path = Path();
 
-    final barWidth = _pixelCalculator.getPixelX(timeSpots[1]) -
-        _pixelCalculator.getPixelX(timeSpots[0]);
+    final barWidth =
+        _pixelCalculator.getPixelX(1) - _pixelCalculator.getPixelX(0);
     final halfBarWidth = barWidth / 2;
 
     for (var i = 0; i < rainSpots.size; i++) {
-      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final x = _pixelCalculator.getPixelX(i);
       final y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       path.addRect(
@@ -73,7 +71,7 @@ class RainPainter extends CustomPainter {
     );
 
     for (var i = 0; i < rainSpots.size; i++) {
-      final x = _pixelCalculator.getPixelX(timeSpots[i]);
+      final x = _pixelCalculator.getPixelX(i);
       final y = _pixelCalculator.getPixelY(rainSpots[i]);
 
       final textSpan = TextSpan(

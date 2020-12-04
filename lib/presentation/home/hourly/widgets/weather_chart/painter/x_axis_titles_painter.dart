@@ -14,7 +14,7 @@ class XAxisTitlesPainter extends CustomPainter {
   );
 
   final _dateFormatter = getIt<DateTimeFormatter>();
-  final _pixelCalculator = ChartPixelCalculator<int, int>();
+  final _pixelCalculator = ChartPixelCalculator<int>();
 
   final KtList<int> xSpots;
 
@@ -24,11 +24,7 @@ class XAxisTitlesPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    _pixelCalculator.initialize(
-      size,
-      minX: xSpots.min(),
-      maxX: xSpots.max(),
-    );
+    _pixelCalculator.initialize(size);
     _drawTopTitles(canvas, size);
   }
 
@@ -40,10 +36,9 @@ class XAxisTitlesPainter extends CustomPainter {
 
   void _drawTopTitles(Canvas canvas, Size size) {
     for (var i = 0; i < xSpots.size; i++) {
-      final spotData = xSpots[i];
-      final x = _pixelCalculator.getPixelX(spotData);
+      final x = _pixelCalculator.getPixelX(i);
 
-      final date = DateTime.fromMillisecondsSinceEpoch(spotData);
+      final date = DateTime.fromMillisecondsSinceEpoch(xSpots[i]);
       final textSpan = TextSpan(
         text: _dateFormatter.format(date, DateTimeFormatter.defaultHourPattern),
         style: _titleStyle,

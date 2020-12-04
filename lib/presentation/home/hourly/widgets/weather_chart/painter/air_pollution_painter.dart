@@ -23,7 +23,7 @@ class AirPollutionPainter extends CustomPainter {
     ..color = airPollutionPm10Color
     ..style = PaintingStyle.fill;
 
-  final pixelCalculator = ChartPixelCalculator<int, int>();
+  final _pixelCalculator = ChartPixelCalculator<int>();
 
   final KtList<int> pm1Spots;
   final KtList<int> pm25Spots;
@@ -44,10 +44,8 @@ class AirPollutionPainter extends CustomPainter {
       summedValues.add(pm1Spots[i] + pm25Spots[i] + pm10Spots[i]);
     }
 
-    pixelCalculator.initialize(
+    _pixelCalculator.initialize(
       size,
-      minX: timeSpots.min(),
-      maxX: timeSpots.max(),
       minY: 0,
       maxY: summedValues.max(),
       topOffSet: 12,
@@ -65,15 +63,15 @@ class AirPollutionPainter extends CustomPainter {
   }
 
   void _drawBars(Canvas canvas, Size size) {
-    final barWidth = pixelCalculator.getPixelX(timeSpots[1]) -
-        pixelCalculator.getPixelX(timeSpots[0]);
+    final barWidth =
+        _pixelCalculator.getPixelX(1) - _pixelCalculator.getPixelX(0);
     final halfBarWidth = barWidth / 2;
 
     for (var i = 0; i < pm1Spots.size; i++) {
-      final x = pixelCalculator.getPixelX(timeSpots[i]);
-      final pm1Pixel = pixelCalculator.getPixelY(pm1Spots[i]);
-      final pm25Pixel = pixelCalculator.getPixelY(pm25Spots[i]);
-      final pm10Pixel = pixelCalculator.getPixelY(pm10Spots[i]);
+      final x = _pixelCalculator.getPixelX(i);
+      final pm1Pixel = _pixelCalculator.getPixelY(pm1Spots[i]);
+      final pm25Pixel = _pixelCalculator.getPixelY(pm25Spots[i]);
+      final pm10Pixel = _pixelCalculator.getPixelY(pm10Spots[i]);
       final barLeftPixel = x - halfBarWidth;
       final barRightPixel = x + halfBarWidth;
 
