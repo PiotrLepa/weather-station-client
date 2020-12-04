@@ -32,13 +32,20 @@ class ChartPixelCalculator<Y extends num> {
     return spotX * spotWidth;
   }
 
-  double getPixelY(Y spotY) {
+  double getPixelY(
+    Y spotY, {
+    bool centerOnZero = false,
+  }) {
     if (_diffY == null) {
       throw YSpotsNotInitialized;
     }
 
     if (_diffY == 0.0) {
-      return _size.height + _bottomOffSet;
+      if (centerOnZero) {
+        return _size.height / 2;
+      } else {
+        return _size.height + _bottomOffSet;
+      }
     }
 
     final usableHeight = _size.height - _topOffSet - _bottomOffSet;
@@ -46,7 +53,5 @@ class ChartPixelCalculator<Y extends num> {
     return _size.height - _bottomOffSet - y;
   }
 }
-
-class XSpotsNotInitialized implements Exception {}
 
 class YSpotsNotInitialized implements Exception {}

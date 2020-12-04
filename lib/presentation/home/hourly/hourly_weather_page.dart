@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
+import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
 import 'package:weather_station/core/presentation/widgets/loading/loading_indicator.dart';
@@ -19,7 +20,7 @@ class HourlyWeatherPage extends StatelessWidget {
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
           builder: (context, state) {
             return Scaffold(
-              appBar: AppBar(elevation: _getAppBarElevation(state)),
+              appBar: _buildAppBar(context, state),
               body: state.map(
                 initialLoading: (s) => const Center(
                   child: LoadingIndicator(),
@@ -66,9 +67,20 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  double _getAppBarElevation(HourlyWeatherState state) =>
-      state.maybeMap(
-        renderCharts: (_) => 0,
-        orElse: () => 4,
-      );
+  AppBar _buildAppBar(BuildContext context,
+      HourlyWeatherState state,) {
+    final title = state.maybeMap(
+      renderCharts: (_) => null,
+      orElse: () => Strings.tabTitleHourly,
+    );
+    final elevation = state.maybeMap(
+      renderCharts: (_) => 0.0,
+      orElse: () => 4.0,
+    );
+
+    return AppBar(
+      title: title != null ? Text(title.get(context)) : null,
+      elevation: elevation,
+    );
+  }
 }

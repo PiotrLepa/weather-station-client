@@ -91,18 +91,6 @@ class CurrentWeatherBloc
           weather: _fetchedWeather,
           refreshLoading: false,
         ));
-        // TODO can _fetchedWeather be null?
-        // if (_fetchedWeather != null) {
-        //   emit(RenderWeather(
-        //     weather: _fetchedWeather,
-        //     refreshLoading: false,
-        //   ));
-        // } else {
-        //   emit(const RenderError(
-        //     message: Strings.fetchDataFailed,
-        //     loading: false,
-        //   ));
-        // }
       },
     );
   }

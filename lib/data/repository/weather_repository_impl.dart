@@ -21,22 +21,25 @@ class WeatherRepositoryImpl extends WeatherRepository {
   final HourlyWeatherEntityConverter _hourlyWeatherConverter;
   final DateTimeFormatter _dateFormatter;
 
-  WeatherRepositoryImpl(this._service,
-      this._weatherConverter,
-      this._availableDaysEntityConverter,
-      this._hourlyWeatherConverter,
-      this._dateFormatter,);
+  WeatherRepositoryImpl(
+    this._service,
+    this._weatherConverter,
+    this._availableDaysEntityConverter,
+    this._hourlyWeatherConverter,
+    this._dateFormatter,
+  );
 
   @override
-  Future<Weather> fetchCurrentWeather() =>
-      _service
-          .fetchCurrentWeather()
-          .then(_weatherConverter.convert)
-          .handleNetworkError();
+  Future<Weather> fetchCurrentWeather() => _service
+      .fetchCurrentWeather()
+      .then(_weatherConverter.convert)
+      .handleNetworkError();
 
   @override
-  Future<AvailableDays> fetchAvailableDays() =>
-      _service.fetchAvailableDays().then(_availableDaysEntityConverter.convert);
+  Future<AvailableDays> fetchAvailableDays() => _service
+      .fetchAvailableDays()
+      .then(_availableDaysEntityConverter.convert)
+      .handleNetworkError();
 
   @override
   Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) =>

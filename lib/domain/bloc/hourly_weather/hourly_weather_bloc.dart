@@ -72,7 +72,8 @@ class HourlyWeatherBloc
     await callWrapper<AvailableDays>(
       call: _weatherRepository.fetchAvailableDays(),
       onProgress: () {
-        emit(const InitialLoading());
+        final errorState = state as RenderError;
+        emit(errorState.copyWith(loading: true));
       },
       onSuccess: (availableDays) {
         _availableDays = availableDays.days;
@@ -120,7 +121,9 @@ class HourlyWeatherBloc
     );
   }
 
-  Future<void> mapChangeDatePressed(ChangeDatePressed event,) async {
+  Future<void> mapChangeDatePressed(
+    ChangeDatePressed event,
+  ) async {
     if (event.day == _weatherDate) {
       return;
     }

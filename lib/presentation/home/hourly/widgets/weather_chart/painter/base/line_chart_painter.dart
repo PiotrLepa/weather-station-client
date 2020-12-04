@@ -64,14 +64,14 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
     final path = Path();
 
     final x = _pixelCalculator.getPixelX(0);
-    final y = _pixelCalculator.getPixelY(ySpots[0]);
+    final y = _pixelCalculator.getPixelY(ySpots[0], centerOnZero: true);
 
     path.moveTo(x, y);
 
     for (var i = 1; i < ySpots.size; i++) {
       path.lineTo(
         _pixelCalculator.getPixelX(i),
-        _pixelCalculator.getPixelY(ySpots[i]),
+        _pixelCalculator.getPixelY(ySpots[i], centerOnZero: true),
       );
     }
 
@@ -88,7 +88,7 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
 
     for (var i = 0; i < ySpots.size; i++) {
       final x = _pixelCalculator.getPixelX(i);
-      final y = _pixelCalculator.getPixelY(ySpots[i]);
+      final y = _pixelCalculator.getPixelY(ySpots[i], centerOnZero: true);
 
       canvas.drawCircle(Offset(x, y), circleRadius, _dotBorderPaint);
       canvas.drawCircle(Offset(x, y), circleRadius - 1, _dotFillPaint);
