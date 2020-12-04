@@ -13,22 +13,24 @@ import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'hourly_weather_bloc.freezed.dart';
-
 part 'hourly_weather_event.dart';
-
 part 'hourly_weather_state.dart';
 
 @injectable
-class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherState> {
+class HourlyWeatherBloc
+    extends CustomBloc<HourlyWeatherEvent, HourlyWeatherState> {
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
 
   KtList<HourlyWeather> _fetchedWeathers;
+  List<DateTime> _availableDays;
 
   DateTime get _weatherDate => _fetchedWeathers[0].dateTime;
 
-  HourlyWeatherBloc(this._weatherRepository,
-      this._flushbarHelper,) : super(const InitialLoading());
+  HourlyWeatherBloc(
+    this._weatherRepository,
+    this._flushbarHelper,
+  ) : super(const InitialLoading());
 
   @override
   Future<void> onEvent(HourlyWeatherEvent event) async {
@@ -40,14 +42,20 @@ class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherStat
     );
   }
 
-  Future<void> _mapScreenStarted(ScreenStarted event,) async {
+  Future<void> _mapScreenStarted(
+    ScreenStarted event,
+  ) async {
     await callWrapper<AvailableDays>(
       call: _weatherRepository.fetchAvailableDays(),
       onProgress: () {
         emit(const InitialLoading());
       },
-      onSuccess: (weathers) {
-        emit(const RenderSelectDate(selectDateLoading: false));
+      onSuccess: (availableDays) {
+        _availableDays = availableDays.days;
+        emit(RenderSelectDate(
+          selectDateLoading: false,
+          availableDays: _availableDays,
+        ));
       },
       onError: (_, message) {
         emit(const RenderError(
@@ -58,14 +66,20 @@ class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherStat
     );
   }
 
-  Future<void> _mapRetryPressed(RetryPressed event,) async {
+  Future<void> _mapRetryPressed(
+    RetryPressed event,
+  ) async {
     await callWrapper<AvailableDays>(
       call: _weatherRepository.fetchAvailableDays(),
       onProgress: () {
         emit(const InitialLoading());
       },
-      onSuccess: (weathers) {
-        emit(const RenderSelectDate(selectDateLoading: false));
+      onSuccess: (availableDays) {
+        _availableDays = availableDays.days;
+        emit(RenderSelectDate(
+          selectDateLoading: false,
+          availableDays: _availableDays,
+        ));
       },
       onError: (_, message) {
         _flushbarHelper.showError(message: message);
@@ -77,22 +91,31 @@ class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherStat
     );
   }
 
-  Future<void> _mapLoadPressed(LoadPressed event,) async {
+  Future<void> _mapLoadPressed(
+    LoadPressed event,
+  ) async {
     await callWrapper<KtList<HourlyWeather>>(
       call: _weatherRepository.fetchHourlyWeather(event.day),
       onProgress: () {
-        emit(const RenderSelectDate(selectDateLoading: true));
+        emit(RenderSelectDate(
+          selectDateLoading: true,
+          availableDays: _availableDays,
+        ));
       },
       onSuccess: (weathers) {
         _fetchedWeathers = weathers;
         emit(RenderCharts(
           weathers: weathers,
           changeDateLoading: false,
+          availableDays: _availableDays,
         ));
       },
       onError: (_, message) {
         _flushbarHelper.showError(message: message);
-        emit(const RenderSelectDate(selectDateLoading: false));
+        emit(RenderSelectDate(
+          selectDateLoading: false,
+          availableDays: _availableDays,
+        ));
       },
     );
   }
@@ -115,6 +138,7 @@ class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherStat
         emit(RenderCharts(
           weathers: weathers,
           changeDateLoading: false,
+          availableDays: _availableDays,
         ));
       },
       onError: (_, message) {
@@ -122,6 +146,7 @@ class HourlyWeatherBloc extends CustomBloc<HourlyWeatherEvent, HourlyWeatherStat
         emit(RenderCharts(
           weathers: _fetchedWeathers,
           changeDateLoading: false,
+          availableDays: _availableDays,
         ));
       },
     );

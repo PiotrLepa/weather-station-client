@@ -6,15 +6,18 @@ import 'package:weather_station/core/presentation/widgets/common/progress_button
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/current/widgets/half_bottom_circle_shape_painter.dart';
+import 'package:weather_station/presentation/home/hourly/utils/hourly_weather_day_picker.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/hourly_weather_selected_date.dart';
 
 class HourlyWeatherHeader extends StatelessWidget {
   final DateTime day;
+  final List<DateTime> availableDays;
   final bool changeDayLoading;
 
   const HourlyWeatherHeader({
     Key key,
     @required this.day,
+    @required this.availableDays,
     @required this.changeDayLoading,
   }) : super(key: key);
 
@@ -64,15 +67,12 @@ class HourlyWeatherHeader extends StatelessWidget {
   }
 
   Future<void> _showDatePicker(BuildContext context) async {
-    final selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020, 06),
-      lastDate: DateTime.now(),
+    await showHourlyWeatherDayPicker(
+      context,
+      availableDays,
+      (selectedDate) {
+        context.read<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
+      },
     );
-
-    if (selectedDate != null) {
-      context.read<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
-    }
   }
 }

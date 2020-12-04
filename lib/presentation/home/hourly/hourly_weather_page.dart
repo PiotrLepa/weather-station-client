@@ -14,35 +14,30 @@ class HourlyWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-      getIt.get<HourlyWeatherBloc>()
-        ..add(ScreenStarted()),
+      create: (_) => getIt.get<HourlyWeatherBloc>()..add(const ScreenStarted()),
       child: Scaffold(
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(elevation: _getAppBarElevation(state)),
               body: state.map(
-                initialLoading: (s) =>
-                const Center(
+                initialLoading: (s) => const Center(
                   child: LoadingIndicator(),
                 ),
-                renderSelectDate: (s) =>
-                    Center(
-                      child: HourlyWeatherInitial(
-                        selectDateLoading: s.selectDateLoading,
-                      ),
-                    ),
+                renderSelectDate: (s) => Center(
+                  child: HourlyWeatherInitial(
+                    availableDays: s.availableDays,
+                    selectDateLoading: s.selectDateLoading,
+                  ),
+                ),
                 renderCharts: (s) => _buildPage(context, s),
-                renderError: (s) =>
-                    ErrorPage(
-                      message: s.message,
-                      loading: s.loading,
-                      onRetry: () {
-                        context.read<HourlyWeatherBloc>().add(
-                            const RetryPressed());
-                      },
-                    ),
+                renderError: (s) => ErrorPage(
+                  message: s.message,
+                  loading: s.loading,
+                  onRetry: () {
+                    context.read<HourlyWeatherBloc>().add(const RetryPressed());
+                  },
+                ),
               ),
             );
           },
@@ -59,6 +54,7 @@ class HourlyWeatherPage extends StatelessWidget {
           children: [
             HourlyWeatherHeader(
               day: state.weathers[0].dateTime,
+              availableDays: state.availableDays,
               changeDayLoading: state.changeDateLoading,
             ),
             const SizedBox(height: 24),
