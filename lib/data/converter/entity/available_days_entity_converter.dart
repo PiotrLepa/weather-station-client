@@ -9,6 +9,6 @@ class AvailableDaysEntityConverter
   @override
   AvailableDays convert(AvailableDaysModel model) =>
       AvailableDays(
-        days: model.dates,
+        days: model.days,
       );
 }
