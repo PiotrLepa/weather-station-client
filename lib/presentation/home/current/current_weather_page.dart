@@ -16,25 +16,29 @@ class CurrentWeatherPage extends StatelessWidget {
         body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
           builder: (context, state) {
             return state.maybeMap(
-              initialLoading: (_) => _wrapWithScaffold(
-                context,
-                const Center(child: LoadingIndicator()),
-              ),
-              renderWeather: (s) => CurrentWeatherContent(
-                weather: s.weather,
-                refreshLoading: s.refreshLoading,
-              ),
-              renderError: (s) => _wrapWithScaffold(
-                  context,
-                  ErrorPage(
-                    message: s.message,
-                    loading: s.loading,
-                    onRetry: () {
-                      context
-                          .read<CurrentWeatherBloc>()
-                          .add(const RetryPressed());
-                    },
-                  )),
+              initialLoading: (_) =>
+                  _wrapWithScaffold(
+                    context,
+                    const Center(child: LoadingIndicator()),
+                  ),
+              renderWeather: (s) =>
+                  CurrentWeatherContent(
+                    weather: s.weather,
+                    refreshLoading: s.refreshLoading,
+                  ),
+              renderError: (s) =>
+                  _wrapWithScaffold(
+                    context,
+                    ErrorPage(
+                      message: s.message,
+                      loading: s.loading,
+                      onRetry: () {
+                        context
+                            .read<CurrentWeatherBloc>()
+                            .add(const RetryPressed());
+                      },
+                    ),
+                  ),
               orElse: () => Container(),
             );
           },

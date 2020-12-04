@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
+import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
+import 'package:weather_station/core/presentation/widgets/loading/loading_indicator.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_header.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_initial.dart';
@@ -12,19 +14,35 @@ class HourlyWeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<HourlyWeatherBloc>(),
+      create: (_) =>
+      getIt.get<HourlyWeatherBloc>()
+        ..add(ScreenStarted()),
       child: Scaffold(
         body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(elevation: _getAppBarElevation(state)),
               body: state.map(
-                initial: (s) => Center(
-                  child: HourlyWeatherInitial(
-                    selectDateLoading: s.selectDateLoading,
-                  ),
+                initialLoading: (s) =>
+                const Center(
+                  child: LoadingIndicator(),
                 ),
+                renderSelectDate: (s) =>
+                    Center(
+                      child: HourlyWeatherInitial(
+                        selectDateLoading: s.selectDateLoading,
+                      ),
+                    ),
                 renderCharts: (s) => _buildPage(context, s),
+                renderError: (s) =>
+                    ErrorPage(
+                      message: s.message,
+                      loading: s.loading,
+                      onRetry: () {
+                        context.read<HourlyWeatherBloc>().add(
+                            const RetryPressed());
+                      },
+                    ),
               ),
             );
           },
@@ -52,8 +70,9 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  double _getAppBarElevation(HourlyWeatherState state) => state.map(
-        initial: (_) => 4,
+  double _getAppBarElevation(HourlyWeatherState state) =>
+      state.maybeMap(
         renderCharts: (_) => 0,
+        orElse: () => 4,
       );
 }

@@ -4,12 +4,21 @@ part of 'hourly_weather_bloc.dart';
 abstract class HourlyWeatherState
     with _$HourlyWeatherState
     implements BlocState {
-  const factory HourlyWeatherState.initial({
+  const factory HourlyWeatherState.initialLoading() = InitialLoading;
+
+  const factory HourlyWeatherState.renderSelectDate({
     @required bool selectDateLoading,
-  }) = Initial;
+    @required List<DateTime> availableDays,
+  }) = RenderSelectDate;
+
+  const factory HourlyWeatherState.renderError({
+    @required PlainLocalizedString message,
+    @required bool loading,
+  }) = RenderError;
 
   const factory HourlyWeatherState.renderCharts({
     @required KtList<HourlyWeather> weathers,
+    @required List<DateTime> availableDays,
     @required bool changeDateLoading,
   }) = RenderCharts;
 }
