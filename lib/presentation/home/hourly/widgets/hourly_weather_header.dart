@@ -73,6 +73,7 @@ class HourlyWeatherHeader extends StatelessWidget {
       (selectedDate) {
         context.read<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
       },
+      initialDate: day,
     );
   }
 }
