@@ -111,7 +111,7 @@ void main() {
   });
 
   group('on RefreshPressed event', () {
-    final currentTimeWeather = weather.copyWith(date: DateTime.now());
+    final currentTimeWeather = weather.copyWith(dateTime: DateTime.now());
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit cached weather if data is up-to-date',
@@ -138,7 +138,7 @@ void main() {
     );
 
     final obsoleteWeather = weather.copyWith(
-        date: DateTime.now().subtract(
+        dateTime: DateTime.now().subtract(
             CurrentWeatherBloc.weatherFetchDelay + const Duration(seconds: 1)));
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
