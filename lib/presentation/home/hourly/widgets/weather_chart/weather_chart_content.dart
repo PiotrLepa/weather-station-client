@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/entity/weather/weather.dart';
+import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/air_pollution_painter.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/painter/avg_wind_speed_painter.dart';
@@ -17,14 +17,14 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/v
 class WeatherChartContent extends StatelessWidget {
   static const chartOffset = 30.0;
 
-  final KtList<Weather> weathers;
+  final KtList<HourlyWeather> weathers;
   final KtList<int> _timeSpots;
   final double _chartWidth;
 
   WeatherChartContent({
     Key key,
     @required this.weathers,
-  })  : _timeSpots = weathers.map((w) => w.date.millisecondsSinceEpoch),
+  })  : _timeSpots = weathers.map((w) => w.dateTime.millisecondsSinceEpoch),
         _chartWidth = weathers.size * spotWidth,
         super(key: key);
 
@@ -110,10 +110,7 @@ class WeatherChartContent extends StatelessWidget {
   Positioned _buildAvgWind(BuildContext context) {
     return Positioned(
       left: chartOffset,
-      top: xAxisTitlesHeight +
-          tempHeight +
-          rainHeight +
-          maxWindHeight,
+      top: xAxisTitlesHeight + tempHeight + rainHeight + maxWindHeight,
       child: CustomPaint(
         size: Size(_chartWidth, avgWindHeight),
         painter: AvgWindSpeedPainter(

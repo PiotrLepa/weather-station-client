@@ -9,7 +9,7 @@ abstract class HourlyWeatherState
   }) = Initial;
 
   const factory HourlyWeatherState.renderCharts({
-    @required KtList<Weather> weathers,
+    @required KtList<HourlyWeather> weathers,
     @required bool changeDateLoading,
   }) = RenderCharts;
 }

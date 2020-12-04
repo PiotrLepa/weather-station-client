@@ -40,7 +40,7 @@ class HourlyWeatherPage extends StatelessWidget {
         child: Column(
           children: [
             HourlyWeatherHeader(
-              day: state.weathers[0].date,
+              day: state.weathers[0].dateTime,
               changeDayLoading: state.changeDateLoading,
             ),
             const SizedBox(height: 24),

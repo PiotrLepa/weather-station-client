@@ -109,10 +109,12 @@ class CurrentWeatherBloc
 
   bool _shouldRefreshWeather() =>
       _fetchedWeather == null ||
-          (DateTime.now().difference(_fetchedWeather.date) >=
-              weatherFetchDelay);
+      (DateTime.now().difference(_fetchedWeather.dateTime) >=
+          weatherFetchDelay);
 
-  Future<void> _mapRetryPressed(RetryPressed event,) async {
+  Future<void> _mapRetryPressed(
+    RetryPressed event,
+  ) async {
     await callWrapper<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {

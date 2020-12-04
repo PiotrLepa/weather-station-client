@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/widgets/common/disable_overscroll_glow_behavior.dart';
-import 'package:weather_station/domain/entity/weather/weather.dart';
+import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/hourly_weather_left_titles.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/left_titles/left_titles_provider.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/weather_chart_content.dart';
 
 class WeatherChart extends StatelessWidget {
-  final KtList<Weather> weathers;
+  final KtList<HourlyWeather> weathers;
 
   const WeatherChart({
     Key key,
@@ -37,7 +37,9 @@ class WeatherChart extends StatelessWidget {
               ),
               SliverList(
                 delegate: SliverChildListDelegate(
-                  [WeatherChartContent(weathers: weathers)],
+                  [
+                    WeatherChartContent(weathers: weathers),
+                  ],
                 ),
               )
             ],

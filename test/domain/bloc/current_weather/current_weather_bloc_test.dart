@@ -24,7 +24,7 @@ final weather = Weather(
   windSpeedMax: 10.3,
   rainGauge: 0.7,
   address: 'Tarnów',
-  date: DateTime(2020, 8, 11),
+  dateTime: DateTime(2020, 8, 11),
 );
 
 void main() {

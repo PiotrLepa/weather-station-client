@@ -28,7 +28,7 @@ class CurrentWeatherContent extends StatelessWidget {
             height: appBarHeight,
             expandedHeight: appBarExpandedHeight,
             address: weather.address,
-            lastUpdateTime: weather.date,
+            lastUpdateTime: weather.dateTime,
             refreshLoading: refreshLoading,
           ),
           CurrentWeatherAppBarCorners(),

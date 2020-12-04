@@ -1,19 +1,20 @@
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/data/converter/converter.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_parser.dart';
-import 'package:weather_station/data/model/weather/weather_model.dart';
-import 'package:weather_station/domain/entity/weather/weather.dart';
+import 'package:weather_station/data/model/hourly_weather/hourly_weather_model.dart';
+import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart';
 
 @lazySingleton
-class WeatherEntityConverter implements Converter<WeatherModel, Weather> {
+class HourlyWeatherEntityConverter
+    implements Converter<HourlyWeatherModel, HourlyWeather> {
   final DateTimeParser dateTimeParser;
 
-  WeatherEntityConverter(
+  HourlyWeatherEntityConverter(
     this.dateTimeParser,
   );
 
   @override
-  Weather convert(WeatherModel model) => Weather(
+  HourlyWeather convert(HourlyWeatherModel model) => HourlyWeather(
         temperature: model.temperature,
         humidity: model.humidity,
         pressure: model.pressure,
@@ -24,6 +25,5 @@ class WeatherEntityConverter implements Converter<WeatherModel, Weather> {
         windSpeedAvg: model.windSpeedAvg,
         rainGauge: model.rainGauge,
         dateTime: dateTimeParser.fromNetwork(model.dateTime),
-        address: model.address,
       );
 }

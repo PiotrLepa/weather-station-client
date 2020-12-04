@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'weather.freezed.dart';
+part 'hourly_weather.freezed.dart';
 
 @freezed
-abstract class Weather with _$Weather {
-  const factory Weather({
+abstract class HourlyWeather with _$HourlyWeather {
+  const factory HourlyWeather({
     @required double temperature,
     @required double humidity,
     @required int pressure,
@@ -15,6 +15,5 @@ abstract class Weather with _$Weather {
     @required double windSpeedAvg,
     @required double rainGauge,
     @required DateTime dateTime,
-    String address,
-  }) = _Weather;
+  }) = _HourlyWeather;
 }

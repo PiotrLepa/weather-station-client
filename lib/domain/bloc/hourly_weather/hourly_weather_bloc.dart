@@ -7,7 +7,7 @@ import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
 import 'package:weather_station/core/domain/call/call_wrapper.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/domain/entity/weather/weather.dart';
+import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
 part 'hourly_weather_bloc.freezed.dart';
@@ -20,9 +20,9 @@ class HourlyWeatherBloc
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
 
-  KtList<Weather> _fetchedWeathers;
+  KtList<HourlyWeather> _fetchedWeathers;
 
-  DateTime get _weatherDate => _fetchedWeathers[0].date;
+  DateTime get _weatherDate => _fetchedWeathers[0].dateTime;
 
   HourlyWeatherBloc(
     this._weatherRepository,
@@ -40,7 +40,7 @@ class HourlyWeatherBloc
   Future<void> _mapLoadPressed(
     LoadPressed event,
   ) async {
-    await callWrapper<KtList<Weather>>(
+    await callWrapper<KtList<HourlyWeather>>(
         call: _weatherRepository.fetchHourlyWeather(event.day),
         onProgress: () {
           emit(const Initial(selectDateLoading: true));
@@ -65,7 +65,7 @@ class HourlyWeatherBloc
       return;
     }
 
-    await callWrapper<KtList<Weather>>(
+    await callWrapper<KtList<HourlyWeather>>(
         call: _weatherRepository.fetchHourlyWeather(event.day),
         onProgress: () {
           final currentState = state as RenderCharts;
