@@ -1,9 +1,8 @@
 {
   "apiErrorNoConnection": "Brak połączenia z internetem",
-  "apiErrorBadRequest": "Nieznany błąd",
-  "apiErrorNotFound": "Nie znaleziono",
+  "apiErrorTimeout": "Serwer nie odpowiada",
   "apiErrorInternalServerError": "Wewnętrzny błąd serwera",
-  "apiErrorUnknown": "Nieznany błąd",
+  "apiErrorUnknown": "Wystąpił nieoczekiwany błąd",
   "errorFlushbarTitle": "Coś poszło nie tak",
   "successFlushbarTitle": "Udało się!",
   "notificationFlushbarTitle": "Powiadomienie",

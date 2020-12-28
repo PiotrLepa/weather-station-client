@@ -17,6 +17,11 @@ class NetworkErrorHandler {
   }
 
   ApiException _mapError(DioError dioError) {
+    if (dioError.type == DioErrorType.CONNECT_TIMEOUT ||
+        dioError.type == DioErrorType.RECEIVE_TIMEOUT ||
+        dioError.type == DioErrorType.SEND_TIMEOUT) {
+      return const ApiException.timeout(-1, null);
+    }
     if (dioError.error is ApiException) {
       return dioError.error as ApiException;
     }

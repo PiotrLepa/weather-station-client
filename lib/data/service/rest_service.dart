@@ -9,15 +9,19 @@ import 'package:weather_station/data/model/weather/weather_model.dart';
 
 @lazySingleton
 class RestService extends BaseRestService {
-  RestService(Dio dio,
-      ResponseConverter responseConverter,) : super(dio, responseConverter);
+  RestService(
+    Dio dio,
+    ResponseConverter responseConverter,
+  ) : super(dio, responseConverter);
 
   Future<WeatherModel> fetchCurrentWeather() => get('/weather');
 
   Future<AvailableDaysModel> fetchAvailableDays() => get('/weather/days');
 
-  Future<KtList<HourlyWeatherModel>> fetchHourlyWeather(String day,
-      String timeZone,) =>
+  Future<KtList<HourlyWeatherModel>> fetchHourlyWeather(
+    String day,
+    String timeZone,
+  ) =>
       getList(
         '/weather/hourly',
         params: <String, String>{

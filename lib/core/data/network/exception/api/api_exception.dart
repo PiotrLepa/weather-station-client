@@ -9,15 +9,15 @@ abstract class ApiException with _$ApiException implements Exception {
     String printableMessage,
   ]) = NoConnection;
 
+  const factory ApiException.timeout([
+    int code,
+    String printableMessage,
+  ]) = Timeout;
+
   const factory ApiException.badRequest(
     int code,
     @nullable String printableMessage,
   ) = BadRequest;
-
-  const factory ApiException.notFound(
-    int code,
-    @nullable String printableMessage,
-  ) = NotFound;
 
   const factory ApiException.internalServerError(
     int code,

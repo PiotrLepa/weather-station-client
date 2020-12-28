@@ -13,8 +13,8 @@ class ErrorTranslator {
       }
       return exception.map(
         noConnection: (_) => Strings.apiErrorNoConnection,
-        badRequest: (_) => Strings.apiErrorBadRequest,
-        notFound: (_) => Strings.apiErrorNotFound,
+        timeout: (_) => Strings.apiErrorTimeout,
+        badRequest: (_) => Strings.apiErrorUnknown,
         internalServerError: (_) => Strings.apiErrorInternalServerError,
         unknownError: (_) => Strings.apiErrorUnknown,
       );
