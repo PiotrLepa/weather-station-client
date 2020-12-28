@@ -32,7 +32,7 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
 
   @override
   void initState() {
-    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       // Rebuild widget to update last update time
       setState(() {});
     });
@@ -99,16 +99,12 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
                       .add(const RefreshPressed());
                 },
                 loading: widget.refreshLoading,
-                backgroundColor: ThemeProvider
-                    .of(context)
-                    .primaryColorLight,
+                backgroundColor: ThemeProvider.of(context).primaryColorLight,
                 progressColor: Colors.white,
                 text: Strings.refresh,
                 textStyle: TextStyle(
                   fontSize: scaleText(20),
-                  color: ThemeProvider
-                      .of(context)
-                      .textColorInverted,
+                  color: ThemeProvider.of(context).textColorInverted,
                 ),
               )
             ],
