@@ -33,23 +33,20 @@ class WeatherRepositoryImpl extends WeatherRepository {
   Future<Weather> fetchCurrentWeather() => _service
       .fetchCurrentWeather()
       .then(_weatherConverter.convert)
-      .handleNetworkError();
+      .handleApiError();
 
   @override
   Future<AvailableDays> fetchAvailableDays() => _service
       .fetchAvailableDays()
       .then(_availableDaysEntityConverter.convert)
-      .handleNetworkError();
+      .handleApiError();
 
   @override
-  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) =>
-      _service
-          .fetchHourlyWeather(
+  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) => _service
+      .fetchHourlyWeather(
         _dateFormatter.format(day, DateTimeFormatter.networkDatePattern),
-        DateTime
-            .now()
-            .timeZoneName,
+        DateTime.now().timeZoneName,
       )
-          .then((list) => list.map(_hourlyWeatherConverter.convert))
-          .handleNetworkError();
+      .then((list) => list.map(_hourlyWeatherConverter.convert))
+      .handleApiError();
 }

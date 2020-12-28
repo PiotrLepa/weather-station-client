@@ -66,7 +66,7 @@ class NetworkErrorHandler {
 }
 
 extension FutureExtension<T> on Future<T> {
-  Future<T> handleNetworkError() {
+  Future<T> handleApiError() {
     final errorHandler = getIt<NetworkErrorHandler>();
     return catchError(
         (dynamic e, StackTrace s) => errorHandler.handleError<T>(e, s));
