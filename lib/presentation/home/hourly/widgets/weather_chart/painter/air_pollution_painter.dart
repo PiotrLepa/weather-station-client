@@ -75,39 +75,42 @@ class AirPollutionPainter extends CustomPainter {
       final barLeftPixel = x - halfBarWidth;
       final barRightPixel = x + halfBarWidth;
 
+      // bottom bar
       _drawBarWithValue(
         canvas: canvas,
         left: barLeftPixel,
-        top: pm1Pixel,
+        top: pm10Pixel,
         right: barRightPixel,
         bottom: size.height,
         x: x,
-        value: pm1Spots[i],
-        paint: _pm1BarPaint,
+        value: pm10Spots[i],
+        paint: _pm10BarPaint,
       );
 
-      final pm1BarHeight = size.height - pm1Pixel;
+      final pm10BarHeight = size.height - pm10Pixel;
+      // middle bar
       _drawBarWithValue(
         canvas: canvas,
         left: barLeftPixel,
-        top: pm25Pixel - pm1BarHeight,
+        top: pm25Pixel - pm10BarHeight,
         right: barRightPixel,
-        bottom: pm1Pixel,
+        bottom: pm10Pixel,
         x: x,
         value: pm25Spots[i],
         paint: _pm25BarPaint,
       );
 
-      final pm25BarHeight = size.height - pm25Pixel + pm1BarHeight;
+      final pm25BarHeight = size.height - pm25Pixel;
+      // top bar
       _drawBarWithValue(
         canvas: canvas,
         left: barLeftPixel,
-        top: pm10Pixel - pm25BarHeight,
+        top: pm1Pixel - pm10BarHeight - pm25BarHeight,
         right: barRightPixel,
-        bottom: pm25Pixel - pm1BarHeight,
+        bottom: pm25Pixel - pm10BarHeight,
         x: x,
-        value: pm10Spots[i],
-        paint: _pm10BarPaint,
+        value: pm1Spots[i],
+        paint: _pm1BarPaint,
       );
     }
   }
@@ -122,21 +125,20 @@ class AirPollutionPainter extends CustomPainter {
     @required int value,
     @required Paint paint,
   }) {
-    canvas.drawRect(
-      Rect.fromLTRB(
-        left,
-        top,
-        right,
-        bottom,
-      ),
-      paint,
+    final bar = Rect.fromLTRB(
+      left,
+      top,
+      right,
+      bottom,
     );
-    _drawSpotValue(canvas, value, x, top + bottom);
+    canvas.drawRect(bar, paint);
+    _drawSpotValue(canvas, value, bar.height, x, top + bottom);
   }
 
   void _drawSpotValue(
     Canvas canvas,
     int value,
+    double barHeight,
     double x,
     double y,
   ) {
@@ -155,6 +157,9 @@ class AirPollutionPainter extends CustomPainter {
       x - textPainter.width / 2,
       (y - textPainter.height) / 2,
     );
-    textPainter.paint(canvas, textOffset);
+
+    if (barHeight >= textPainter.height) {
+      textPainter.paint(canvas, textOffset);
+    }
   }
 }
