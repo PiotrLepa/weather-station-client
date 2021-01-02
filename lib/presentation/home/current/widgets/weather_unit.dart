@@ -16,7 +16,7 @@ class WeatherUnit extends StatelessWidget {
       child: Text(
         value.get(context),
         style: TextStyle(
-          fontSize: scaleText(16),
+          fontSize: scaleDimen(16),
           fontWeight: FontWeight.w700,
         ),
       ),

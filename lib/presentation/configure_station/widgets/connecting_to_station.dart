@@ -53,7 +53,7 @@ class _ConnectingToStationState extends State<ConnectingToStation> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: scaleText(20),
+                fontSize: scaleDimen(20),
               ),
             ),
           ),

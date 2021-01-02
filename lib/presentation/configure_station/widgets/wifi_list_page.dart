@@ -26,7 +26,7 @@ class WifiListPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: scaleText(22),
+              fontSize: scaleDimen(22),
             ),
           ),
         ),

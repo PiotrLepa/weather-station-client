@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
-import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 
 class HourlyWeatherSelectedDate extends StatelessWidget {
   final DateTime day;
@@ -23,7 +23,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
           Strings.hourlyWeatherAppBarDay.get(context),
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: scaleText(20),
+            fontSize: scaleDimen(20),
             color: ThemeProvider.of(context).textColorLightInverted,
           ),
         ),
@@ -35,7 +35,7 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
           ),
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            fontSize: scaleText(24),
+            fontSize: scaleDimen(24),
             color: ThemeProvider.of(context).textColorInverted,
           ),
         ),

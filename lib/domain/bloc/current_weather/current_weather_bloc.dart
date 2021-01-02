@@ -41,7 +41,7 @@ class CurrentWeatherBloc
   Future<void> _mapPageStarted(
     PageStarted event,
   ) async {
-    await callWrapper<Weather>(
+    await wrapCall<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () => emit(const InitialLoading()),
       onSuccess: (result) {
@@ -69,7 +69,7 @@ class CurrentWeatherBloc
       return;
     }
 
-    await callWrapper<Weather>(
+    await wrapCall<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {
         emit(RenderWeather(
@@ -103,7 +103,7 @@ class CurrentWeatherBloc
   Future<void> _mapRetryPressed(
     RetryPressed event,
   ) async {
-    await callWrapper<Weather>(
+    await wrapCall<Weather>(
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {
         final errorState = state as RenderError;

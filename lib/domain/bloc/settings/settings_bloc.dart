@@ -63,7 +63,7 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
         : _notificationSubscriber
             .unsubscribe(NotificationSubscriber.topicRainDetected);
 
-    callWrapper<void>(
+    wrapCall<void>(
       call: request,
       onSuccess: (_) {
         emit(RenderItems(pushEnabled: enable));

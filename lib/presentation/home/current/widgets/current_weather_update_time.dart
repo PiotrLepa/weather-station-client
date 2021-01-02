@@ -66,7 +66,7 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
                   text: Strings.weatherUpdateTime.get(context),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: scaleText(17),
+                    fontSize: scaleDimen(17),
                     color: ThemeProvider.of(context).textColor,
                   ),
                 ),
@@ -77,7 +77,7 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
                   ),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: scaleText(14),
+                    fontSize: scaleDimen(14),
                     color: ThemeProvider.of(context).textColorLight,
                   ),
                 ),
@@ -103,7 +103,7 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
                 progressColor: Colors.white,
                 text: Strings.refresh,
                 textStyle: TextStyle(
-                  fontSize: scaleText(20),
+                  fontSize: scaleDimen(20),
                   color: ThemeProvider.of(context).textColorInverted,
                 ),
               )

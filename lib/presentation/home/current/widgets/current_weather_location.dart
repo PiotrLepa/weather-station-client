@@ -34,7 +34,7 @@ class HomeLocation extends StatelessWidget {
             location,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: scaleText(22),
+                fontSize: scaleDimen(22),
                 color: ThemeProvider.of(context).textColor),
           )
         ],

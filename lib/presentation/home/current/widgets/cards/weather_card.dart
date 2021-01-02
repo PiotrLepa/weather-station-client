@@ -38,14 +38,14 @@ class WeatherCard extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 iconPath,
-                width: scaleText(28),
-                height: scaleText(28),
+                width: scaleDimen(28),
+                height: scaleDimen(28),
               ),
               const SizedBox(width: 6),
               Text(
                 title.get(context),
                 style: TextStyle(
-                  fontSize: scaleText(16),
+                  fontSize: scaleDimen(16),
                   fontWeight: FontWeight.w700,
                 ),
               ),

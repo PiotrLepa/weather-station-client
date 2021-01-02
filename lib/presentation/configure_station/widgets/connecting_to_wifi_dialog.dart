@@ -16,7 +16,7 @@ class ConnectingToWifiDialog extends StatelessWidget {
             Strings.connecting.get(context),
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: scaleText(16),
+              fontSize: scaleDimen(16),
             ),
           ),
           const SizedBox(width: 12),

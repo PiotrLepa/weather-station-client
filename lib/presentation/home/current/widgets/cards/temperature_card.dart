@@ -26,7 +26,7 @@ class TemperatureCard extends StatelessWidget {
           Text(
             '$temperature ${Strings.temperatureUnit.get(context)}',
             style: TextStyle(
-              fontSize: scaleText(20),
+              fontSize: scaleDimen(20),
               fontWeight: FontWeight.w900,
             ),
           ),

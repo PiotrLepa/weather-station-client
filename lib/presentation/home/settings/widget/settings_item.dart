@@ -28,7 +28,7 @@ class SettingsItem extends StatelessWidget {
             child: Text(
               name.get(context),
               style: TextStyle(
-                fontSize: scaleText(16),
+                fontSize: scaleDimen(16),
                 fontWeight: FontWeight.w500,
               ),
             ),

@@ -34,7 +34,7 @@ class WindCard extends StatelessWidget {
                       Strings.cardWindMax.get(context),
                       maxSpeed.toString(),
                     ),
-                    VerticalDivider(width: scaleText(50)),
+                    VerticalDivider(width: scaleDimen(50)),
                     _buildWindValue(
                       Strings.cardWindAvg.get(context),
                       avgSpeed.toString(),
@@ -61,7 +61,7 @@ class WindCard extends StatelessWidget {
           name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: scaleText(15),
+            fontSize: scaleDimen(15),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -70,7 +70,7 @@ class WindCard extends StatelessWidget {
           wind,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: scaleText(20),
+            fontSize: scaleDimen(20),
             fontWeight: FontWeight.w900,
           ),
         ),

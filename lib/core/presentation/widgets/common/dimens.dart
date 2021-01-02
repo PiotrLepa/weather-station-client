@@ -17,7 +17,7 @@ void initializeDimens(BuildContext context) {
   }
 }
 
-double scaleText(double size) {
+double scaleDimen(double size) {
   if (screenSize == Size.small) {
     return size * 0.8;
   } else if (screenSize == Size.medium) {

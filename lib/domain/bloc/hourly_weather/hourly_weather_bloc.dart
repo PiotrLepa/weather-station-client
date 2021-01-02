@@ -45,7 +45,7 @@ class HourlyWeatherBloc
   Future<void> _mapScreenStarted(
     ScreenStarted event,
   ) async {
-    await callWrapper<AvailableDays>(
+    await wrapCall<AvailableDays>(
       call: _weatherRepository.fetchAvailableDays(),
       onProgress: () {
         emit(const InitialLoading());
@@ -69,7 +69,7 @@ class HourlyWeatherBloc
   Future<void> _mapRetryPressed(
     RetryPressed event,
   ) async {
-    await callWrapper<AvailableDays>(
+    await wrapCall<AvailableDays>(
       call: _weatherRepository.fetchAvailableDays(),
       onProgress: () {
         final errorState = state as RenderError;
@@ -95,7 +95,7 @@ class HourlyWeatherBloc
   Future<void> _mapLoadPressed(
     LoadPressed event,
   ) async {
-    await callWrapper<KtList<HourlyWeather>>(
+    await wrapCall<KtList<HourlyWeather>>(
       call: _weatherRepository.fetchHourlyWeather(event.day),
       onProgress: () {
         emit(RenderSelectDate(
@@ -128,7 +128,7 @@ class HourlyWeatherBloc
       return;
     }
 
-    await callWrapper<KtList<HourlyWeather>>(
+    await wrapCall<KtList<HourlyWeather>>(
       call: _weatherRepository.fetchHourlyWeather(event.day),
       onProgress: () {
         final currentState = state as RenderCharts;

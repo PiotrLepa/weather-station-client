@@ -22,7 +22,7 @@ class WeatherValue extends StatelessWidget {
         Text(
           '$value ',
           style: TextStyle(
-            fontSize: scaleText(20),
+            fontSize: scaleDimen(20),
             fontWeight: FontWeight.w900,
           ),
         ),

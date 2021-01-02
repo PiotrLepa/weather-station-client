@@ -110,7 +110,7 @@ class ConfigureStationBloc
   }
 
   Future<void> _sendWifiCredentials(WifiCredentials credentials) async {
-    await callWrapper<ConnectToWifiResult>(
+    await wrapCall<ConnectToWifiResult>(
       call: _stationConfigurator.sendWifiCredentials(credentials),
       onProgress: () {
         emit(const ShowConnectingToWifiDialog());
@@ -145,7 +145,7 @@ class ConfigureStationBloc
   }
 
   void _emitStationConfigurationStates() {
-    callWrapper<KtList<Wifi>>(
+    wrapCall<KtList<Wifi>>(
         call: _stationConfigurator.getAvailableWifiList(),
         onProgress: () {
           emit(const Connecting());

@@ -5,7 +5,7 @@ import 'package:weather_station/core/data/network/exception/api/api_exception.da
 import 'package:weather_station/core/domain/error/error_translator.dart';
 import 'package:weather_station/core/injection/injection.dart';
 
-Future<void> callWrapper<T>({
+Future<void> wrapCall<T>({
   @required Future<T> call,
   void Function() onProgress,
   void Function(T) onSuccess,
@@ -26,7 +26,7 @@ Future<void> callWrapper<T>({
   }
 }
 
-Future<void> callPagedApi<T>({
+Future<void> wrapPagedCall<T>({
   @required Future<T> call,
   @required int page,
   void Function() onInitialProgress,

@@ -26,10 +26,8 @@ class FcmService {
         .map((event) => event.notification);
   }
 
-  bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) {
-    return model.data[fcmMessageType] ==
-        enumToString(FcmMessageTypeModel.RAIN_DETECTED);
-  }
+  bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) =>
+      model.data[fcmMessageType] == enumToString(type);
 
   Stream<FcmMessageModel> _getMessages() {
     final controller = StreamController<FcmMessageModel>();

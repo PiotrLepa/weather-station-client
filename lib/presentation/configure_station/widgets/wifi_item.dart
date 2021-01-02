@@ -53,7 +53,7 @@ class WifiItem extends StatelessWidget {
       maxLines: 1,
       style: TextStyle(
         fontWeight: FontWeight.w700,
-        fontSize: scaleText(16),
+        fontSize: scaleDimen(16),
       ),
     );
   }

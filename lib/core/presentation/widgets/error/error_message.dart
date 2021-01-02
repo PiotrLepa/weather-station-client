@@ -36,7 +36,7 @@ class ErrorMessage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: scaleText(19),
+              fontSize: scaleDimen(19),
             ),
           ),
           const SizedBox(height: 24),
