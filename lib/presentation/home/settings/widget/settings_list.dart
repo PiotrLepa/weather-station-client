@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/widgets/common/dimens.dart';
 import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/settings/widget/settings_item.dart';
@@ -17,18 +18,20 @@ class SettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          Assets.icons.appIcon.svg(
-            width: 250,
-            height: 250,
-          ),
-          const SizedBox(height: 16),
-          ..._buildItems(context),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Assets.icons.appIcon.svg(
+              width: scaleDimen(250),
+              height: scaleDimen(250),
+            ),
+            const SizedBox(height: 16),
+            ..._buildItems(context),
+          ],
+        ),
       ),
     );
   }
