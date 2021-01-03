@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-double screenWidth;
-double screenHeight;
 Size screenSize;
 
 void initializeDimens(BuildContext context) {
   final size = MediaQuery.of(context).size;
-  screenWidth = size.width;
-  screenHeight = size.height;
-  if (screenWidth > 360) {
+  if (size.width > 360) {
     screenSize = Size.large;
-  } else if (screenWidth > 320) {
+  } else if (size.width > 320) {
     screenSize = Size.medium;
   } else {
     screenSize = Size.small;
