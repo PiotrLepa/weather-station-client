@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/presentation/widgets/error/error_page.dart';
 import 'package:weather_station/domain/bloc/configure_station/configure_station_bloc.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
@@ -26,6 +27,9 @@ class ConfigureStationPage extends StatelessWidget {
           showConnectingToWifiDialog: (_) {
             _showConnectingToWifiDialog(context);
           },
+          pop: (_) {
+            appNavigator.pop();
+          },
           orElse: () {},
         );
       },
@@ -39,7 +43,7 @@ class ConfigureStationPage extends StatelessWidget {
           renderWifiList: (s) => WifiListPage(wifiList: s.wifiList),
           renderError: (s) => ErrorPage(
             onRetry: () {
-              context.read<ConfigureStationBloc>().add(const OnRetryClicked());
+              context.read<ConfigureStationBloc>().add(const RetryClicked());
             },
             message: s.message,
             loading: s.loading,

@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
@@ -39,12 +38,12 @@ class ConfigureStationBloc
   @override
   Future<void> onEvent(ConfigureStationEvent event) async {
     await event.map(
-        onScreenStarted: _mapOnScreenStarted,
-        onRetryClicked: _mapOnRetryClicked,
-        onPermissionDialogPositiveClicked:
-            _mapOnPermissionDialogPositiveClicked,
-        onWifiSelected: _mapOnWifiSelected,
-        onPasswordInserted: _mapOnPasswordInserted);
+      screenStarted: _mapScreenStarted,
+      retryClicked: _mapRetryClicked,
+      permissionDialogPositiveClicked: _mapPermissionDialogPositiveClicked,
+      wifiSelected: _mapWifiSelected,
+      passwordInserted: _mapPasswordInserted,
+    );
   }
 
   @override
@@ -53,8 +52,8 @@ class ConfigureStationBloc
     return super.close();
   }
 
-  Future<void> _mapOnScreenStarted(
-    OnScreenStarted event,
+  Future<void> _mapScreenStarted(
+    ScreenStarted event,
   ) async {
     if (await Permission.locationWhenInUse.isPermanentlyDenied) {
       emit(const RenderError(
@@ -67,8 +66,8 @@ class ConfigureStationBloc
     _emitStationConfigurationStates();
   }
 
-  Future<void> _mapOnRetryClicked(
-    OnRetryClicked event,
+  Future<void> _mapRetryClicked(
+    RetryClicked event,
   ) async {
     if (await Permission.locationWhenInUse.isPermanentlyDenied) {
       await _showPermissionInfoDialog();
@@ -82,8 +81,8 @@ class ConfigureStationBloc
     emit(const Nothing());
   }
 
-  Future<void> _mapOnPermissionDialogPositiveClicked(
-    OnPermissionDialogPositiveClicked event,
+  Future<void> _mapPermissionDialogPositiveClicked(
+    PermissionDialogPositiveClicked event,
   ) async {
     final opened = await openAppSettings();
     if (!opened) {
@@ -91,8 +90,8 @@ class ConfigureStationBloc
     }
   }
 
-  Future<void> _mapOnWifiSelected(
-    OnWifiSelected event,
+  Future<void> _mapWifiSelected(
+    WifiSelected event,
   ) async {
     if (event.wifi.encryption is Open) {
       final credentials = WifiCredentials(name: event.wifi.name);
@@ -103,8 +102,8 @@ class ConfigureStationBloc
     }
   }
 
-  Future<void> _mapOnPasswordInserted(
-    OnPasswordInserted event,
+  Future<void> _mapPasswordInserted(
+    PasswordInserted event,
   ) async {
     await _sendWifiCredentials(event.wifiCredentials);
   }
@@ -117,11 +116,11 @@ class ConfigureStationBloc
         emit(const Nothing());
       },
       onSuccess: (result) {
-        appNavigator.pop(); // dismiss connecting dialog
+        emit(const Pop()); // dismiss connecting dialog
 
         result.map(
           connected: (_) {
-            appNavigator.pop();
+            emit(const Pop());
             _flushbarHelper.showSuccess(
               message: Strings.connectStationToWifiSuccess,
             );
@@ -134,7 +133,7 @@ class ConfigureStationBloc
         );
       },
       onError: (error, _) {
-        appNavigator.pop(); // dismiss connecting dialog
+        emit(const Pop()); // dismiss connecting dialog
 
         final message = _translateStationException(error);
         if (message != null) {

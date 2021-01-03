@@ -43,7 +43,7 @@ class WifiList extends StatelessWidget {
                 onTap: () {
                   context
                       .read<ConfigureStationBloc>()
-                      .add(OnWifiSelected(wifiList[index]));
+                      .add(WifiSelected(wifiList[index]));
                 },
                 child: Column(
                   children: [
