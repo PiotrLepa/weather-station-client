@@ -44,7 +44,7 @@ class ConfigureStationPage extends StatelessWidget {
             message: s.message,
             loading: s.loading,
           ),
-          orElse: () => Container(),
+          orElse: () => const SizedBox(),
         );
       },
     );

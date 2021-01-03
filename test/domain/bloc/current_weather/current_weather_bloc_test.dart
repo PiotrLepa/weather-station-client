@@ -104,8 +104,8 @@ void main() {
       act: (bloc) => bloc.add(const PageStarted()),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
-            .called(1);
+          message: Strings.apiErrorNoConnection,
+        )).called(1);
       },
     );
   });

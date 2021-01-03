@@ -70,6 +70,6 @@ class WifiItem extends StatelessWidget {
               width: 24,
               height: 24,
             ) ??
-        Container();
+        const SizedBox();
   }
 }
