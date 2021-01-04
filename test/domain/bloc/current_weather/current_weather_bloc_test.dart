@@ -228,8 +228,8 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
-            .called(1);
+          message: Strings.apiErrorNoConnection,
+        )).called(1);
       },
     );
   });
