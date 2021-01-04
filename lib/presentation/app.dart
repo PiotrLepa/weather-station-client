@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(
           lazy: false,
-          create: (_) => getIt<FcmBloc>(),
+          create: (_) => getIt<FcmBloc>()..add(const Created()),
         ),
         BlocProvider(
           create: (_) => getIt<HomeBloc>(),
