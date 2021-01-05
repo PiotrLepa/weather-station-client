@@ -5,4 +5,9 @@ abstract class SettingsState with _$SettingsState implements BlocState {
   const factory SettingsState.loading() = Loading;
 
   const factory SettingsState.renderItems({bool pushEnabled}) = RenderItems;
+
+  const factory SettingsState.pushConfigureStationScreen() =
+      PushConfigureStationScreen;
+
+  const factory SettingsState.pushAboutAppScreen() = PushAboutAppScreen;
 }

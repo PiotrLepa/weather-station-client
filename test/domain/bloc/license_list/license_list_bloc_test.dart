@@ -1,7 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:weather_station/core/injection/injection.dart';
-import 'package:weather_station/domain/bloc/license_details/license_details_bloc.dart';
 import 'package:weather_station/domain/bloc/license_list/license_list_bloc.dart';
 import 'package:weather_station/domain/entity/license/license.dart';
 
@@ -28,7 +27,7 @@ void main() {
   blocTest<LicenseListBloc, LicenseListState>(
     'initial state is RenderItems',
     build: () => bloc,
-    verify: (bloc) => expect(bloc.state, const RenderPage()),
+    verify: (bloc) => expect(bloc.state, const RenderItems()),
   );
 
   group('on LicenseClicked event', () {
