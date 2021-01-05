@@ -165,9 +165,8 @@ void main() {
             .thenAnswer((_) async => currentTimeWeather);
         bloc.add(const RefreshPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        RenderWeather(weather: obsoleteWeather, refreshLoading: false),
         RenderWeather(weather: obsoleteWeather, refreshLoading: true),
         RenderWeather(weather: currentTimeWeather, refreshLoading: false),
       ],
@@ -186,9 +185,8 @@ void main() {
             .thenAnswer((_) => Future.error(const NoConnection()));
         bloc.add(const RefreshPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        RenderWeather(weather: weather, refreshLoading: false),
         RenderWeather(weather: weather, refreshLoading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -229,9 +227,8 @@ void main() {
             .thenAnswer((_) async => weather);
         bloc.add(const RetryPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        const RenderError(message: Strings.fetchDataFailed, loading: false),
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -248,9 +245,8 @@ void main() {
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
         bloc.add(const RetryPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        const RenderError(message: Strings.fetchDataFailed, loading: false),
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],

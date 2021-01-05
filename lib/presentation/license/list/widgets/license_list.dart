@@ -23,12 +23,12 @@ class LicenseList extends StatelessWidget {
         final item = licenses[index];
         return InkWell(
           onTap: () {
-            context.read<LicenseListBloc>().add(OnLicenseClicked(item));
+            context.read<LicenseListBloc>().add(LicenseClicked(item));
           },
           child: LicenseItem(
             name: item.name,
             onLinkClicked: (url) {
-              context.read<LicenseListBloc>().add(OnLinkClicked(url));
+              context.read<LicenseListBloc>().add(LinkClicked(url));
             },
           ),
         );

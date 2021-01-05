@@ -15,15 +15,15 @@ class AboutAppScreen extends StatelessWidget {
       create: (_) => getIt.get<AboutAppBloc>(),
       child: Scaffold(
         body: BlocConsumer<AboutAppBloc, AboutAppState>(
-          listener: (context, state) => listenState(context, state),
+          listener: _listenState,
           buildWhen: (oldState, newState) => newState is RenderItems,
-          builder: (context, state) => buildState(context, state),
+          builder: _buildState,
         ),
       ),
     );
   }
 
-  void listenState(BuildContext context, AboutAppState state) {
+  void _listenState(BuildContext context, AboutAppState state) {
     state.maybeMap(
       pushLicenseListScreen: (s) {
         appNavigator.pushLicenseListScreen(
@@ -35,7 +35,7 @@ class AboutAppScreen extends StatelessWidget {
     );
   }
 
-  Widget buildState(BuildContext context, AboutAppState state) {
+  Widget _buildState(BuildContext context, AboutAppState state) {
     return state.maybeMap(
       renderItems: (s) {
         return Scaffold(

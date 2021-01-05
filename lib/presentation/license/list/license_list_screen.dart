@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/domain/bloc/license_list/license_list_bloc.dart';
 import 'package:weather_station/domain/entity/license/license.dart';
@@ -26,16 +27,32 @@ class LicenseListScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(title.get(context)),
         ),
-        body: BlocBuilder<LicenseListBloc, LicenseListState>(
-          builder: (context, state) {
-            return state.map(
-              renderItems: (_) {
-                return LicenseList(licenses: licenses);
-              },
-            );
-          },
+        body: BlocConsumer<LicenseListBloc, LicenseListState>(
+          listener: _listenState,
+          buildWhen: (oldState, newState) => newState is RenderItems,
+          builder: _buildState,
         ),
       ),
+    );
+  }
+
+  void _listenState(BuildContext context, LicenseListState state) {
+    state.maybeMap(
+      pushLicenseDetails: (s) {
+        appNavigator.pushLicenseDetailsScreen(
+          license: s.license,
+        );
+      },
+      orElse: () {},
+    );
+  }
+
+  Widget _buildState(BuildContext context, LicenseListState state) {
+    return state.maybeMap(
+      renderItems: (_) {
+        return LicenseList(licenses: licenses);
+      },
+      orElse: () => const SizedBox(),
     );
   }
 }
