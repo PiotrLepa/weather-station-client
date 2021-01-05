@@ -65,14 +65,14 @@ void main() {
   group('on ScreenStarted event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should emit render error state show permission info dialog when permissions are permanently denied',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         mockPermissions({
           Permission.locationWhenInUse: PermissionStatus.permanentlyDenied,
         });
 
-        return bloc;
+        bloc.add(const ScreenStarted());
       },
-      act: (bloc) => bloc.add(const ScreenStarted()),
       expect: <ConfigureStationState>[
         const RenderError(
           message: Strings.connectToDevicePermissionError,
@@ -85,17 +85,16 @@ void main() {
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should emit render wifi list if permissions are granted',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         mockPermissions({
           Permission.locationWhenInUse: PermissionStatus.granted,
         });
-
         when(mockStationConfigurator.getAvailableWifiList())
-            .thenAnswer((_) => Future.value(wifiList));
+            .thenAnswer((_) async => wifiList);
 
-        return bloc;
+        bloc.add(const ScreenStarted());
       },
-      act: (bloc) => bloc.add(const ScreenStarted()),
       verify: (bloc) {
         verify(mockStationConfigurator.getAvailableWifiList()).called(1);
       },
@@ -109,14 +108,14 @@ void main() {
   group('on RetryClicked event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should emit render error state show permission info dialog when permissions are permanently denied',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         mockPermissions({
           Permission.locationWhenInUse: PermissionStatus.permanentlyDenied,
         });
 
-        return bloc;
+        bloc.add(const RetryClicked());
       },
-      act: (bloc) => bloc.add(const RetryClicked()),
       expect: <ConfigureStationState>[
         const ShowPermissionInfoDialog(),
         const Nothing(),
@@ -125,17 +124,16 @@ void main() {
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should emit render wifi list if permissions are granted',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         mockPermissions({
           Permission.locationWhenInUse: PermissionStatus.granted,
         });
-
         when(mockStationConfigurator.getAvailableWifiList())
-            .thenAnswer((_) => Future.value(wifiList));
+            .thenAnswer((_) async => wifiList);
 
-        return bloc;
+        bloc.add(const RetryClicked());
       },
-      act: (bloc) => bloc.add(const RetryClicked()),
       verify: (bloc) {
         verify(mockStationConfigurator.getAvailableWifiList()).called(1);
       },
@@ -148,33 +146,28 @@ void main() {
 
   group('on WifiSelected event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-        'should emit proper connecting dialog states', build: () {
-      when(mockStationConfigurator.sendWifiCredentials(any)).thenAnswer(
-          (_) => Future.value(const ConnectToWifiResult.connected()));
+      'should emit proper connecting dialog states',
+      build: () => bloc,
+      act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.connected());
 
-      return bloc;
-    }, act: (bloc) {
-      const wifi = Wifi(
-        name: 'Test_1',
-        encryption: WifiEncryption.open(),
-        signalStrength: SignalStrength.excellent(),
-      );
-      bloc.add(const WifiSelected(wifi));
-    }, expect: <ConfigureStationState>[
-      const ShowConnectingToWifiDialog(),
-      const Nothing(),
-      const Pop(),
-    ]);
+        bloc.add(const WifiSelected(openWifi));
+      },
+      expect: <ConfigureStationState>[
+        const ShowConnectingToWifiDialog(),
+        const Nothing(),
+        const Pop(),
+      ],
+    );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should show success flushbar if wifi is open and connected successfully',
-      build: () {
-        when(mockStationConfigurator.sendWifiCredentials(any)).thenAnswer(
-            (_) => Future.value(const ConnectToWifiResult.connected()));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.connected());
+
         bloc.add(const WifiSelected(openWifi));
       },
       verify: (bloc) {
@@ -186,13 +179,13 @@ void main() {
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should show error flushbar if wifi is open and failed to connect ',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))
-            .thenAnswer((_) => Future.value(const ConnectToWifiResult.error()));
+            .thenAnswer((_) async => const ConnectToWifiResult.error());
 
-        return bloc;
+        bloc.add(const WifiSelected(openWifi));
       },
-      act: (bloc) => bloc.add(const WifiSelected(openWifi)),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
           message: Strings.connectStationToWifiError,
@@ -214,13 +207,13 @@ void main() {
   group('on PasswordInserted event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should show success flushbar if wifi is secured and connected successfully',
-      build: () {
-        when(mockStationConfigurator.sendWifiCredentials(any)).thenAnswer(
-            (_) => Future.value(const ConnectToWifiResult.connected()));
+      build: () => bloc,
+      act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.connected());
 
-        return bloc;
+        bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      act: (bloc) => bloc.add(const PasswordInserted(securedWifiCredentials)),
       verify: (bloc) {
         verify(mockFlushbarHelper.showSuccess(
           message: Strings.connectStationToWifiSuccess,
@@ -230,13 +223,13 @@ void main() {
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should show error flushbar if wifi is secured and failed to connect ',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))
-            .thenAnswer((_) => Future.value(const ConnectToWifiResult.error()));
+            .thenAnswer((_) async => const ConnectToWifiResult.error());
 
-        return bloc;
+        bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      act: (bloc) => bloc.add(const PasswordInserted(securedWifiCredentials)),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
           message: Strings.connectStationToWifiError,

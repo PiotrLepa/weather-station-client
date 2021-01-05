@@ -42,13 +42,12 @@ void main() {
   group('on IconsClicked event', () {
     blocTest<AboutAppBloc, AboutAppState>(
       'should push license list screen with proper args',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockLicenseProvider.getIconsLicenses())
-            .thenAnswer((_) => Future.value(iconsLicenses));
-
-        return bloc;
+            .thenAnswer((_) async => iconsLicenses);
+        bloc.add(const IconsClicked());
       },
-      act: (bloc) => bloc.add(const IconsClicked()),
       verify: (bloc) {
         verify(mockLicenseProvider.getIconsLicenses()).called(1);
       },
@@ -64,13 +63,13 @@ void main() {
   group('on PackagesClicked event', () {
     blocTest<AboutAppBloc, AboutAppState>(
       'should push license list screen with proper args',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockLicenseProvider.getPackagesLicenses())
-            .thenAnswer((_) => Future.value(packagesLicenses));
+            .thenAnswer((_) async => packagesLicenses);
 
-        return bloc;
+        bloc.add(const PackagesClicked());
       },
-      act: (bloc) => bloc.add(const PackagesClicked()),
       verify: (bloc) {
         verify(mockLicenseProvider.getPackagesLicenses()).called(1);
       },

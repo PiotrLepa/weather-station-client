@@ -25,6 +25,8 @@ void main() {
         'should fetch current weather from repository',
         build: () => bloc,
         act: (bloc) => bloc.add(const BottomNavigationClicked(3)),
-        expect: <HomeState>[const ChangePage(3)]);
+        expect: <HomeState>[
+          const ChangePage(3),
+        ]);
   });
 }
