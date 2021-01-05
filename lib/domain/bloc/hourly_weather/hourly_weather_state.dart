@@ -8,7 +8,7 @@ abstract class HourlyWeatherState
 
   const factory HourlyWeatherState.renderSelectDate({
     @required bool selectDateLoading,
-    @required List<DateTime> availableDays,
+    @required KtList<DateTime> availableDays,
   }) = RenderSelectDate;
 
   const factory HourlyWeatherState.renderError({
@@ -18,7 +18,7 @@ abstract class HourlyWeatherState
 
   const factory HourlyWeatherState.renderCharts({
     @required KtList<HourlyWeather> weathers,
-    @required List<DateTime> availableDays,
+    @required KtList<DateTime> availableDays,
     @required bool changeDateLoading,
   }) = RenderCharts;
 }

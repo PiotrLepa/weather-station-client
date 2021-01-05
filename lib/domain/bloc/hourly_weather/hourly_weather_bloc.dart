@@ -23,7 +23,7 @@ class HourlyWeatherBloc
   final FlushbarHelper _flushbarHelper;
 
   KtList<HourlyWeather> _fetchedWeathers;
-  List<DateTime> _availableDays;
+  KtList<DateTime> _availableDays;
 
   DateTime get _weatherDate => _fetchedWeathers[0].dateTime;
 
