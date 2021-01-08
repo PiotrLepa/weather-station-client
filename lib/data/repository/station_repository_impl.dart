@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/data/converter/entity/connect_to_wifi_entity_converter.dart';
-import 'package:weather_station/data/converter/entity/wifi_entity_converter.dart';
+import 'package:weather_station/data/converter/entity/connect_to_wifi_converter.dart';
+import 'package:weather_station/data/converter/entity/wifi_converter.dart';
 import 'package:weather_station/data/service/ble_service.dart';
 import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
 import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
@@ -23,13 +23,13 @@ class StationRepositoryImpl extends StationRepository {
       'e5b9a6f3-2d49-447b-a924-b2d116ca8e3f';
 
   final BleService _bleService;
-  final WifiEntityConverter _wifiEntityConverter;
-  final ConnectToWifiEntityConverter _connectToWifiEntityConverter;
+  final WifiConverter _wifiEntityConverter;
+  final ConnectToWifiConverter _connectToWifiConverter;
 
   StationRepositoryImpl(
     this._bleService,
     this._wifiEntityConverter,
-    this._connectToWifiEntityConverter,
+    this._connectToWifiConverter,
   );
 
   @override
@@ -53,7 +53,7 @@ class StationRepositoryImpl extends StationRepository {
           serviceUuid: _service,
           characteristicUuid: _wifiListCharacteristic,
         )
-        .map((wifiList) => wifiList.map(_wifiEntityConverter.convert))
+        .map((wifiList) => wifiList.map(_wifiEntityConverter.toEntity))
         .handleError((Object e) => throw _mapError(e));
   }
 
@@ -66,20 +66,22 @@ class StationRepositoryImpl extends StationRepository {
           serviceUuid: _service,
           characteristicUuid: _connectToWifiResultCharacteristic,
         )
-        .map(_connectToWifiEntityConverter.convert)
+        .map(_connectToWifiConverter.toEntity)
         .handleError((Object e) => throw _mapError(e));
   }
 
   @override
-  Future<void> sendWifiCredentials(Peripheral device,
-      WifiCredentials wifiCredentials,) {
+  Future<void> sendWifiCredentials(
+    Peripheral device,
+    WifiCredentials wifiCredentials,
+  ) {
     return _bleService
         .writeCharacteristic(
-      value: json.encode(wifiCredentials.toJson()),
-      device: device,
-      serviceUuid: _service,
-      characteristicUuid: _wifiListCharacteristic,
-    )
+          value: json.encode(wifiCredentials.toJson()),
+          device: device,
+          serviceUuid: _service,
+          characteristicUuid: _wifiListCharacteristic,
+        )
         .catchError(_handleFutureError);
   }
 
