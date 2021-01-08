@@ -15,7 +15,7 @@ class SuccessFlushbar extends AppFlushbar {
     @required VoidCallback onDismiss,
     PlainLocalizedString title,
   }) : super(
-    key: key,
+          key: key,
           title: Text(
             context.translate(title ?? Strings.successFlushbarTitle),
             style: TextStyle(

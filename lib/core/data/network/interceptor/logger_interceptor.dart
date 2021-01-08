@@ -26,8 +26,7 @@ class LoggerInterceptor extends InterceptorsWrapper {
     final response = err.response;
     if (response != null) {
       logger.d('Network error\n\n'
-          '${response.statusCode} ${response.request.method} ${response.request
-          .uri}\n\n'
+          '${response.statusCode} ${response.request.method} ${response.request.uri}\n\n'
           'Error: ${err.toString()}\n\n'
           'Json: ${prettyJson(response?.data)}');
     } else {

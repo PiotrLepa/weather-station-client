@@ -67,8 +67,10 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context,
-      HourlyWeatherState state,) {
+  AppBar _buildAppBar(
+    BuildContext context,
+    HourlyWeatherState state,
+  ) {
     final title = state.maybeMap(
       renderCharts: (_) => null,
       orElse: () => Strings.tabTitleHourly,
