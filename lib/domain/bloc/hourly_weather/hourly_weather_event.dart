@@ -11,5 +11,5 @@ abstract class HourlyWeatherEvent
   const factory HourlyWeatherEvent.loadPressed(DateTime day) = LoadPressed;
 
   const factory HourlyWeatherEvent.changeDatePressed(DateTime day) =
-  ChangeDatePressed;
+      ChangeDatePressed;
 }

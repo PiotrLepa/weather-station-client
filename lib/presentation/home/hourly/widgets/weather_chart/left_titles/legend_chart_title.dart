@@ -45,12 +45,14 @@ class LegendChartTitle extends NormalChartTitle {
     return titleOffSet;
   }
 
-  void _drawLegend(BuildContext context,
-      Canvas canvas,
-      Size size,
-      double squareSize,
-      Offset titleOffset,
-      ChartLegend legend,) {
+  void _drawLegend(
+    BuildContext context,
+    Canvas canvas,
+    Size size,
+    double squareSize,
+    Offset titleOffset,
+    ChartLegend legend,
+  ) {
     canvas.drawRect(
       Rect.fromLTWH(
         titleOffset.dx,
@@ -85,6 +87,8 @@ class ChartLegend {
   final String text;
   final Color color;
 
-  ChartLegend(this.text,
-      this.color,);
+  ChartLegend(
+    this.text,
+    this.color,
+  );
 }

@@ -1,19 +1,17 @@
 import 'package:injectable/injectable.dart';
-import 'package:weather_station/core/data/converter/converter.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_parser.dart';
 import 'package:weather_station/data/model/weather/weather_model.dart';
 import 'package:weather_station/domain/entity/weather/weather.dart';
 
 @lazySingleton
-class WeatherEntityConverter implements Converter<WeatherModel, Weather> {
+class WeatherConverter {
   final DateTimeParser dateTimeParser;
 
-  WeatherEntityConverter(
+  WeatherConverter(
     this.dateTimeParser,
   );
 
-  @override
-  Weather convert(WeatherModel model) => Weather(
+  Weather toEntity(WeatherModel model) => Weather(
         temperature: model.temperature,
         humidity: model.humidity,
         pressure: model.pressure,
