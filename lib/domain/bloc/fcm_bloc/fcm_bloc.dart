@@ -9,21 +9,30 @@ import 'package:weather_station/core/extension/string_extension.dart';
 import 'package:weather_station/domain/repository/fcm_repository.dart';
 
 part 'fcm_bloc.freezed.dart';
-
 part 'fcm_event.dart';
-
 part 'fcm_state.dart';
 
 @injectable
 class FcmBloc extends CustomBloc<FcmEvent, FcmState> {
-  final FcmRepository _notificationRepository;
+  final FcmRepository _fcmRepository;
   final FlushbarHelper _flushbarHelper;
 
   FcmBloc(
-    this._notificationRepository,
+    this._fcmRepository,
     this._flushbarHelper,
-  ) : super(const Empty()) {
-    _notificationRepository.getRainDetected().handleError(
+  ) : super(const Nothing());
+
+  @override
+  Future<void> onEvent(FcmEvent event) async {
+    event.map(
+      created: _mapCreatedEvent,
+    );
+  }
+
+  Future<void> _mapCreatedEvent(
+    Created event,
+  ) async {
+    _fcmRepository.getRainDetected().handleError(
       (Object error) {
         logger.d('error');
       },
@@ -33,7 +42,4 @@ class FcmBloc extends CustomBloc<FcmEvent, FcmState> {
       );
     });
   }
-
-  @override
-  Future<void> onEvent(FcmEvent event) async {}
 }

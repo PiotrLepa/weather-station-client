@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
-import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/domain/bloc/bloc_event.dart';
 import 'package:weather_station/core/domain/bloc/bloc_state.dart';
 import 'package:weather_station/core/domain/bloc/custom_bloc.dart';
@@ -26,14 +25,14 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
   @override
   Future<void> onEvent(SettingsEvent event) async {
     await event.map(
-      pageStarted: _maOnPageStarted,
+      pageStarted: _mapPageStarted,
       configureWifiClicked: _mapConfigureWifiClicked,
       aboutAppClicked: _mapAboutAppClicked,
       pushNotificationsSwitchChanged: _mapPushNotificationsSwitchChanged,
     );
   }
 
-  Future<void> _maOnPageStarted(
+  Future<void> _mapPageStarted(
     PageStarted event,
   ) async {
     emit(RenderItems(
@@ -44,13 +43,13 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
   Future<void> _mapConfigureWifiClicked(
     ConfigureWifiClicked event,
   ) async {
-    appNavigator.pushConfigureStationScreen();
+    emit(const PushConfigureStationScreen());
   }
 
   Future<void> _mapAboutAppClicked(
     AboutAppClicked event,
   ) async {
-    appNavigator.pushAboutAppScreen();
+    emit(const PushAboutAppScreen());
   }
 
   Future<void> _mapPushNotificationsSwitchChanged(

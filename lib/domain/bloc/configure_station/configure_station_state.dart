@@ -24,4 +24,6 @@ abstract class ConfigureStationState
 
   const factory ConfigureStationState.showConnectingToWifiDialog() =
       ShowConnectingToWifiDialog;
+
+  const factory ConfigureStationState.pop() = Pop;
 }

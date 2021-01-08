@@ -51,13 +51,12 @@ void main() {
   group('on PageStarted event', () {
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should fetch current weather from repository',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(weather));
-
-        return bloc;
+            .thenAnswer((_) async => weather);
+        bloc.add(const PageStarted());
       },
-      act: (bloc) => bloc.add(const PageStarted()),
       verify: (bloc) {
         verify(mockWeatherRepository.fetchCurrentWeather()).called(1);
       },
@@ -65,13 +64,12 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather is gotten successfully',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(weather));
-
-        return bloc;
+            .thenAnswer((_) async => weather);
+        bloc.add(const PageStarted());
       },
-      act: (bloc) => bloc.add(const PageStarted()),
       expect: <CurrentWeatherState>[
         const InitialLoading(),
         RenderWeather(weather: weather, refreshLoading: false),
@@ -80,13 +78,12 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather fails',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
             .thenAnswer((_) => Future.error(const NoConnection()));
-
-        return bloc;
+        bloc.add(const PageStarted());
       },
-      act: (bloc) => bloc.add(const PageStarted()),
       expect: <CurrentWeatherState>[
         const InitialLoading(),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
@@ -95,17 +92,16 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should show error flushbar when fetch current weather fails',
-      build: () {
+      build: () => bloc,
+      act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
             .thenAnswer((_) => Future.error(const NoConnection()));
-
-        return bloc;
+        bloc.add(const PageStarted());
       },
-      act: (bloc) => bloc.add(const PageStarted()),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
-            .called(1);
+          message: Strings.apiErrorNoConnection,
+        )).called(1);
       },
     );
   });
@@ -115,13 +111,10 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit cached weather if data is up-to-date',
-      build: () {
-        when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(currentTimeWeather));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) async {
+        when(mockWeatherRepository.fetchCurrentWeather())
+            .thenAnswer((_) async => currentTimeWeather);
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
         bloc.add(const RefreshPressed());
@@ -143,18 +136,15 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should fetch weather if previously fetched weather is obsolete',
-      build: () {
-        when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(obsoleteWeather));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) async {
+        when(mockWeatherRepository.fetchCurrentWeather())
+            .thenAnswer((_) async => obsoleteWeather);
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
 
         when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(currentTimeWeather));
+            .thenAnswer((_) async => currentTimeWeather);
         bloc.add(const RefreshPressed());
       },
       verify: (bloc) {
@@ -164,23 +154,19 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather is gotten successfully',
-      build: () {
-        when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(obsoleteWeather));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) async {
+        when(mockWeatherRepository.fetchCurrentWeather())
+            .thenAnswer((_) async => obsoleteWeather);
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
 
         when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(currentTimeWeather));
+            .thenAnswer((_) async => currentTimeWeather);
         bloc.add(const RefreshPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        RenderWeather(weather: obsoleteWeather, refreshLoading: false),
         RenderWeather(weather: obsoleteWeather, refreshLoading: true),
         RenderWeather(weather: currentTimeWeather, refreshLoading: false),
       ],
@@ -188,13 +174,10 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather fails',
-      build: () {
-        when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(weather));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) async {
+        when(mockWeatherRepository.fetchCurrentWeather())
+            .thenAnswer((_) async => weather);
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
 
@@ -202,9 +185,8 @@ void main() {
             .thenAnswer((_) => Future.error(const NoConnection()));
         bloc.add(const RefreshPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        RenderWeather(weather: weather, refreshLoading: false),
         RenderWeather(weather: weather, refreshLoading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -212,13 +194,10 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should show error flushbar when fetch current weather fails',
-      build: () {
-        when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(weather));
-
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) async {
+        when(mockWeatherRepository.fetchCurrentWeather())
+            .thenAnswer((_) async => weather);
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
 
@@ -228,8 +207,8 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
-            .called(1);
+          message: Strings.apiErrorNoConnection,
+        )).called(1);
       },
     );
   });
@@ -237,23 +216,19 @@ void main() {
   group('on Retry Pressed event', () {
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather is gotten successfully',
-      build: () {
+      build: () => bloc,
+      act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
             .thenAnswer((_) => Future.error(const NoConnection()));
-
-        return bloc;
-      },
-      act: (bloc) async {
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
 
         when(mockWeatherRepository.fetchCurrentWeather())
-            .thenAnswer((_) => Future.value(weather));
+            .thenAnswer((_) async => weather);
         bloc.add(const RetryPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        const RenderError(message: Strings.fetchDataFailed, loading: false),
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -261,20 +236,17 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should emit proper states when fetch current weather fails',
-      build: () {
+      build: () => bloc,
+      act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
             .thenAnswer((_) => Future.error(const NoConnection()));
 
-        return bloc;
-      },
-      act: (bloc) async {
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
         bloc.add(const RetryPressed());
       },
+      skip: 2,
       expect: <CurrentWeatherState>[
-        const InitialLoading(),
-        const RenderError(message: Strings.fetchDataFailed, loading: false),
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],
@@ -282,13 +254,11 @@ void main() {
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
       'should show error flushbar when fetch current weather fails',
-      build: () {
+      build: () => bloc,
+      act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
             .thenAnswer((_) => Future.error(const NoConnection()));
 
-        return bloc;
-      },
-      act: (bloc) async {
         bloc.add(const PageStarted());
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
         bloc.add(const RetryPressed());

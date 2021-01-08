@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
@@ -8,7 +9,7 @@ import 'package:weather_station/gen/assets.gen.dart';
 import 'package:weather_station/presentation/home/hourly/utils/hourly_weather_day_picker.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
-  final List<DateTime> availableDays;
+  final KtList<DateTime> availableDays;
   final bool selectDateLoading;
 
   const HourlyWeatherInitial({

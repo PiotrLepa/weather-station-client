@@ -10,8 +10,7 @@ class ConfigureStationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<ConfigureStationBloc>()..add(const OnScreenStarted()),
+      create: (_) => getIt<ConfigureStationBloc>()..add(const ScreenStarted()),
       child: Scaffold(
         appBar: AppBar(),
         body: ConfigureStationPage(),

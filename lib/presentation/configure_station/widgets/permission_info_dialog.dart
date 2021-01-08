@@ -22,7 +22,7 @@ class PermissionInfoDialog extends StatelessWidget {
             appNavigator.pop();
             context
                 .read<ConfigureStationBloc>()
-                .add(const OnPermissionDialogPositiveClicked());
+                .add(const PermissionDialogPositiveClicked());
           },
           child: Text(Strings.dialogOk.get(context)),
         )
