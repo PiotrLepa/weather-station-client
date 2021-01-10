@@ -64,7 +64,7 @@ void main() {
 
   group('on ScreenStarted event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should emit render error state show permission info dialog when permissions are permanently denied',
+      'should render error and show permission info dialog when permissions are permanently denied',
       build: () => bloc,
       act: (bloc) {
         mockPermissions({
@@ -84,7 +84,7 @@ void main() {
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should emit render wifi list if permissions are granted',
+      'should render wifi list if permissions are granted',
       build: () => bloc,
       act: (bloc) {
         mockPermissions({
@@ -107,7 +107,7 @@ void main() {
 
   group('on RetryClicked event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should emit render error state show permission info dialog when permissions are permanently denied',
+      'should render error and show permission info dialog when permissions are permanently denied',
       build: () => bloc,
       act: (bloc) {
         mockPermissions({
@@ -123,7 +123,7 @@ void main() {
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should emit render wifi list if permissions are granted',
+      'should render wifi list if permissions are granted',
       build: () => bloc,
       act: (bloc) {
         mockPermissions({
@@ -146,7 +146,7 @@ void main() {
 
   group('on WifiSelected event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should emit proper connecting dialog states',
+      'should show connecting dialog',
       build: () => bloc,
       act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))
@@ -178,7 +178,7 @@ void main() {
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should show error flushbar if wifi is open and failed to connect ',
+      'should show error flushbar if wifi is open and failed to connect',
       build: () => bloc,
       act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))
@@ -222,7 +222,7 @@ void main() {
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should show error flushbar if wifi is secured and failed to connect ',
+      'should show error flushbar if wifi is secured and failed to connect',
       build: () => bloc,
       act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))

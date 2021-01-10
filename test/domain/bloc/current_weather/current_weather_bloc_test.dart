@@ -63,7 +63,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather is gotten successfully',
+      'should emit proper states when current weather is gotten successfully',
       build: () => bloc,
       act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -77,7 +77,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather fails',
+      'should emit proper states when fetching current weather fails',
       build: () => bloc,
       act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -91,7 +91,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should show error flushbar when fetch current weather fails',
+      'should show error flushbar when fetching current weather fails',
       build: () => bloc,
       act: (bloc) {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -135,7 +135,7 @@ void main() {
             CurrentWeatherBloc.weatherFetchDelay + const Duration(seconds: 1)));
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should fetch weather if previously fetched weather is obsolete',
+      'should fetch weather again if previously fetched weather is obsolete',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -153,7 +153,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather is gotten successfully',
+      'should emit proper states when current weather is gotten successfully',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -173,7 +173,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather fails',
+      'should emit proper states when fetching current weather fails',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -193,7 +193,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should show error flushbar when fetch current weather fails',
+      'should show error flushbar when fetching current weather fails',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -215,7 +215,7 @@ void main() {
 
   group('on Retry Pressed event', () {
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather is gotten successfully',
+      'should emit proper states when current weather is gotten successfully',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -235,7 +235,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should emit proper states when fetch current weather fails',
+      'should emit proper states when fetching current weather fails',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())
@@ -253,7 +253,7 @@ void main() {
     );
 
     blocTest<CurrentWeatherBloc, CurrentWeatherState>(
-      'should show error flushbar when fetch current weather fails',
+      'should show error flushbar when fetching current weather fails',
       build: () => bloc,
       act: (bloc) async {
         when(mockWeatherRepository.fetchCurrentWeather())

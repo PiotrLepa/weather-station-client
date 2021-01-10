@@ -50,7 +50,7 @@ void main() {
 
   group('on ConfigureWifiClicked event', () {
     blocTest<SettingsBloc, SettingsState>(
-      'should emit proper states',
+      'should push configure station screen',
       build: () => bloc,
       act: (bloc) => bloc.add(const ConfigureWifiClicked()),
       expect: <SettingsState>[
@@ -61,7 +61,7 @@ void main() {
 
   group('on AboutAppClicked event', () {
     blocTest<SettingsBloc, SettingsState>(
-      'should emit proper states',
+      'should push about app screen',
       build: () => bloc,
       act: (bloc) => bloc.add(const AboutAppClicked()),
       expect: <SettingsState>[

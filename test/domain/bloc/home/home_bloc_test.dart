@@ -22,7 +22,7 @@ void main() {
 
   group('on BottomNavigationClicked event', () {
     blocTest<HomeBloc, HomeState>(
-        'should fetch current weather from repository',
+        'should emit state for change page',
         build: () => bloc,
         act: (bloc) => bloc.add(const BottomNavigationClicked(3)),
         expect: <HomeState>[
