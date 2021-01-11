@@ -1,0 +1,4 @@
+enum ConnectToWifiResultModel {
+  connected,
+  error,
+}

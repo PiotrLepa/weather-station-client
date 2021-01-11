@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "147195645602",
+    "firebase_url": "https://weather-station-714d9.firebaseio.com",
+    "project_id": "weather-station-714d9",
+    "storage_bucket": "weather-station-714d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147195645602:android:e8474395230d483e5851fb",
+        "android_client_info": {
+          "package_name": "com.piotr.weather_station"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147195645602-b311sui8lv5kjd8q9ebi7bbd6hru1nmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOb2vyzUHMGe6alz-SsGohEX-pIPavYvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147195645602-b311sui8lv5kjd8q9ebi7bbd6hru1nmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
