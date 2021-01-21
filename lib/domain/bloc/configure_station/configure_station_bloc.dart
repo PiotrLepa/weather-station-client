@@ -117,10 +117,10 @@ class ConfigureStationBloc
       },
       onSuccess: (result) {
         emit(const Pop()); // dismiss connecting dialog
+        emit(const Nothing());
 
         result.map(
           connected: (_) {
-            emit(const Pop());
             _flushbarHelper.showSuccess(
               message: Strings.connectStationToWifiSuccess,
             );
@@ -134,6 +134,7 @@ class ConfigureStationBloc
       },
       onError: (error, _) {
         emit(const Pop()); // dismiss connecting dialog
+        emit(const Nothing());
 
         final message = _translateStationException(error);
         if (message != null) {

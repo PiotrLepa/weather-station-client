@@ -55,6 +55,7 @@ void main() {
       act: (bloc) => bloc.add(const ConfigureWifiClicked()),
       expect: <SettingsState>[
         const PushConfigureStationScreen(),
+        const Nothing(),
       ],
     );
   });
@@ -66,6 +67,7 @@ void main() {
       act: (bloc) => bloc.add(const AboutAppClicked()),
       expect: <SettingsState>[
         const PushAboutAppScreen(),
+        const Nothing(),
       ],
     );
   });

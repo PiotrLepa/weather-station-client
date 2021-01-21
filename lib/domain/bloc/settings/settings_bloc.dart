@@ -44,12 +44,14 @@ class SettingsBloc extends CustomBloc<SettingsEvent, SettingsState> {
     ConfigureWifiClicked event,
   ) async {
     emit(const PushConfigureStationScreen());
+    emit(const Nothing());
   }
 
   Future<void> _mapAboutAppClicked(
     AboutAppClicked event,
   ) async {
     emit(const PushAboutAppScreen());
+    emit(const Nothing());
   }
 
   Future<void> _mapPushNotificationsSwitchChanged(

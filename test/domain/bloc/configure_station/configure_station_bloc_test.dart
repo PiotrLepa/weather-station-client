@@ -158,6 +158,7 @@ void main() {
         const ShowConnectingToWifiDialog(),
         const Nothing(),
         const Pop(),
+        const Nothing(),
       ],
     );
 

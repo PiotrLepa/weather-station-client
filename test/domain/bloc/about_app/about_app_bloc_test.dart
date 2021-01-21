@@ -56,6 +56,7 @@ void main() {
           title: Strings.aboutAppIconsItem,
           licenses: iconsLicenses,
         ),
+        const Nothing(),
       ],
     );
   });
@@ -78,6 +79,7 @@ void main() {
           title: Strings.aboutAppPackagesItem,
           licenses: packagesLicenses,
         ),
+        const Nothing(),
       ],
     );
   });

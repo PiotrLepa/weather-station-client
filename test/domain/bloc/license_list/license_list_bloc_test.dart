@@ -37,6 +37,7 @@ void main() {
       act: (bloc) => bloc.add(const LicenseClicked(license)),
       expect: <LicenseListState>[
         const LicenseListState.pushLicenseDetails(license: license),
+        const Nothing(),
       ],
     );
 

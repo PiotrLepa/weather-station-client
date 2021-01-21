@@ -36,6 +36,7 @@ class AboutAppBloc extends CustomBloc<AboutAppEvent, AboutAppState> {
       title: Strings.aboutAppIconsItem,
       licenses: licenses,
     ));
+    emit(const Nothing());
   }
 
   Future<void> _mapPackagesClicked(
@@ -46,5 +47,6 @@ class AboutAppBloc extends CustomBloc<AboutAppEvent, AboutAppState> {
       title: Strings.aboutAppPackagesItem,
       licenses: licenses,
     ));
+    emit(const Nothing());
   }
 }
