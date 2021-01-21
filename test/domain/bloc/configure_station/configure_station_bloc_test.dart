@@ -146,16 +146,18 @@ void main() {
 
   group('on WifiSelected event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
-      'should show connecting dialog',
+      'should emit proper states if wifi is open and connected successfully',
       build: () => bloc,
       act: (bloc) {
         when(mockStationConfigurator.sendWifiCredentials(any))
             .thenAnswer((_) async => const ConnectToWifiResult.connected());
 
-        bloc.add(const WifiSelected(openWifi));
+        bloc.add(const PasswordInserted(securedWifiCredentials));
       },
       expect: <ConfigureStationState>[
         const ShowConnectingToWifiDialog(),
+        const Nothing(),
+        const Pop(),
         const Nothing(),
         const Pop(),
         const Nothing(),
@@ -171,11 +173,29 @@ void main() {
 
         bloc.add(const WifiSelected(openWifi));
       },
+      wait: const Duration(milliseconds: 100),
       verify: (bloc) {
         verify(mockFlushbarHelper.showSuccess(
           message: Strings.connectStationToWifiSuccess,
         )).called(1);
       },
+    );
+
+    blocTest<ConfigureStationBloc, ConfigureStationState>(
+      'should emit proper states if wifi is open and failed to connect',
+      build: () => bloc,
+      act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.error());
+
+        bloc.add(const PasswordInserted(securedWifiCredentials));
+      },
+      expect: <ConfigureStationState>[
+        const ShowConnectingToWifiDialog(),
+        const Nothing(),
+        const Pop(),
+        const Nothing(),
+      ],
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
@@ -187,6 +207,7 @@ void main() {
 
         bloc.add(const WifiSelected(openWifi));
       },
+      wait: const Duration(milliseconds: 100),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
           message: Strings.connectStationToWifiError,
@@ -207,6 +228,25 @@ void main() {
 
   group('on PasswordInserted event', () {
     blocTest<ConfigureStationBloc, ConfigureStationState>(
+      'should emit proper states if wifi is secured and connected successfully',
+      build: () => bloc,
+      act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.connected());
+
+        bloc.add(const PasswordInserted(securedWifiCredentials));
+      },
+      expect: <ConfigureStationState>[
+        const ShowConnectingToWifiDialog(),
+        const Nothing(),
+        const Pop(),
+        const Nothing(),
+        const Pop(),
+        const Nothing(),
+      ],
+    );
+
+    blocTest<ConfigureStationBloc, ConfigureStationState>(
       'should show success flushbar if wifi is secured and connected successfully',
       build: () => bloc,
       act: (bloc) {
@@ -215,11 +255,29 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
+      wait: const Duration(milliseconds: 100),
       verify: (bloc) {
         verify(mockFlushbarHelper.showSuccess(
           message: Strings.connectStationToWifiSuccess,
         )).called(1);
       },
+    );
+
+    blocTest<ConfigureStationBloc, ConfigureStationState>(
+      'should emit proper states if wifi is secured and failed to connect',
+      build: () => bloc,
+      act: (bloc) {
+        when(mockStationConfigurator.sendWifiCredentials(any))
+            .thenAnswer((_) async => const ConnectToWifiResult.error());
+
+        bloc.add(const PasswordInserted(securedWifiCredentials));
+      },
+      expect: <ConfigureStationState>[
+        const ShowConnectingToWifiDialog(),
+        const Nothing(),
+        const Pop(),
+        const Nothing(),
+      ],
     );
 
     blocTest<ConfigureStationBloc, ConfigureStationState>(
@@ -231,6 +289,7 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
+      wait: const Duration(milliseconds: 100),
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
           message: Strings.connectStationToWifiError,
