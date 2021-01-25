@@ -39,7 +39,6 @@ class StationConfigurator {
         .then(
       (connectionResult) async {
         final result = connectionResult
-            .handleError((Object e) => Future<ConnectToWifiResult>.error(e))
             .first;
 
         // give time to start observe connect to wifi result
