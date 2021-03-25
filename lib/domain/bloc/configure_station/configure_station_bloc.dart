@@ -115,26 +115,32 @@ class ConfigureStationBloc
         emit(const ShowConnectingToWifiDialog());
         emit(const Nothing());
       },
-      onSuccess: (result) {
+      onSuccess: (result) async {
         emit(const Pop()); // dismiss connecting dialog
+        emit(const Nothing());
 
         result.map(
-          connected: (_) {
-            emit(const Pop());
+          connected: (_) async {
+            emit(const Pop()); // pop back
+            emit(const Nothing());
+            await Future<void>.delayed(const Duration(milliseconds: 100));
             _flushbarHelper.showSuccess(
               message: Strings.connectStationToWifiSuccess,
             );
           },
-          error: (_) {
+          error: (_) async {
+            await Future<void>.delayed(const Duration(milliseconds: 100));
             _flushbarHelper.showError(
               message: Strings.connectStationToWifiError,
             );
           },
         );
       },
-      onError: (error, _) {
+      onError: (error, _) async {
         emit(const Pop()); // dismiss connecting dialog
+        emit(const Nothing());
 
+        await Future<void>.delayed(const Duration(milliseconds: 100));
         final message = _translateStationException(error);
         if (message != null) {
           _flushbarHelper.showError(message: message);

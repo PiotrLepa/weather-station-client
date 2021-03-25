@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:weather_station/core/data/network/error_handler/ble_error_handler.dart';
 import 'package:weather_station/data/converter/entity/connect_to_wifi_converter.dart';
 import 'package:weather_station/data/converter/entity/wifi_converter.dart';
 import 'package:weather_station/data/service/ble_service.dart';
 import 'package:weather_station/domain/entity/connect_to_wifi_result/connect_to_wifi_result.dart';
-import 'package:weather_station/domain/entity/station_exception/station_exception.dart';
 import 'package:weather_station/domain/entity/wifi/wifi.dart';
 import 'package:weather_station/domain/entity/wifi_credentials/wifi_credentials.dart';
 import 'package:weather_station/domain/repository/station_repository.dart';
@@ -34,7 +34,7 @@ class StationRepositoryImpl extends StationRepository {
 
   @override
   Future<Peripheral> connect() {
-    return _bleService.connect(_deviceName).catchError(_handleFutureError);
+    return _bleService.connect(_deviceName).handleBleError();
   }
 
   @override
@@ -45,7 +45,7 @@ class StationRepositoryImpl extends StationRepository {
           serviceUuid: _service,
           characteristicUuid: _startScanCharacteristic,
         )
-        .catchError(_handleFutureError);
+        .handleBleError();
 
     yield* _bleService
         .observeWifiList(
@@ -54,7 +54,7 @@ class StationRepositoryImpl extends StationRepository {
           characteristicUuid: _wifiListCharacteristic,
         )
         .map((wifiList) => wifiList.map(_wifiEntityConverter.toEntity))
-        .handleError((Object e) => throw _mapError(e));
+        .mapAndRethrowBleError();
   }
 
   @override
@@ -67,7 +67,7 @@ class StationRepositoryImpl extends StationRepository {
           characteristicUuid: _connectToWifiResultCharacteristic,
         )
         .map(_connectToWifiConverter.toEntity)
-        .handleError((Object e) => throw _mapError(e));
+        .mapAndRethrowBleError();
   }
 
   @override
@@ -82,38 +82,16 @@ class StationRepositoryImpl extends StationRepository {
           serviceUuid: _service,
           characteristicUuid: _wifiListCharacteristic,
         )
-        .catchError(_handleFutureError);
+        .handleBleError();
   }
 
   @override
   Future<void> disconnectAndCancelOperations(Peripheral device) {
-    return _bleService
-        .disconnectAndCancelOperations(device)
-        .catchError(_handleFutureError);
+    return _bleService.disconnectAndCancelOperations(device).handleBleError();
   }
 
   @override
   Future<void> close(Peripheral device) {
-    return _bleService.close(device).catchError(_handleFutureError);
-  }
-
-  Future<StationException> _handleFutureError(Object error) {
-    return Future<StationException>.error(_mapError(error));
-  }
-
-  StationException _mapError(Object error) {
-    if (error is StationException) {
-      return error;
-    }
-    if (error is! BleError) {
-      return const StationException.unknown();
-    }
-    final mappedError = error as BleError;
-    switch (mappedError.errorCode.value) {
-      case BleErrorCode.operationCancelled:
-        return const StationException.cancelled();
-      default:
-        return const StationException.unknown();
-    }
+    return _bleService.close(device).handleBleError();
   }
 }

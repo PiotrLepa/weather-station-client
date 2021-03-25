@@ -38,7 +38,8 @@ class StationConfigurator {
         .then((_) => _stationRepository.observeConnectToWifiResult(_device))
         .then(
       (connectionResult) async {
-        final result = connectionResult.first;
+        final result = connectionResult
+            .first;
 
         // give time to start observe connect to wifi result
         await Future<void>.delayed(const Duration(seconds: 1)).then((_) =>

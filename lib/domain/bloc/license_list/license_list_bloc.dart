@@ -27,6 +27,7 @@ class LicenseListBloc extends CustomBloc<LicenseListEvent, LicenseListState> {
   ) async {
     if (event.item.details != null) {
       emit(PushLicenseDetails(license: event.item));
+      emit(const Nothing());
     }
   }
 

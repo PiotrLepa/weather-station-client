@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
-import 'package:weather_station/core/data/network/network_error_handler.dart';
+import 'package:weather_station/core/data/network/error_handler/api_error_handler.dart';
 import 'package:weather_station/core/presentation/date_time/date_time_formatter.dart';
 import 'package:weather_station/data/converter/entity/available_days_converter.dart';
 import 'package:weather_station/data/converter/entity/hourly_weather_converter.dart';
@@ -30,22 +30,19 @@ class WeatherRepositoryImpl extends WeatherRepository {
   );
 
   @override
-  Future<Weather> fetchCurrentWeather() =>
-      _service
+  Future<Weather> fetchCurrentWeather() => _service
       .fetchCurrentWeather()
       .then(_weatherConverter.toEntity)
       .handleApiError();
 
   @override
-  Future<AvailableDays> fetchAvailableDays() =>
-      _service
+  Future<AvailableDays> fetchAvailableDays() => _service
       .fetchAvailableDays()
       .then(_availableDaysConverter.toEntity)
       .handleApiError();
 
   @override
-  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) =>
-      _service
+  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) => _service
       .fetchHourlyWeather(
         _dateFormatter.format(day, DateTimeFormatter.networkDatePattern),
         DateTime.now().timeZoneName,
