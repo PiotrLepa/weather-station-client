@@ -69,6 +69,7 @@ extension ApiErrorHandlerFutureExtension<T> on Future<T> {
   Future<T> handleApiError() {
     final errorHandler = getIt<ApiErrorHandler>();
     return catchError(
-        (dynamic e, StackTrace s) => errorHandler.handleError<T>(e, s));
+      (dynamic e, StackTrace s) => errorHandler.handleError<T>(e, s),
+    );
   }
 }

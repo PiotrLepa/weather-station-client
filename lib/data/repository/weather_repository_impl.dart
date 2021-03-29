@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/data/network/error_handler/api_error_handler.dart';
@@ -42,11 +43,12 @@ class WeatherRepositoryImpl extends WeatherRepository {
       .handleApiError();
 
   @override
-  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) => _service
-      .fetchHourlyWeather(
-        _dateFormatter.format(day, DateTimeFormatter.networkDatePattern),
-        DateTime.now().timeZoneName,
-      )
-      .then((list) => list.map(_hourlyWeatherConverter.toEntity))
-      .handleApiError();
+  Future<KtList<HourlyWeather>> fetchHourlyWeather(DateTime day) async =>
+      _service
+          .fetchHourlyWeather(
+            _dateFormatter.format(day, DateTimeFormatter.networkDatePattern),
+            await FlutterNativeTimezone.getLocalTimezone(),
+          )
+          .then((list) => list.map(_hourlyWeatherConverter.toEntity))
+          .handleApiError();
 }
