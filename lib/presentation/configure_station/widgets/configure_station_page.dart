@@ -28,7 +28,7 @@ class ConfigureStationPage extends StatelessWidget {
             _showConnectingToWifiDialog(context);
           },
           pop: (_) {
-            appNavigator.pop();
+            context.router.pop();
           },
           orElse: () {},
         );

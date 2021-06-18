@@ -9,9 +9,9 @@ class TemperaturePainter extends LineChartPainter<int, double> {
   final KtList<int> timeSpots;
 
   TemperaturePainter({
-    @required this.tempSpots,
-    @required this.timeSpots,
-    @required String unit,
+    required this.tempSpots,
+    required this.timeSpots,
+    required String unit,
   }) : super(
           xSpots: timeSpots,
           ySpots: tempSpots,

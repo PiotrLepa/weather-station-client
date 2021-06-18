@@ -1,7 +1,7 @@
 import 'package:auto_localized/auto_localized.dart';
 import 'package:weather_station/core/presentation/validation/validator.dart';
 
-typedef ValidatorFunction = PlainLocalizedString Function(String value);
+typedef ValidatorFunction = PlainLocalizedString? Function(String value);
 
 // ignore: avoid_classes_with_only_static_members
 class Validators {

@@ -9,8 +9,8 @@ class RainCard extends StatelessWidget {
   final double rainGauge;
 
   const RainCard({
-    Key key,
-    @required this.rainGauge,
+    Key? key,
+    required this.rainGauge,
   }) : super(key: key);
 
   @override

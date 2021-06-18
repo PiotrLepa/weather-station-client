@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
   SvgPicture _getBottomNavIcon(
     BuildContext context,
     String path, {
-    @required bool isActive,
+    required bool isActive,
   }) {
     return SvgPicture.asset(
       path,

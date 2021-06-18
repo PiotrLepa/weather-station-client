@@ -11,8 +11,8 @@ class CurrentWeatherCards extends StatelessWidget {
   final Weather weather;
 
   const CurrentWeatherCards({
-    Key key,
-    this.weather,
+    Key? key,
+    required this.weather,
   }) : super(key: key);
 
   @override

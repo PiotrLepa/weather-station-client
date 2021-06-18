@@ -9,9 +9,9 @@ class HumidityPainter extends LineChartPainter<int, double> {
   final KtList<int> timeSpots;
 
   HumidityPainter({
-    @required this.humiditySpots,
-    @required this.timeSpots,
-    @required String unit,
+    required this.humiditySpots,
+    required this.timeSpots,
+    required String unit,
   }) : super(
           xSpots: timeSpots,
           ySpots: humiditySpots,

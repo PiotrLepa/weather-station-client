@@ -10,8 +10,8 @@ class LicenseDetailsScreen extends StatelessWidget {
   final License license;
 
   const LicenseDetailsScreen({
-    Key key,
-    @required this.license,
+    Key? key,
+    required this.license,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class LicenseDetailsScreen extends StatelessWidget {
           builder: (context, state) {
             return state.map(
               renderPage: (_) {
-                return LicenseDetailsPage(content: license.details);
+                return LicenseDetailsPage(content: license.details!);
               },
             );
           },

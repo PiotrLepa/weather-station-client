@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/enum_helper.dart';
-import 'package:weather_station/core/common/logger/logger.dart';
 import 'package:weather_station/data/model/fcm_message/fcm_message_model.dart';
 import 'package:weather_station/data/model/fcm_message_type/fcm_message_type_model.dart';
 import 'package:weather_station/data/model/notification/notification_model.dart';
@@ -12,7 +11,7 @@ import 'package:weather_station/data/model/notification/notification_model.dart'
 class FcmService {
   final FirebaseMessaging _firebaseMessaging;
 
-  Stream<FcmMessageModel> _messages;
+  late Stream<FcmMessageModel> _messages; // TODO remove lazy?
 
   FcmService(this._firebaseMessaging) {
     _messages = _getMessages();
@@ -32,20 +31,23 @@ class FcmService {
   Stream<FcmMessageModel> _getMessages() {
     final controller = StreamController<FcmMessageModel>();
 
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        logger.d('on message $message');
-        controller.add(FcmMessageModel.customFromJson(message));
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        logger.d('on launch $message');
-        controller.add(FcmMessageModel.customFromJson(message));
-      },
-      onResume: (Map<String, dynamic> message) async {
-        logger.d('on launch $message');
-        controller.add(FcmMessageModel.customFromJson(message));
-      },
-    );
+    // TODO update to new version
+    // https://pub.dev/packages/firebase_messaging/changelog#800-dev1
+
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     logger.d('on message $message');
+    //     controller.add(FcmMessageModel.customFromJson(message));
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     logger.d('on launch $message');
+    //     controller.add(FcmMessageModel.customFromJson(message));
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     logger.d('on launch $message');
+    //     controller.add(FcmMessageModel.customFromJson(message));
+    //   },
+    // );
 
     return controller.stream;
   }

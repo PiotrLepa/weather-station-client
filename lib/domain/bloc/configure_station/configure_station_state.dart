@@ -1,9 +1,7 @@
 part of 'configure_station_bloc.dart';
 
 @freezed
-abstract class ConfigureStationState
-    with _$ConfigureStationState
-    implements BlocState {
+class ConfigureStationState with _$ConfigureStationState implements BlocState {
   const factory ConfigureStationState.nothing() = Nothing;
 
   const factory ConfigureStationState.connecting() = Connecting;
@@ -12,8 +10,8 @@ abstract class ConfigureStationState
       RenderWifiList;
 
   const factory ConfigureStationState.renderError({
-    @required PlainLocalizedString message,
-    @required bool loading,
+    required PlainLocalizedString message,
+    required bool loading,
   }) = RenderError;
 
   const factory ConfigureStationState.showWifiPasswordInputDialog(Wifi wifi) =

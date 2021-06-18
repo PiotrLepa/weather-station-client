@@ -4,17 +4,17 @@ import 'package:weather_station/core/presentation/language/strings.al.dart';
 
 class ProgressButton extends StatelessWidget {
   final PlainLocalizedString text;
-  final TextStyle textStyle;
-  final Color backgroundColor;
-  final Color progressColor;
+  final TextStyle? textStyle;
+  final Color? progressColor;
+  final Color? backgroundColor;
   final bool loading;
   final VoidCallback onPressed;
 
   const ProgressButton({
-    Key key,
-    @required this.text,
-    @required this.onPressed,
-    @required this.loading,
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    required this.loading,
     this.textStyle,
     this.progressColor,
     this.backgroundColor,
@@ -46,7 +46,7 @@ class ProgressButton extends StatelessWidget {
               child: CircularProgressIndicator(
                 strokeWidth: 3,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  _getProgressColor(),
+                  _getProgressColor(context),
                 ),
               ),
             ),
@@ -56,11 +56,13 @@ class ProgressButton extends StatelessWidget {
     );
   }
 
-  Color _getProgressColor() {
+  Color _getProgressColor(BuildContext context) {
     if (backgroundColor == null) {
       return progressColor ?? textStyle?.color ?? Colors.white;
     } else {
-      return progressColor ?? textStyle?.color; // else default progress color
+      return progressColor ??
+          textStyle?.color ??
+          Theme.of(context).accentColor; //TODO changer default color
     }
   }
 }

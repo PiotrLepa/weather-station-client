@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Size screenSize;
+late Size screenSize;
 
 void initializeDimens(BuildContext context) {
   final size = MediaQuery.of(context).size;

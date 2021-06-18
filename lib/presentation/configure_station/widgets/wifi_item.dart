@@ -10,8 +10,8 @@ class WifiItem extends StatelessWidget {
   final Wifi item;
 
   const WifiItem({
-    Key key,
-    @required this.item,
+    Key? key,
+    required this.item,
   }) : super(key: key);
 
   @override

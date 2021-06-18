@@ -9,7 +9,7 @@ class ErrorTranslator {
   PlainLocalizedString translate(Exception exception) {
     if (exception is ApiException) {
       if (exception.printableMessage != null) {
-        return exception.printableMessage.toLocalized();
+        return exception.printableMessage!.toLocalized();
       }
       return exception.map(
         noConnection: (_) => Strings.apiErrorNoConnection,

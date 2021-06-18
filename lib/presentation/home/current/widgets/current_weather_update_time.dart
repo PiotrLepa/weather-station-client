@@ -15,9 +15,9 @@ class CurrentWeatherUpdateTime extends StatefulWidget {
   final bool refreshLoading;
 
   const CurrentWeatherUpdateTime({
-    Key key,
-    @required this.lastUpdateTime,
-    @required this.refreshLoading,
+    Key? key,
+    required this.lastUpdateTime,
+    required this.refreshLoading,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class CurrentWeatherUpdateTime extends StatefulWidget {
 class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
   final _updateTimeFormatter = getIt<UpdateTimeFormatter>();
 
-  Timer _timer;
+  late Timer _timer;
 
   @override
   void initState() {

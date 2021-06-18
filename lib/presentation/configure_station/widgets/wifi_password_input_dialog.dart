@@ -12,8 +12,8 @@ class WifiPasswordInputDialog extends StatefulWidget {
   final Wifi wifi;
 
   const WifiPasswordInputDialog({
-    Key key,
-    @required this.wifi,
+    Key? key,
+    required this.wifi,
   }) : super(key: key);
 
   @override
@@ -42,17 +42,21 @@ class _WifiPasswordInputDialogState extends State<WifiPasswordInputDialog> {
       actions: <Widget>[
         FlatButton(
           onPressed: () {
-            appNavigator.pop();
+            context.router.pop();
           },
           child: Text(Strings.dialogCancel.get(context)),
         ),
         FlatButton(
           onPressed: () {
-            if (_passwordFormKey.currentState.validate()) {
-              appNavigator.pop();
+            final state = _passwordFormKey.currentState;
+            if (state == null) {
+              return;
+            }
+            if (state.validate()) {
+              context.router.pop();
               final credentials = WifiCredentials(
                 name: widget.wifi.name,
-                password: _passwordFormKey.currentState.value,
+                password: state.value,
               );
               context
                   .read<ConfigureStationBloc>()

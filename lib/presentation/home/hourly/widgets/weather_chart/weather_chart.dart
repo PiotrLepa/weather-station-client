@@ -11,8 +11,8 @@ class WeatherChart extends StatelessWidget {
   final KtList<HourlyWeather> weathers;
 
   const WeatherChart({
-    Key key,
-    @required this.weathers,
+    Key? key,
+    required this.weathers,
   }) : super(key: key);
 
   @override

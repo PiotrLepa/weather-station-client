@@ -11,11 +11,11 @@ import 'package:weather_station/gen/assets.gen.dart';
 // ignore: must_be_immutable
 class NotificationFlushbar extends AppFlushbar {
   NotificationFlushbar({
-    Key key,
-    @required BuildContext context,
-    @required PlainLocalizedString message,
-    @required VoidCallback onDismiss,
-    PlainLocalizedString title,
+    Key? key,
+    required BuildContext context,
+    required PlainLocalizedString message,
+    required VoidCallback onDismiss,
+    PlainLocalizedString? title,
   }) : super(
           key: key,
           title: Text(

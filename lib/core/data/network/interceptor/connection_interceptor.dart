@@ -10,13 +10,14 @@ class ConnectionInterceptor extends InterceptorsWrapper {
   ConnectionInterceptor(this._dataConnectionChecker);
 
   @override
-  Future onRequest(RequestOptions options) async {
+  Future<void> onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     final hasConnection = await _dataConnectionChecker.hasConnection;
 
     if (!hasConnection) {
       throw const NoConnection();
     }
 
-    return super.onRequest(options);
+    super.onRequest(options, handler);
   }
 }

@@ -12,7 +12,7 @@ class MaxWindSpeedPainter extends CustomPainter {
     fontSize: 14,
   );
   static final _containerPaint = Paint()
-    ..color = Colors.grey[300]
+    ..color = Colors.grey.shade300
     ..style = PaintingStyle.fill;
 
   final _pixelCalculator = ChartPixelCalculator<double>();
@@ -24,19 +24,19 @@ class MaxWindSpeedPainter extends CustomPainter {
   final String weakWindText;
 
   MaxWindSpeedPainter({
-    @required this.speedSpots,
-    @required this.timeSpots,
-    @required this.strongWindText,
-    @required this.moderateWindText,
-    @required this.weakWindText,
+    required this.speedSpots,
+    required this.timeSpots,
+    required this.strongWindText,
+    required this.moderateWindText,
+    required this.weakWindText,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minY: speedSpots.min(),
-      maxY: speedSpots.max(),
+      minY: speedSpots.min()!,
+      maxY: speedSpots.max()!,
     );
     _drawContainer(canvas, size);
     _drawText(canvas, size);

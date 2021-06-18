@@ -5,17 +5,17 @@ import 'package:flutter/widgets.dart';
 // ignore: must_be_immutable
 class AppFlushbar extends Flushbar<void> {
   AppFlushbar({
-    Key key,
-    @required Widget title,
-    @required Widget message,
-    @required VoidCallback onDismiss,
-    Color backgroundColor,
-    Widget icon,
-    FlatButton mainButton,
+    Key? key,
+    required Widget title,
+    required Widget message,
+    required VoidCallback onDismiss,
+    Color? backgroundColor,
+    Widget? icon,
+    FlatButton? mainButton,
     FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM,
     Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
-    List<BoxShadow> boxShadows,
+    List<BoxShadow>? boxShadows,
   }) : super(
           key: key,
           titleText: title,

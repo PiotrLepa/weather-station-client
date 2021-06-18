@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'signal_strength.freezed.dart';
 
 @freezed
-abstract class SignalStrength with _$SignalStrength {
+class SignalStrength with _$SignalStrength {
   const factory SignalStrength.excellent() = Excellent;
 
   const factory SignalStrength.strong() = Strong;

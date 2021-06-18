@@ -13,13 +13,13 @@ class PermissionInfoDialog extends StatelessWidget {
       actions: <Widget>[
         FlatButton(
           onPressed: () {
-            appNavigator.pop();
+            context.router.pop();
           },
           child: Text(Strings.dialogCancel.get(context)),
         ),
         FlatButton(
           onPressed: () {
-            appNavigator.pop();
+            context.router.pop();
             context
                 .read<ConfigureStationBloc>()
                 .add(const PermissionDialogPositiveClicked());

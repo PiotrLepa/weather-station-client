@@ -16,10 +16,10 @@ class HourlyWeatherHeader extends StatelessWidget {
   final bool changeDayLoading;
 
   const HourlyWeatherHeader({
-    Key key,
-    @required this.day,
-    @required this.availableDays,
-    @required this.changeDayLoading,
+    Key? key,
+    required this.day,
+    required this.availableDays,
+    required this.changeDayLoading,
   }) : super(key: key);
 
   @override

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -31,18 +30,18 @@ class BleService {
   }
 
   Future<CharacteristicWithValue> readCharacteristic({
-    @required Peripheral device,
-    @required String serviceUuid,
-    @required String characteristicUuid,
+    required Peripheral device,
+    required String serviceUuid,
+    required String characteristicUuid,
   }) {
     return device.readCharacteristic(serviceUuid, characteristicUuid);
   }
 
   Future<Characteristic> writeCharacteristic({
-    @required String value,
-    @required Peripheral device,
-    @required String serviceUuid,
-    @required String characteristicUuid,
+    required String value,
+    required Peripheral device,
+    required String serviceUuid,
+    required String characteristicUuid,
   }) {
     return device.writeCharacteristic(
       serviceUuid,
@@ -53,11 +52,11 @@ class BleService {
   }
 
   Stream<KtList<WifiModel>> observeWifiList({
-    @required Peripheral device,
-    @required String serviceUuid,
-    @required String characteristicUuid,
+    required Peripheral device,
+    required String serviceUuid,
+    required String characteristicUuid,
   }) {
-    String resultJson;
+    var resultJson = '';
 
     final transformer =
         StreamTransformer<String, KtList<WifiModel>>.fromHandlers(
@@ -81,9 +80,9 @@ class BleService {
   }
 
   Stream<ConnectToWifiResultModel> observeConnectToWifiResult({
-    @required Peripheral device,
-    @required String serviceUuid,
-    @required String characteristicUuid,
+    required Peripheral device,
+    required String serviceUuid,
+    required String characteristicUuid,
   }) {
     return device
         .monitorCharacteristic(serviceUuid, characteristicUuid)
@@ -129,7 +128,7 @@ class BleService {
 
   Future<Peripheral> _scanForDevice(String deviceName) {
     final completer = Completer<Peripheral>();
-    StreamSubscription<ScanResult> scan;
+    late StreamSubscription<ScanResult> scan;
     scan =
         _bleManager.startPeripheralScan(scanMode: ScanMode.lowLatency).listen(
       (ScanResult scanResult) async {

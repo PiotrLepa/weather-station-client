@@ -15,7 +15,7 @@ import 'package:weather_station/domain/repository/station_repository.dart';
 class StationConfigurator {
   final StationRepository _stationRepository;
 
-  Peripheral _device;
+  late Peripheral _device; // TODO delete late
 
   StationConfigurator(this._stationRepository);
 
@@ -38,8 +38,7 @@ class StationConfigurator {
         .then((_) => _stationRepository.observeConnectToWifiResult(_device))
         .then(
       (connectionResult) async {
-        final result = connectionResult
-            .first;
+        final result = connectionResult.first;
 
         // give time to start observe connect to wifi result
         await Future<void>.delayed(const Duration(seconds: 1)).then((_) =>
@@ -56,6 +55,7 @@ class StationConfigurator {
   }
 
   Future<void> _connectIfDisconnected() async {
+    // FIXME access to not initialized _device property
     final isConnected = _device != null && await _device.isConnected();
     if (!isConnected) {
       await connect();

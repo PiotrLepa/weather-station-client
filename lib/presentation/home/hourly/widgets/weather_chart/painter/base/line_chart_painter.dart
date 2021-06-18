@@ -20,16 +20,16 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   final KtList<X> xSpots;
   final KtList<Y> ySpots;
   final Color lineColor;
-  final Color dotBorderColor;
-  final Color dotFillColor;
+  final Color? dotBorderColor;
+  final Color? dotFillColor;
   final String unit;
   final int topOffset;
   final int bottomOffset;
 
   LineChartPainter({
-    @required this.ySpots,
-    @required this.xSpots,
-    @required this.lineColor,
+    required this.ySpots,
+    required this.xSpots,
+    required this.lineColor,
     this.dotBorderColor,
     this.dotFillColor,
     this.unit = '',
@@ -45,8 +45,8 @@ class LineChartPainter<X extends num, Y extends num> extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minY: ySpots.min(),
-      maxY: ySpots.max(),
+      minY: ySpots.min()!,
+      maxY: ySpots.max()!,
       topOffSet: topOffset,
       bottomOffSet: bottomOffset,
     );

@@ -1,15 +1,14 @@
 import 'package:auto_localized/auto_localized.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:weather_station/core/common/logger/logger.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
 import 'package:weather_station/core/domain/error/error_translator.dart';
 import 'package:weather_station/core/injection/injection.dart';
 
 Future<void> wrapCall<T>({
-  @required Future<T> call,
-  void Function() onProgress,
-  void Function(T) onSuccess,
-  void Function(Exception, PlainLocalizedString) onError,
+  required Future<T> call,
+  void Function()? onProgress,
+  void Function(T)? onSuccess,
+  void Function(Exception, PlainLocalizedString)? onError,
 }) async {
   try {
     onProgress?.call();
@@ -27,33 +26,33 @@ Future<void> wrapCall<T>({
 }
 
 Future<void> wrapPagedCall<T>({
-  @required Future<T> call,
-  @required int page,
-  void Function() onInitialProgress,
-  void Function(T) onInitialSuccess,
-  void Function(PlainLocalizedString) onInitialError,
-  void Function() onAdditionalProgress,
-  void Function(T) onAdditionalSuccess,
-  void Function(PlainLocalizedString) onAdditionalError,
+  required Future<T> call,
+  required int page,
+  void Function()? onInitialProgress,
+  void Function(T)? onInitialSuccess,
+  void Function(PlainLocalizedString)? onInitialError,
+  void Function()? onAdditionalProgress,
+  void Function(T)? onAdditionalSuccess,
+  void Function(PlainLocalizedString)? onAdditionalError,
 }) async {
   try {
     if (page == 0) {
-      onInitialProgress();
+      onInitialProgress?.call();
     } else {
-      onAdditionalProgress();
+      onAdditionalProgress?.call();
     }
     final result = await call;
     if (page == 0) {
-      onInitialSuccess(result);
+      onInitialSuccess?.call(result);
     } else {
-      onAdditionalSuccess(result);
+      onAdditionalSuccess?.call(result);
     }
   } on ApiException catch (e) {
     final errorMessage = getIt.get<ErrorTranslator>().translate(e);
     if (page == 0) {
-      onInitialError(errorMessage);
+      onInitialError?.call(errorMessage);
     } else {
-      onAdditionalError(errorMessage);
+      onAdditionalError?.call(errorMessage);
     }
   } catch (e, s) {
     logger.e('paged call wrapper', e, s);

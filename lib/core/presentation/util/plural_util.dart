@@ -1,16 +1,15 @@
 import 'dart:math';
 
 import 'package:auto_localized/auto_localized.dart';
-import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class PluralUtil {
   PlainLocalizedString applyPlurals({
-    @required int quantity,
-    @required PlainLocalizedString one,
-    @required PlainLocalizedString few,
-    @required PlainLocalizedString many,
+    required int quantity,
+    required PlainLocalizedString one,
+    required PlainLocalizedString few,
+    required PlainLocalizedString many,
   }) {
     final lastDigit = (quantity % 10).abs();
     if (lastDigit >= 2 && lastDigit <= 4) {
@@ -27,10 +26,10 @@ class PluralUtil {
   }
 
   PlainLocalizedString _getPluralRecursive({
-    @required int quantity,
-    @required PlainLocalizedString many,
-    @required PlainLocalizedString one,
-    @required PlainLocalizedString few,
+    required int quantity,
+    required PlainLocalizedString many,
+    required PlainLocalizedString one,
+    required PlainLocalizedString few,
   }) {
     if (quantity == 0) {
       return many;

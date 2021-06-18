@@ -11,10 +11,10 @@ class SettingsSwitchItem extends StatelessWidget {
   final void Function(bool isChecked) onSwitchChanged;
 
   const SettingsSwitchItem({
-    Key key,
-    @required this.name,
-    @required this.isChecked,
-    @required this.onSwitchChanged,
+    Key? key,
+    required this.name,
+    required this.isChecked,
+    required this.onSwitchChanged,
   }) : super(key: key);
 
   @override

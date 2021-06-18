@@ -19,7 +19,7 @@ class XAxisTitlesPainter extends CustomPainter {
   final KtList<int> xSpots;
 
   XAxisTitlesPainter({
-    @required this.xSpots,
+    required this.xSpots,
   });
 
   @override

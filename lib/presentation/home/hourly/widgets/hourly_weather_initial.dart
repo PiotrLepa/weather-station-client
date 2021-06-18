@@ -13,9 +13,9 @@ class HourlyWeatherInitial extends StatelessWidget {
   final bool selectDateLoading;
 
   const HourlyWeatherInitial({
-    Key key,
-    @required this.availableDays,
-    @required this.selectDateLoading,
+    Key? key,
+    required this.availableDays,
+    required this.selectDateLoading,
   }) : super(key: key);
 
   @override

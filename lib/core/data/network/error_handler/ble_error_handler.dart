@@ -9,15 +9,14 @@ class BleErrorHandler {
     return Future.error(mapError(error));
   }
 
-  StationException mapError(Object error) {
+  StationException mapError(dynamic error) {
     if (error is StationException) {
       return error;
     }
     if (error is! BleError) {
       return const StationException.unknown();
     }
-    final mappedError = error as BleError;
-    switch (mappedError.errorCode.value) {
+    switch (error.errorCode.value) {
       case BleErrorCode.operationCancelled:
         return const StationException.cancelled();
       default:
