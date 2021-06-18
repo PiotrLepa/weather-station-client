@@ -289,7 +289,7 @@ packages:
     source: hosted
     version: "6.1.2"
   firebase_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
@@ -363,17 +363,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.0.1"
-  flutter_gen:
-    dependency: "direct dev"
-    description:
-      name: flutter_gen
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.1"
   flutter_gen_core:
     dependency: transitive
     description:
       name: flutter_gen_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
+  flutter_gen_runner:
+    dependency: "direct dev"
+    description:
+      name: flutter_gen_runner
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"

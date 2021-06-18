@@ -14,8 +14,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDimens(context);
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -33,6 +31,10 @@ class App extends StatelessWidget {
         supportedLocales: AutoLocalizedData.supportedLocales,
         theme: ThemeProvider(isDark: false).getThemeData(),
         // darkTheme: ThemeProvider(isDark: true).getThemeData(),
+        builder: (BuildContext context, Widget? child) {
+          initializeDimens(context);
+          return child!;
+        },
       ),
     );
   }

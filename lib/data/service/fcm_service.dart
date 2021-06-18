@@ -3,52 +3,31 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/enum_helper.dart';
-import 'package:weather_station/data/model/fcm_message/fcm_message_model.dart';
 import 'package:weather_station/data/model/fcm_message_type/fcm_message_type_model.dart';
 import 'package:weather_station/data/model/notification/notification_model.dart';
 
 @lazySingleton
 class FcmService {
-  final FirebaseMessaging _firebaseMessaging;
-
-  late Stream<FcmMessageModel> _messages; // TODO remove lazy?
-
-  FcmService(this._firebaseMessaging) {
-    _messages = _getMessages();
-  }
+  final Stream<RemoteMessage> _messages = _getMessages();
 
   Stream<NotificationModel> getRainDetectedMessages() {
     return _messages
         .where(
           (event) => _filterByType(event, FcmMessageTypeModel.RAIN_DETECTED),
         )
-        .map((event) => event.notification);
+        .map(_parseNotification);
   }
 
-  bool _filterByType(FcmMessageModel model, FcmMessageTypeModel type) =>
-      model.data[fcmMessageType] == enumToString(type);
+  bool _filterByType(RemoteMessage event, FcmMessageTypeModel type) =>
+      event.data[fcmMessageType] == enumToString(type);
 
-  Stream<FcmMessageModel> _getMessages() {
-    final controller = StreamController<FcmMessageModel>();
+  static Stream<RemoteMessage> _getMessages() => FirebaseMessaging.onMessage;
 
-    // TODO update to new version
-    // https://pub.dev/packages/firebase_messaging/changelog#800-dev1
-
-    // _firebaseMessaging.configure(
-    //   onMessage: (Map<String, dynamic> message) async {
-    //     logger.d('on message $message');
-    //     controller.add(FcmMessageModel.customFromJson(message));
-    //   },
-    //   onLaunch: (Map<String, dynamic> message) async {
-    //     logger.d('on launch $message');
-    //     controller.add(FcmMessageModel.customFromJson(message));
-    //   },
-    //   onResume: (Map<String, dynamic> message) async {
-    //     logger.d('on launch $message');
-    //     controller.add(FcmMessageModel.customFromJson(message));
-    //   },
-    // );
-
-    return controller.stream;
+  static NotificationModel _parseNotification(RemoteMessage event) {
+    final notification = event.notification!;
+    return NotificationModel(
+      title: notification.title!,
+      body: notification.body!,
+    );
   }
 }
