@@ -4,7 +4,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/domain/bloc/license_details/license_details_bloc.dart';
 
 void main() {
-  LicenseDetailsBloc bloc;
+  late LicenseDetailsBloc bloc;
 
   setUpAll(() async {
     await configureInjection();

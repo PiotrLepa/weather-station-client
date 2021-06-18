@@ -21,8 +21,8 @@ final packagesLicenses = KtList.of(
 );
 
 void main() {
-  AboutAppBloc bloc;
-  MockLicenseProvider mockLicenseProvider;
+  late AboutAppBloc bloc;
+  late MockLicenseProvider mockLicenseProvider;
 
   setUpAll(() async {
     await configureInjection();
@@ -51,7 +51,7 @@ void main() {
       verify: (bloc) {
         verify(mockLicenseProvider.getIconsLicenses()).called(1);
       },
-      expect: <AboutAppState>[
+      expect: () => <AboutAppState>[
         PushLicenseListScreen(
           title: Strings.aboutAppIconsItem,
           licenses: iconsLicenses,
@@ -74,7 +74,7 @@ void main() {
       verify: (bloc) {
         verify(mockLicenseProvider.getPackagesLicenses()).called(1);
       },
-      expect: <AboutAppState>[
+      expect: () => <AboutAppState>[
         PushLicenseListScreen(
           title: Strings.aboutAppPackagesItem,
           licenses: packagesLicenses,

@@ -4,7 +4,7 @@ import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 
 void main() {
-  HomeBloc bloc;
+  late HomeBloc bloc;
 
   setUpAll(() async {
     await configureInjection();
@@ -21,12 +21,11 @@ void main() {
   );
 
   group('on BottomNavigationClicked event', () {
-    blocTest<HomeBloc, HomeState>(
-        'should emit state for change page',
+    blocTest<HomeBloc, HomeState>('should emit state for change page',
         build: () => bloc,
         act: (bloc) => bloc.add(const BottomNavigationClicked(3)),
-        expect: <HomeState>[
-          const ChangePage(3),
-        ]);
+        expect: () => <HomeState>[
+              const ChangePage(3),
+            ]);
   });
 }

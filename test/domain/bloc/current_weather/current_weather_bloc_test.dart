@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
@@ -9,9 +10,7 @@ import 'package:weather_station/domain/bloc/current_weather/current_weather_bloc
 import 'package:weather_station/domain/entity/weather/weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
-class MockWeatherRepository extends Mock implements WeatherRepository {}
-
-class MockFlushbarHelper extends Mock implements FlushbarHelper {}
+import 'current_weather_bloc_test.mocks.dart';
 
 final weather = Weather(
   temperature: 20,
@@ -27,10 +26,11 @@ final weather = Weather(
   dateTime: DateTime(2020, 8, 11),
 );
 
+@GenerateMocks([FlushbarHelper, WeatherRepository])
 void main() {
-  CurrentWeatherBloc bloc;
-  MockWeatherRepository mockWeatherRepository;
-  MockFlushbarHelper mockFlushbarHelper;
+  late CurrentWeatherBloc bloc;
+  late MockWeatherRepository mockWeatherRepository;
+  late MockFlushbarHelper mockFlushbarHelper;
 
   setUpAll(() async {
     await configureInjection();
@@ -70,7 +70,7 @@ void main() {
             .thenAnswer((_) async => weather);
         bloc.add(const PageStarted());
       },
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         const InitialLoading(),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -84,7 +84,7 @@ void main() {
             .thenAnswer((_) => Future.error(const NoConnection()));
         bloc.add(const PageStarted());
       },
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         const InitialLoading(),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],
@@ -119,7 +119,7 @@ void main() {
         await untilCalled(mockWeatherRepository.fetchCurrentWeather());
         bloc.add(const RefreshPressed());
       },
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         const InitialLoading(),
         RenderWeather(weather: currentTimeWeather, refreshLoading: false),
       ],
@@ -166,7 +166,7 @@ void main() {
         bloc.add(const RefreshPressed());
       },
       skip: 2,
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         RenderWeather(weather: obsoleteWeather, refreshLoading: true),
         RenderWeather(weather: currentTimeWeather, refreshLoading: false),
       ],
@@ -186,7 +186,7 @@ void main() {
         bloc.add(const RefreshPressed());
       },
       skip: 2,
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         RenderWeather(weather: weather, refreshLoading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -228,7 +228,7 @@ void main() {
         bloc.add(const RetryPressed());
       },
       skip: 2,
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         RenderWeather(weather: weather, refreshLoading: false),
       ],
@@ -246,7 +246,7 @@ void main() {
         bloc.add(const RetryPressed());
       },
       skip: 2,
-      expect: <CurrentWeatherState>[
+      expect: () => <CurrentWeatherState>[
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],
@@ -265,7 +265,7 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
+            message: Strings.apiErrorNoConnection))
             .called(2);
       },
     );
