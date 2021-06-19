@@ -19,7 +19,7 @@ dependencies:
   # Networking
   http: ^0.13.3
   dio: ^4.0.0
-  data_connection_checker: ^0.3.4
+  connectivity_plus: ^1.0.3
 
   # State management
   flutter_bloc: ^7.0.1
