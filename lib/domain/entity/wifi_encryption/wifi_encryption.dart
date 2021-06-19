@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'wifi_encryption.freezed.dart';
 
 @freezed
-abstract class WifiEncryption with _$WifiEncryption {
+class WifiEncryption with _$WifiEncryption {
   const factory WifiEncryption.open() = Open;
 
   const factory WifiEncryption.wep() = Wep;

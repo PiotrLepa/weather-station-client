@@ -15,10 +15,10 @@ const verticalDividerWidth = 1.0;
 const horizontalDividerWidth = 0.5;
 
 const backgroundColor = Colors.white;
-final dividerColor = Colors.grey[300];
-final airPollutionPm1Color = Colors.deepPurple[200];
-final airPollutionPm25Color = Colors.red[200];
-final airPollutionPm10Color = Colors.green[200];
+final dividerColor = Colors.grey.shade300;
+final airPollutionPm1Color = Colors.deepPurple.shade200;
+final airPollutionPm25Color = Colors.red.shade200;
+final airPollutionPm10Color = Colors.green.shade200;
 
 final heights = KtList.of(
   xAxisTitlesHeight,

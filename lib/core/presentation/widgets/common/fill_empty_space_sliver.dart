@@ -6,8 +6,8 @@ class FillEmptySpaceSliver extends LeafRenderObjectWidget {
   final double maxHeaderHeight;
 
   const FillEmptySpaceSliver({
-    @required this.minHeaderHeight,
-    @required this.maxHeaderHeight,
+    required this.minHeaderHeight,
+    required this.maxHeaderHeight,
   });
 
   @override

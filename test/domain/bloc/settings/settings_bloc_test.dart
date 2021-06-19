@@ -1,20 +1,19 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/domain/bloc/settings/settings_bloc.dart';
 import 'package:weather_station/domain/utils/notification/notification_subscriber.dart';
 
-class MockNotificationSubscriber extends Mock
-    implements NotificationSubscriber {}
+import 'settings_bloc_test.mocks.dart';
 
-class MockFlushbarHelper extends Mock implements FlushbarHelper {}
-
+@GenerateMocks([FlushbarHelper, NotificationSubscriber])
 void main() {
-  SettingsBloc bloc;
-  MockNotificationSubscriber mockNotificationSubscriber;
-  MockFlushbarHelper mockFlushbarHelper;
+  late SettingsBloc bloc;
+  late MockNotificationSubscriber mockNotificationSubscriber;
+  late MockFlushbarHelper mockFlushbarHelper;
 
   setUpAll(() async {
     await configureInjection();
@@ -42,7 +41,7 @@ void main() {
 
         bloc.add(const PageStarted());
       },
-      expect: <SettingsState>[
+      expect: () => <SettingsState>[
         const RenderItems(pushEnabled: true),
       ],
     );
@@ -53,7 +52,7 @@ void main() {
       'should push configure station screen',
       build: () => bloc,
       act: (bloc) => bloc.add(const ConfigureWifiClicked()),
-      expect: <SettingsState>[
+      expect: () => <SettingsState>[
         const PushConfigureStationScreen(),
         const Nothing(),
       ],
@@ -65,7 +64,7 @@ void main() {
       'should push about app screen',
       build: () => bloc,
       act: (bloc) => bloc.add(const AboutAppClicked()),
-      expect: <SettingsState>[
+      expect: () => <SettingsState>[
         const PushAboutAppScreen(),
         const Nothing(),
       ],

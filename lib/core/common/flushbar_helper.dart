@@ -1,6 +1,5 @@
+import 'package:another_flushbar/flushbar_route.dart' as flushbar_route;
 import 'package:auto_localized/auto_localized.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:flushbar/flushbar_route.dart' as flushbar_route;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -9,13 +8,13 @@ import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.
 import 'package:weather_station/core/presentation/widgets/flushbar/error_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/notification_flushbar.dart';
 import 'package:weather_station/core/presentation/widgets/flushbar/success_flushbar.dart';
-import 'package:weather_station/presentation/app.dart';
 
 @lazySingleton
 class FlushbarHelper {
-  BuildContext get _context => appNavigator.context;
+  BuildContext get _context => navigatorKey.currentContext!;
 
-  AppFlushbar _currentFlushbar;
+  //
+  AppFlushbar? _currentFlushbar;
 
   void dismiss() {
     _currentFlushbar?.dismiss();
@@ -23,8 +22,8 @@ class FlushbarHelper {
   }
 
   Future<void> showError({
-    @required PlainLocalizedString message,
-    PlainLocalizedString title,
+    required PlainLocalizedString message,
+    PlainLocalizedString? title,
   }) =>
       _showFlushbar(
         flushbar: ErrorFlushbar(
@@ -36,8 +35,8 @@ class FlushbarHelper {
       );
 
   Future<void> showSuccess({
-    @required PlainLocalizedString message,
-    PlainLocalizedString title,
+    required PlainLocalizedString message,
+    PlainLocalizedString? title,
   }) =>
       _showFlushbar(
         flushbar: SuccessFlushbar(
@@ -49,8 +48,8 @@ class FlushbarHelper {
       );
 
   Future<void> showNotification({
-    @required PlainLocalizedString message,
-    PlainLocalizedString title,
+    required PlainLocalizedString message,
+    PlainLocalizedString? title,
   }) =>
       _showFlushbar(
         flushbar: NotificationFlushbar(
@@ -62,11 +61,11 @@ class FlushbarHelper {
       );
 
   Future<void> show({
-    Widget title,
-    Widget message,
-    Color backgroundColor,
-    Widget icon,
-    FlatButton mainButton,
+    required Widget title,
+    required Widget message,
+    required Color backgroundColor,
+    required Widget icon,
+    required TextButton mainButton,
     Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
   }) =>
@@ -84,11 +83,11 @@ class FlushbarHelper {
       );
 
   Future<void> _showFlushbar({
-    @required AppFlushbar flushbar,
+    required AppFlushbar flushbar,
   }) async {
     _currentFlushbar?.dismiss();
     _currentFlushbar = flushbar;
-    return navigatorKey.currentState.push(
+    return navigatorKey.currentState?.push<void>(
       flushbar_route.showFlushbar<void>(
         context: _context,
         flushbar: flushbar,

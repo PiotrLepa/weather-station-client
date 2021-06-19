@@ -15,9 +15,9 @@ class CurrentWeatherUpdateTime extends StatefulWidget {
   final bool refreshLoading;
 
   const CurrentWeatherUpdateTime({
-    Key key,
-    @required this.lastUpdateTime,
-    @required this.refreshLoading,
+    Key? key,
+    required this.lastUpdateTime,
+    required this.refreshLoading,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class CurrentWeatherUpdateTime extends StatefulWidget {
 class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
   final _updateTimeFormatter = getIt<UpdateTimeFormatter>();
 
-  Timer _timer;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -93,19 +93,16 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
           Wrap(
             children: [
               ProgressButton(
+                loading: widget.refreshLoading,
+                text: Strings.refresh,
+                textStyle: TextStyle(
+                  fontSize: scaleDimen(20),
+                ),
                 onPressed: () {
                   context
                       .read<CurrentWeatherBloc>()
                       .add(const RefreshPressed());
                 },
-                loading: widget.refreshLoading,
-                backgroundColor: ThemeProvider.of(context).primaryColorLight,
-                progressColor: Colors.white,
-                text: Strings.refresh,
-                textStyle: TextStyle(
-                  fontSize: scaleDimen(20),
-                  color: ThemeProvider.of(context).textColorInverted,
-                ),
               )
             ],
           ),

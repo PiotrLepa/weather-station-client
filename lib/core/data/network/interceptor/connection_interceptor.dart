@@ -1,22 +1,31 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
 
 @lazySingleton
 class ConnectionInterceptor extends InterceptorsWrapper {
-  final DataConnectionChecker _dataConnectionChecker;
+  final Connectivity _connectivity;
 
-  ConnectionInterceptor(this._dataConnectionChecker);
+  ConnectionInterceptor(this._connectivity);
 
   @override
-  Future onRequest(RequestOptions options) async {
-    final hasConnection = await _dataConnectionChecker.hasConnection;
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    final hasConnection = connectivityResult != ConnectivityResult.none;
 
     if (!hasConnection) {
-      throw const NoConnection();
+      return handler.reject(
+        DioError(
+          requestOptions: options,
+          error: const NoConnection(),
+        ),
+      );
+    } else {
+      return super.onRequest(options, handler);
     }
-
-    return super.onRequest(options);
   }
 }

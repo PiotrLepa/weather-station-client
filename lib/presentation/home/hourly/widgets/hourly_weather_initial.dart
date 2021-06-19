@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
-import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 import 'package:weather_station/core/presentation/widgets/common/progress_button.dart';
 import 'package:weather_station/domain/bloc/hourly_weather/hourly_weather_bloc.dart';
 import 'package:weather_station/gen/assets.gen.dart';
@@ -13,9 +12,9 @@ class HourlyWeatherInitial extends StatelessWidget {
   final bool selectDateLoading;
 
   const HourlyWeatherInitial({
-    Key key,
-    @required this.availableDays,
-    @required this.selectDateLoading,
+    Key? key,
+    required this.availableDays,
+    required this.selectDateLoading,
   }) : super(key: key);
 
   @override
@@ -44,9 +43,6 @@ class HourlyWeatherInitial extends StatelessWidget {
             child: ProgressButton(
               loading: selectDateLoading,
               text: Strings.hourlyWeatherInitialButton,
-              textStyle: TextStyle(
-                color: ThemeProvider.of(context).textColorInverted,
-              ),
               onPressed: () => _showDatePicker(context),
             ),
           ),

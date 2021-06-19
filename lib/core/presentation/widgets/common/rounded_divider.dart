@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class RoundedDivider extends StatelessWidget {
-  final double size;
-  final double thickness;
-  final double indent;
-  final double endIndent;
-  final double radius;
-  final Color color;
-  final bool vertical;
+  final double? size;
+  final double? thickness;
+  final double? indent;
+  final double? endIndent;
+  final double? radius;
+  final Color? color;
+  final bool? vertical;
 
   const RoundedDivider({
     this.size,
@@ -29,9 +29,8 @@ class RoundedDivider extends StatelessWidget {
     final radius = this.radius ?? 12;
     final vertical = this.vertical ?? false;
     final color = this.color ??
-        (context != null
-            ? (DividerTheme.of(context).color ?? Theme.of(context).dividerColor)
-            : null);
+        DividerTheme.of(context).color ??
+        Theme.of(context).dividerColor;
 
     return SizedBox(
       height: vertical ? double.infinity : size,

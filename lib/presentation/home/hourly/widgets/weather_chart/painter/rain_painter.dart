@@ -16,9 +16,9 @@ class RainPainter extends CustomPainter {
   final String unit;
 
   RainPainter({
-    @required this.rainSpots,
-    @required this.timeSpots,
-    @required this.unit,
+    required this.rainSpots,
+    required this.timeSpots,
+    required this.unit,
   });
 
   @override
@@ -26,7 +26,7 @@ class RainPainter extends CustomPainter {
     _pixelCalculator.initialize(
       size,
       minY: 0,
-      maxY: rainSpots.max(),
+      maxY: rainSpots.max()!,
       topOffSet: 24,
     );
     _drawBars(canvas, size);

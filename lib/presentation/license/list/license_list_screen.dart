@@ -14,9 +14,9 @@ class LicenseListScreen extends StatelessWidget {
   final KtList<License> licenses;
 
   const LicenseListScreen({
-    Key key,
-    @required this.title,
-    @required this.licenses,
+    Key? key,
+    required this.title,
+    required this.licenses,
   }) : super(key: key);
 
   @override
@@ -39,9 +39,9 @@ class LicenseListScreen extends StatelessWidget {
   void _listenState(BuildContext context, LicenseListState state) {
     state.maybeMap(
       pushLicenseDetails: (s) {
-        appNavigator.pushLicenseDetailsScreen(
+        context.router.push(LicenseDetailsScreenRoute(
           license: s.license,
-        );
+        ));
       },
       orElse: () {},
     );

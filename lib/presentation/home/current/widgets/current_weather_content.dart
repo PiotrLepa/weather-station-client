@@ -11,9 +11,9 @@ class CurrentWeatherContent extends StatelessWidget {
   final bool refreshLoading;
 
   const CurrentWeatherContent({
-    Key key,
-    @required this.weather,
-    @required this.refreshLoading,
+    Key? key,
+    required this.weather,
+    required this.refreshLoading,
   }) : super(key: key);
 
   @override

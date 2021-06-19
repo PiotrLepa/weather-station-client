@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/injection/injection.dart';
@@ -9,16 +10,15 @@ import 'package:weather_station/domain/bloc/fcm_bloc/fcm_bloc.dart';
 import 'package:weather_station/domain/entity/notification/notification.dart';
 import 'package:weather_station/domain/repository/fcm_repository.dart';
 
-class MockFcmRepository extends Mock implements FcmRepository {}
-
-class MockFlushbarHelper extends Mock implements FlushbarHelper {}
+import 'fcm_bloc_test.mocks.dart';
 
 const notification = Notification(title: 'Title', body: 'Body');
 
+@GenerateMocks([FlushbarHelper, FcmRepository])
 void main() {
-  FcmBloc bloc;
-  MockFcmRepository mockFcmRepository;
-  MockFlushbarHelper mockFlushbarHelper;
+  late FcmBloc bloc;
+  late MockFcmRepository mockFcmRepository;
+  late MockFlushbarHelper mockFlushbarHelper;
 
   setUpAll(() async {
     await configureInjection();

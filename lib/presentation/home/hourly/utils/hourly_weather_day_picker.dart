@@ -5,7 +5,7 @@ Future<void> showHourlyWeatherDayPicker(
   BuildContext context,
   KtList<DateTime> availableDays,
   Function(DateTime) onDateSelected, {
-  DateTime initialDate,
+  DateTime? initialDate,
 }) async {
   final selectedDate = await showDatePicker(
       context: context,

@@ -22,7 +22,7 @@ class CurrentWeatherBloc
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
 
-  Weather _fetchedWeather;
+  Weather? _fetchedWeather;
 
   CurrentWeatherBloc(
     this._weatherRepository,
@@ -73,7 +73,7 @@ class CurrentWeatherBloc
       call: _weatherRepository.fetchCurrentWeather(),
       onProgress: () {
         emit(RenderWeather(
-          weather: _fetchedWeather,
+          weather: _fetchedWeather!,
           refreshLoading: true,
         ));
       },
@@ -88,7 +88,7 @@ class CurrentWeatherBloc
       onError: (_, message) {
         _flushbarHelper.showError(message: message);
         emit(RenderWeather(
-          weather: _fetchedWeather,
+          weather: _fetchedWeather!,
           refreshLoading: false,
         ));
       },
@@ -97,7 +97,7 @@ class CurrentWeatherBloc
 
   bool _shouldRefreshWeather() =>
       _fetchedWeather == null ||
-      (DateTime.now().difference(_fetchedWeather.dateTime) >=
+          (DateTime.now().difference(_fetchedWeather!.dateTime) >=
           weatherFetchDelay);
 
   Future<void> _mapRetryPressed(

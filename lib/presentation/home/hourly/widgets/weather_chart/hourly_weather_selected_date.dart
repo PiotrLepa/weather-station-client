@@ -9,8 +9,8 @@ class HourlyWeatherSelectedDate extends StatelessWidget {
   final DateTime day;
 
   const HourlyWeatherSelectedDate({
-    Key key,
-    @required this.day,
+    Key? key,
+    required this.day,
   }) : super(key: key);
 
   @override

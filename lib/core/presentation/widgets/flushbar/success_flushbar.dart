@@ -9,11 +9,11 @@ import 'package:weather_station/core/presentation/widgets/flushbar/app_flushbar.
 // ignore: must_be_immutable
 class SuccessFlushbar extends AppFlushbar {
   SuccessFlushbar({
-    Key key,
-    @required BuildContext context,
-    @required PlainLocalizedString message,
-    @required VoidCallback onDismiss,
-    PlainLocalizedString title,
+    Key? key,
+    required BuildContext context,
+    required PlainLocalizedString message,
+    required VoidCallback onDismiss,
+    PlainLocalizedString? title,
   }) : super(
           key: key,
           title: Text(

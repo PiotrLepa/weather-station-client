@@ -9,8 +9,8 @@ class HumidityCard extends StatelessWidget {
   final double humidity;
 
   const HumidityCard({
-    Key key,
-    @required this.humidity,
+    Key? key,
+    required this.humidity,
   }) : super(key: key);
 
   @override

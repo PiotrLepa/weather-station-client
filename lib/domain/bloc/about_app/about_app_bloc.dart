@@ -1,5 +1,4 @@
 import 'package:auto_localized/auto_localized.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';

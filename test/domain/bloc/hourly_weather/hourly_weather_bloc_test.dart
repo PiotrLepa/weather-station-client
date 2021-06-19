@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
 import 'package:weather_station/core/data/network/exception/api/api_exception.dart';
@@ -11,9 +12,7 @@ import 'package:weather_station/domain/entity/available_days/available_days.dart
 import 'package:weather_station/domain/entity/hourly_weather/hourly_weather.dart';
 import 'package:weather_station/domain/repository/weather_repository.dart';
 
-class MockWeatherRepository extends Mock implements WeatherRepository {}
-
-class MockFlushbarHelper extends Mock implements FlushbarHelper {}
+import 'hourly_weather_bloc_test.mocks.dart';
 
 final availableDays = AvailableDays(
   days: KtList.of(
@@ -83,10 +82,11 @@ final hourlyWeathers2 = KtList.of(
   ),
 );
 
+@GenerateMocks([FlushbarHelper, WeatherRepository])
 void main() {
-  HourlyWeatherBloc bloc;
-  MockWeatherRepository mockWeatherRepository;
-  MockFlushbarHelper mockFlushbarHelper;
+  late HourlyWeatherBloc bloc;
+  late MockWeatherRepository mockWeatherRepository;
+  late MockFlushbarHelper mockFlushbarHelper;
 
   setUpAll(() async {
     await configureInjection();
@@ -114,7 +114,7 @@ void main() {
 
         bloc.add(const ScreenStarted());
       },
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         const InitialLoading(),
         RenderSelectDate(
           selectDateLoading: false,
@@ -132,7 +132,7 @@ void main() {
 
         bloc.add(const ScreenStarted());
       },
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         const InitialLoading(),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],
@@ -157,7 +157,7 @@ void main() {
         bloc.add(const RetryPressed());
       },
       skip: 2,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         RenderSelectDate(
           selectDateLoading: false,
@@ -180,7 +180,7 @@ void main() {
         bloc.add(const RetryPressed());
       },
       skip: 2,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         const RenderError(message: Strings.fetchDataFailed, loading: true),
         const RenderError(message: Strings.fetchDataFailed, loading: false),
       ],
@@ -201,7 +201,7 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
+            message: Strings.apiErrorNoConnection))
             .called(1);
       },
     );
@@ -224,7 +224,7 @@ void main() {
         bloc.add(LoadPressed(selectedDay));
       },
       skip: 2,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         RenderSelectDate(
           selectDateLoading: true,
           availableDays: availableDays.days,
@@ -253,7 +253,7 @@ void main() {
         bloc.add(LoadPressed(selectedDay));
       },
       skip: 2,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         RenderSelectDate(
           selectDateLoading: true,
           availableDays: availableDays.days,
@@ -282,7 +282,7 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
+            message: Strings.apiErrorNoConnection))
             .called(1);
       },
     );
@@ -341,7 +341,7 @@ void main() {
         bloc.add(ChangeDatePressed(selectedDay2));
       },
       skip: 4,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         RenderCharts(
           weathers: hourlyWeathers,
           changeDateLoading: true,
@@ -379,7 +379,7 @@ void main() {
         bloc.add(ChangeDatePressed(selectedDay2));
       },
       skip: 4,
-      expect: <HourlyWeatherState>[
+      expect: () => <HourlyWeatherState>[
         RenderCharts(
           weathers: hourlyWeathers,
           changeDateLoading: true,
@@ -418,7 +418,7 @@ void main() {
       },
       verify: (bloc) {
         verify(mockFlushbarHelper.showError(
-                message: Strings.apiErrorNoConnection))
+            message: Strings.apiErrorNoConnection))
             .called(1);
       },
     );

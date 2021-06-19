@@ -12,3 +12,4 @@ analyzer:
     - "**/*.config.dart"
     - "**/*.gen.dart"
     - "**/*.al.dart"
+    - "**/*.mocks.dart"

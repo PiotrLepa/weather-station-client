@@ -7,8 +7,8 @@ class HomeLocation extends StatelessWidget {
   final String location;
 
   const HomeLocation({
-    Key key,
-    @required this.location,
+    Key? key,
+    required this.location,
   }) : super(key: key);
 
   @override

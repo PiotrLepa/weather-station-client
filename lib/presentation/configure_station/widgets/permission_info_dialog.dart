@@ -11,15 +11,15 @@ class PermissionInfoDialog extends StatelessWidget {
       title: Text(Strings.permissionInfoDialogTitle.get(context)),
       content: Text(Strings.permissionInfoDialogMessage.get(context)),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           onPressed: () {
-            appNavigator.pop();
+            context.router.pop();
           },
           child: Text(Strings.dialogCancel.get(context)),
         ),
-        FlatButton(
+        TextButton(
           onPressed: () {
-            appNavigator.pop();
+            context.router.pop();
             context
                 .read<ConfigureStationBloc>()
                 .add(const PermissionDialogPositiveClicked());

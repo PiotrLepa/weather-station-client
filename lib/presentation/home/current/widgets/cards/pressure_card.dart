@@ -9,8 +9,8 @@ class PressureCard extends StatelessWidget {
   final int pressure;
 
   const PressureCard({
-    Key key,
-    @required this.pressure,
+    Key? key,
+    required this.pressure,
   }) : super(key: key);
 
   @override

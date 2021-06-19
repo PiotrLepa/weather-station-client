@@ -16,12 +16,8 @@ class ConnectingToStation extends StatefulWidget {
 class _ConnectingToStationState extends State<ConnectingToStation> {
   final _imagesProvider = getIt<LoadingImagesProvider>();
 
-  SvgGenImage _image;
-  Timer _timer;
-
-  _ConnectingToStationState() {
-    _image = _imagesProvider.getNext();
-  }
+  late SvgGenImage _image = _imagesProvider.getNext();
+  late Timer _timer;
 
   @override
   void initState() {

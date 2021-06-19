@@ -5,10 +5,10 @@ import 'package:weather_station/domain/entity/wifi_encryption/wifi_encryption.da
 part 'wifi.freezed.dart';
 
 @freezed
-abstract class Wifi with _$Wifi {
+class Wifi with _$Wifi {
   const factory Wifi({
-    @required String name,
-    @required WifiEncryption encryption,
-    @required SignalStrength signalStrength,
+    required String name,
+    required WifiEncryption encryption,
+    required SignalStrength signalStrength,
   }) = _Wifi;
 }

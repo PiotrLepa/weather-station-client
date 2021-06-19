@@ -11,11 +11,11 @@ class WeatherCard extends StatelessWidget {
   final Widget body;
 
   const WeatherCard({
-    Key key,
-    @required this.color,
-    @required this.iconPath,
-    @required this.title,
-    @required this.body,
+    Key? key,
+    required this.color,
+    required this.iconPath,
+    required this.title,
+    required this.body,
   }) : super(key: key);
 
   @override

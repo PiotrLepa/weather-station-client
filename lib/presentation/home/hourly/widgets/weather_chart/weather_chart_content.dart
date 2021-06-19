@@ -22,8 +22,8 @@ class WeatherChartContent extends StatelessWidget {
   final double _chartWidth;
 
   WeatherChartContent({
-    Key key,
-    @required this.weathers,
+    Key? key,
+    required this.weathers,
   })  : _timeSpots = weathers.map((w) => w.dateTime.millisecondsSinceEpoch),
         _chartWidth = (weathers.size - 1) * spotWidth,
         super(key: key);

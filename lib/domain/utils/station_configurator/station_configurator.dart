@@ -15,35 +15,35 @@ import 'package:weather_station/domain/repository/station_repository.dart';
 class StationConfigurator {
   final StationRepository _stationRepository;
 
-  Peripheral _device;
+  Peripheral? _device;
 
   StationConfigurator(this._stationRepository);
 
-  Future<void> connect() async {
-    _device =
-        await _checkPermissions().then((_) => _stationRepository.connect());
+  Future<Peripheral> connect() async {
+    return _checkPermissions().then((_) => _stationRepository.connect()).then(
+      (device) {
+        _device = device;
+        return device;
+      },
+    );
   }
 
   Future<KtList<Wifi>> getAvailableWifiList() {
-    return _connectIfDisconnected().then((_) {
-      final a = _stationRepository.observeWifiList(_device).first;
-      return a;
-    });
+    return _connectIfDisconnected()
+        .then((device) => _stationRepository.observeWifiList(device).first);
   }
 
   Future<ConnectToWifiResult> sendWifiCredentials(
     WifiCredentials wifiCredentials,
   ) async {
-    return _connectIfDisconnected()
-        .then((_) => _stationRepository.observeConnectToWifiResult(_device))
-        .then(
-      (connectionResult) async {
-        final result = connectionResult
-            .first;
+    return _connectIfDisconnected().then(
+      (device) async {
+        final result =
+            _stationRepository.observeConnectToWifiResult(device).first;
 
         // give time to start observe connect to wifi result
         await Future<void>.delayed(const Duration(seconds: 1)).then((_) =>
-            _stationRepository.sendWifiCredentials(_device, wifiCredentials));
+            _stationRepository.sendWifiCredentials(device, wifiCredentials));
 
         return result;
       },
@@ -51,14 +51,18 @@ class StationConfigurator {
   }
 
   Future<void> close() async {
-    await _stationRepository.disconnectAndCancelOperations(_device);
-    await _stationRepository.close(_device);
+    final device = _device;
+    if (device != null) {
+      await _stationRepository.close(device);
+    }
   }
 
-  Future<void> _connectIfDisconnected() async {
-    final isConnected = _device != null && await _device.isConnected();
+  Future<Peripheral> _connectIfDisconnected() async {
+    final isConnected = await _device?.isConnected() ?? false;
     if (!isConnected) {
-      await connect();
+      return connect();
+    } else {
+      return _device!;
     }
   }
 

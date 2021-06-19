@@ -12,8 +12,8 @@ class WifiList extends StatelessWidget {
   final KtList<Wifi> wifiList;
 
   const WifiList({
-    Key key,
-    @required this.wifiList,
+    Key? key,
+    required this.wifiList,
   }) : super(key: key);
 
   @override

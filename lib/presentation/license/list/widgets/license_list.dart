@@ -11,8 +11,8 @@ class LicenseList extends StatelessWidget {
   final KtList<License> licenses;
 
   const LicenseList({
-    Key key,
-    @required this.licenses,
+    Key? key,
+    required this.licenses,
   }) : super(key: key);
 
   @override

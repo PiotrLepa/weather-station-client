@@ -6,12 +6,12 @@ import 'package:weather_station/presentation/home/settings/widget/settings_item_
 
 class SettingsItem extends StatelessWidget {
   final PlainLocalizedString name;
-  final Widget leftIcon;
-  final VoidCallback onPressed;
+  final Widget? leftIcon;
+  final VoidCallback? onPressed;
 
   const SettingsItem({
-    Key key,
-    @required this.name,
+    Key? key,
+    required this.name,
     this.leftIcon,
     this.onPressed,
   }) : super(key: key);
