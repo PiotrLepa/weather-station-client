@@ -11,14 +11,21 @@ class ConnectionInterceptor extends InterceptorsWrapper {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final connectivityResult = await _connectivity.checkConnectivity();
     final hasConnection = connectivityResult != ConnectivityResult.none;
 
     if (!hasConnection) {
-      throw const NoConnection();
+      return handler.reject(
+        DioError(
+          requestOptions: options,
+          error: const NoConnection(),
+        ),
+      );
+    } else {
+      return super.onRequest(options, handler);
     }
-
-    super.onRequest(options, handler);
   }
 }
