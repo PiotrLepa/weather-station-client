@@ -40,13 +40,13 @@ class _WifiPasswordInputDialogState extends State<WifiPasswordInputDialog> {
         ],
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           onPressed: () {
             context.router.pop();
           },
           child: Text(Strings.dialogCancel.get(context)),
         ),
-        FlatButton(
+        TextButton(
           onPressed: () {
             final state = _passwordFormKey.currentState;
             if (state == null) {

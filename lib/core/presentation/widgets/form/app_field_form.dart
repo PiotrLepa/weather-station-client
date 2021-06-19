@@ -42,8 +42,11 @@ class AppFormFieldState extends State<AppFormField> {
     return Theme(
       data: Theme.of(context).copyWith(
         accentColor: formColor,
-        textSelectionHandleColor: formColor,
-        textSelectionColor: formColor,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: formColor,
+          selectionColor: formColor,
+          selectionHandleColor: formColor,
+        ),
       ),
       child: TextFormField(
         key: _formFieldKey,

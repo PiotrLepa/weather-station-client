@@ -65,7 +65,7 @@ class FlushbarHelper {
     required Widget message,
     required Color backgroundColor,
     required Widget icon,
-    required FlatButton mainButton,
+    required TextButton mainButton,
     Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
   }) =>

@@ -22,13 +22,15 @@ class ProgressButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: () {
         if (!loading) {
           onPressed();
         }
       },
-      color: backgroundColor,
+      style: ElevatedButton.styleFrom(
+        primary: backgroundColor,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -11,7 +11,7 @@ class AppFlushbar extends Flushbar<void> {
     required VoidCallback onDismiss,
     Color? backgroundColor,
     Widget? icon,
-    FlatButton? mainButton,
+    TextButton? mainButton,
     FlushbarPosition flushbarPosition = FlushbarPosition.BOTTOM,
     Duration duration = const Duration(seconds: 3),
     bool isDismissible = true,
