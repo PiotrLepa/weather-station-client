@@ -115,10 +115,10 @@ class BleService {
   }
 
   Future<void> disconnectAndCancelOperations(Peripheral device) async {
-    if (device != null && await device.isConnected()) {
+    await _bleManager.stopPeripheralScan();
+    if (await device.isConnected()) {
       await device.disconnectOrCancelConnection();
     }
-    await _bleManager.stopPeripheralScan();
   }
 
   Future<void> close(Peripheral device) async {

@@ -12,7 +12,14 @@ import 'package:weather_station/presentation/configure_station/widgets/permissio
 import 'package:weather_station/presentation/configure_station/widgets/wifi_list_page.dart';
 import 'package:weather_station/presentation/configure_station/widgets/wifi_password_input_dialog.dart';
 
-class ConfigureStationPage extends StatelessWidget {
+class ConfigureStationPage extends StatefulWidget {
+  @override
+  _ConfigureStationPageState createState() => _ConfigureStationPageState();
+}
+
+class _ConfigureStationPageState extends State<ConfigureStationPage> {
+  var _canPop = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ConfigureStationBloc, ConfigureStationState>(
@@ -25,9 +32,11 @@ class ConfigureStationPage extends StatelessWidget {
             _showWifiPasswordInputDialog(context, s.wifi);
           },
           showConnectingToWifiDialog: (_) {
+            _canPop = false;
             _showConnectingToWifiDialog(context);
           },
           pop: (_) {
+            _canPop = true;
             context.router.pop();
           },
           orElse: () {},
@@ -84,7 +93,7 @@ class ConfigureStationPage extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (_) => WillPopScope(
-        onWillPop: () async => false,
+        onWillPop: () async => _canPop,
         child: BlocProvider.value(
           value: context.read<ConfigureStationBloc>(),
           child: ConnectingToWifiDialog(),

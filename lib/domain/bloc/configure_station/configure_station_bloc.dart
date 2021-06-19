@@ -120,7 +120,7 @@ class ConfigureStationBloc
 
         result.map(
           connected: (_) async {
-            emit(const Pop()); // pop back
+            emit(const Pop()); // back to settings page
             emit(const Nothing());
             await Future<void>.delayed(const Duration(milliseconds: 100));
             _flushbarHelper.showSuccess(
