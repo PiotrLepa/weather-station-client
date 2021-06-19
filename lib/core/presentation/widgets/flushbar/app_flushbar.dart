@@ -1,4 +1,4 @@
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,7 +17,7 @@ class AppFlushbar extends Flushbar<void> {
     bool isDismissible = true,
     List<BoxShadow>? boxShadows,
   }) : super(
-          key: key,
+    key: key,
           titleText: title,
           messageText: message,
           isDismissible: isDismissible,
@@ -27,7 +27,7 @@ class AppFlushbar extends Flushbar<void> {
           mainButton: mainButton,
           flushbarStyle: FlushbarStyle.FLOATING,
           margin: const EdgeInsets.all(8),
-          borderRadius: 16,
+          borderRadius: BorderRadius.circular(16),
           duration: duration,
           flushbarPosition: flushbarPosition,
           boxShadows: boxShadows ??

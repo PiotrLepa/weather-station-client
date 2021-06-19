@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station/core/common/router/app_router.gr.dart';
+import 'package:weather_station/core/common/router/routing.dart';
 import 'package:weather_station/core/injection/injection.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
 import 'package:weather_station/core/presentation/theme/theme_provider.dart';
@@ -10,7 +11,7 @@ import 'package:weather_station/domain/bloc/fcm_bloc/fcm_bloc.dart';
 import 'package:weather_station/domain/bloc/home/home_bloc.dart';
 
 class App extends StatelessWidget {
-  final _appRouter = AppRouter();
+  final _appRouter = AppRouter(navigatorKey);
 
   @override
   Widget build(BuildContext context) {
