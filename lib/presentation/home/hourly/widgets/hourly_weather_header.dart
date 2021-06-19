@@ -36,7 +36,6 @@ class HourlyWeatherHeader extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(padding, 0, padding, padding),
           child: Column(
             children: [
-              // SizedBox(height: 24),
               Row(
                 children: [
                   HourlyWeatherSelectedDate(day: day),
@@ -56,6 +55,9 @@ class HourlyWeatherHeader extends StatelessWidget {
                   text: Strings.hourlyWeatherChangeDay,
                   loading: changeDayLoading,
                   backgroundColor: Colors.white,
+                  textStyle: TextStyle(
+                    color: ThemeProvider.of(context).textColor,
+                  ),
                   onPressed: () => _showDatePicker(context),
                 ),
               ),

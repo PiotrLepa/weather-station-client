@@ -1,11 +1,11 @@
 import 'package:auto_localized/auto_localized.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
+import 'package:weather_station/core/presentation/theme/theme_provider.dart';
 
 class ProgressButton extends StatelessWidget {
   final PlainLocalizedString text;
   final TextStyle? textStyle;
-  final Color? progressColor;
   final Color? backgroundColor;
   final bool loading;
   final VoidCallback onPressed;
@@ -16,7 +16,6 @@ class ProgressButton extends StatelessWidget {
     required this.onPressed,
     required this.loading,
     this.textStyle,
-    this.progressColor,
     this.backgroundColor,
   }) : super(key: key);
 
@@ -59,12 +58,12 @@ class ProgressButton extends StatelessWidget {
   }
 
   Color _getProgressColor(BuildContext context) {
-    if (backgroundColor == null) {
-      return progressColor ?? textStyle?.color ?? Colors.white;
-    } else {
-      return progressColor ??
-          textStyle?.color ??
-          Theme.of(context).accentColor; //TODO changer default color
-    }
+    return textStyle?.color ??
+        Theme.of(context)
+            .elevatedButtonTheme
+            .style
+            ?.textStyle
+            ?.resolve({MaterialState.focused})?.color ??
+        ThemeProvider.of(context).textColorInverted;
   }
 }

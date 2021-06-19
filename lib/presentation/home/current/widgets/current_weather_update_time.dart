@@ -93,19 +93,16 @@ class _CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
           Wrap(
             children: [
               ProgressButton(
+                loading: widget.refreshLoading,
+                text: Strings.refresh,
+                textStyle: TextStyle(
+                  fontSize: scaleDimen(20),
+                ),
                 onPressed: () {
                   context
                       .read<CurrentWeatherBloc>()
                       .add(const RefreshPressed());
                 },
-                loading: widget.refreshLoading,
-                backgroundColor: ThemeProvider.of(context).primaryColorLight,
-                progressColor: Colors.white,
-                text: Strings.refresh,
-                textStyle: TextStyle(
-                  fontSize: scaleDimen(20),
-                  color: ThemeProvider.of(context).textColorInverted,
-                ),
               )
             ],
           ),
