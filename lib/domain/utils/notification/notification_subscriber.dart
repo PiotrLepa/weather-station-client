@@ -12,11 +12,13 @@ class NotificationSubscriber {
   final FirebaseMessaging _firebaseMessaging;
   final LocaleProvider _localeProvider;
   final PushNotificationsStorage _pushNotificationsStorage;
+  final Connectivity _connectivity;
 
   NotificationSubscriber(
     this._firebaseMessaging,
     this._localeProvider,
     this._pushNotificationsStorage,
+    this._connectivity,
   );
 
   Future<bool> get arePushEnabled async =>
@@ -41,7 +43,7 @@ class NotificationSubscriber {
   }
 
   Future<bool> _hasConnection() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
+    final connectivityResult = await _connectivity.checkConnectivity();
     return connectivityResult != ConnectivityResult.none;
   }
 
