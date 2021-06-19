@@ -22,8 +22,8 @@ class HourlyWeatherBloc
   final WeatherRepository _weatherRepository;
   final FlushbarHelper _flushbarHelper;
 
-  KtList<HourlyWeather> _fetchedWeathers;
-  KtList<DateTime> _availableDays;
+  late KtList<HourlyWeather> _fetchedWeathers;
+  late KtList<DateTime> _availableDays;
 
   DateTime get _weatherDate => _fetchedWeathers[0].dateTime;
 

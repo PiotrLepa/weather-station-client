@@ -11,9 +11,9 @@ class WindCard extends StatelessWidget {
   final double avgSpeed;
 
   const WindCard({
-    Key key,
-    @required this.maxSpeed,
-    @required this.avgSpeed,
+    Key? key,
+    required this.maxSpeed,
+    required this.avgSpeed,
   }) : super(key: key);
 
   @override

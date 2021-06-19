@@ -6,13 +6,13 @@ class ErrorPage extends StatelessWidget {
   final PlainLocalizedString message;
   final VoidCallback onRetry;
   final bool loading;
-  final Key buttonKey;
+  final Key? buttonKey;
 
   const ErrorPage({
-    Key key,
-    @required this.message,
-    @required this.onRetry,
-    @required this.loading,
+    Key? key,
+    required this.message,
+    required this.onRetry,
+    required this.loading,
     this.buttonKey,
   }) : super(key: key);
 

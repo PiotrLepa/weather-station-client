@@ -7,9 +7,9 @@ class ThemeProvider {
 
   Color get primaryColor => Colors.blue;
 
-  Color get primaryColorLight => Colors.lightBlue[400];
+  Color get primaryColorLight => Colors.lightBlue.shade400;
 
-  Color get primaryColorDark => Colors.blue[700];
+  Color get primaryColorDark => Colors.blue.shade700;
 
   Color get accentColor => const Color(0xFF71887A);
 
@@ -23,11 +23,11 @@ class ThemeProvider {
 
   Color get backgroundColorLight => Colors.white;
 
-  Color get backgroundColor => Colors.grey[50];
+  Color get backgroundColor => Colors.grey.shade50;
 
-  Color get backgroundColorDark => Colors.grey[200];
+  Color get backgroundColorDark => Colors.grey.shade200;
 
-  ThemeProvider({@required this.isDark});
+  ThemeProvider({required this.isDark});
 
   factory ThemeProvider.of(BuildContext context) {
     return ThemeProvider(
@@ -51,13 +51,15 @@ class ThemeProvider {
           fontWeight: FontWeight.bold,
         ),
       ),
-      buttonTheme: ButtonThemeData(
-        padding: const EdgeInsets.all(12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
         ),
-        buttonColor: primaryColor,
-        textTheme: ButtonTextTheme.primary,
       ),
       appBarTheme: AppBarTheme(
         centerTitle: true,

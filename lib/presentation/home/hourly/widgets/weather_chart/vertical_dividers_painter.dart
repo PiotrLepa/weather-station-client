@@ -18,7 +18,7 @@ class VerticalDividersPainter extends CustomPainter {
     ..strokeWidth = verticalDividerWidth;
 
   VerticalDividersPainter({
-    @required this.xSpots,
+    required this.xSpots,
   });
 
   @override

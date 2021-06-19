@@ -4,3 +4,4 @@ targets:
       - $package$
       - lib/**
       - lang/**
+      - test/**

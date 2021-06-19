@@ -17,10 +17,10 @@ class ApiErrorHandler {
   }
 
   ApiException _mapError(DioError dioError) {
-    if (dioError.type == DioErrorType.CONNECT_TIMEOUT ||
-        dioError.type == DioErrorType.RECEIVE_TIMEOUT ||
-        dioError.type == DioErrorType.SEND_TIMEOUT) {
-      return const ApiException.timeout(-1, null);
+    if (dioError.type == DioErrorType.connectTimeout ||
+        dioError.type == DioErrorType.receiveTimeout ||
+        dioError.type == DioErrorType.sendTimeout) {
+      return const ApiException.timeout(-1);
     }
     if (dioError.error is ApiException) {
       return dioError.error as ApiException;
@@ -28,10 +28,10 @@ class ApiErrorHandler {
     final response = dioError.response;
     final statusCode = response?.statusCode;
     try {
-      final data = response.data as Map<String, dynamic>; // TODO check cast
+      final data = response!.data as Map<String, dynamic>; // TODO check cast
       convertModelCodePropertyToInt(data);
       final errorResponse = ErrorResponse.fromJson(data);
-      final exception = _mapToApiException(statusCode, errorResponse);
+      final exception = _mapToApiException(statusCode!, errorResponse);
       return exception;
       // ignore: avoid_catching_errors
     } on TypeError catch (e) {

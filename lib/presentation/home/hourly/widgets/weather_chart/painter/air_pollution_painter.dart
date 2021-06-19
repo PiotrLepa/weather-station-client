@@ -31,10 +31,10 @@ class AirPollutionPainter extends CustomPainter {
   final KtList<int> timeSpots;
 
   AirPollutionPainter({
-    @required this.pm1Spots,
-    @required this.pm25Spots,
-    @required this.pm10Spots,
-    @required this.timeSpots,
+    required this.pm1Spots,
+    required this.pm25Spots,
+    required this.pm10Spots,
+    required this.timeSpots,
   });
 
   @override
@@ -47,7 +47,7 @@ class AirPollutionPainter extends CustomPainter {
     _pixelCalculator.initialize(
       size,
       minY: 0,
-      maxY: summedValues.max(),
+      maxY: summedValues.max()!,
       topOffSet: 12,
     );
     _drawBars(canvas, size);
@@ -116,14 +116,14 @@ class AirPollutionPainter extends CustomPainter {
   }
 
   void _drawBarWithValue({
-    @required Canvas canvas,
-    @required double left,
-    @required double top,
-    @required double right,
-    @required double bottom,
-    @required double x,
-    @required int value,
-    @required Paint paint,
+    required Canvas canvas,
+    required double left,
+    required double top,
+    required double right,
+    required double bottom,
+    required double x,
+    required int value,
+    required Paint paint,
   }) {
     final bar = Rect.fromLTRB(
       left,

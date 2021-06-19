@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_station/core/common/flushbar_helper.dart';
@@ -15,10 +16,7 @@ import 'package:weather_station/domain/entity/wifi_encryption/wifi_encryption.da
 import 'package:weather_station/domain/utils/station_configurator/station_configurator.dart';
 
 import '../../utils/permissions_handler_utils.dart';
-
-class MockFlushbarHelper extends Mock implements FlushbarHelper {}
-
-class MockStationConfigurator extends Mock implements StationConfigurator {}
+import 'configure_station_bloc_test.mocks.dart';
 
 const openWifi = Wifi(
   name: 'Wifi_1',
@@ -39,12 +37,13 @@ final wifiList = KtList.of(
   securedWifi,
 );
 
+@GenerateMocks([FlushbarHelper, StationConfigurator])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  ConfigureStationBloc bloc;
-  MockFlushbarHelper mockFlushbarHelper;
-  MockStationConfigurator mockStationConfigurator;
+  late ConfigureStationBloc bloc;
+  late MockFlushbarHelper mockFlushbarHelper;
+  late MockStationConfigurator mockStationConfigurator;
 
   setUpAll(() async {
     await configureInjection();
@@ -73,7 +72,7 @@ void main() {
 
         bloc.add(const ScreenStarted());
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const RenderError(
           message: Strings.connectToDevicePermissionError,
           loading: false,
@@ -98,7 +97,7 @@ void main() {
       verify: (bloc) {
         verify(mockStationConfigurator.getAvailableWifiList()).called(1);
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const Connecting(),
         RenderWifiList(wifiList),
       ],
@@ -116,7 +115,7 @@ void main() {
 
         bloc.add(const RetryClicked());
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowPermissionInfoDialog(),
         const Nothing(),
       ],
@@ -137,7 +136,7 @@ void main() {
       verify: (bloc) {
         verify(mockStationConfigurator.getAvailableWifiList()).called(1);
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const Connecting(),
         RenderWifiList(wifiList),
       ],
@@ -154,7 +153,7 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowConnectingToWifiDialog(),
         const Nothing(),
         const Pop(),
@@ -190,7 +189,7 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowConnectingToWifiDialog(),
         const Nothing(),
         const Pop(),
@@ -219,7 +218,7 @@ void main() {
       'should show wifi password input dialog if wifi is secured',
       build: () => bloc,
       act: (bloc) => bloc.add(const WifiSelected(securedWifi)),
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowWifiPasswordInputDialog(securedWifi),
         const Nothing(),
       ],
@@ -236,7 +235,7 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowConnectingToWifiDialog(),
         const Nothing(),
         const Pop(),
@@ -272,7 +271,7 @@ void main() {
 
         bloc.add(const PasswordInserted(securedWifiCredentials));
       },
-      expect: <ConfigureStationState>[
+      expect: () => <ConfigureStationState>[
         const ShowConnectingToWifiDialog(),
         const Nothing(),
         const Pop(),

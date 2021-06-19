@@ -9,8 +9,8 @@ class LeftTitlesPainter extends CustomPainter {
   final KtList<ChartTitle> titles;
 
   LeftTitlesPainter({
-    @required this.context,
-    @required this.titles,
+    required this.context,
+    required this.titles,
   });
 
   @override

@@ -6,8 +6,8 @@ class WeatherUnit extends StatelessWidget {
   final PlainLocalizedString value;
 
   const WeatherUnit({
-    Key key,
-    @required this.value,
+    Key? key,
+    required this.value,
   }) : super(key: key);
 
   @override

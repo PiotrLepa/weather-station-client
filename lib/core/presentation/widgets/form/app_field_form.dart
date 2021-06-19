@@ -4,16 +4,16 @@ import 'package:flutter/widgets.dart';
 import 'package:weather_station/core/presentation/validation/validators.dart';
 
 class AppFormField extends StatefulWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final PlainLocalizedString labelText;
-  final TextInputType type;
-  final int maxLength;
-  final List<ValidatorFunction> validators;
+  final TextInputType? type;
+  final int? maxLength;
+  final List<ValidatorFunction>? validators;
   final bool obscureText;
 
   const AppFormField({
-    Key key,
-    @required this.labelText,
+    Key? key,
+    required this.labelText,
     this.controller,
     this.type,
     this.maxLength,
@@ -42,8 +42,11 @@ class AppFormFieldState extends State<AppFormField> {
     return Theme(
       data: Theme.of(context).copyWith(
         accentColor: formColor,
-        textSelectionHandleColor: formColor,
-        textSelectionColor: formColor,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: formColor,
+          selectionColor: formColor,
+          selectionHandleColor: formColor,
+        ),
       ),
       child: TextFormField(
         key: _formFieldKey,
@@ -59,19 +62,23 @@ class AppFormFieldState extends State<AppFormField> {
         validator: (value) => _validate(context, _value),
         onChanged: (value) {
           _value = value;
-          _isValid = _formFieldKey.currentState.validate();
+          _isValid = _formFieldKey.currentState?.validate() ?? false;
         },
       ),
     );
   }
 
   bool validate() {
-    return _formFieldKey.currentState.validate();
+    return _formFieldKey.currentState?.validate() ?? false;
   }
 
-  String _validate(BuildContext context, String value) {
-    for (var i = 0; i < widget.validators.length; i++) {
-      final validator = widget.validators[i];
+  String? _validate(BuildContext context, String value) {
+    final validators = widget.validators;
+    if (validators == null) {
+      return null;
+    }
+    for (var i = 0; i < validators.length; i++) {
+      final validator = validators[i];
       final result = validator(value);
       if (result != null) {
         return result.get(context);

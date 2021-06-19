@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:auto_localized/auto_localized.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -121,7 +120,7 @@ class ConfigureStationBloc
 
         result.map(
           connected: (_) async {
-            emit(const Pop()); // pop back
+            emit(const Pop()); // back to settings page
             emit(const Nothing());
             await Future<void>.delayed(const Duration(milliseconds: 100));
             _flushbarHelper.showSuccess(
@@ -170,7 +169,7 @@ class ConfigureStationBloc
         });
   }
 
-  PlainLocalizedString _translateStationException(Object e) {
+  PlainLocalizedString? _translateStationException(Object e) {
     if (e is StationException) {
       return e.map(
         permissionNotGranted: (_) => Strings.connectToDevicePermissionError,

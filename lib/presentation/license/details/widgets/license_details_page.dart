@@ -5,8 +5,8 @@ class LicenseDetailsPage extends StatelessWidget {
   final String content;
 
   const LicenseDetailsPage({
-    Key key,
-    @required this.content,
+    Key? key,
+    required this.content,
   }) : super(key: key);
 
   @override

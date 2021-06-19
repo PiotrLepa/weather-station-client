@@ -4,9 +4,9 @@ part 'available_days_model.freezed.dart';
 part 'available_days_model.g.dart';
 
 @freezed
-abstract class AvailableDaysModel with _$AvailableDaysModel {
+class AvailableDaysModel with _$AvailableDaysModel {
   const factory AvailableDaysModel({
-    @required List<DateTime> days,
+    required List<DateTime> days,
   }) = _AvailableDaysModel;
 
   factory AvailableDaysModel.fromJson(Map<String, dynamic> json) =>

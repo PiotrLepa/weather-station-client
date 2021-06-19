@@ -12,10 +12,10 @@ class AirPollutionCard extends StatelessWidget {
   final int pm10;
 
   const AirPollutionCard({
-    Key key,
-    @required this.pm1,
-    @required this.pm25,
-    @required this.pm10,
+    Key? key,
+    required this.pm1,
+    required this.pm25,
+    required this.pm10,
   }) : super(key: key);
 
   @override

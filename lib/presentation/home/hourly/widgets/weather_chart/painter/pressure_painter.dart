@@ -9,8 +9,8 @@ class PressurePainter extends LineChartPainter<int, int> {
   final KtList<int> timeSpots;
 
   PressurePainter({
-    @required this.pressureSpots,
-    @required this.timeSpots,
+    required this.pressureSpots,
+    required this.timeSpots,
   }) : super(
           xSpots: timeSpots,
           ySpots: pressureSpots,

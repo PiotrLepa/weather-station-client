@@ -1,6 +1,5 @@
-// ignore: must_be_immutable
+import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_localized/auto_localized.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:weather_station/core/presentation/language/strings.al.dart';
@@ -11,11 +10,11 @@ import 'package:weather_station/gen/assets.gen.dart';
 // ignore: must_be_immutable
 class NotificationFlushbar extends AppFlushbar {
   NotificationFlushbar({
-    Key key,
-    @required BuildContext context,
-    @required PlainLocalizedString message,
-    @required VoidCallback onDismiss,
-    PlainLocalizedString title,
+    Key? key,
+    required BuildContext context,
+    required PlainLocalizedString message,
+    required VoidCallback onDismiss,
+    PlainLocalizedString? title,
   }) : super(
           key: key,
           title: Text(

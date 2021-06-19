@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class SettingsItemWrapper extends StatelessWidget {
   final Color backgroundColor;
   final Widget child;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const SettingsItemWrapper({
-    Key key,
-    @required this.backgroundColor,
-    @required this.child,
+    Key? key,
+    required this.backgroundColor,
+    required this.child,
     this.onTap,
   }) : super(key: key);
 

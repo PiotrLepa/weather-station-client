@@ -9,8 +9,8 @@ class TemperatureCard extends StatelessWidget {
   final double temperature;
 
   const TemperatureCard({
-    Key key,
-    @required this.temperature,
+    Key? key,
+    required this.temperature,
   }) : super(key: key);
 
   @override

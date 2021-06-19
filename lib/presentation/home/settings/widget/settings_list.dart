@@ -12,8 +12,8 @@ class SettingsList extends StatelessWidget {
   final bool pushEnabled;
 
   const SettingsList({
-    Key key,
-    this.pushEnabled,
+    Key? key,
+    required this.pushEnabled,
   }) : super(key: key);
 
   @override

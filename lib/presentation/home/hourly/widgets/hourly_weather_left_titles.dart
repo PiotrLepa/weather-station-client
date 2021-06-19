@@ -9,8 +9,8 @@ class HourlyWeatherLeftTitles extends SliverPersistentHeaderDelegate {
   final double maxWidth;
 
   HourlyWeatherLeftTitles({
-    @required this.titles,
-    @required this.maxWidth,
+    required this.titles,
+    required this.maxWidth,
   });
 
   @override

@@ -2,18 +2,18 @@ import 'package:flutter/painting.dart';
 import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/chart_constants.dart';
 
 class ChartPixelCalculator<Y extends num> {
-  Size _size;
-  Y _minY;
-  double _diffY;
-  int _topOffSet;
-  int _bottomOffSet;
+  late Size _size;
+  late Y? _minY;
+  late double? _diffY;
+  int _topOffSet = 0;
+  int _bottomOffSet = 0;
 
   void initialize(
     Size size, {
-    Y minY,
-    Y maxY,
-    int topOffSet,
-    int bottomOffSet,
+    Y? minY,
+    Y? maxY,
+    int? topOffSet,
+    int? bottomOffSet,
   }) {
     _size = size;
     _minY = minY;
@@ -49,7 +49,7 @@ class ChartPixelCalculator<Y extends num> {
     }
 
     final usableHeight = _size.height - _topOffSet - _bottomOffSet;
-    final y = (spotY - _minY) / _diffY * usableHeight;
+    final y = (spotY - _minY!) / _diffY! * usableHeight;
     return _size.height - _bottomOffSet - y;
   }
 }

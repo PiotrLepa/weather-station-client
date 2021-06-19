@@ -14,10 +14,10 @@ abstract class BaseRestService {
 
   Future<T> get<T>(
     String path, {
-    Serializable data,
-    Map<String, String> params,
-    Map<String, String> headers,
-    String contentType,
+    Serializable? data,
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    String? contentType,
   }) =>
       _responseConverter.decodeResponse(createRequest<dynamic>(
         'GET',
@@ -30,10 +30,10 @@ abstract class BaseRestService {
 
   Future<KtList<T>> getList<T>(
     String path, {
-    Serializable data,
-    Map<String, String> params,
-    Map<String, String> headers,
-    String contentType,
+    Serializable? data,
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    String? contentType,
   }) =>
       _responseConverter.decodeResponseList(createRequest<dynamic>(
         'GET',
@@ -46,10 +46,10 @@ abstract class BaseRestService {
 
   Future<T> post<T>(
     String path, {
-    Serializable data,
-    Map<String, String> params,
-    Map<String, String> headers,
-    String contentType,
+    Serializable? data,
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    String? contentType,
   }) =>
       _responseConverter.decodeResponse(createRequest<dynamic>(
         'POST',
@@ -62,10 +62,10 @@ abstract class BaseRestService {
 
   Future<T> put<T>(
     String path, {
-    Serializable data,
-    Map<String, String> params,
-    Map<String, String> headers,
-    String contentType,
+    Serializable? data,
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    String? contentType,
   }) =>
       _responseConverter.decodeResponse(createRequest<dynamic>(
         'PUT',
@@ -79,10 +79,10 @@ abstract class BaseRestService {
   Future<Response<T>> createRequest<T>(
     String method,
     String path, {
-    Serializable data,
-    Map<String, String> params,
-    Map<String, String> headers,
-    String contentType,
+    Serializable? data,
+    Map<String, String>? params,
+    Map<String, String>? headers,
+    String? contentType,
   }) async =>
       _dio.request(path,
           data: data?.toJson(),

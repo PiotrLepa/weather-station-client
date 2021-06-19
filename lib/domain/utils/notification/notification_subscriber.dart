@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station/core/common/locale_provider.dart';
@@ -10,22 +10,22 @@ class NotificationSubscriber {
   static const topicRainDetected = 'rain_detected';
 
   final FirebaseMessaging _firebaseMessaging;
-  final DataConnectionChecker _dataConnectionChecker;
   final LocaleProvider _localeProvider;
   final PushNotificationsStorage _pushNotificationsStorage;
+  final Connectivity _connectivity;
 
   NotificationSubscriber(
     this._firebaseMessaging,
-    this._dataConnectionChecker,
     this._localeProvider,
     this._pushNotificationsStorage,
+    this._connectivity,
   );
 
   Future<bool> get arePushEnabled async =>
       _pushNotificationsStorage.arePushEnabled;
 
   Future<void> subscribe(String topic) async {
-    if (await _dataConnectionChecker.hasConnection) {
+    if (await _hasConnection()) {
       await _firebaseMessaging.subscribeToTopic(_appendLanguageCode(topic));
       await _pushNotificationsStorage.savePushEnabled(true);
     } else {
@@ -34,12 +34,17 @@ class NotificationSubscriber {
   }
 
   Future<void> unsubscribe(String topic) async {
-    if (await _dataConnectionChecker.hasConnection) {
+    if (await _hasConnection()) {
       await _firebaseMessaging.unsubscribeFromTopic(_appendLanguageCode(topic));
       await _pushNotificationsStorage.savePushEnabled(false);
     } else {
       return Future.error(const NoConnection());
     }
+  }
+
+  Future<bool> _hasConnection() async {
+    final connectivityResult = await _connectivity.checkConnectivity();
+    return connectivityResult != ConnectivityResult.none;
   }
 
   String _appendLanguageCode(String topic) =>

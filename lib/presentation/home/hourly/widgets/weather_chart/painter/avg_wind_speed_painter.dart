@@ -6,7 +6,7 @@ import 'package:weather_station/presentation/home/hourly/widgets/weather_chart/c
 
 class AvgWindSpeedPainter extends CustomPainter {
   static final _containerPaint = Paint()
-    ..color = Colors.grey[300]
+    ..color = Colors.grey.shade300
     ..style = PaintingStyle.fill;
 
   final _pixelCalculator = ChartPixelCalculator<double>();
@@ -16,17 +16,17 @@ class AvgWindSpeedPainter extends CustomPainter {
   final String unit;
 
   AvgWindSpeedPainter({
-    @required this.speedSpots,
-    @required this.timeSpots,
-    @required this.unit,
+    required this.speedSpots,
+    required this.timeSpots,
+    required this.unit,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     _pixelCalculator.initialize(
       size,
-      minY: speedSpots.min(),
-      maxY: speedSpots.max(),
+      minY: speedSpots.min()!,
+      maxY: speedSpots.max()!,
     );
     _drawContainer(canvas, size);
     _drawText(canvas, size);

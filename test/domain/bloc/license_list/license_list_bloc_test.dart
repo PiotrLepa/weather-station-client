@@ -14,7 +14,7 @@ const licenseWithoutDetails = License(
 );
 
 void main() {
-  LicenseListBloc bloc;
+  late LicenseListBloc bloc;
 
   setUpAll(() async {
     await configureInjection();
@@ -35,7 +35,7 @@ void main() {
       'should push details screen if license has details',
       build: () => bloc,
       act: (bloc) => bloc.add(const LicenseClicked(license)),
-      expect: <LicenseListState>[
+      expect: () => <LicenseListState>[
         const LicenseListState.pushLicenseDetails(license: license),
         const Nothing(),
       ],
@@ -45,7 +45,7 @@ void main() {
       'should do nothing if license does not have details',
       build: () => bloc,
       act: (bloc) => bloc.add(const LicenseClicked(licenseWithoutDetails)),
-      expect: <LicenseListState>[],
+      expect: () => <LicenseListState>[],
     );
   });
 }

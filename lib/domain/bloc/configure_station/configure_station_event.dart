@@ -1,9 +1,7 @@
 part of 'configure_station_bloc.dart';
 
 @freezed
-abstract class ConfigureStationEvent
-    with _$ConfigureStationEvent
-    implements BlocEvent {
+class ConfigureStationEvent with _$ConfigureStationEvent implements BlocEvent {
   const factory ConfigureStationEvent.screenStarted() = ScreenStarted;
 
   const factory ConfigureStationEvent.retryClicked() = RetryClicked;

@@ -26,9 +26,11 @@ class AboutAppScreen extends StatelessWidget {
   void _listenState(BuildContext context, AboutAppState state) {
     state.maybeMap(
       pushLicenseListScreen: (s) {
-        appNavigator.pushLicenseListScreen(
-          title: s.title,
-          licenses: s.licenses,
+        context.router.push(
+          LicenseListScreenRoute(
+            title: s.title,
+            licenses: s.licenses,
+          ),
         );
       },
       orElse: () {},
