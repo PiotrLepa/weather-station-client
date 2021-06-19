@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-Size screenSize = Size.large; // TODO
+// FIXME if [scaleDimen] is used before invoking [initializeDimens] then dimens are scaled with default value (Size.large)
+// eg [ThemeProvider] class invokes [scaleDimen] before invoking [initializeDimens]
+Size screenSize = Size.large;
 
 void initializeDimens(BuildContext context) {
   final size = MediaQuery.of(context).size;

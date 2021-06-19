@@ -62,15 +62,14 @@ class AppFormFieldState extends State<AppFormField> {
         validator: (value) => _validate(context, _value),
         onChanged: (value) {
           _value = value;
-          _isValid = _formFieldKey.currentState?.validate() ??
-              false; // TODO check elvis
+          _isValid = _formFieldKey.currentState?.validate() ?? false;
         },
       ),
     );
   }
 
   bool validate() {
-    return _formFieldKey.currentState?.validate() ?? false; // TODO check elvis;
+    return _formFieldKey.currentState?.validate() ?? false;
   }
 
   String? _validate(BuildContext context, String value) {
