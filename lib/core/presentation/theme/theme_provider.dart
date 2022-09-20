@@ -47,7 +47,7 @@ class ThemeProvider {
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
         button: TextStyle(
-          fontSize: scaleDimen(20),
+          fontSize: scaleDimen(21),
           fontWeight: FontWeight.bold,
         ),
       ),
