@@ -56,7 +56,7 @@ class ThemeProvider {
           padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(17),
             ),
           ),
         ),
