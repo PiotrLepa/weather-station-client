@@ -47,16 +47,16 @@ class ThemeProvider {
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: TextTheme(
         button: TextStyle(
-          fontSize: scaleDimen(20),
+          fontSize: scaleDimen(21),
           fontWeight: FontWeight.bold,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(13)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(17),
             ),
           ),
         ),
