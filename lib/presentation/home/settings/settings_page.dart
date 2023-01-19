@@ -32,7 +32,7 @@ class SettingsPage extends StatelessWidget {
   void _listenState(BuildContext context, SettingsState state) {
     state.maybeMap(
       pushConfigureStationScreen: (s) {
-        context.router.push(const ConfigureStationScreenRoute());
+        // context.router.push(const ConfigureStationScreenRoute());
       },
       pushAboutAppScreen: (s) {
         context.router.push(const AboutAppScreenRoute());

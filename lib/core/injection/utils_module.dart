@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_ble_lib/flutter_ble_lib.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,9 +7,6 @@ abstract class UtilsModule {
   @preResolve
   Future<SharedPreferences> get sharedPreferences =>
       SharedPreferences.getInstance();
-
-  @lazySingleton
-  BleManager get bleManger => BleManager();
 
   @lazySingleton
   Connectivity get connectivity => Connectivity();

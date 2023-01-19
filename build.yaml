@@ -1,6 +1,7 @@
 targets:
   $default:
     sources:
+      - "pubspec.yaml"
       - $package$
       - lib/**
       - lang/**

@@ -4,7 +4,7 @@ import 'package:auto_localized/annotations.dart';
   locales: [
     AutoLocalizedLocale(
       languageCode: 'pl',
-      translationsFilePath: 'lang/pl.json',
+      translationsFiles: ['lang/pl.json'],
     ),
   ],
 )
