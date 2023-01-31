@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:weather_station_client/di/dependency_injection.dart';
 
-void main() {
+Future<void> main() async {
+  await configureDependencyInjection();
   runApp(const MyApp());
 }
 
@@ -33,13 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  FirebaseFirestore firestore = getIt();
 
   @override
   Widget build(BuildContext context) {
@@ -47,35 +42,20 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: FutureBuilder<FirebaseApp>(
-          future: Firebase.initializeApp(
-            options: DefaultFirebaseOptions.currentPlatform,
-          ),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return FutureBuilder<QuerySnapshot<Object>>(
-                future: FirebaseFirestore.instance.collection("weathers").get(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    final data = snapshot.requireData.docs.map((e) => e.data()).join("\n");
-                    return SingleChildScrollView(child: Text(data));
-                  } else if (snapshot.error != null) {
-                    return SingleChildScrollView(child: Text(snapshot.error.toString()));
-                  } else {
-                    return Center(child: Text(snapshot.connectionState.toString()));
-                  }
-                },
-              );
-            } else if (snapshot.error != null) {
-              return SingleChildScrollView(child: Text(snapshot.error.toString()));
-            } else {
-              return Center(child: Text(snapshot.connectionState.toString()));
-            }
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: FutureBuilder<QuerySnapshot<Object>>(
+        future: firestore.collection("weathers").get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final data =
+                snapshot.requireData.docs.map((e) => e.data()).join("\n");
+            return SingleChildScrollView(child: Text(data));
+          } else if (snapshot.error != null) {
+            return SingleChildScrollView(
+                child: Text(snapshot.error.toString()));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
