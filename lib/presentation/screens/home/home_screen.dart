@@ -1,41 +1,94 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_station_client/di/dependency_injection.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_station_client/domain/bloc/home/home_pages_bloc.dart';
+import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/screens/home/current/current_weather_page.dart';
+import 'package:weather_station_client/presentation/screens/home/hourly/hourly_weather_page.dart';
+import 'package:weather_station_client/presentation/screens/home/settings/settings_page.dart';
+import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  final _pages = [
+    const CurrentWeatherPage(),
+    const HourlyWeatherPage(),
+    const SettingsPage(),
+  ];
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  FirebaseFirestore firestore = getIt();
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Weather app"),
+    return BlocBuilder<HomePagesBloc, HomePagesState>(
+      builder: (BuildContext context, HomePagesState state) {
+        return Scaffold(
+          body: IndexedStack(
+            index: state.currentPageIndex,
+            children: _pages,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: _buildBottomNavItems(context),
+            currentIndex: state.currentPageIndex,
+            selectedItemColor: ThemeProvider.of(context).primaryColor,
+            onTap: (index) => context
+                .read<HomePagesBloc>()
+                .add(BottomNavigationClicked(index)),
+          ),
+        );
+      },
+    );
+  }
+
+  List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) => [
+        _getBottomNavItem(
+          context,
+          "Aktualna",
+          Assets.icons.currentWeather,
+        ),
+        _getBottomNavItem(
+          context,
+          "Godzinowa",
+          Assets.icons.hourlyWeather,
+        ),
+        _getBottomNavItem(
+          context,
+          "Ustawienia",
+          Assets.icons.settings,
+        ),
+      ];
+
+  BottomNavigationBarItem _getBottomNavItem(
+    BuildContext context,
+    String title,
+    SvgGenImage icon,
+  ) {
+    return BottomNavigationBarItem(
+      label: title,
+      icon: _getBottomNavIcon(
+        context,
+        icon.path,
+        isActive: false,
       ),
-      body: FutureBuilder<QuerySnapshot<Object>>(
-        future: firestore.collection("weathers").get(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final data =
-                snapshot.requireData.docs.map((e) => e.data()).join("\n");
-            return SingleChildScrollView(
-              child: Text(data),
-            );
-          } else if (snapshot.error != null) {
-            return SingleChildScrollView(
-              child: Text(snapshot.error.toString()),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      activeIcon: _getBottomNavIcon(
+        context,
+        icon.path,
+        isActive: true,
       ),
+    );
+  }
+
+  SvgPicture _getBottomNavIcon(
+    BuildContext context,
+    String path, {
+    required bool isActive,
+  }) {
+    return SvgPicture.asset(
+      path,
+      width: 24,
+      height: 24,
+      color: isActive
+          ? ThemeProvider.of(context).primaryColor
+          : ThemeProvider.of(context).textColor,
     );
   }
 }

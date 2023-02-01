@@ -23,6 +23,10 @@ dependencies:
   injectable: ^2.1.0
 
   auto_route: ^5.0.4
+  
+  freezed_annotation: ^2.2.0
+
+  json_annotation: ^4.8.0
 
   flutter_svg: ^1.1.6
 
@@ -40,6 +44,14 @@ dev_dependencies:
 
   flutter_gen_runner: ^5.1.0+1
 
+  freezed: ^2.3.2
+
+  json_serializable: ^6.6.0
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
+
 flutter:
 
   uses-material-design: true
@@ -47,3 +59,43 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/lato_light.ttf
+          style: normal
+          weight: 300
+        - asset: fonts/lato_light_italic.ttf
+          style: italic
+          weight: 300
+        - asset: fonts/lato_regular.ttf
+          style: normal
+          weight: 400
+        - asset: fonts/lato_italic.ttf
+          style: italic
+          weight: 400
+        - asset: fonts/lato_medium.ttf
+          style: normal
+          weight: 500
+        - asset: fonts/lato_medium_italic.ttf
+          style: italic
+          weight: 500
+        - asset: fonts/lato_semibold.ttf
+          style: normal
+          weight: 600
+        - asset: fonts/lato_semibold_italic.ttf
+          style: italic
+          weight: 600
+        - asset: fonts/lato_bold.ttf
+          style: normal
+          weight: 700
+        - asset: fonts/lato_bold_italic.ttf
+          style: italic
+          weight: 700
+        - asset: fonts/lato_black.ttf
+          style: normal
+          weight: 900
+        - asset: fonts/lato_black_italic.ttf
+          style: italic
+          weight: 900
