@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -67,7 +57,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '608229954934',
     projectId: 'weather-station-2bb34',
     storageBucket: 'weather-station-2bb34.appspot.com',
-    iosClientId: '608229954934-9j835847n3f425llqaiqffnda5u2n184.apps.googleusercontent.com',
+    iosClientId:
+        '608229954934-9j835847n3f425llqaiqffnda5u2n184.apps.googleusercontent.com',
     iosBundleId: 'com.example.weatherStationClient',
   );
 
@@ -77,7 +68,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '608229954934',
     projectId: 'weather-station-2bb34',
     storageBucket: 'weather-station-2bb34.appspot.com',
-    iosClientId: '608229954934-9j835847n3f425llqaiqffnda5u2n184.apps.googleusercontent.com',
+    iosClientId:
+        '608229954934-9j835847n3f425llqaiqffnda5u2n184.apps.googleusercontent.com',
     iosBundleId: 'com.example.weatherStationClient',
   );
 }

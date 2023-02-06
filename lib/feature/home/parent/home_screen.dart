@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station_client/domain/bloc/home/home_pages_bloc.dart';
+import 'package:weather_station_client/feature/home/pages/current/current_weather_page.dart';
+import 'package:weather_station_client/feature/home/pages/hourly/hourly_weather_page.dart';
+import 'package:weather_station_client/feature/home/pages/settings/settings_page.dart';
+import 'package:weather_station_client/feature/home/parent/bloc/home_pages_bloc.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
-import 'package:weather_station_client/presentation/screens/home/current/current_weather_page.dart';
-import 'package:weather_station_client/presentation/screens/home/hourly/hourly_weather_page.dart';
-import 'package:weather_station_client/presentation/screens/home/settings/settings_page.dart';
 import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
