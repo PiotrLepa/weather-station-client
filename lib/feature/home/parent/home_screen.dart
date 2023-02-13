@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_station_client/feature/home/pages/current/current_weather_page.dart';
+import 'package:weather_station_client/feature/home/pages/current/presentation/current_weather_page.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/hourly_weather_page.dart';
 import 'package:weather_station_client/feature/home/pages/settings/settings_page.dart';
 import 'package:weather_station_client/feature/home/parent/bloc/home_pages_bloc.dart';
