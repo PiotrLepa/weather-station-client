@@ -34,20 +34,19 @@
   "windSpeedAvg": "Avg",
   "windSpeedUnit": "km/h",
   "updateTimeNow": "Now",
-  "minutes": "{count, plural, one{minute} few{minutes} many{minutes} other{minutes}",
-  "@minutes": {
+  "minutesAgo": "{minutes, plural, =1{1 minute ago} other{{minutes} minutes ago}",
+  "@minutesAgo": {
     "placeholders": {
-      "count": {}
+      "minutes": {}
     }
   },
-  "hours": "{count, plural, one{hour} few{hours} many{hours} other{hours}",
-  "@hours": {
+  "hoursAgo": "{hours, plural, =1{1 hour ago} other{{hours} hours ago}",
+  "@hoursAgo": {
     "placeholders": {
-      "count": {}
+      "hours": {}
     }
   },
-  "agoLabel": "ago",
-  "updateTimeOverDay": "Over a day",
+  "updateTimeOverDayAgo": "Over a day ago",
   "currentWeatherPageName": "Current",
   "hourlyWeatherPageName": "Hourly",
   "settingsPageName": "Settings",
