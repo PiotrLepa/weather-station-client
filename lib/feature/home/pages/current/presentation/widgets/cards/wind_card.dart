@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/cards/weather_card.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/weather_unit.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 
 class WindCard extends StatelessWidget {
   final double maxSpeed;
@@ -18,7 +19,7 @@ class WindCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff869644),
       iconPath: Assets.icons.wind.path,
-      title: "Prędkość wiatru",
+      title: context.strings.windSpeed,
       body: Column(
         children: [
           Stack(
@@ -28,21 +29,21 @@ class WindCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildWindValue(
-                      "Max",
+                      context.strings.windSpeedMax,
                       maxSpeed.toString(),
                     ),
                     const VerticalDivider(width: 50),
                     _buildWindValue(
-                      "Średnia",
+                      context.strings.windSpeedAvg,
                       avgSpeed.toString(),
                     ),
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                 right: 12,
                 bottom: 0,
-                child: WeatherUnit(value: "km/h"),
+                child: WeatherUnit(value: context.strings.windSpeedUnit),
               ),
             ],
           ),

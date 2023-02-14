@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station_client/di/dependency_injection.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/util/update_time_formatter.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/progress_button.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class CurrentWeatherUpdateTime extends StatefulWidget {
@@ -59,7 +60,7 @@ class CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                  text: "Zaktualizowano: ",
+                  text: context.strings.currentWeatherLastUpdateTime,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 17,
@@ -90,7 +91,7 @@ class CurrentWeatherUpdateTimeState extends State<CurrentWeatherUpdateTime> {
             children: [
               ProgressButton(
                 loading: widget.refreshLoading,
-                text: "Odśwież",
+                text: context.strings.currentWeatherRefreshButton,
                 textStyle: const TextStyle(
                   fontSize: 20,
                 ),

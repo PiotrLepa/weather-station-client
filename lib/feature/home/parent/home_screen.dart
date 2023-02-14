@@ -6,6 +6,7 @@ import 'package:weather_station_client/feature/home/pages/hourly/hourly_weather_
 import 'package:weather_station_client/feature/home/pages/settings/settings_page.dart';
 import 'package:weather_station_client/feature/home/parent/bloc/home_pages_bloc.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -42,17 +43,17 @@ class HomeScreen extends StatelessWidget {
   List<BottomNavigationBarItem> _buildBottomNavItems(BuildContext context) => [
         _getBottomNavItem(
           context,
-          "Aktualna",
+          context.strings.currentWeatherPageName,
           Assets.icons.currentWeather,
         ),
         _getBottomNavItem(
           context,
-          "Godzinowa",
+          context.strings.hourlyWeatherPageName,
           Assets.icons.hourlyWeather,
         ),
         _getBottomNavItem(
           context,
-          "Ustawienia",
+          context.strings.settingsPageName,
           Assets.icons.settings,
         ),
       ];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/cards/weather_card.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/weather_unit.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 
 class AirPollutionCard extends StatelessWidget {
   final int pm1;
@@ -20,7 +21,7 @@ class AirPollutionCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff595959),
       iconPath: Assets.icons.airPollution.path,
-      title: "Zanieczyszczenie",
+      title: context.strings.airPollution,
       body: Column(
         children: [
           IntrinsicHeight(
@@ -30,25 +31,25 @@ class AirPollutionCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildPollutionValue(
-                      "Pm1",
+                      context.strings.airPollutionPm1,
                       pm1.toString(),
                     ),
                     _buildVerticalDivider(context),
                     _buildPollutionValue(
-                      "Pm 2.5",
+                      context.strings.airPollutionPm25,
                       pm25.toString(),
                     ),
                     _buildVerticalDivider(context),
                     _buildPollutionValue(
-                      "Pm 10",
+                      context.strings.airPollutionPm10,
                       pm10.toString(),
                     ),
                   ],
                 ),
-                const Positioned(
+                Positioned(
                   right: 12,
                   bottom: 0,
-                  child: WeatherUnit(value: "μg/m\u00B3"),
+                  child: WeatherUnit(value: context.strings.airPollutionUnit),
                 ),
               ],
             ),

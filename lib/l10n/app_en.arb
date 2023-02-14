@@ -1,0 +1,57 @@
+{
+  "progressButtonLoading": "Loading...",
+  "airPollution": "Air pollution",
+  "airPollutionPm1": "Pm 1",
+  "airPollutionPm25": "Pm 2.5",
+  "airPollutionPm10": "Pm 10",
+  "airPollutionUnit": "μg/m\u00B3",
+  "humidity": "Humidity",
+  "humidityWithUnit": "{humidity} %",
+  "@humidityWithUnit": {
+    "placeholders": {
+      "humidity": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "pressure": "Pressure",
+  "pressureUnit": "hpa",
+  "precipitation": "Precipitation",
+  "precipitationUnit": "mm/cm\u00B2",
+  "temperature": "Temperature",
+  "temperatureWithUnit": "{temperature} °C",
+  "@temperatureWithUnit": {
+    "placeholders": {
+      "temperature": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "windSpeed": "Wind speed",
+  "windSpeedMax": "Max",
+  "windSpeedAvg": "Avg",
+  "windSpeedUnit": "km/h",
+  "updateTimeNow": "Now",
+  "minutes": "{count, plural, one{minute} few{minutes} many{minutes} other{minutes}",
+  "@minutes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "hours": "{count, plural, one{hour} few{hours} many{hours} other{hours}",
+  "@hours": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "agoLabel": "ago",
+  "updateTimeOverDay": "Over a day",
+  "currentWeatherPageName": "Current",
+  "hourlyWeatherPageName": "Hourly",
+  "settingsPageName": "Settings",
+  "currentWeatherPageAppBarTitle": "Weather",
+  "currentWeatherLastUpdateTime": "Updated: ",
+  "currentWeatherRefreshButton": "Refresh"
+}

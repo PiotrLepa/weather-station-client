@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/current_weather_update_time.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 
 class CurrentWeatherAppBar extends StatelessWidget {
   final double height;
@@ -21,7 +22,7 @@ class CurrentWeatherAppBar extends StatelessWidget {
       toolbarHeight: height,
       expandedHeight: expandedHeight,
       pinned: true,
-      title: const Text("Pogoda"),
+      title: Text(context.strings.currentWeatherPageAppBarTitle),
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/cards/weather_card.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/weather_value.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 
 class RainCard extends StatelessWidget {
   final double precipitation;
@@ -17,10 +18,10 @@ class RainCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff27C4FF),
       iconPath: Assets.icons.rain.path,
-      title: "Opady",
+      title: context.strings.precipitation,
       body: WeatherValue(
         value: precipitation.toString(),
-        unit: "mm/cm\u00B2",
+        unit: context.strings.precipitationUnit,
       ),
     );
   }

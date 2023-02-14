@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/cards/weather_card.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 
 class HumidityCard extends StatelessWidget {
   final double humidity;
@@ -16,9 +17,9 @@ class HumidityCard extends StatelessWidget {
     return WeatherCard(
       color: const Color(0xff67e4dc),
       iconPath: Assets.icons.humidity.path,
-      title: "Wilgotność",
+      title: context.strings.humidity,
       body: Text(
-        '$humidity %',
+        context.strings.humidityWithUnit(humidity),
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w900,

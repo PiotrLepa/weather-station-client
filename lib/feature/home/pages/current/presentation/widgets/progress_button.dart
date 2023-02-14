@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_station_client/presentation/extensions.dart';
 import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class ProgressButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class ProgressButton extends StatelessWidget {
         children: [
           const SizedBox(width: 16),
           Text(
-            loading ? "Ładowanie..." : text,
+            loading ? context.strings.progressButtonLoading : text,
             style: textStyle,
           ),
           const SizedBox(width: 16),
