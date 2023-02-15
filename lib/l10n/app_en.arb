@@ -52,5 +52,14 @@
   "settingsPageName": "Settings",
   "currentWeatherPageAppBarTitle": "Weather",
   "currentWeatherLastUpdateTime": "Updated: ",
-  "currentWeatherRefreshButton": "Refresh"
+  "currentWeatherRefreshButton": "Refresh",
+  "chartWindAvg": "Wind\nspeed",
+  "chartWindMax": "Gusts\nof\nwind",
+  "weatherChartXAxisTitle": "Hour",
+  "cardAirPollutionShort": "Smog",
+  "hourlyWeatherChangeDay": "Change a day",
+  "hourlyWeatherInitialDescription": "Select a day to see details",
+  "hourlyWeatherInitialButton": "Select",
+  "hourlyWeatherAppBarDay": "Data from day",
+  "retryButton": "Retry"
 }

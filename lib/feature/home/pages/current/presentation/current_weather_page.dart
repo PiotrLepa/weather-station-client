@@ -16,8 +16,8 @@ class CurrentWeatherPage extends StatelessWidget {
             builder: (BuildContext context, CurrentWeatherState state) {
           return state.map(
             loading: (_) => const Center(child: CircularProgressIndicator()),
-            success: (success) => CurrentWeatherContent(
-              weather: success.weather,
+            success: (data) => CurrentWeatherContent(
+              weather: data.weather,
               refreshLoading: false,
             ),
             error: (error) => Center(child: Text(error.message)),

@@ -26,5 +26,15 @@
   "settingsPageName": "Ustawienia",
   "currentWeatherPageAppBarTitle": "Pogoda",
   "currentWeatherLastUpdateTime": "Zaktualizowano: ",
-  "currentWeatherRefreshButton": "Odśwież"
+  "currentWeatherRefreshButton": "Odśwież",
+  "chartWindAvg": "Prędkość\nwiatru",
+  "chartWindMax": "Porywy\nwiatru",
+  "weatherChartXAxisTitle": "Godzina",
+  "windUnit": "km/h",
+  "cardAirPollutionShort": "Smog",
+  "hourlyWeatherChangeDay": "Zmień dzień",
+  "hourlyWeatherInitialDescription": "Wybierz datę, aby zobaczyć szczegółowe dane",
+  "hourlyWeatherInitialButton": "Wybierz",
+  "hourlyWeatherAppBarDay": "Dane z dnia",
+  "retryButton": "Ponów"
 }
