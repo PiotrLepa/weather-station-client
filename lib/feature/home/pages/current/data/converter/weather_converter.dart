@@ -14,6 +14,6 @@ class WeatherConverter {
         windSpeedMax: response.windSpeedMax,
         windSpeedAvg: response.windSpeedAvg,
         precipitation: response.precipitation,
-        timestamp: DateTime.now(), // TODO get from firestore response
+        timestamp: response.timestamp.toDate(),
       );
 }
