@@ -25,4 +25,9 @@ class WeatherRepositoryImpl extends WeatherRepository {
   @override
   Future<AvailableDays> getAvailableDays() =>
       _service.getAvailableDays().then(_availableDaysConverter.toDomain);
+
+  @override
+  Future<List<Weather>> getWeathersForDay(DateTime day) => _service
+      .getWeathersForDay(day)
+      .then((weathers) => weathers.map(_weatherConverter.toDomain).toList());
 }

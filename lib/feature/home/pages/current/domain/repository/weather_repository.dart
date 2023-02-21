@@ -5,4 +5,6 @@ abstract class WeatherRepository {
   Future<Weather> getLastWeather();
 
   Future<AvailableDays> getAvailableDays();
+
+  Future<List<Weather>> getWeathersForDay(DateTime day);
 }

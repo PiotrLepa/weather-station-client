@@ -25,9 +25,29 @@ class FirestoreService {
           .collection("2")
           .get()
           .then((snapshot) {
-        return snapshot.docs
+        final availableDays = snapshot.docs
             .map((e) => e.data())
             .map((json) => AvailableDayResponse.fromJson(json))
+            .toList();
+
+        availableDays.sort((dayResponse, otherDayResponse) =>
+            dayResponse.day.compareTo(otherDayResponse.day));
+
+        return availableDays;
+      });
+
+  Future<List<WeatherResponse>> getWeathersForDay(DateTime day) => _firestore
+          .collection("weathers")
+          .where(
+            "timestamp",
+            isGreaterThanOrEqualTo: Timestamp.fromDate(day),
+            isLessThan: day.add(const Duration(days: 1)),
+          )
+          .get()
+          .then((snapshot) {
+        return snapshot.docs
+            .map((document) => document.data())
+            .map((json) => WeatherResponse.fromJson(json))
             .toList();
       });
 }
