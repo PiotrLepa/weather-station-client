@@ -6,6 +6,7 @@
   "airPollutionPm10": "Pm 10",
   "airPollutionUnit": "μg/m\u00B3",
   "humidity": "Humidity",
+  "humidityUnit": "%",
   "humidityWithUnit": "{humidity} %",
   "@humidityWithUnit": {
     "placeholders": {
@@ -19,7 +20,9 @@
   "pressureUnit": "hpa",
   "precipitation": "Precipitation",
   "precipitationUnit": "mm/cm\u00B2",
+  "precipitationUnitShort": "mm",
   "temperature": "Temperature",
+  "temperatureUnitShort": "°",
   "temperatureWithUnit": "{temperature} °C",
   "@temperatureWithUnit": {
     "placeholders": {
@@ -33,6 +36,9 @@
   "windSpeedMax": "Max",
   "windSpeedAvg": "Avg",
   "windSpeedUnit": "km/h",
+  "strongWindSpeed": "Strong",
+  "moderateWindSpeed": "Moderate",
+  "weakWindSpeed": "Weak",
   "updateTimeNow": "Now",
   "minutesAgo": "{minutes, plural, =1{1 minute ago} other{{minutes} minutes ago}",
   "@minutesAgo": {

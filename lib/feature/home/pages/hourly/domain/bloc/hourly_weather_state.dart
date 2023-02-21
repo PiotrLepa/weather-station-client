@@ -7,6 +7,7 @@ class HourlyWeatherState with _$HourlyWeatherState {
   const factory HourlyWeatherState.success({
     required bool isLoading,
     required List<DateTime> availableDays,
+    List<Weather>? hourlyWeather,
   }) = Success;
 
   const factory HourlyWeatherState.error({
