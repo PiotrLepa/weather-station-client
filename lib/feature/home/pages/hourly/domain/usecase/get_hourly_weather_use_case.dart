@@ -49,8 +49,9 @@ class GetHourlyWeatherUseCase {
             _calculateAvgDouble(weathers.map((weather) => weather.windSpeedAvg))
                 .toPrecision(_decimalPrecision),
         precipitation:
-            _calculateAvgDouble(weathers.map((weather) => weather.temperature))
-                .toPrecision(_decimalPrecision),
+            _calculateAvgDouble(
+                weathers.map((weather) => weather.precipitation))
+            .toPrecision(_decimalPrecision),
         timestamp: weathers.first.timestamp,
       );
 
