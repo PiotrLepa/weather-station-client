@@ -17,7 +17,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   HourlyWeatherBloc(
     this._weatherRepository,
     this._getHourlyWeatherUseCase,
-  ) : super(const Loading()) {
+  ) : super(const InitialLoading()) {
     on<ScreenStarted>(_onScreenStarted);
     on<RetryPressed>(_onRetryPressed);
     on<DateSelected>(_onDateSelected);
@@ -30,13 +30,12 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     await _weatherRepository
         .getAvailableDays()
         .then((availableDays) => emit(
-              Success(
+              AvailableDaysFetched(
                 isLoading: false,
                 availableDays: availableDays.days,
-                hourlyWeather: null,
               ),
             ))
-        .catchError((e) => emit(Error(message: e.toString())));
+        .catchError((e) => emit(InitialError(message: e.toString())));
   }
 
   Future<void> _onRetryPressed(
@@ -50,12 +49,16 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     DateSelected event,
     Emitter<HourlyWeatherState> emit,
   ) async {
-    final successState = state as Success;
+    final previousState = state as AvailableDaysFetched;
     await _getHourlyWeatherUseCase
         .invoke(event.day)
-        .then((hourlyWeather) => emit(successState.copyWith(
+        .then((hourlyWeather) => emit(HourlyWeatherFetched(
+              isLoading: false,
+              availableDays: previousState.availableDays,
               hourlyWeather: hourlyWeather,
             )))
-        .catchError((e) => emit(Error(message: e.toString())));
+        .catchError((e) => emit(InitialError(
+            message:
+                e.toString()))); // TODO show snackbar instead of error page
   }
 }

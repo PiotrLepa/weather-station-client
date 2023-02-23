@@ -22,29 +22,24 @@ class HourlyWeatherPage extends StatelessWidget {
           builder: (context, state) {
             return Scaffold(
               appBar: _buildAppBar(
-                context,
-                state is Success && state.hourlyWeather != null,
+                context: context,
+                chartsVisible: state is HourlyWeatherFetched,
               ),
               body: state.map(
-                loading: (_) =>
+                initialLoading: (_) =>
                     const Center(child: CircularProgressIndicator()),
-                success: (data) {
-                  if (data.hourlyWeather != null) {
-                    return _buildHourlyWeatherPage(
-                      context,
-                      data.availableDays,
-                      data.hourlyWeather!,
-                    );
-                  } else {
-                    return Center(
-                      child: HourlyWeatherInitial(
-                        availableDays: data.availableDays,
-                        selectDateLoading: false,
-                      ),
-                    );
-                  }
-                },
-                error: (data) => ErrorPage(
+                availableDaysFetched: (data) => Center(
+                  child: HourlyWeatherInitial(
+                    availableDays: data.availableDays,
+                    selectDateLoading: false,
+                  ),
+                ),
+                hourlyWeatherFetched: (data) => _buildHourlyWeatherPage(
+                  context: context,
+                  availableDays: data.availableDays,
+                  hourlyWeather: data.hourlyWeather,
+                ),
+                initialError: (data) => ErrorPage(
                   isLoading: false,
                   message: data.message,
                   onRetry: () {
@@ -59,10 +54,10 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  AppBar _buildAppBar(
-    BuildContext context,
-    bool chartsVisible,
-  ) {
+  AppBar _buildAppBar({
+    required BuildContext context,
+    required bool chartsVisible,
+  }) {
     final title = chartsVisible ? null : context.strings.hourlyWeatherPageName;
     final elevation = chartsVisible ? 0.0 : 4.0;
 
@@ -72,11 +67,11 @@ class HourlyWeatherPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHourlyWeatherPage(
-    BuildContext context,
-    List<DateTime> availableDays,
-    List<Weather> weathers,
-  ) {
+  Widget _buildHourlyWeatherPage({
+    required BuildContext context,
+    required List<DateTime> availableDays,
+    required List<Weather> hourlyWeather,
+  }) {
     return ScrollConfiguration(
       behavior: DisableOverscrollGlowBehavior(),
       child: SingleChildScrollView(
@@ -84,12 +79,12 @@ class HourlyWeatherPage extends StatelessWidget {
         child: Column(
           children: [
             HourlyWeatherHeader(
-              day: weathers.first.timestamp,
+              day: hourlyWeather.first.timestamp,
               availableDays: availableDays,
-              changeDayLoading: false, // TODO
+              changeDayLoading: false, // TODO get from state
             ),
             const SizedBox(height: 24),
-            WeatherChart(weathers: weathers),
+            WeatherChart(weathers: hourlyWeather),
             const SizedBox(height: 48),
           ],
         ),
