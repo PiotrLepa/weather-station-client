@@ -9,6 +9,7 @@ import 'package:weather_station_client/feature/home/pages/hourly/presentation/wi
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/widgets/hourly_weather_initial.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/widgets/weather_chart/weather_chart.dart';
 import 'package:weather_station_client/presentation/extensions.dart';
+import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
   const HourlyWeatherPage({Key? key}) : super(key: key);
@@ -18,7 +19,23 @@ class HourlyWeatherPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt.get<HourlyWeatherBloc>()..add(const ScreenStarted()),
       child: Scaffold(
-        body: BlocBuilder<HourlyWeatherBloc, HourlyWeatherState>(
+        body: BlocConsumer<HourlyWeatherBloc, HourlyWeatherState>(
+          listener: (oldState, newState) {
+            newState.maybeMap(
+              availableDaysFetched: (data) {
+                final errorMessage = data.errorMessage;
+                if (errorMessage != null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMessage),
+                      backgroundColor: ThemeProvider.of(context).errorColor,
+                    ),
+                  );
+                }
+              },
+              orElse: () => {},
+            );
+          },
           builder: (context, state) {
             return Scaffold(
               appBar: _buildAppBar(
@@ -30,12 +47,13 @@ class HourlyWeatherPage extends StatelessWidget {
                     const Center(child: CircularProgressIndicator()),
                 availableDaysFetched: (data) => Center(
                   child: HourlyWeatherInitial(
+                    selectDateLoading: data.isLoading,
                     availableDays: data.availableDays,
-                    selectDateLoading: false,
                   ),
                 ),
                 hourlyWeatherFetched: (data) => _buildHourlyWeatherPage(
                   context: context,
+                  isLoading: data.isLoading,
                   availableDays: data.availableDays,
                   hourlyWeather: data.hourlyWeather,
                 ),
@@ -69,6 +87,7 @@ class HourlyWeatherPage extends StatelessWidget {
 
   Widget _buildHourlyWeatherPage({
     required BuildContext context,
+    required bool isLoading,
     required List<DateTime> availableDays,
     required List<Weather> hourlyWeather,
   }) {
@@ -79,9 +98,9 @@ class HourlyWeatherPage extends StatelessWidget {
         child: Column(
           children: [
             HourlyWeatherHeader(
+              changeDayLoading: isLoading,
               day: hourlyWeather.first.timestamp,
               availableDays: availableDays,
-              changeDayLoading: false, // TODO get from state
             ),
             const SizedBox(height: 24),
             WeatherChart(weathers: hourlyWeather),

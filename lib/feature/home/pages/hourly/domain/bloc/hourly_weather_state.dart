@@ -7,12 +7,14 @@ class HourlyWeatherState with _$HourlyWeatherState {
   const factory HourlyWeatherState.availableDaysFetched({
     required bool isLoading,
     required List<DateTime> availableDays,
+    String? errorMessage,
   }) = AvailableDaysFetched;
 
   const factory HourlyWeatherState.hourlyWeatherFetched({
     required bool isLoading,
     required List<DateTime> availableDays,
     required List<Weather> hourlyWeather,
+    String? errorMessage,
   }) = HourlyWeatherFetched;
 
   const factory HourlyWeatherState.initialError({

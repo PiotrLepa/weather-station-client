@@ -7,13 +7,13 @@ import 'package:weather_station_client/gen/assets.gen.dart';
 import 'package:weather_station_client/presentation/extensions.dart';
 
 class HourlyWeatherInitial extends StatelessWidget {
-  final List<DateTime> availableDays;
   final bool selectDateLoading;
+  final List<DateTime> availableDays;
 
   const HourlyWeatherInitial({
     Key? key,
-    required this.availableDays,
     required this.selectDateLoading,
+    required this.availableDays,
   }) : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class HourlyWeatherInitial extends StatelessWidget {
     await showHourlyWeatherDayPicker(
       context,
       availableDays,
-      (selectedDate) {
+          (selectedDate) {
         context.read<HourlyWeatherBloc>().add(DateSelected(selectedDate));
       },
     );

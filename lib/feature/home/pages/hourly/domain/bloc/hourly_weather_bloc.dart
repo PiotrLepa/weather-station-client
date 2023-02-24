@@ -21,12 +21,17 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     on<ScreenStarted>(_onScreenStarted);
     on<RetryPressed>(_onRetryPressed);
     on<DateSelected>(_onDateSelected);
+    on<ChangeDatePressed>(_onChangeDatePressed);
   }
 
   Future<void> _onScreenStarted(
     ScreenStarted event,
     Emitter<HourlyWeatherState> emit,
   ) async {
+    await _getAvailableDays(emit);
+  }
+
+  Future<void> _getAvailableDays(Emitter<HourlyWeatherState> emit) async {
     await _weatherRepository
         .getAvailableDays()
         .then((availableDays) => emit(
@@ -42,7 +47,7 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     RetryPressed event,
     Emitter<HourlyWeatherState> emit,
   ) async {
-// TODO
+    await _getAvailableDays(emit);
   }
 
   Future<void> _onDateSelected(
@@ -50,15 +55,57 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     Emitter<HourlyWeatherState> emit,
   ) async {
     final previousState = state as AvailableDaysFetched;
-    await _getHourlyWeatherUseCase
-        .invoke(event.day)
-        .then((hourlyWeather) => emit(HourlyWeatherFetched(
-              isLoading: false,
-              availableDays: previousState.availableDays,
-              hourlyWeather: hourlyWeather,
-            )))
-        .catchError((e) => emit(InitialError(
-            message:
-                e.toString()))); // TODO show snackbar instead of error page
+    emit(previousState.copyWith(
+      isLoading: true,
+      errorMessage: null,
+    ));
+    await _getHourlyWeatherUseCase.invoke(event.day).then((hourlyWeather) {
+      if (hourlyWeather.isNotEmpty) {
+        emit(HourlyWeatherFetched(
+          isLoading: false,
+          availableDays: previousState.availableDays,
+          hourlyWeather: hourlyWeather,
+        ));
+      } else {
+        emit(previousState.copyWith(
+          isLoading: false,
+          errorMessage: "No network connection", // TODO create error resolver
+        ));
+      }
+    }).catchError((e) {
+      emit(previousState.copyWith(
+        isLoading: false,
+        errorMessage: e.toString(),
+      ));
+    });
+  }
+
+  Future<void> _onChangeDatePressed(
+    ChangeDatePressed event,
+    Emitter<HourlyWeatherState> emit,
+  ) async {
+    final previousState = state as HourlyWeatherFetched;
+    emit(previousState.copyWith(
+      isLoading: true,
+      errorMessage: null,
+    ));
+    await _getHourlyWeatherUseCase.invoke(event.day).then((hourlyWeather) {
+      if (hourlyWeather.isNotEmpty) {
+        emit(previousState.copyWith(
+          isLoading: false,
+          hourlyWeather: hourlyWeather,
+        ));
+      } else {
+        emit(previousState.copyWith(
+          isLoading: false,
+          errorMessage: "No network connection", // TODO create error resolver
+        ));
+      }
+    }).catchError((e) {
+      emit(previousState.copyWith(
+        isLoading: false,
+        errorMessage: e.toString(),
+      ));
+    });
   }
 }

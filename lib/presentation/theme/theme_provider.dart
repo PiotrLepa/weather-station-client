@@ -26,6 +26,8 @@ class ThemeProvider {
 
   Color get backgroundColorDark => Colors.grey.shade200;
 
+  Color get errorColor => Colors.red;
+
   ThemeProvider({required this.isDark});
 
   factory ThemeProvider.of(BuildContext context) {
