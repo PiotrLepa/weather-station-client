@@ -27,7 +27,7 @@ class ProgressButton extends StatelessWidget {
         }
       },
       style: ElevatedButton.styleFrom(
-        primary: backgroundColor,
+        backgroundColor: backgroundColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

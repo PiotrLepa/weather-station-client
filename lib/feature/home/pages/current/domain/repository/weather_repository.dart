@@ -2,7 +2,7 @@ import 'package:weather_station_client/feature/home/pages/current/domain/model/w
 import 'package:weather_station_client/feature/home/pages/hourly/domain/model/available_days.dart';
 
 abstract class WeatherRepository {
-  Future<Weather> getLastWeather();
+  Stream<Weather> getLastWeather();
 
   Future<AvailableDays> getAvailableDays();
 

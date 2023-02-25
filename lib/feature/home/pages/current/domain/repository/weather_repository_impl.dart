@@ -19,8 +19,8 @@ class WeatherRepositoryImpl extends WeatherRepository {
   );
 
   @override
-  Future<Weather> getLastWeather() =>
-      _service.getLastWeather().then(_weatherConverter.toDomain);
+  Stream<Weather> getLastWeather() =>
+      _service.getLastWeather().map(_weatherConverter.toDomain);
 
   @override
   Future<AvailableDays> getAvailableDays() =>

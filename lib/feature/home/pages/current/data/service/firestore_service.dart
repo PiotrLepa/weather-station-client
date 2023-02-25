@@ -9,12 +9,12 @@ class FirestoreService {
 
   FirestoreService(this._firestore);
 
-  Future<WeatherResponse> getLastWeather() => _firestore
+  Stream<WeatherResponse> getLastWeather() => _firestore
           .collection("weathers")
           .orderBy("timestamp", descending: true)
           .limit(1)
-          .get()
-          .then((snapshot) {
+          .snapshots()
+          .map((snapshot) {
         final data = snapshot.docs.first.data();
         return WeatherResponse.fromJson(data);
       });
