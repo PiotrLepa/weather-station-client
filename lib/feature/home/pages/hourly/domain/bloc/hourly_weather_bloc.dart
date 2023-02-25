@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_station_client/feature/home/pages/current/domain/model/weather.dart';
-import 'package:weather_station_client/feature/home/pages/current/domain/repository/weather_repository.dart';
-import 'package:weather_station_client/feature/home/pages/hourly/domain/usecase/get_hourly_weather_use_case.dart';
+import 'package:weather_station_client/feature/home/pages/hourly/domain/use_case/get_available_days_use_case.dart';
+import 'package:weather_station_client/feature/home/pages/hourly/domain/use_case/get_hourly_weather_use_case.dart';
 
 part 'hourly_weather_bloc.freezed.dart';
 part 'hourly_weather_event.dart';
@@ -11,11 +11,11 @@ part 'hourly_weather_state.dart';
 
 @injectable
 class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
-  final WeatherRepository _weatherRepository;
+  final GetAvailableDaysUseCase _getAvailableDaysUseCase;
   final GetHourlyWeatherUseCase _getHourlyWeatherUseCase;
 
   HourlyWeatherBloc(
-    this._weatherRepository,
+    this._getAvailableDaysUseCase,
     this._getHourlyWeatherUseCase,
   ) : super(const InitialLoading()) {
     on<ScreenStarted>(_onScreenStarted);
@@ -32,8 +32,8 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   }
 
   Future<void> _getAvailableDays(Emitter<HourlyWeatherState> emit) async {
-    await _weatherRepository
-        .getAvailableDays()
+    await _getAvailableDaysUseCase
+        .invoke()
         .then((availableDays) => emit(
               AvailableDaysFetched(
                 isLoading: false,
