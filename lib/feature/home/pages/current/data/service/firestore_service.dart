@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:weather_station_client/feature/home/pages/current/data/logger/firestore_network_logger.dart';
 import 'package:weather_station_client/feature/home/pages/current/data/model/weather_response.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/data/model/available_days_response.dart';
 
 @lazySingleton
 class FirestoreService {
   final FirebaseFirestore _firestore;
+  final FirestoreNetworkLogger _networkLogger;
 
-  FirestoreService(this._firestore);
+  FirestoreService(
+    this._firestore,
+    this._networkLogger,
+  );
 
   Stream<WeatherResponse> getLastWeather() => _firestore
           .collection("weathers")
@@ -15,6 +20,8 @@ class FirestoreService {
           .limit(1)
           .snapshots()
           .map((snapshot) {
+        _networkLogger.logResponse(snapshot.docs);
+
         final data = snapshot.docs.first.data();
         return WeatherResponse.fromJson(data);
       });
@@ -42,7 +49,15 @@ class FirestoreService {
           .collection(month.toString())
           .get()
           .then((snapshot) {
-        final availableDays = snapshot.docs
+        final docs = snapshot.docs;
+
+        _networkLogger.logResponse(docs);
+
+        if (docs.isEmpty) {
+          throw StateError("No saved days");
+        }
+
+        final availableDays = docs
             .map((e) => e.data())
             .map((json) => AvailableDayResponse.fromJson(json))
             .toList();
@@ -63,6 +78,8 @@ class FirestoreService {
           .get()
           .then((snapshot) {
         final docs = snapshot.docs;
+        _networkLogger.logResponse(docs);
+
         if (docs.isEmpty) {
           throw StateError("No weathers for day: $day");
         }

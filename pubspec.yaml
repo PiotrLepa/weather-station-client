@@ -32,6 +32,8 @@ dependencies:
 
   flutter_svg: ^1.1.6
 
+  chucker_flutter: ^1.4.2
+
   flutter_localizations:
     sdk: flutter
   intl: any
