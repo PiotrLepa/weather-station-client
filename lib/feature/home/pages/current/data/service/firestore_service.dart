@@ -9,7 +9,8 @@ class FirestoreService {
 
   FirestoreService(this._firestore);
 
-  Stream<WeatherResponse> getLastWeather() => _firestore
+  Stream<WeatherResponse> getLastWeather() =>
+      _firestore
           .collection("weathers")
           .orderBy("timestamp", descending: true)
           .limit(1)
@@ -19,13 +20,19 @@ class FirestoreService {
         return WeatherResponse.fromJson(data);
       });
 
-  Future<List<AvailableDayResponse>> getAvailableDays() => _firestore
+  Future<List<AvailableDayResponse>> getAvailableDays() =>
+      _firestore
           .collection("savedDays")
           .doc("2023")
           .collection("2")
           .get()
           .then((snapshot) {
-        final availableDays = snapshot.docs
+        final docs = snapshot.docs;
+        if (docs.isEmpty) {
+          throw StateError("No saved days");
+        }
+
+        final availableDays = docs
             .map((e) => e.data())
             .map((json) => AvailableDayResponse.fromJson(json))
             .toList();
@@ -36,16 +43,22 @@ class FirestoreService {
         return availableDays;
       });
 
-  Future<List<WeatherResponse>> getWeathersForDay(DateTime day) => _firestore
+  Future<List<WeatherResponse>> getWeathersForDay(DateTime day) =>
+      _firestore
           .collection("weathers")
           .where(
-            "timestamp",
-            isGreaterThanOrEqualTo: Timestamp.fromDate(day),
-            isLessThan: day.add(const Duration(days: 1)),
-          )
+        "timestamp",
+        isGreaterThanOrEqualTo: Timestamp.fromDate(day),
+        isLessThan: day.add(const Duration(days: 1)),
+      )
           .get()
           .then((snapshot) {
-        return snapshot.docs
+        final docs = snapshot.docs;
+        if (docs.isEmpty) {
+          throw StateError("No weathers for day: $day");
+        }
+
+        return docs
             .map((document) => document.data())
             .map((json) => WeatherResponse.fromJson(json))
             .toList();

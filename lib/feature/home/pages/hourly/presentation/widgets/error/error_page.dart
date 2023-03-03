@@ -3,15 +3,15 @@ import 'package:weather_station_client/feature/home/pages/hourly/presentation/wi
 
 class ErrorPage extends StatelessWidget {
   final String message;
-  final VoidCallback onRetry;
+  final VoidCallback? onRetry;
   final bool isLoading;
   final Key? buttonKey;
 
   const ErrorPage({
     Key? key,
     required this.message,
-    required this.onRetry,
     required this.isLoading,
+    this.onRetry,
     this.buttonKey,
   }) : super(key: key);
 

@@ -57,6 +57,7 @@
   "hourlyWeatherPageName": "Hourly",
   "settingsPageName": "Settings",
   "currentWeatherPageAppBarTitle": "Weather",
+  "currentWeatherPageAppBarTitleLong": "Current weather",
   "currentWeatherLastUpdateTime": "Updated: ",
   "currentWeatherRefreshButton": "Refresh",
   "chartWindAvg": "Wind\nspeed",
@@ -67,5 +68,8 @@
   "hourlyWeatherInitialDescription": "Select a day to see details",
   "hourlyWeatherInitialButton": "Select",
   "hourlyWeatherAppBarDay": "Data from day",
-  "retryButton": "Retry"
+  "retryButton": "Retry",
+  "genericErrorRetryMessage": "An error occurred. Try again.",
+  "genericErrorRetryWithNewLineMessage": "An error occurred.\nTry again",
+  "genericErrorAutoRefreshMessage": "An error occurred.\nReconnecting..."
 }

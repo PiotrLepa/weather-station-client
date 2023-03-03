@@ -23,11 +23,10 @@ class HourlyWeatherPage extends StatelessWidget {
           listener: (oldState, newState) {
             newState.maybeMap(
               availableDaysFetched: (data) {
-                final errorMessage = data.errorMessage;
-                if (errorMessage != null) {
+                if (data.isError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(errorMessage),
+                      content: Text(context.strings.genericErrorRetryMessage),
                       backgroundColor: ThemeProvider.of(context).errorColor,
                     ),
                   );
@@ -59,7 +58,7 @@ class HourlyWeatherPage extends StatelessWidget {
                 ),
                 initialError: (data) => ErrorPage(
                   isLoading: false,
-                  message: data.message,
+                  message: context.strings.genericErrorRetryWithNewLineMessage,
                   onRetry: () {
                     context.read<HourlyWeatherBloc>().add(const RetryPressed());
                   },

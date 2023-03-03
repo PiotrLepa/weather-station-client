@@ -5,15 +5,15 @@ import 'package:weather_station_client/presentation/extensions.dart';
 
 class ErrorMessage extends StatelessWidget {
   final String message;
-  final VoidCallback onRetry;
+  final VoidCallback? onRetry;
   final bool isLoading;
   final Key? buttonKey;
 
   const ErrorMessage({
     Key? key,
     required this.message,
-    required this.onRetry,
     required this.isLoading,
+    this.onRetry,
     this.buttonKey,
   }) : super(key: key);
 
@@ -38,11 +38,14 @@ class ErrorMessage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          ProgressButton(
-            key: buttonKey,
-            text: context.strings.retryButton,
-            onPressed: onRetry,
-            loading: isLoading,
+          Visibility(
+            visible: onRetry != null,
+            child: ProgressButton(
+              key: buttonKey,
+              text: context.strings.retryButton,
+              onPressed: () => onRetry?.call(),
+              loading: isLoading,
+            ),
           ),
         ],
       ),

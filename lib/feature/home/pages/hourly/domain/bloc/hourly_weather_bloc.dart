@@ -38,9 +38,10 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
               AvailableDaysFetched(
                 isLoading: false,
                 availableDays: availableDays.days,
+                isError: false,
               ),
             ))
-        .catchError((e) => emit(InitialError(message: e.toString())));
+        .catchError((e) => emit(const InitialError()));
   }
 
   Future<void> _onRetryPressed(
@@ -57,25 +58,19 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     final previousState = state as AvailableDaysFetched;
     emit(previousState.copyWith(
       isLoading: true,
-      errorMessage: null,
+      isError: false,
     ));
     await _getHourlyWeatherUseCase.invoke(event.day).then((hourlyWeather) {
-      if (hourlyWeather.isNotEmpty) {
-        emit(HourlyWeatherFetched(
-          isLoading: false,
-          availableDays: previousState.availableDays,
-          hourlyWeather: hourlyWeather,
-        ));
-      } else {
-        emit(previousState.copyWith(
-          isLoading: false,
-          errorMessage: "No network connection", // TODO create error resolver
-        ));
-      }
+      emit(HourlyWeatherFetched(
+        isLoading: false,
+        availableDays: previousState.availableDays,
+        hourlyWeather: hourlyWeather,
+        isError: false,
+      ));
     }).catchError((e) {
       emit(previousState.copyWith(
         isLoading: false,
-        errorMessage: e.toString(),
+        isError: true,
       ));
     });
   }
@@ -87,24 +82,17 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     final previousState = state as HourlyWeatherFetched;
     emit(previousState.copyWith(
       isLoading: true,
-      errorMessage: null,
+      isError: false,
     ));
     await _getHourlyWeatherUseCase.invoke(event.day).then((hourlyWeather) {
-      if (hourlyWeather.isNotEmpty) {
-        emit(previousState.copyWith(
-          isLoading: false,
-          hourlyWeather: hourlyWeather,
-        ));
-      } else {
-        emit(previousState.copyWith(
-          isLoading: false,
-          errorMessage: "No network connection", // TODO create error resolver
-        ));
-      }
+      emit(previousState.copyWith(
+        isLoading: false,
+        hourlyWeather: hourlyWeather,
+      ));
     }).catchError((e) {
       emit(previousState.copyWith(
         isLoading: false,
-        errorMessage: e.toString(),
+        isError: true,
       ));
     });
   }

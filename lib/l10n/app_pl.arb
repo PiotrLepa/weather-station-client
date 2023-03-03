@@ -31,6 +31,7 @@
   "hourlyWeatherPageName": "Godzinowa",
   "settingsPageName": "Ustawienia",
   "currentWeatherPageAppBarTitle": "Pogoda",
+  "currentWeatherPageAppBarTitleLong": "Aktualna pogoda",
   "currentWeatherLastUpdateTime": "Zaktualizowano: ",
   "currentWeatherRefreshButton": "Odśwież",
   "chartWindAvg": "Prędkość\nwiatru",
@@ -42,5 +43,8 @@
   "hourlyWeatherInitialDescription": "Wybierz datę, aby zobaczyć szczegółowe dane",
   "hourlyWeatherInitialButton": "Wybierz",
   "hourlyWeatherAppBarDay": "Dane z dnia",
-  "retryButton": "Ponów"
+  "retryButton": "Ponów",
+  "genericErrorRetryMessage": "Wystąpił błąd. Spróbuj ponownie.",
+  "genericErrorRetryWithNewLineMessage": "Wystąpił błąd.\nSpróbuj ponownie.",
+  "genericErrorAutoRefreshMessage": "Wystąpił błąd.\nPonawianie połączenia..."
 }
