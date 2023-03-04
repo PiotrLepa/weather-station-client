@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,20 +16,16 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
   final GetAvailableDaysUseCase _getAvailableDaysUseCase;
   final GetHourlyWeatherUseCase _getHourlyWeatherUseCase;
 
-  HourlyWeatherBloc(
-    this._getAvailableDaysUseCase,
-    this._getHourlyWeatherUseCase,
-  ) : super(const InitialLoading()) {
+  HourlyWeatherBloc(this._getAvailableDaysUseCase,
+      this._getHourlyWeatherUseCase,) : super(const InitialLoading()) {
     on<ScreenStarted>(_onScreenStarted);
     on<RetryPressed>(_onRetryPressed);
     on<DateSelected>(_onDateSelected);
     on<ChangeDatePressed>(_onChangeDatePressed);
   }
 
-  Future<void> _onScreenStarted(
-    ScreenStarted event,
-    Emitter<HourlyWeatherState> emit,
-  ) async {
+  Future<void> _onScreenStarted(ScreenStarted event,
+      Emitter<HourlyWeatherState> emit,) async {
     await _getAvailableDays(emit);
   }
 
@@ -41,22 +39,23 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
                 isError: false,
               ),
             ))
-        .catchError(
-          (e) => emit(const InitialError()),
-        );
+        .catchError((error, stackTrace) {
+      log(
+        'fetch available days failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      emit(const InitialError());
+    });
   }
 
-  Future<void> _onRetryPressed(
-    RetryPressed event,
-    Emitter<HourlyWeatherState> emit,
-  ) async {
+  Future<void> _onRetryPressed(RetryPressed event,
+      Emitter<HourlyWeatherState> emit,) async {
     await _getAvailableDays(emit);
   }
 
-  Future<void> _onDateSelected(
-    DateSelected event,
-    Emitter<HourlyWeatherState> emit,
-  ) async {
+  Future<void> _onDateSelected(DateSelected event,
+      Emitter<HourlyWeatherState> emit,) async {
     final previousState = state as AvailableDaysFetched;
     emit(previousState.copyWith(
       isLoading: true,
@@ -69,7 +68,12 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
         hourlyWeather: hourlyWeather,
         isError: false,
       ));
-    }).catchError((e) {
+    }).catchError((error, stackTrace) {
+      log(
+        'fetch hourly weather failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
       emit(previousState.copyWith(
         isLoading: false,
         isError: true,
@@ -77,10 +81,8 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
     });
   }
 
-  Future<void> _onChangeDatePressed(
-    ChangeDatePressed event,
-    Emitter<HourlyWeatherState> emit,
-  ) async {
+  Future<void> _onChangeDatePressed(ChangeDatePressed event,
+      Emitter<HourlyWeatherState> emit,) async {
     final previousState = state as HourlyWeatherFetched;
     emit(previousState.copyWith(
       isLoading: true,
@@ -91,7 +93,12 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
         isLoading: false,
         hourlyWeather: hourlyWeather,
       ));
-    }).catchError((e) {
+    }).catchError((error, stackTrace) {
+      log(
+        'change hourly weather failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
       emit(previousState.copyWith(
         isLoading: false,
         isError: true,
