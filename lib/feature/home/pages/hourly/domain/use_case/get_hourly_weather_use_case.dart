@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:injectable/injectable.dart';
 import 'package:weather_station_client/extensions/date_time_extensions.dart';
 import 'package:weather_station_client/feature/home/pages/current/domain/model/weather.dart';
@@ -44,12 +42,12 @@ class GetHourlyWeatherUseCase {
         pm25: _calculateAvgInt(weathers.map((weather) => weather.pm25)),
         pm10: _calculateAvgInt(weathers.map((weather) => weather.pm10)),
         windSpeedMax:
-            weathers.map((weather) => weather.windSpeedMax).reduce(max),
+            _calculateAvgDouble(weathers.map((weather) => weather.windSpeedAvg))
+                .toPrecision(_decimalPrecision),
         windSpeedAvg:
             _calculateAvgDouble(weathers.map((weather) => weather.windSpeedAvg))
                 .toPrecision(_decimalPrecision),
-        precipitation:
-            _calculateAvgDouble(
+        precipitation: _calculateAvgDouble(
                 weathers.map((weather) => weather.precipitation))
             .toPrecision(_decimalPrecision),
         timestamp: weathers.first.timestamp,
