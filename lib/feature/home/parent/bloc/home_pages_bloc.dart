@@ -16,6 +16,9 @@ class HomePagesBloc extends Bloc<HomePagesEvent, HomePagesState> {
     BottomNavigationClicked event,
     Emitter<HomePagesState> emit,
   ) {
+    if (event.index == 2) {
+      throw Exception();
+    }
     emit(state.copyWith(
       currentPageIndex: event.index,
     ));
