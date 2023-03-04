@@ -32,7 +32,7 @@ dependencies:
 
   flutter_svg: ^1.1.6
 
-  chucker_flutter: ^1.4.2
+  network_logger: ^1.0.3
 
   flutter_localizations:
     sdk: flutter

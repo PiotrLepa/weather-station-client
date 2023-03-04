@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:network_logger/network_logger.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/current_weather_page.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/hourly_weather_page.dart';
 import 'package:weather_station_client/feature/home/pages/settings/settings_page.dart';
@@ -9,14 +10,25 @@ import 'package:weather_station_client/gen/assets.gen.dart';
 import 'package:weather_station_client/presentation/extensions.dart';
 import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final _pages = [
     const CurrentWeatherPage(),
     const HourlyWeatherPage(),
     const SettingsPage(),
   ];
 
-  HomeScreen({super.key});
+  @override
+  void initState() {
+    NetworkLoggerOverlay.attachTo(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

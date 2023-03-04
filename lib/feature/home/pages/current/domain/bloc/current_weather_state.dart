@@ -7,5 +7,5 @@ class CurrentWeatherState with _$CurrentWeatherState {
   const factory CurrentWeatherState.success({required Weather weather}) =
       Success;
 
-  const factory CurrentWeatherState.error({required String message}) = Error;
+  const factory CurrentWeatherState.error() = Error;
 }

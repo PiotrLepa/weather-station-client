@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_station_client/feature/home/pages/current/data/logger/firestore_network_logger.dart';
 import 'package:weather_station_client/feature/home/pages/current/data/model/weather_response.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/data/model/available_days_response.dart';
@@ -20,10 +21,18 @@ class FirestoreService {
           .limit(1)
           .snapshots()
           .map((snapshot) {
-        _networkLogger.logResponse(snapshot.docs);
+        final docs = snapshot.docs;
+        _networkLogger.logResponse(
+          path: "lastWeather",
+          documents: docs,
+        );
 
-        final data = snapshot.docs.first.data();
-        return WeatherResponse.fromJson(data);
+        if (docs.isEmpty) {
+          throw StateError("No last weather");
+        } else {
+          final data = snapshot.docs.first.data();
+          return WeatherResponse.fromJson(data);
+        }
       });
 
   Future<List<AvailableDayResponse>> getAvailableDays() {
@@ -51,7 +60,10 @@ class FirestoreService {
           .then((snapshot) {
         final docs = snapshot.docs;
 
-        _networkLogger.logResponse(docs);
+        _networkLogger.logResponse(
+          path: "savedDays/2023/$month",
+          documents: docs,
+        );
 
         if (docs.isEmpty) {
           throw StateError("No saved days");
@@ -77,8 +89,12 @@ class FirestoreService {
           )
           .get()
           .then((snapshot) {
-        final docs = snapshot.docs;
-        _networkLogger.logResponse(docs);
+    final docs = snapshot.docs;
+
+        _networkLogger.logResponse(
+          path: "weathers/day/${DateFormat("yyyy-MM-dd").format(day)}}",
+          documents: docs,
+        );
 
         if (docs.isEmpty) {
           throw StateError("No weathers for day: $day");

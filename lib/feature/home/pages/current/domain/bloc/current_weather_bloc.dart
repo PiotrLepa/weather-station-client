@@ -11,15 +11,20 @@ part 'current_weather_event.dart';
 part 'current_weather_state.dart';
 
 @injectable
-class CurrentWeatherBloc extends Bloc<CurrentWeatherEvent, CurrentWeatherState> {
+class CurrentWeatherBloc
+    extends Bloc<CurrentWeatherEvent, CurrentWeatherState> {
   final GetCurrentWeatherUseCase _getCurrentWeatherUseCase;
 
-  CurrentWeatherBloc(this._getCurrentWeatherUseCase,) : super(const Loading()) {
+  CurrentWeatherBloc(
+    this._getCurrentWeatherUseCase,
+  ) : super(const Loading()) {
     on<ScreenStarted>(_onScreenStarted);
   }
 
-  Future<void> _onScreenStarted(ScreenStarted event,
-      Emitter<CurrentWeatherState> emit,) async {
+  Future<void> _onScreenStarted(
+    ScreenStarted event,
+    Emitter<CurrentWeatherState> emit,
+  ) async {
     await emit.onEach(
       _getCurrentWeatherUseCase.invoke(),
       onData: (weather) => emit(Success(weather: weather)),
@@ -29,7 +34,7 @@ class CurrentWeatherBloc extends Bloc<CurrentWeatherEvent, CurrentWeatherState> 
           error: error,
           stackTrace: stackTrace,
         );
-        emit(Error(message: error.toString())); // TODO create error resolver
+        emit(const Error());
       },
     );
   }
