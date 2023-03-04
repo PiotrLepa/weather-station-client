@@ -9,7 +9,6 @@ import 'package:weather_station_client/feature/home/pages/hourly/presentation/wi
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/widgets/hourly_weather_initial.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/widgets/weather_chart/weather_chart.dart';
 import 'package:weather_station_client/presentation/extensions.dart';
-import 'package:weather_station_client/presentation/theme/theme_provider.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
   const HourlyWeatherPage({Key? key}) : super(key: key);
@@ -24,12 +23,12 @@ class HourlyWeatherPage extends StatelessWidget {
             newState.maybeMap(
               availableDaysFetched: (data) {
                 if (data.isError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(context.strings.genericErrorRetryMessage),
-                      backgroundColor: ThemeProvider.of(context).errorColor,
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(context.strings.genericErrorRetryMessage),
+                  //     backgroundColor: ThemeProvider.of(context).errorColor,
+                  //   ),
+                  // );
                 }
               },
               orElse: () => {},
