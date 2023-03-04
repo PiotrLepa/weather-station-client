@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Piotr Łępa on 04/03/2023.
+  
+*/
+
+"CFBundleDisplayName" = "Weather";
