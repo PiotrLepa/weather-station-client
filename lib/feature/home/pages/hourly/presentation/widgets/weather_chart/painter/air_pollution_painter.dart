@@ -157,8 +157,6 @@ class AirPollutionPainter extends CustomPainter {
       (y - textPainter.height) / 2,
     );
 
-    if (barHeight >= textPainter.height) {
-      textPainter.paint(canvas, textOffset);
-    }
+    textPainter.paint(canvas, textOffset);
   }
 }
