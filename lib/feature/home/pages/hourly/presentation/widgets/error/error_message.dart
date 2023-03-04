@@ -25,8 +25,8 @@ class ErrorMessage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Assets.icons.error.svg(
-            width: 72,
-            height: 72,
+            width: 272,
+            height: 272,
           ),
           const SizedBox(height: 16),
           Text(
