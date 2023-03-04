@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/half_bottom_circle_shape_painter.dart';
 import 'package:weather_station_client/feature/home/pages/current/presentation/widgets/progress_button.dart';
-import 'package:weather_station_client/feature/home/pages/hourly/domain/bloc/hourly_weather_bloc.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/hourly_weather_day_picker.dart';
 import 'package:weather_station_client/feature/home/pages/hourly/presentation/widgets/weather_chart/hourly_weather_selected_date.dart';
 import 'package:weather_station_client/gen/assets.gen.dart';
@@ -73,7 +71,7 @@ class HourlyWeatherHeader extends StatelessWidget {
       context,
       availableDays,
       (selectedDate) {
-        context.read<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
+        // context.read<HourlyWeatherBloc>().add(ChangeDatePressed(selectedDate));
       },
       initialDate: day,
     );
