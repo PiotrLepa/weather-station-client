@@ -41,7 +41,9 @@ class HourlyWeatherBloc extends Bloc<HourlyWeatherEvent, HourlyWeatherState> {
                 isError: false,
               ),
             ))
-        .catchError((e) => emit(const InitialError()));
+        .catchError(
+          (e) => emit(const InitialError()),
+        );
   }
 
   Future<void> _onRetryPressed(

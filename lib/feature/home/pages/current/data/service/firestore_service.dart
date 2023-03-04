@@ -9,8 +9,7 @@ class FirestoreService {
 
   FirestoreService(this._firestore);
 
-  Stream<WeatherResponse> getLastWeather() =>
-      _firestore
+  Stream<WeatherResponse> getLastWeather() => _firestore
           .collection("weathers")
           .orderBy("timestamp", descending: true)
           .limit(1)
@@ -20,19 +19,30 @@ class FirestoreService {
         return WeatherResponse.fromJson(data);
       });
 
-  Future<List<AvailableDayResponse>> getAvailableDays() =>
+  Future<List<AvailableDayResponse>> getAvailableDays() {
+    final currentMonth = DateTime.now().month;
+    final months = List<int>.generate(currentMonth, (i) => i + 1);
+    final requests = months.map((month) => getAvailableDaysForMonth(month));
+    return Future.wait(requests)
+        .then((availableMonths) =>
+            availableMonths.expand((availableDays) => availableDays).toList())
+        .then((days) {
+      if (days.isEmpty) {
+        throw StateError("No saved days");
+      } else {
+        return days;
+      }
+    });
+  }
+
+  Future<List<AvailableDayResponse>> getAvailableDaysForMonth(int month) =>
       _firestore
           .collection("savedDays")
           .doc("2023")
-          .collection("2")
+          .collection(month.toString())
           .get()
           .then((snapshot) {
-        final docs = snapshot.docs;
-        if (docs.isEmpty) {
-          throw StateError("No saved days");
-        }
-
-        final availableDays = docs
+        final availableDays = snapshot.docs
             .map((e) => e.data())
             .map((json) => AvailableDayResponse.fromJson(json))
             .toList();
@@ -43,14 +53,13 @@ class FirestoreService {
         return availableDays;
       });
 
-  Future<List<WeatherResponse>> getWeathersForDay(DateTime day) =>
-      _firestore
+  Future<List<WeatherResponse>> getWeathersForDay(DateTime day) => _firestore
           .collection("weathers")
           .where(
-        "timestamp",
-        isGreaterThanOrEqualTo: Timestamp.fromDate(day),
-        isLessThan: day.add(const Duration(days: 1)),
-      )
+            "timestamp",
+            isGreaterThanOrEqualTo: Timestamp.fromDate(day),
+            isLessThan: day.add(const Duration(days: 1)),
+          )
           .get()
           .then((snapshot) {
         final docs = snapshot.docs;
