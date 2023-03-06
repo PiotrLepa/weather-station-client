@@ -1,4 +1,5 @@
 {
+  "appName": "Weather station",
   "progressButtonLoading": "Loading...",
   "airPollution": "Air pollution",
   "airPollutionPm1": "Pm 1",
