@@ -44,7 +44,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.1
 
-  flutter_launcher_icons: "^0.12.0"
+  flutter_launcher_icons: ^0.12.0
 
   injectable_generator: ^2.1.3
 
@@ -113,8 +113,16 @@ flutter:
 flutter_icons:
   image_path: "assets/app_icon.png"
   android: true
+  adaptive_icon_background: #FFC14F
+  adaptive_icon_foreground: "assets/app_icon.png"
   ios: true
   remove_alpha_ios: true
+  web:
+    generate: true
+  windows:
+    generate: true
+  macos:
+    generate: true
 
 flutter_native_splash:
   color: "#FFFFFF"
