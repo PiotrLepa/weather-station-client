@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:weather_station_client/gen/fonts.gen.dart';
 
 class ThemeProvider {
@@ -41,13 +42,15 @@ class ThemeProvider {
       primaryColor: primaryColor,
       primaryColorLight: primaryColorLight,
       primaryColorDark: primaryColorDark,
-      accentColor: accentColor,
-      backgroundColor: backgroundColor,
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+        secondary: accentColor,
+        background: backgroundColor,
+      ),
       scaffoldBackgroundColor: backgroundColor,
       fontFamily: FontFamily.lato,
       brightness: isDark ? Brightness.dark : Brightness.light,
       textTheme: const TextTheme(
-        button: TextStyle(
+        labelLarge: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -65,13 +68,11 @@ class ThemeProvider {
       appBarTheme: AppBarTheme(
         centerTitle: true,
         color: Colors.blue,
-        brightness: Brightness.dark,
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: textColorInverted,
-          ),
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        titleTextStyle: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: textColorInverted,
         ),
       ),
       dividerTheme: const DividerThemeData(
