@@ -65,10 +65,6 @@ class FirestoreService {
           documents: docs,
         );
 
-        if (docs.isEmpty) {
-          throw StateError("No saved days");
-        }
-
         final availableDays = docs
             .map((e) => e.data())
             .map((json) => AvailableDayResponse.fromJson(json))

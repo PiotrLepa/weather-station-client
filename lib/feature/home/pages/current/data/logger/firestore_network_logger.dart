@@ -41,6 +41,6 @@ class FirestoreNetworkLogger {
               }
             }))
         .toList();
-    return jsonList.length > 1 ? jsonList : jsonList.first;
+    return jsonList.length == 1 ? jsonList.first : jsonList;
   }
 }
